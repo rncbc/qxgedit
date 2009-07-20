@@ -1,0 +1,14 @@
+Source: qxgedit
+Section: sound
+Priority: extra
+Maintainer: Rui Nuno Capela <rncbc@rncbc.org>
+Build-Depends: debhelper (>= 5), libasound2-dev
+Standards-Version: 3.7.2
+
+Package: qxgedit
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Qt XG Editor
+  QXGEdit is a Qt GUI for editing MIDI System Exclusive files
+  for XG devices (eg. Yamaha DB50XG). 
+

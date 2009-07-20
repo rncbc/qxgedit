@@ -1,0 +1,27 @@
+INCPATH += ./src
+
+HEADERS += src/qxgeditAbout.h \
+           src/qxgeditOptions.h \
+           src/qxgeditMainForm.h \
+           src/qxgeditOptionsForm.h
+
+SOURCES += src/main.cpp \
+           src/qxgeditOptions.cpp \
+           src/qxgeditMainForm.cpp \
+           src/qxgeditOptionsForm.cpp
+
+FORMS    = src/qxgeditMainForm.ui \
+           src/qxgeditOptionsForm.ui
+
+RESOURCES += icons/qxgedit.qrc
+
+TEMPLATE = app
+CONFIG  += qt thread warn_on @ac_debug@
+LANGUAGE = C++
+
+LIBS    += @ac_libs@
+INCPATH += @ac_incpath@
+
+OBJECTS_DIR = .obj
+MOC_DIR     = .moc
+UI_DIR      = .ui

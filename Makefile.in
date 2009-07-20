@@ -1,0 +1,45 @@
+prefix  = @ac_prefix@
+qmake   = @ac_qmake@
+
+name    = qxgedit
+
+headers = config.h \
+	src/qxgeditAbout.h \
+	src/qxgeditOptions.h \
+	src/qxgeditMainForm.h \
+	src/qxgeditOptionsForm.h
+
+sources = src/main.cpp \
+	src/qxgeditOptions.cpp \
+	src/qxgeditMainForm.cpp \
+	src/qxgeditOptionsForm.cpp
+
+forms = \
+	src/qxgeditMainForm.ui \
+	src/qxgeditOptionsForm.ui
+
+all:	$(name)
+
+$(name).mak:	$(name).pro
+	@$(qmake) -o $(name).mak $(name).pro
+
+$(name):	$(name).mak ${forms} $(sources) $(headers)
+	@make -f $(name).mak
+
+install:	$(name) icons/$(name).png
+	@install -d -v -m 0755 $(DESTDIR)$(prefix)/bin
+	@install -d -v -m 0755 $(DESTDIR)$(prefix)/share/pixmaps
+	@install -d -v -m 0755 $(DESTDIR)$(prefix)/share/applications
+	@install -v -m 0755 $(name) $(DESTDIR)$(prefix)/bin/$(name)
+	@install -v -m 0644 icons/$(name).png $(DESTDIR)$(prefix)/share/pixmaps/$(name).png
+	@install -v -m 0644 $(name).desktop $(DESTDIR)$(prefix)/share/applications/$(name).desktop
+
+uninstall:	$(DESTDIR)$(prefix)/bin/$(name)
+	@rm -vf $(DESTDIR)$(prefix)/bin/$(name)
+	@rm -vf $(DESTDIR)$(prefix)/share/pixmaps/$(name).png
+	@rm -vf $(DESTDIR)$(prefix)/share/applications/$(name).desktop
+
+clean:	$(name).mak
+	@make -f $(name).mak clean
+	@rm -f $(name) $(name).mak
+	@rm -rf *.cache *.log *.status

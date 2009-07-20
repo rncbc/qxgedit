@@ -1,0 +1,10 @@
+<RCC version="1.0">
+	<qresource prefix="/icons/">
+		<file>qxgedit.png</file>
+		<file>fileNew.png</file>
+		<file>fileOpen.png</file>
+		<file>fileSave.png</file>
+		<file>formAccept.png</file>
+		<file>formReject.png</file>
+	</qresource>
+</RCC>
