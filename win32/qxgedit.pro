@@ -9,6 +9,7 @@ HEADERS += ../src/XGParam.h \
            ../src/qxgeditPitch.h \
            ../src/qxgeditSpin.h \
            ../src/qxgeditVibra.h \
+           ../src/qxgeditMidiDevice.h \
            ../src/qxgeditOptions.h \
            ../src/qxgeditOptionsForm.h \
            ../src/qxgeditMainForm.h
@@ -21,6 +22,7 @@ SOURCES += ../src/XGParam.cpp \
            ../src/qxgeditPitch.cpp \
            ../src/qxgeditSpin.cpp \
            ../src/qxgeditVibra.cpp \
+           ../src/qxgeditMidiDevice.cpp \
            ../src/qxgeditOptions.cpp \
            ../src/qxgeditOptionsForm.cpp \
            ../src/qxgeditMainForm.cpp \

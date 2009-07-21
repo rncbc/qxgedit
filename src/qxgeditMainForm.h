@@ -27,6 +27,9 @@
 
 // Forward declarations...
 class qxgeditOptions;
+class qxgeditMidiDevice;
+
+class XGParamMaster;
 
 class QLabel;
 
@@ -101,6 +104,9 @@ private:
 
 	// Instance variables...
 	qxgeditOptions *m_pOptions;
+	qxgeditMidiDevice *m_pMidiDevice;
+	XGParamMaster *m_pParamMaster;
+
 	QString m_sFilename;
 	int m_iUntitled;
 	int m_iDirtyCount;

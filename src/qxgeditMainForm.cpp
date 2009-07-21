@@ -24,6 +24,10 @@
 #include "qxgeditAbout.h"
 #include "qxgeditOptions.h"
 
+#include "qxgeditMidiDevice.h"
+
+#include "XGParam.h"
+
 #include "qxgeditOptionsForm.h"
 
 #include <QApplication>
@@ -47,6 +51,9 @@
 #include <signal.h>
 #endif
 
+// Specialties for thread-callback comunication.
+#define QXGEDIT_SYSEX_EVENT QEvent::Type(QEvent::User + 1)
+
 
 //-------------------------------------------------------------------------
 // qxgeditMainForm -- Main window form implementation.
@@ -67,6 +74,8 @@ qxgeditMainForm::qxgeditMainForm (
 
 	// Initialize some pointer references.
 	m_pOptions = NULL;
+	m_pParamMaster = NULL;
+	m_pMidiDevice = NULL;
 
 	// We'll start clean.
 	m_iUntitled   = 0;
@@ -151,6 +160,12 @@ qxgeditMainForm::qxgeditMainForm (
 // Destructor.
 qxgeditMainForm::~qxgeditMainForm (void)
 {
+	// Free designated devices.
+	if (m_pMidiDevice)
+		delete m_pMidiDevice;
+	if (m_pParamMaster)
+		delete m_pParamMaster;
+
 	// Pseudo-singleton reference shut-down.
 	g_pMainForm = NULL;
 }
@@ -184,6 +199,14 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 
 	// Primary startup stabilization...
 	updateRecentFilesMenu();
+
+	// XG master database...
+	m_pParamMaster = new XGParamMaster();
+
+	// Start proper devices...
+	m_pMidiDevice = new qxgeditMidiDevice(QXGEDIT_TITLE);
+    m_pMidiDevice->setNotifyObject(this);
+    m_pMidiDevice->setNotifySysexType(QXGEDIT_SYSEX_EVENT);
 
 	// Change to last known session dir...
 	if (!m_pOptions->sSessionDir.isEmpty())
@@ -269,8 +292,17 @@ void qxgeditMainForm::dropEvent ( QDropEvent* pDropEvent )
 
 
 // Custom event handler.
-void qxgeditMainForm::customEvent ( QEvent * )
+void qxgeditMainForm::customEvent ( QEvent *pEvent )
 {
+	switch (pEvent->type()) {
+	case QXGEDIT_SYSEX_EVENT:
+	#ifdef CONFIG_DEBUG
+		qDebug("qxgeditMainForm::customEvent(QXGEDIT_SYSEX_EVENT)");
+	#endif
+		break;
+	default:
+		break;
+	}
 }
 
 
