@@ -28,6 +28,7 @@
 // Forward declarations...
 class qxgeditOptions;
 class qxgeditMidiDevice;
+class qxgeditMidiSysexEvent;
 
 class XGParamMaster;
 
@@ -96,6 +97,9 @@ protected:
 	bool saveSessionFile(const QString& sFilename);
 
 	void updateRecentFiles(const QString& sFilename);
+
+	// SYSEX Evnet handler.
+	bool sysexEvent(qxgeditMidiSysexEvent *pSysexEvent);
 
 private:
 

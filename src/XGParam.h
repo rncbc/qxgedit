@@ -127,6 +127,9 @@ public:
 	void setValue(unsigned short c);
 	unsigned short value() const;
 
+	// Decode param value from raw data.
+	unsigned short valueFromData(unsigned char *data) const;
+
 protected:
 
 	// Parameter descriptor.

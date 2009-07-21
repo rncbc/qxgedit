@@ -2832,6 +2832,21 @@ unsigned short XGParam::value (void) const
 }
 
 
+// Decode param value from raw data.
+unsigned short XGParam::valueFromData ( unsigned char *data ) const
+{
+	unsigned short bits = 4;
+	if (m_high == 0x02 && m_mid == 0x01)
+		bits += 3;
+	unsigned short ret = 0;
+	unsigned short n = size();
+	for (unsigned short i = 0; i < n; ++i)
+		ret += (data[i] << (bits * (n - i - 1)));
+
+	return ret;
+}
+
+
 //-------------------------------------------------------------------------
 // class XGEffectParam - XG Effect parameter descriptor.
 

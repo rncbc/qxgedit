@@ -296,13 +296,76 @@ void qxgeditMainForm::customEvent ( QEvent *pEvent )
 {
 	switch (pEvent->type()) {
 	case QXGEDIT_SYSEX_EVENT:
-	#ifdef CONFIG_DEBUG
-		qDebug("qxgeditMainForm::customEvent(QXGEDIT_SYSEX_EVENT)");
-	#endif
-		break;
+		sysexEvent(static_cast<qxgeditMidiSysexEvent *> (pEvent));
+		// Fall thru...
 	default:
 		break;
 	}
+}
+
+
+// SYSEX Evnet handler.
+bool qxgeditMainForm::sysexEvent ( qxgeditMidiSysexEvent *pSysexEvent )
+{
+	unsigned char *data = pSysexEvent->data();
+	unsigned short len  = pSysexEvent->len();
+
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditMainForm::sysexEvent(%p, %u)", data, len);
+#endif
+
+	bool ret = false;
+	unsigned short i;
+
+	if (data[0] == 0xf0 && data[len - 1] == 0xf7) {
+		 // SysEx (actually)...
+		if (data[1] == 0x43) {
+			// Yamaha ID...
+			unsigned char mode  = (data[2] & 0x70);
+		//	unsigned char devno = (data[2] & 0x0f);
+			if (data[3] == 0x4c) {
+				// XG Model ID...
+				if (mode == 0x00) {
+					// Native Bulk Dump...
+					unsigned short size = (data[4] << 7) + data[5];
+					unsigned char cksum = 0;
+					for (i = 0; i < size + 5; ++i) {
+						cksum += data[4 + i];
+						cksum &= 0x7f;
+					}
+					if (data[9 + size] == 0x80 - cksum) {
+						unsigned char high = data[6];
+						unsigned char mid  = data[7];
+						unsigned char low  = data[8];
+						for (i = 0; i < size; ++i) {
+							// Parameter Change...
+							XGParam *param = m_pParamMaster->find(high, mid, low + i);
+							if (param == NULL)
+								break;
+							param->setValue(param->valueFromData(&data[9 + i]));
+							if (param->size() > 1)
+								i += (param->size() - 1);
+						}
+						ret = (i == (size - 6));
+					}
+				}
+				else
+				if (mode == 0x10) {
+					// Parameter Change...
+					unsigned char high = data[4];
+					unsigned char mid  = data[5];
+					unsigned char low  = data[6];
+					XGParam *param = m_pParamMaster->find(high, mid, low);
+					if (param) {
+						param->setValue(param->valueFromData(&data[7]));
+						ret = true;
+					}
+				}
+			}
+		}
+	}
+	
+	return ret;
 }
 
 
