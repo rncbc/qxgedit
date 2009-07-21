@@ -24,6 +24,7 @@
 #include "qxgeditOptions.h"
 
 #include <QApplication>
+#include <QStyleFactory>
 #include <QLibraryInfo>
 #include <QTranslator>
 #include <QLocale>
@@ -336,6 +337,9 @@ int main ( int argc, char **argv )
 	if (options.iBaseFontSize > 0)
 		iBaseFontSize = options.iBaseFontSize;
 	app.setFont(QFont(app.font().family(), iBaseFontSize));
+
+	// Special style...
+	QApplication::setStyle(QStyleFactory::create("skulpture"));
 
 	// Construct, setup and show the main form (a pseudo-singleton).
 	qxgeditMainForm w;
