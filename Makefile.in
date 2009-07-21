@@ -3,20 +3,38 @@ qmake   = @ac_qmake@
 
 name    = qxgedit
 
-headers = config.h \
+headers = \
+	src/XGParam.h \
 	src/qxgeditAbout.h \
+	src/qxgeditAmpEg.h \
+	src/qxgeditDial.h \
+	src/qxgeditFilter.h \
+	src/qxgeditKnob.h \
+	src/qxgeditPitch.h \
+	src/qxgeditSpin.h \
+	src/qxgeditVibra.h \
 	src/qxgeditOptions.h \
+	src/qxgeditOptionsForm.h \
 	src/qxgeditMainForm.h \
-	src/qxgeditOptionsForm.h
+	config.h
 
-sources = src/main.cpp \
+sources = \
+	src/XGParam.cpp \
+	src/qxgeditAmpEg.cpp \
+	src/qxgeditDial.cpp \
+	src/qxgeditFilter.cpp \
+	src/qxgeditKnob.cpp \
+	src/qxgeditPitch.cpp \
+	src/qxgeditSpin.cpp \
+	src/qxgeditVibra.cpp \
 	src/qxgeditOptions.cpp \
+	src/qxgeditOptionsForm.cpp \
 	src/qxgeditMainForm.cpp \
-	src/qxgeditOptionsForm.cpp
+	src/main.cpp
 
 forms = \
-	src/qxgeditMainForm.ui \
-	src/qxgeditOptionsForm.ui
+	src/qxgeditOptionsForm.ui \
+	src/qxgeditMainForm.ui
 
 all:	$(name)
 

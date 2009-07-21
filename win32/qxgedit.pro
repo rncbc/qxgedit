@@ -1,22 +1,38 @@
 INCPATH += ../src
 
-HEADERS += ../src/qxgeditAbout.h \
+HEADERS += ../src/XGParam.h \
+           ../src/qxgeditAbout.h \
+           ../src/qxgeditAmpEg.h \
+           ../src/qxgeditDial.h \
+           ../src/qxgeditFilter.h \
+           ../src/qxgeditKnob.h \
+           ../src/qxgeditPitch.h \
+           ../src/qxgeditSpin.h \
+           ../src/qxgeditVibra.h \
            ../src/qxgeditOptions.h \
-           ../src/qxgeditMainForm.h \
-           ../src/qxgeditOptionsForm.h
+           ../src/qxgeditOptionsForm.h \
+           ../src/qxgeditMainForm.h
 
-SOURCES += ../src/main.cpp \
+SOURCES += ../src/XGParam.cpp \
+           ../src/qxgeditAmpEg.cpp \
+           ../src/qxgeditDial.cpp \
+           ../src/qxgeditFilter.cpp \
+           ../src/qxgeditKnob.cpp \
+           ../src/qxgeditPitch.cpp \
+           ../src/qxgeditSpin.cpp \
+           ../src/qxgeditVibra.cpp \
            ../src/qxgeditOptions.cpp \
+           ../src/qxgeditOptionsForm.cpp \
            ../src/qxgeditMainForm.cpp \
-           ../src/qxgeditOptionsForm.cpp
-
-FORMS    = ../src/qxgeditMainForm.ui \
-           ../src/qxgeditOptionsForm.ui
+           ../src/main.cpp
+           
+FORMS    = ../src/qxgeditOptionsForm.ui \
+           ../src/qxgeditMainForm.ui
 
 RESOURCES += ../icons/qxgedit.qrc
 
 TEMPLATE = app
-CONFIG  += qt thread warn_on release
+CONFIG  += qt thread warn_on debug
 LANGUAGE = C++
 
 win32 {
