@@ -43,7 +43,7 @@ class qxgeditMidiDevice : public QObject
 public:
 
 	// Constructor.
-	qxgeditMidiDevice(const char *pszName);
+	qxgeditMidiDevice(const QString& sClientName);
 	// Destructor.
 	~qxgeditMidiDevice();
 

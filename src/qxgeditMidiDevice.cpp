@@ -95,7 +95,7 @@ private:
 qxgeditMidiDevice *qxgeditMidiDevice::g_pMidiDevice = NULL;
 
 // Constructor.
-qxgeditMidiDevice::qxgeditMidiDevice ( const char *pszName )
+qxgeditMidiDevice::qxgeditMidiDevice ( const QString& sClientName )
 	: QObject(NULL)
 {
 	// Set pseudo-singleton reference.
@@ -110,10 +110,13 @@ qxgeditMidiDevice::qxgeditMidiDevice ( const char *pszName )
 	// Open new ALSA sequencer client...
 	if (snd_seq_open(&m_pAlsaSeq, "hw", SND_SEQ_OPEN_DUPLEX, 0) >= 0) {
 		// Set client identification...
-		snd_seq_set_client_name(m_pAlsaSeq, pszName);
+		QString sName = sClientName;
+		snd_seq_set_client_name(m_pAlsaSeq, sName.toAscii().constData());
 		m_iAlsaClient = snd_seq_client_id(m_pAlsaSeq);
 		// Create duplex port
-		m_iAlsaPort = snd_seq_create_simple_port(m_pAlsaSeq, pszName,
+		sName += " MIDI 1";
+		m_iAlsaPort = snd_seq_create_simple_port(m_pAlsaSeq,
+			sName.toAscii().constData(),
 			SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE |
 			SND_SEQ_PORT_CAP_READ | SND_SEQ_PORT_CAP_SUBS_READ,
 			SND_SEQ_PORT_TYPE_MIDI_GENERIC | SND_SEQ_PORT_TYPE_APPLICATION);
@@ -207,7 +210,7 @@ void qxgeditMidiDevice::capture ( snd_seq_event_t *pEv )
 
 #ifdef CONFIG_DEBUG
 	// - show event for debug purposes...
-	fprintf(stderr, "MIDI In  %06lu 0x%02x", pEv->time.tick, pEv->type);
+	fprintf(stderr, "MIDI In  %06lu 0x%02x", (unsigned long) pEv->time.tick, pEv->type);
 	if (pEv->type == SND_SEQ_EVENT_SYSEX) {
 		fprintf(stderr, " sysex {");
 		unsigned char *data = (unsigned char *) pEv->data.ext.ptr;

@@ -31,7 +31,7 @@ extern "C" {
 
 //-------------------------------------------------------------------------
 // XG Effect table helpers.
-
+//
 typedef
 struct _XGEffectParamItem
 {
@@ -68,7 +68,7 @@ unsigned short VARIATIONEffectDefault(unsigned short etype, unsigned char index)
 
 //-------------------------------------------------------------------------
 // XG Parameter table helpers.
-
+//
 typedef
 struct _XGParamItem
 {
@@ -97,7 +97,7 @@ const XGParamItem *DRUMSETUPParamItem(unsigned char id);
 
 //-------------------------------------------------------------------------
 // class XGParam - XG Generic parameter descriptor.
-
+//
 class XGParam
 {
 public:
@@ -149,7 +149,7 @@ private:
 
 //-------------------------------------------------------------------------
 // class XGEffectParam - XG Effect parameter descriptor.
-
+//
 class XGEffectParam : public XGParam
 {
 public:
@@ -206,6 +206,7 @@ struct XGParamKey
 	unsigned char low;
 };
 
+
 // Hash key function
 inline uint qHash ( const XGParamKey& key )
 {
@@ -221,18 +222,11 @@ class XGParamMap : public QHash<XGParamKey, XGParam *>
 public:
 
 	// Constructor.
-	XGParamMap() : m_bAutoDelete(false) {}
+	XGParamMap();
 
 	// Destructor.
-	~XGParamMap()
-	{
-		if (m_bAutoDelete) {
-			XGParamMap::const_iterator iter = XGParamMap::constBegin();
-			for (; iter != XGParamMap::constEnd(); ++iter)
-				delete iter.value();
-		}
-	}
-	
+	~XGParamMap();
+
 	// Auto delete predicate.
 	void setAutoDelete(bool bAutoDelete)
 		{ m_bAutoDelete = bAutoDelete; }
@@ -244,27 +238,7 @@ public:
 		{ insertMulti(XGParamKey(param), param); }
 
 	// Map finders.
-	XGParam *find(const XGParamKey& key, unsigned short etype = 0) const
-	{
-		XGParamMap::const_iterator iter = XGParamMap::constFind(key);
-		while (iter != XGParamMap::constEnd() && iter.key() == key) {
-			XGParam *param = iter.value();
-			if (key.high == 0x02 && key.mid == 0x01) {
-				XGEffectParam *eparam
-					= static_cast<XGEffectParam *> (param);
-				if (eparam->etype() == etype)
-					return param;
-			} 
-			else return param;
-
-		}
-		return NULL;
-	}
-
-	XGParam *find(
-		unsigned char high, unsigned char mid, unsigned char low,
-		unsigned short etype = 0) const
-		{ return find(XGParamKey(high, mid, low), etype); }
+	XGParam *find(const XGParamKey& key, unsigned short etype = 0) const;
 
 private:
 
@@ -297,6 +271,17 @@ public:
 	XGParamList VARIATION;
 	XGParamList MULTIPART;
 	XGParamList DRUMSETUP;
+
+	// Current effect type accessors.
+	unsigned short REVERBType() const;
+	unsigned short CHORUSType() const;
+	unsigned short VARIATIONType() const;
+
+	// Satte map finders.
+	XGParam *find(
+		unsigned char high,
+		unsigned char mid,
+		unsigned char low) const;
 };
 
 

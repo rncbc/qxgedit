@@ -2933,6 +2933,46 @@ const char *XGEffectParam::unit (void) const
 
 
 //-------------------------------------------------------------------------
+// class XGParamMap - XG Parameter hash map.
+//
+
+// Constructor.
+XGParamMap::XGParamMap (void)
+	: m_bAutoDelete(false)
+{
+}
+
+// Destructor.
+XGParamMap::~XGParamMap (void)
+{
+	if (m_bAutoDelete) {
+		XGParamMap::const_iterator iter = XGParamMap::constBegin();
+		for (; iter != XGParamMap::constEnd(); ++iter)
+			delete iter.value();
+	}
+}
+
+
+// Map finders.
+XGParam *XGParamMap::find (
+	const XGParamKey& key, unsigned short etype ) const
+{
+	XGParamMap::const_iterator iter = XGParamMap::constFind(key);
+	for (; iter != XGParamMap::constEnd() && iter.key() == key; ++iter) {
+		XGParam *param = iter.value();
+		if (key.high == 0x02 && key.mid == 0x01) {
+			XGEffectParam *eparam
+				= static_cast<XGEffectParam *> (param);
+			if (eparam->etype() == etype)
+				return param;
+		}
+		else return param;
+	}
+	return NULL;
+}
+
+
+//-------------------------------------------------------------------------
 // class XGParamMaster - XG Parameter master state database.
 //
 
@@ -3013,6 +3053,46 @@ XGParamMaster::XGParamMaster (void)
 			}
 		}
 	}
+}
+
+
+// Current effect type accessors.
+unsigned short XGParamMaster::REVERBType (void) const
+{
+	XGParam *param = XGParamMap::find(XGParamKey(0x02, 0x01, 0x00));
+	return (param ? param->value() : 0);
+}
+
+unsigned short XGParamMaster::CHORUSType (void) const
+{
+	XGParam *param = XGParamMap::find(XGParamKey(0x02, 0x01, 0x20));
+	return (param ? param->value() : 0);
+}
+
+unsigned short XGParamMaster::VARIATIONType (void) const
+{
+	XGParam *param = XGParamMap::find(XGParamKey(0x02, 0x01, 0x40));
+	return (param ? param->value() : 0);
+}
+
+
+XGParam *XGParamMaster::find (
+	unsigned char high, unsigned char mid, unsigned char low ) const
+{
+	unsigned short etype = 0;
+
+	if (high == 0x02 && mid == 0x01) {
+		if (low > 0x00 && low < 0x20)
+			etype = REVERBType();
+		else 
+		if (low > 0x20 && low < 0x40)
+			etype = CHORUSType();
+		else
+		if (low > 0x40 && low < 0x80)
+			etype = VARIATIONType();
+	}
+
+	return XGParamMap::find(XGParamKey(high, mid, low), etype);
 }
 
 
