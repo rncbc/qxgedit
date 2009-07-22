@@ -51,7 +51,9 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	m_iMidiInputsChanged  = 0;
 	m_iMidiOutputsChanged = 0;
 
-	// Try to restore old window positioning.
+	// Try to fix window geometry.
+	m_ui.MidiInputListView->setMaximumHeight(72);
+	m_ui.MidiOutputListView->setMaximumHeight(72);
 	adjustSize();
 
 	// UI signal/slot connections...
@@ -160,7 +162,7 @@ void qxgeditOptionsForm::accept (void)
 		if (m_iMidiOutputsChanged > 0) {
 			m_pOptions->midiOutputs.clear();
 			QListIterator<QListWidgetItem *> iter2(
-				m_ui.MidiInputListView->selectedItems());
+				m_ui.MidiOutputListView->selectedItems());
 			while (iter2.hasNext())
 				m_pOptions->midiOutputs.append(iter2.next()->text());
 			pMidiDevice->connectOutputs(m_pOptions->midiOutputs);

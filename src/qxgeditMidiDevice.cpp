@@ -269,7 +269,9 @@ void qxgeditMidiDevice::sendSysex (
 }
 
 
-// MIDI Input(readable) / Output(writable) device list
+// MIDI Input(readable) / Output(writable) device list.
+static const char *c_pszItemSep = " / ";
+
 QStringList qxgeditMidiDevice::deviceList ( bool bReadable ) const
 {
 	QStringList list;
@@ -303,7 +305,7 @@ QStringList qxgeditMidiDevice::deviceList ( bool bReadable ) const
 					int iAlsaPort = snd_seq_port_info_get_port(pPortInfo);
 					QString sItem = QString::number(iAlsaClient) + ':';
 					sItem += snd_seq_client_info_get_name(pClientInfo);
-					sItem += '/';
+					sItem += c_pszItemSep;
 					sItem += QString::number(iAlsaPort) + ':';
 					sItem += snd_seq_port_info_get_name(pPortInfo);
 					list.append(sItem);
@@ -360,28 +362,31 @@ bool qxgeditMidiDevice::connectDeviceList (
 					QStringListIterator iter(list);
 					while (iter.hasNext()) {
 						const QString& sItem = iter.next();
-						const QString& sClientItem = sItem.section('/', 0, 0);
-						const QString& sPortItem   = sItem.section('/', 1, 1);
-						if (sClientName == sClientItem.section(':', 1, 1) &&
-							sPortName   == sPortItem  .section(':', 1, 1)) {
-							if (bReadable) {
-								seq_addr.client = iAlsaClient;
-								seq_addr.port   = iAlsaPort;
-								snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
-								seq_addr.client = m_iAlsaClient;
-								seq_addr.port   = m_iAlsaPort;
-								snd_seq_port_subscribe_set_dest(pPortSubs, &seq_addr);
-							} else {
-								seq_addr.client = m_iAlsaClient;
-								seq_addr.port   = m_iAlsaPort;
-								snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
-								seq_addr.client = iAlsaClient;
-								seq_addr.port   = iAlsaPort;
-								snd_seq_port_subscribe_set_dest(pPortSubs, &seq_addr);
-							}
-							if (snd_seq_subscribe_port(m_pAlsaSeq, pPortSubs) == 0)
-								iConnects++;
+						const QString& sClientItem
+							= sItem.section(c_pszItemSep, 0, 0);
+						const QString& sPortItem
+							= sItem.section(c_pszItemSep, 1, 1);
+						if (sClientName != sClientItem.section(':', 1, 1))
+							continue;
+						if (sPortName != sPortItem  .section(':', 1, 1))
+							continue;
+						if (bReadable) {
+							seq_addr.client = iAlsaClient;
+							seq_addr.port   = iAlsaPort;
+							snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
+							seq_addr.client = m_iAlsaClient;
+							seq_addr.port   = m_iAlsaPort;
+							snd_seq_port_subscribe_set_dest(pPortSubs, &seq_addr);
+						} else {
+							seq_addr.client = m_iAlsaClient;
+							seq_addr.port   = m_iAlsaPort;
+							snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
+							seq_addr.client = iAlsaClient;
+							seq_addr.port   = iAlsaPort;
+							snd_seq_port_subscribe_set_dest(pPortSubs, &seq_addr);
 						}
+						if (snd_seq_subscribe_port(m_pAlsaSeq, pPortSubs) == 0)
+							iConnects++;
 					}
 				}
 			}

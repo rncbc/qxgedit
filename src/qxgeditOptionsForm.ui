@@ -74,7 +74,7 @@
           </font>
          </property>
          <property name="title">
-          <string>Input</string>
+          <string>Inputs</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -111,7 +111,7 @@
           </font>
          </property>
          <property name="title">
-          <string>Output</string>
+          <string>Outputs</string>
          </property>
          <property name="flat">
           <bool>true</bool>
