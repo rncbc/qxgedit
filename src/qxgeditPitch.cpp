@@ -19,6 +19,7 @@
 
 *****************************************************************************/
 
+#include "qxgeditAbout.h"
 #include "qxgeditPitch.h"
 
 #include <QPainter>
@@ -146,10 +147,6 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.drawRect(nodeRect(1));
 	painter.drawRect(nodeRect(2));
 
-	painter.end();
-
-	QFrame::paintEvent(pPaintEvent);
-
 #ifdef CONFIG_DEBUG
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
@@ -159,6 +156,10 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(releaseTime())  - 64)
 		.arg(int(releaseLevel()) - 64));
 #endif
+
+	painter.end();
+
+	QFrame::paintEvent(pPaintEvent);
 }
 
 

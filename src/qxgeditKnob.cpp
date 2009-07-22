@@ -19,6 +19,7 @@
 
 *****************************************************************************/
 
+#include "qxgeditAbout.h"
 #include "qxgeditKnob.h"
 
 #include <QMouseEvent>

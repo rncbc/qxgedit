@@ -208,6 +208,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
     m_pMidiDevice->setNotifyObject(this);
     m_pMidiDevice->setNotifySysexType(QXGEDIT_SYSEX_EVENT);
 
+	// And respective connections...
+	m_pMidiDevice->connectInputs(m_pOptions->midiInputs);
+	m_pMidiDevice->connectOutputs(m_pOptions->midiOutputs);
+
 	// Change to last known session dir...
 	if (!m_pOptions->sSessionDir.isEmpty())
 		QDir::setCurrent(m_pOptions->sSessionDir);
@@ -304,14 +308,16 @@ void qxgeditMainForm::customEvent ( QEvent *pEvent )
 }
 
 
-// SYSEX Evnet handler.
+// SYSEX Event handler.
 bool qxgeditMainForm::sysexEvent ( qxgeditMidiSysexEvent *pSysexEvent )
 {
-	unsigned char *data = pSysexEvent->data();
-	unsigned short len  = pSysexEvent->len();
+	return sysexData(pSysexEvent->data(), pSysexEvent->len());
+}
 
+bool qxgeditMainForm::sysexData ( unsigned char *data, unsigned short len )
+{
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditMainForm::sysexEvent(%p, %u)", data, len);
+	qDebug("qxgeditMainForm::sysexData(%p, %u)", data, len);
 #endif
 
 	bool ret = false;

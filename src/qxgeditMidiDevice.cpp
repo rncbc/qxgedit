@@ -269,4 +269,127 @@ void qxgeditMidiDevice::sendSysex (
 }
 
 
+// MIDI Input(readable) / Output(writable) device list
+QStringList qxgeditMidiDevice::deviceList ( bool bReadable ) const
+{
+	QStringList list;
+
+	if (m_pAlsaSeq == NULL)
+		return list;
+
+	unsigned int uiPortFlags;
+	if (bReadable)
+		uiPortFlags = SND_SEQ_PORT_CAP_READ  | SND_SEQ_PORT_CAP_SUBS_READ;
+	else
+		uiPortFlags = SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE;
+
+	snd_seq_client_info_t *pClientInfo;
+	snd_seq_port_info_t   *pPortInfo;
+
+	snd_seq_client_info_alloca(&pClientInfo);
+	snd_seq_port_info_alloca(&pPortInfo);
+	snd_seq_client_info_set_client(pClientInfo, -1);
+
+	while (snd_seq_query_next_client(m_pAlsaSeq, pClientInfo) >= 0) {
+		int iAlsaClient = snd_seq_client_info_get_client(pClientInfo);
+		if (iAlsaClient > 0 && iAlsaClient != m_iAlsaClient) {
+			snd_seq_port_info_set_client(pPortInfo, iAlsaClient);
+			snd_seq_port_info_set_port(pPortInfo, -1);
+			while (snd_seq_query_next_port(m_pAlsaSeq, pPortInfo) >= 0) {
+				unsigned int uiPortCapability
+					= snd_seq_port_info_get_capability(pPortInfo);
+				if (((uiPortCapability & uiPortFlags) == uiPortFlags) &&
+					((uiPortCapability & SND_SEQ_PORT_CAP_NO_EXPORT) == 0)) {
+					int iAlsaPort = snd_seq_port_info_get_port(pPortInfo);
+					QString sItem = QString::number(iAlsaClient) + ':';
+					sItem += snd_seq_client_info_get_name(pClientInfo);
+					sItem += '/';
+					sItem += QString::number(iAlsaPort) + ':';
+					sItem += snd_seq_port_info_get_name(pPortInfo);
+					list.append(sItem);
+				}
+			}
+		}
+	}
+
+	return list;
+}
+
+
+// MIDI Input(readable) / Output(writable) device connects.
+bool qxgeditMidiDevice::connectDeviceList (
+	bool bReadable, const QStringList& list ) const
+{
+	if (m_pAlsaSeq == NULL)
+		return false;
+
+	if (list.isEmpty())
+		return false;
+
+	snd_seq_addr_t seq_addr;
+	snd_seq_port_subscribe_t *pPortSubs;
+
+	snd_seq_port_subscribe_alloca(&pPortSubs);
+
+	snd_seq_client_info_t *pClientInfo;
+	snd_seq_port_info_t   *pPortInfo;
+
+	snd_seq_client_info_alloca(&pClientInfo);
+	snd_seq_port_info_alloca(&pPortInfo);
+
+	unsigned int uiPortFlags;
+	if (bReadable)
+		uiPortFlags = SND_SEQ_PORT_CAP_READ  | SND_SEQ_PORT_CAP_SUBS_READ;
+	else
+		uiPortFlags = SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE;
+
+	int iConnects = 0;
+	while (snd_seq_query_next_client(m_pAlsaSeq, pClientInfo) >= 0) {
+		int iAlsaClient = snd_seq_client_info_get_client(pClientInfo);
+		if (iAlsaClient > 0 && iAlsaClient != m_iAlsaClient) {
+			QString sClientName = snd_seq_client_info_get_name(pClientInfo);
+			snd_seq_port_info_set_client(pPortInfo, iAlsaClient);
+			snd_seq_port_info_set_port(pPortInfo, -1);
+			while (snd_seq_query_next_port(m_pAlsaSeq, pPortInfo) >= 0) {
+				unsigned int uiPortCapability
+					= snd_seq_port_info_get_capability(pPortInfo);
+				if (((uiPortCapability & uiPortFlags) == uiPortFlags) &&
+					((uiPortCapability & SND_SEQ_PORT_CAP_NO_EXPORT) == 0)) {
+					int iAlsaPort = snd_seq_port_info_get_port(pPortInfo);
+					QString sPortName = snd_seq_port_info_get_name(pPortInfo);
+					QStringListIterator iter(list);
+					while (iter.hasNext()) {
+						const QString& sItem = iter.next();
+						const QString& sClientItem = sItem.section('/', 0, 0);
+						const QString& sPortItem   = sItem.section('/', 1, 1);
+						if (sClientName == sClientItem.section(':', 1, 1) &&
+							sPortName   == sPortItem  .section(':', 1, 1)) {
+							if (bReadable) {
+								seq_addr.client = iAlsaClient;
+								seq_addr.port   = iAlsaPort;
+								snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
+								seq_addr.client = m_iAlsaClient;
+								seq_addr.port   = m_iAlsaPort;
+								snd_seq_port_subscribe_set_dest(pPortSubs, &seq_addr);
+							} else {
+								seq_addr.client = m_iAlsaClient;
+								seq_addr.port   = m_iAlsaPort;
+								snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
+								seq_addr.client = iAlsaClient;
+								seq_addr.port   = iAlsaPort;
+								snd_seq_port_subscribe_set_dest(pPortSubs, &seq_addr);
+							}
+							if (snd_seq_subscribe_port(m_pAlsaSeq, pPortSubs) == 0)
+								iConnects++;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return (iConnects > 0);
+}
+
+
 // end of qxgeditMidiDevice.cpp

@@ -52,6 +52,9 @@ protected slots:
 	void reject();
 	void changed();
 
+	void midiInputsChanged();
+	void midiOutputsChanged();
+	
 	void stabilizeForm();
 
 private:
@@ -62,6 +65,10 @@ private:
 	// Instance variables...
 	qxgeditOptions *m_pOptions;
 	int m_iDirtyCount;
+
+	// MIDI specialties.
+	int m_iMidiInputsChanged;
+	int m_iMidiOutputsChanged;
 };
 
 

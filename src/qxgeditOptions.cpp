@@ -50,6 +50,12 @@ qxgeditOptions::qxgeditOptions (void)
 	// And go into general options group.
 	m_settings.beginGroup("/Options");
 
+	// MIDI specific options...
+	m_settings.beginGroup("/Midi");
+	midiInputs  = m_settings.value("/Inputs").toStringList();
+	midiOutputs = m_settings.value("/Outputs").toStringList();
+	m_settings.endGroup();
+
 	// Load display options...
 	m_settings.beginGroup("/Display");
 	bCompletePath   = m_settings.value("/CompletePath", true).toBool();
@@ -69,20 +75,7 @@ qxgeditOptions::qxgeditOptions (void)
 	// Last but not least, get the defaults.
 	m_settings.beginGroup("/Default");
 	sSessionDir = m_settings.value("/SessionDir").toString();
-	m_settings.endGroup();
-
-	// Recent file list.
-	const QString sFilePrefix = "/File%1";
-	int iFile = 0;
-	recentFiles.clear();
-	m_settings.beginGroup("/RecentFiles");
-	while (iFile < iMaxRecentFiles) {
-		QString sFilename = m_settings.value(
-			sFilePrefix.arg(++iFile)).toString();
-		if (sFilename.isEmpty())
-			break;
-		recentFiles.append(sFilename);
-	}
+	recentFiles = m_settings.value("/RecentFiles").toStringList();
 	m_settings.endGroup();
 }
 
@@ -97,6 +90,12 @@ qxgeditOptions::~qxgeditOptions (void)
 
 	// And go into general options group.
 	m_settings.beginGroup("/Options");
+
+	// MIDI specific options...
+	m_settings.beginGroup("/Midi");
+	m_settings.setValue("/Inputs", midiInputs);
+	m_settings.setValue("/Outputs", midiOutputs);
+	m_settings.endGroup();
 
 	// Save display options.
 	m_settings.beginGroup("/Display");
@@ -117,15 +116,7 @@ qxgeditOptions::~qxgeditOptions (void)
 	// Default directories.
 	m_settings.beginGroup("/Default");
 	m_settings.setValue("/SessionDir", sSessionDir);
-	m_settings.endGroup();
-
-	// Recent file list.
-	const QString sFilePrefix = "/File%1";
-	int iFile = 0;
-	m_settings.beginGroup("/RecentFiles");
-	QStringListIterator iter3(recentFiles);
-    while (iter3.hasNext())
-		m_settings.setValue(sFilePrefix.arg(++iFile), iter3.next());
+	m_settings.setValue("/RecentFiles", recentFiles);
 	m_settings.endGroup();
 
 	// Pseudo-singleton reference shut-down.

@@ -19,6 +19,7 @@
 
 *****************************************************************************/
 
+#include "qxgeditAbout.h"
 #include "qxgeditVibra.h"
 
 #include <QPainter>
@@ -141,10 +142,6 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.drawRect(nodeRect(1));
 	painter.drawRect(nodeRect(2));
 
-	painter.end();
-
-	QFrame::paintEvent(pPaintEvent);
-
 #ifdef CONFIG_DEBUG
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
@@ -153,6 +150,10 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(rate())  - 64)
 		.arg(int(depth()) - 64));
 #endif
+
+	painter.end();
+
+	QFrame::paintEvent(pPaintEvent);
 }
 
 

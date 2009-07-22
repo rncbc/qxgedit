@@ -19,6 +19,7 @@
 
 *****************************************************************************/
 
+#include "qxgeditAbout.h"
 #include "qxgeditSpin.h"
 
 #include <QLineEdit>

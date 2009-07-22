@@ -98,8 +98,9 @@ protected:
 
 	void updateRecentFiles(const QString& sFilename);
 
-	// SYSEX Evnet handler.
+	// SYSEX Event handler.
 	bool sysexEvent(qxgeditMidiSysexEvent *pSysexEvent);
+	bool sysexData(unsigned char *data, unsigned short len);
 
 private:
 

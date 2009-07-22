@@ -19,6 +19,7 @@
 
 *****************************************************************************/
 
+#include "qxgeditAbout.h"
 #include "qxgeditFilter.h"
 
 #include <QPainter>
@@ -117,10 +118,6 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.setBrush(grad);
 	painter.drawPath(path);
 
-	painter.end();
-
-	QFrame::paintEvent(pPaintEvent);
-
 #ifdef CONFIG_DEBUG
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
@@ -128,6 +125,10 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(freq()) - 64)
 		.arg(int(reso()) - 64));
 #endif
+
+	painter.end();
+
+	QFrame::paintEvent(pPaintEvent);
 }
 
 

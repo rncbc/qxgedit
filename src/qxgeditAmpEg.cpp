@@ -19,6 +19,7 @@
 
 *****************************************************************************/
 
+#include "qxgeditAbout.h"
 #include "qxgeditAmpEg.h"
 
 #include <QPainter>
@@ -139,18 +140,18 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.drawRect(nodeRect(1));
 	painter.drawRect(nodeRect(4));
 
-	painter.end();
-
-	QFrame::paintEvent(pPaintEvent);
-
 #ifdef CONFIG_DEBUG
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
 		tr("Attack (%1) Decay (%2) Release (%3)")
 		.arg(int(attack())  - 64)
 		.arg(int(decay())   - 64)
-		.arg(int(release()) - 64);
+		.arg(int(release()) - 64));
 #endif
+
+	painter.end();
+
+	QFrame::paintEvent(pPaintEvent);
 }
 
 

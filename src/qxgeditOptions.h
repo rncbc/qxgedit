@@ -68,6 +68,10 @@ public:
 	int iMaxRecentFiles;
 	QStringList recentFiles;
 
+	// MIDI specific options.
+	QStringList midiInputs;
+	QStringList midiOutputs;
+
 	// Widget geometry persistence helper prototypes.
 	void saveWidgetGeometry(QWidget *pWidget);
 	void loadWidgetGeometry(QWidget *pWidget);

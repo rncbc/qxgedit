@@ -24,6 +24,8 @@
 #include "qxgeditAbout.h"
 #include "qxgeditOptions.h"
 
+#include "qxgeditMidiDevice.h"
+
 #include <QMessageBox>
 #include <QValidator>
 
@@ -45,10 +47,20 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	// Initialize dirty control state.
 	m_iDirtyCount = 0;
 
+	// MIDI specialties.
+	m_iMidiInputsChanged  = 0;
+	m_iMidiOutputsChanged = 0;
+
 	// Try to restore old window positioning.
 	adjustSize();
 
 	// UI signal/slot connections...
+	QObject::connect(m_ui.MidiInputListView,
+		SIGNAL(itemSelectionChanged()),
+		SLOT(midiInputsChanged()));
+	QObject::connect(m_ui.MidiOutputListView,
+		SIGNAL(itemSelectionChanged()),
+		SLOT(midiOutputsChanged()));
 	QObject::connect(m_ui.CompletePathCheckBox,
 		SIGNAL(stateChanged(int)),
 		SLOT(changed()));
@@ -79,6 +91,34 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 	// Set reference descriptor.
 	m_pOptions = pOptions;
 
+	// MIDI devices listings...
+	m_ui.MidiInputListView->clear();
+	m_ui.MidiOutputListView->clear();
+	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
+	if (pMidiDevice) {
+		m_ui.MidiInputListView->addItems(pMidiDevice->inputs());
+		m_ui.MidiOutputListView->addItems(pMidiDevice->outputs());
+	}
+	// MIDI Inputs...
+	QStringListIterator ins(m_pOptions->midiInputs);
+	while (ins.hasNext()) {
+		QListIterator<QListWidgetItem *> iter(
+			m_ui.MidiInputListView->findItems(ins.next(), Qt::MatchExactly));
+		while (iter.hasNext())
+			iter.next()->setSelected(true);
+	}
+	// MIDI Outputs...
+	QStringListIterator outs(m_pOptions->midiOutputs);
+	while (outs.hasNext()) {
+		QListIterator<QListWidgetItem *> iter(
+			m_ui.MidiOutputListView->findItems(outs.next(), Qt::MatchExactly));
+		while (iter.hasNext())
+			iter.next()->setSelected(true);
+	}
+	// But (re)start clean...
+	m_iMidiInputsChanged  = 0;
+	m_iMidiOutputsChanged = 0;
+
 	// Other options finally.
 	m_ui.CompletePathCheckBox->setChecked(m_pOptions->bCompletePath);
 	m_ui.MaxRecentFilesSpinBox->setValue(m_pOptions->iMaxRecentFiles);
@@ -103,6 +143,31 @@ qxgeditOptions *qxgeditOptionsForm::options (void) const
 // Accept settings (OK button slot).
 void qxgeditOptionsForm::accept (void)
 {
+	// MIDI connections options.
+	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
+	if (pMidiDevice) {
+		// MIDI Inputs...
+		if (m_iMidiInputsChanged > 0) {
+			m_pOptions->midiInputs.clear();
+			QListIterator<QListWidgetItem *> iter1(
+				m_ui.MidiInputListView->selectedItems());
+			while (iter1.hasNext())
+				m_pOptions->midiInputs.append(iter1.next()->text());
+			pMidiDevice->connectInputs(m_pOptions->midiInputs);
+			m_iMidiInputsChanged = 0;
+		}
+		// MIDI Outputs...
+		if (m_iMidiOutputsChanged > 0) {
+			m_pOptions->midiOutputs.clear();
+			QListIterator<QListWidgetItem *> iter2(
+				m_ui.MidiInputListView->selectedItems());
+			while (iter2.hasNext())
+				m_pOptions->midiOutputs.append(iter2.next()->text());
+			pMidiDevice->connectOutputs(m_pOptions->midiOutputs);
+			m_iMidiOutputsChanged = 0;
+		}
+	}
+
 	// Save options...
 	if (m_iDirtyCount > 0) {
 		// Display options...
@@ -152,6 +217,18 @@ void qxgeditOptionsForm::changed (void)
 {
 	m_iDirtyCount++;
 	stabilizeForm();
+}
+
+void qxgeditOptionsForm::midiInputsChanged (void)
+{
+	m_iMidiInputsChanged++;
+	changed();
+}
+
+void qxgeditOptionsForm::midiOutputsChanged (void)
+{
+	m_iMidiOutputsChanged++;
+	changed();
 }
 
 

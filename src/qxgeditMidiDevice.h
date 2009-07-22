@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QEvent>
 #include <QByteArray>
+#include <QStringList>
 
 #include <alsa/asoundlib.h>
 
@@ -67,6 +68,26 @@ public:
 
 	// MIDI SysEx sender.
 	void sendSysex(unsigned char *pSysex, unsigned short iSysex) const;
+
+	// MIDI Input(readable) / Output(writable) device list
+	QStringList inputs() const
+		{ return deviceList(true); }
+	QStringList outputs() const
+		{ return deviceList(false); }
+
+	// MIDI Input(readable) / Output(writable) connects.
+	bool connectInputs(const QStringList& inputs) const
+		{ return connectDeviceList(true, inputs); }
+	bool connectOutputs(const QStringList& outputs) const
+		{ return connectDeviceList(false, outputs); }
+
+protected:
+
+	// MIDI device listing.
+	QStringList deviceList(bool bReadable) const;
+
+	// MIDI device connects.
+	bool connectDeviceList(bool bReadable, const QStringList& list) const;
 
 private:
 
