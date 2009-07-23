@@ -184,33 +184,45 @@ private:
 //-------------------------------------------------------------------------
 // class XGParamKey - XG Parameter hash key.
 //
-struct XGParamKey
+class XGParamKey
 {
+public:
+
 	// Constructor helper.
-	XGParamKey(unsigned char hi, unsigned char mi, unsigned char lo)
-		: high(hi), mid(mi), low(lo) {}
+	XGParamKey(unsigned char high, unsigned char mid, unsigned char low)
+		: m_high(high), m_mid(mid), m_low(low) {}
 	XGParamKey(XGParam *param)
-		: high(param->high()), mid(param->mid()), low(param->low()) {}
+		: m_high(param->high()), m_mid(param->mid()), m_low(param->low()) {}
+
+	// Key accessors.
+	unsigned char high() const
+		{ return m_high; }
+	unsigned char mid() const
+		{ return m_mid; }
+	unsigned char low() const
+		{ return m_low; }
 
 	// Hash key comparator.
 	bool operator== ( const XGParamKey& key ) const
 	{
-		return (key.high == high)
-			&& (key.mid  == mid)
-			&& (key.low  == low);
+		return (key.high() == m_high)
+			&& (key.mid()  == m_mid)
+			&& (key.low()  == m_low);
 	}
 
-	// Key memberes.
-	unsigned char high;
-	unsigned char mid;
-	unsigned char low;
+private:
+
+	// Key members.
+	unsigned char m_high;
+	unsigned char m_mid;
+	unsigned char m_low;
 };
 
 
 // Hash key function
 inline uint qHash ( const XGParamKey& key )
 {
-	return qHash(((key.high << 7) + key.mid) ^ key.low);
+	return qHash(((key.high() << 7) + key.mid()) ^ key.low());
 }
 
 
@@ -239,7 +251,7 @@ public:
 	void add_param(XGParam *param, unsigned short key);
 
 	// Map finders.
-	XGParam *find_param( unsigned short id);
+	XGParam *find_param(unsigned short id);
 
 	// Key param accessors.
 	void set_key_param(XGParam *param);

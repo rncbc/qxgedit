@@ -3151,7 +3151,7 @@ XGParam *XGParamMaster::find_param (
 	XGParamMaster::const_iterator iter = XGParamMaster::constFind(key);
 	for (; iter != XGParamMaster::constEnd() && iter.key() == key; ++iter) {
 		XGParam *param = iter.value();
-		if (key.high == 0x02 && key.mid == 0x01) {
+		if (key.high() == 0x02 && key.mid() == 0x01) {
 			XGEffectParam *eparam
 				= static_cast<XGEffectParam *> (param);
 			if (eparam->etype() == etype)

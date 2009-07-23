@@ -5,6 +5,7 @@ name    = qxgedit
 
 headers = \
 	src/XGParam.h \
+	src/XGParamWidget.h \
 	src/qxgeditAbout.h \
 	src/qxgeditAmpEg.h \
 	src/qxgeditDial.h \
@@ -21,6 +22,7 @@ headers = \
 
 sources = \
 	src/XGParam.cpp \
+	src/XGParamWidget.cpp \
 	src/qxgeditAmpEg.cpp \
 	src/qxgeditDial.cpp \
 	src/qxgeditFilter.cpp \
