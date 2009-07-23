@@ -32,11 +32,6 @@
 // qxgeditKnob - Instance knob widget class.
 //
 
-#define QTEST1_DIAL_MIN      (0.25f * float(M_PI))
-#define QTEST1_DIAL_MAX      (1.75f * float(M_PI))
-#define QTEST1_DIAL_RANGE    (QTEST1_DIAL__MAX - QTEST1_DIAL__MIN)
-
-
 // Constructor.
 qxgeditKnob::qxgeditKnob ( QWidget *pParent )
 	: QDial(pParent), m_iDefaultValue(-1), m_dialMode(DefaultMode),

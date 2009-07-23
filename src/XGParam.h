@@ -215,9 +215,17 @@ inline uint qHash ( const XGParamKey& key )
 
 
 //-------------------------------------------------------------------------
-// class XGParamMap - XG Parameter hash map.
+// class XGParamSet - XG Parameter map.
 //
-class XGParamMap : public QHash<XGParamKey, XGParam *>
+
+class XGParamSet : public QHash<unsigned short, XGParam *> {};
+
+
+//-------------------------------------------------------------------------
+// class XGParamMap - XG Parameter mapper.
+//
+
+class XGParamMap : public QHash<unsigned short, XGParamSet *>
 {
 public:
 
@@ -227,61 +235,69 @@ public:
 	// Destructor.
 	~XGParamMap();
 
-	// Auto delete predicate.
-	void setAutoDelete(bool bAutoDelete)
-		{ m_bAutoDelete = bAutoDelete; }
-	bool isAutoDelete() const
-		{ return m_bAutoDelete; }
-
-	// Append method
-	void append(XGParam *param)
-		{ insertMulti(XGParamKey(param), param); }
+	// Append method.
+	void add_param(XGParam *param, unsigned short key);
 
 	// Map finders.
-	XGParam *find(const XGParamKey& key, unsigned short etype = 0) const;
+	XGParam *find_param( unsigned short id);
+
+	// Key param accessors.
+	void set_key_param(XGParam *param);
+	XGParam *key_param() const;
+
+	// Key value accessors.
+	void set_current_key(unsigned short key);
+	unsigned short current_key () const;
+
+protected:
+
+	// Param set/factory method.
+	XGParamSet *find_paramset(unsigned short id);
 
 private:
 
-	// Instance properties.
-	bool m_bAutoDelete;
+	// Instance variables.
+	XGParam *m_key_param;
+	unsigned short m_key;
 };
-
-
-//-------------------------------------------------------------------------
-// class XGParamList XG Parameter map list.
-//
-
-class XGParamList : public QHash<unsigned short, XGParamMap> {};
 
 
 //-------------------------------------------------------------------------
 // class XGParamMaster - XG Parameter master state database.
 //
 
-class XGParamMaster : public XGParamMap
+class XGParamMaster : public QHash<XGParamKey, XGParam *>
 {
 public:
 
 	// Constructor.
 	XGParamMaster();
 
-	// Parameter group-links.
-	XGParamList REVERB;
-	XGParamList CHORUS;
-	XGParamList VARIATION;
-	XGParamList MULTIPART;
-	XGParamList DRUMSETUP;
+	// Destructor.
+	~XGParamMaster();
 
-	// Current effect type accessors.
-	unsigned short REVERBType() const;
-	unsigned short CHORUSType() const;
-	unsigned short VARIATIONType() const;
+	// Parameter group-maps.
+	XGParamMap SYSTEM;
+	XGParamMap REVERB;
+	XGParamMap CHORUS;
+	XGParamMap VARIATION;
+	XGParamMap MULTIPART;
+	XGParamMap DRUMSETUP;
 
-	// Satte map finders.
-	XGParam *find(
+	// Master map finders.
+	XGParam *find_param(
 		unsigned char high,
 		unsigned char mid,
 		unsigned char low) const;
+
+protected:
+
+	// master append method
+	void add_param(XGParam *param);
+
+	XGParam *find_param(
+		const XGParamKey& key,
+		unsigned short etype = 0) const;
 };
 
 

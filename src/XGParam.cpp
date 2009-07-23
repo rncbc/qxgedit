@@ -2933,42 +2933,85 @@ const char *XGEffectParam::unit (void) const
 
 
 //-------------------------------------------------------------------------
-// class XGParamMap - XG Parameter hash map.
+// class XGParamMap - XG Parameter mapper.
 //
 
 // Constructor.
 XGParamMap::XGParamMap (void)
-	: m_bAutoDelete(false)
+	: m_key_param(NULL), m_key(0)
 {
 }
+
 
 // Destructor.
 XGParamMap::~XGParamMap (void)
 {
-	if (m_bAutoDelete) {
-		XGParamMap::const_iterator iter = XGParamMap::constBegin();
-		for (; iter != XGParamMap::constEnd(); ++iter)
-			delete iter.value();
-	}
+	XGParamMap::const_iterator iter = XGParamMap::constBegin();
+	for (; iter != XGParamMap::constEnd(); ++iter)
+		delete iter.value();
+}
+
+
+// Append method.
+void XGParamMap::add_param ( XGParam *param, unsigned short key )
+{
+	XGParamSet *paramset = find_paramset(param->low());
+	paramset->insert(key, param);
 }
 
 
 // Map finders.
-XGParam *XGParamMap::find (
-	const XGParamKey& key, unsigned short etype ) const
+XGParam *XGParamMap::find_param ( unsigned short id )
 {
-	XGParamMap::const_iterator iter = XGParamMap::constFind(key);
-	for (; iter != XGParamMap::constEnd() && iter.key() == key; ++iter) {
-		XGParam *param = iter.value();
-		if (key.high == 0x02 && key.mid == 0x01) {
-			XGEffectParam *eparam
-				= static_cast<XGEffectParam *> (param);
-			if (eparam->etype() == etype)
-				return param;
-		}
-		else return param;
+	XGParamSet *paramset = find_paramset(id);
+	if (paramset == NULL)
+		return NULL;
+
+	unsigned short key = current_key();
+	return (paramset->contains(key) ? paramset->value(key) : NULL);
+}
+
+
+// Key param accessors.
+void XGParamMap::set_key_param ( XGParam *param )
+{
+	m_key_param = param;
+}
+
+XGParam *XGParamMap::key_param (void) const
+{
+	return m_key_param;
+}
+
+
+// Key value accessors.
+void XGParamMap::set_current_key ( unsigned short key )
+{
+	if (m_key_param)
+		m_key_param->setValue(key);
+
+	m_key = key;
+}
+
+unsigned short XGParamMap::current_key () const
+{
+	return (m_key_param ? m_key_param->value() : m_key);
+}
+
+
+// Param set/factory method.
+XGParamSet *XGParamMap::find_paramset ( unsigned short id )
+{
+	XGParamSet *paramset = NULL;
+
+	if (XGParamMap::contains(id)) {
+		paramset = XGParamMap::value(id);
+	} else {
+		paramset = new XGParamSet();
+		XGParamMap::insert(id, paramset);
 	}
-	return NULL;
+
+	return paramset;
 }
 
 
@@ -2979,15 +3022,14 @@ XGParam *XGParamMap::find (
 // Constructor.
 XGParamMaster::XGParamMaster (void)
 {
-	XGParamMap::setAutoDelete(true);
-
 	unsigned short i, j, k;
 
 	// XG SYSTEM...
 	for (i = 0; i < TSIZE(SYSTEMParamTab); ++i) {
 		XGParamItem *item = &SYSTEMParamTab[i];
 		XGParam *param = new XGParam(0x00, 0x00, item->id);
-		XGParamMap::append(param);
+		XGParamMaster::add_param(param);
+		SYSTEM.add_param(param, 0);
 	}
 	
 	// XG EFFECT...
@@ -2999,8 +3041,8 @@ XGParamMaster::XGParamMaster (void)
 				XGEffectItem  *eitem  = &REVERBEffectTab[j];
 				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
 				XGEffectParam *eparam = new XGEffectParam(0x02, 0x01, item->id, etype);
-				REVERB[etype].append(eparam);
-				XGParamMap::append(eparam);
+				XGParamMaster::add_param(eparam);
+				REVERB.add_param(eparam, etype);
 			}
 		}
 		else
@@ -3010,8 +3052,8 @@ XGParamMaster::XGParamMaster (void)
 				XGEffectItem  *eitem  = &CHORUSEffectTab[j];
 				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
 				XGEffectParam *eparam = new XGEffectParam(0x02, 0x01, item->id, etype);
-				CHORUS[etype].append(eparam);
-				XGParamMap::append(eparam);
+				XGParamMaster::add_param(eparam);
+				CHORUS.add_param(eparam, etype);
 			}
 		}
 		else
@@ -3021,14 +3063,25 @@ XGParamMaster::XGParamMaster (void)
 				XGEffectItem  *eitem  = &VARIATIONEffectTab[j];
 				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
 				XGEffectParam *eparam = new XGEffectParam(0x02, 0x01, item->id, etype);
-				VARIATION[etype].append(eparam);
-				XGParamMap::append(eparam);
+				XGParamMaster::add_param(eparam);
+				VARIATION.add_param(eparam, etype);
 			}
 		}
 		else {
 			// REVERB, CHORUS, VARIATION TYPE...
 			XGParam *param = new XGParam(0x02, 0x01, item->id);
-			XGParamMap::append(param);
+			XGParamMaster::add_param(param);
+			switch (item->id) {
+			case 0x00:
+				REVERB.set_key_param(param);
+				break;
+			case 0x20:
+				CHORUS.set_key_param(param);
+				break;
+			case 0x40:
+				VARIATION.set_key_param(param);
+				break;
+			}
 		}
 	}
 
@@ -3037,8 +3090,8 @@ XGParamMaster::XGParamMaster (void)
 		XGParamItem *item = &MULTIPARTParamTab[i];
 		for (j = 0; j < 16; ++j) {
 			XGParam *param = new XGParam(0x08, j, item->id);
-			MULTIPART[j].append(param);
-			XGParamMap::append(param);
+			XGParamMaster::add_param(param);
+			MULTIPART.add_param(param, j);
 		}
 	}
 
@@ -3048,51 +3101,66 @@ XGParamMaster::XGParamMaster (void)
 		for (j = 0; j < 2; ++j) {
 			for (k = 13; k < 85; ++k) {
 				XGParam *param = new XGParam(0x30 + j, k, item->id);
-				DRUMSETUP[(j << 7) + k].append(param);
-				XGParamMap::append(param);
+				XGParamMaster::add_param(param);
+				DRUMSETUP.add_param(param, (j << 7) + k);
 			}
 		}
 	}
 }
 
 
-// Current effect type accessors.
-unsigned short XGParamMaster::REVERBType (void) const
+// Destructor.
+XGParamMaster::~XGParamMaster (void)
 {
-	XGParam *param = XGParamMap::find(XGParamKey(0x02, 0x01, 0x00));
-	return (param ? param->value() : 0);
+	XGParamMaster::const_iterator iter = XGParamMaster::constBegin();
+	for (; iter != XGParamMaster::constEnd(); ++iter)
+		delete iter.value();
 }
 
-unsigned short XGParamMaster::CHORUSType (void) const
+// Master append method.
+void XGParamMaster::add_param ( XGParam *param )
 {
-	XGParam *param = XGParamMap::find(XGParamKey(0x02, 0x01, 0x20));
-	return (param ? param->value() : 0);
-}
-
-unsigned short XGParamMaster::VARIATIONType (void) const
-{
-	XGParam *param = XGParamMap::find(XGParamKey(0x02, 0x01, 0x40));
-	return (param ? param->value() : 0);
+	XGParamMaster::insertMulti(XGParamKey(param), param);
 }
 
 
-XGParam *XGParamMaster::find (
+// Master map finders.
+XGParam *XGParamMaster::find_param (
 	unsigned char high, unsigned char mid, unsigned char low ) const
 {
 	unsigned short etype = 0;
 
 	if (high == 0x02 && mid == 0x01) {
 		if (low > 0x00 && low < 0x20)
-			etype = REVERBType();
+			etype = REVERB.current_key();
 		else 
 		if (low > 0x20 && low < 0x40)
-			etype = CHORUSType();
+			etype = CHORUS.current_key();
 		else
 		if (low > 0x40 && low < 0x80)
-			etype = VARIATIONType();
+			etype = VARIATION.current_key();
 	}
 
-	return XGParamMap::find(XGParamKey(high, mid, low), etype);
+	return find_param(XGParamKey(high, mid, low), etype);
+}
+
+
+XGParam *XGParamMaster::find_param (
+	const XGParamKey& key, unsigned short etype ) const
+{
+	XGParamMaster::const_iterator iter = XGParamMaster::constFind(key);
+	for (; iter != XGParamMaster::constEnd() && iter.key() == key; ++iter) {
+		XGParam *param = iter.value();
+		if (key.high == 0x02 && key.mid == 0x01) {
+			XGEffectParam *eparam
+				= static_cast<XGEffectParam *> (param);
+			if (eparam->etype() == etype)
+				return param;
+		}
+		else return param;
+	}
+
+	return NULL;
 }
 
 

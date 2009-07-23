@@ -345,29 +345,12 @@ bool qxgeditMainForm::sysexData ( unsigned char *data, unsigned short len )
 						unsigned char low  = data[8];
 						for (i = 0; i < size; ++i) {
 							// Parameter Change...
-							XGParam *param = m_pParamMaster->find(high, mid, low + i);
-							if (param == NULL)
+							unsigned short n
+								= sysexXGParam(high, mid, low + i, &data[9 + i]);
+							if (n < 1)
 								break;
-							param->setValue(param->valueFromData(&data[9 + i]));
-						#ifdef CONFIG_DEBUG
-							fprintf(stderr, "< 0x%02x 0x%02x 0x%02x",
-								param->high(),
-								param->mid(),
-								param->low());
-							const char *name = param->name();
-							if (name) {
-								unsigned short c = param->value();
-								const char *s = param->gets(c);
-								const char *u = param->unit();
-								fprintf(stderr, " %s", name);
-								fprintf(stderr, " %g", param->getv(c));
-								if (s) fprintf(stderr, " %s", s);
-								if (u) fprintf(stderr, " %s", u);
-							}
-							fprintf(stderr, " >\n");
-						#endif
-							if (param->size() > 1)
-								i += (param->size() - 1);
+							if (n > 1)
+								i += (n - 1);
 						}
 						ret = (i == (size - 6));
 					}
@@ -378,34 +361,44 @@ bool qxgeditMainForm::sysexData ( unsigned char *data, unsigned short len )
 					unsigned char high = data[4];
 					unsigned char mid  = data[5];
 					unsigned char low  = data[6];
-					XGParam *param = m_pParamMaster->find(high, mid, low);
-					if (param) {
-						param->setValue(param->valueFromData(&data[7]));
-					#ifdef CONFIG_DEBUG
-						fprintf(stderr, "< 0x%02x 0x%02x 0x%02x",
-							param->high(),
-							param->mid(),
-							param->low());
-						const char *name = param->name();
-						if (name) {
-							unsigned short c = param->value();
-							const char *s = param->gets(c);
-							const char *u = param->unit();
-							fprintf(stderr, " %s", name);
-							fprintf(stderr, " %g", param->getv(c));
-							if (s) fprintf(stderr, " %s", s);
-							if (u) fprintf(stderr, " %s", u);
-						}
-						fprintf(stderr, " >\n");
-					#endif
-						ret = true;
-					}
+					ret = (sysexXGParam(high, mid, low, &data[7]) > 0);
 				}
 			}
 		}
 	}
 	
 	return ret;
+}
+
+unsigned short qxgeditMainForm::sysexXGParam (
+	unsigned char high, unsigned char mid, unsigned char low,
+	unsigned char *data )
+{
+	XGParam *param = m_pParamMaster->find_param(high, mid, low);
+	if (param == NULL)
+		return 0;
+		
+	param->setValue(param->valueFromData(data));
+
+#ifdef CONFIG_DEBUG
+	fprintf(stderr, "< 0x%02x 0x%02x 0x%02x",
+		param->high(),
+		param->mid(),
+		param->low());
+	const char *name = param->name();
+	if (name) {
+		unsigned short c = param->value();
+		const char *s = param->gets(c);
+		const char *u = param->unit();
+		fprintf(stderr, " %s", name);
+		fprintf(stderr, " %g", param->getv(c));
+		if (s) fprintf(stderr, " %s", s);
+		if (u) fprintf(stderr, " %s", u);
+	}
+	fprintf(stderr, " >\n");
+#endif
+
+	return param->size();
 }
 
 
