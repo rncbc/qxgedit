@@ -3016,11 +3016,20 @@ XGParamSet *XGParamMap::find_paramset ( unsigned short id )
 
 
 //-------------------------------------------------------------------------
-// class XGParamMaster - XG Parameter master state database.
+// class XGParamMasterMap - XG Parameter master state database.
 //
+// Pseudo-singleton reference.
+XGParamMasterMap *XGParamMasterMap::g_pParamMasterMap = NULL;
+
+// Pseudo-singleton accessor (static).
+XGParamMasterMap *XGParamMasterMap::getInstance (void)
+{
+	return g_pParamMasterMap;
+}
+
 
 // Constructor.
-XGParamMaster::XGParamMaster (void)
+XGParamMasterMap::XGParamMasterMap (void)
 {
 	unsigned short i, j, k;
 
@@ -3028,7 +3037,7 @@ XGParamMaster::XGParamMaster (void)
 	for (i = 0; i < TSIZE(SYSTEMParamTab); ++i) {
 		XGParamItem *item = &SYSTEMParamTab[i];
 		XGParam *param = new XGParam(0x00, 0x00, item->id);
-		XGParamMaster::add_param(param);
+		XGParamMasterMap::add_param(param);
 		SYSTEM.add_param(param, 0);
 	}
 	
@@ -3040,8 +3049,9 @@ XGParamMaster::XGParamMaster (void)
 			for (j = 0; j < TSIZE(REVERBEffectTab); ++j) {
 				XGEffectItem  *eitem  = &REVERBEffectTab[j];
 				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
-				XGEffectParam *eparam = new XGEffectParam(0x02, 0x01, item->id, etype);
-				XGParamMaster::add_param(eparam);
+				XGEffectParam *eparam
+					= new XGEffectParam(0x02, 0x01, item->id, etype);
+				XGParamMasterMap::add_param(eparam);
 				REVERB.add_param(eparam, etype);
 			}
 		}
@@ -3051,8 +3061,9 @@ XGParamMaster::XGParamMaster (void)
 			for (j = 0; j < TSIZE(CHORUSEffectTab); ++j) {
 				XGEffectItem  *eitem  = &CHORUSEffectTab[j];
 				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
-				XGEffectParam *eparam = new XGEffectParam(0x02, 0x01, item->id, etype);
-				XGParamMaster::add_param(eparam);
+				XGEffectParam *eparam
+					= new XGEffectParam(0x02, 0x01, item->id, etype);
+				XGParamMasterMap::add_param(eparam);
 				CHORUS.add_param(eparam, etype);
 			}
 		}
@@ -3062,15 +3073,16 @@ XGParamMaster::XGParamMaster (void)
 			for (j = 0; j < TSIZE(VARIATIONEffectTab); ++j) {
 				XGEffectItem  *eitem  = &VARIATIONEffectTab[j];
 				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
-				XGEffectParam *eparam = new XGEffectParam(0x02, 0x01, item->id, etype);
-				XGParamMaster::add_param(eparam);
+				XGEffectParam *eparam
+					= new XGEffectParam(0x02, 0x01, item->id, etype);
+				XGParamMasterMap::add_param(eparam);
 				VARIATION.add_param(eparam, etype);
 			}
 		}
 		else {
 			// REVERB, CHORUS, VARIATION TYPE...
 			XGParam *param = new XGParam(0x02, 0x01, item->id);
-			XGParamMaster::add_param(param);
+			XGParamMasterMap::add_param(param);
 			switch (item->id) {
 			case 0x00:
 				REVERB.set_key_param(param);
@@ -3090,7 +3102,7 @@ XGParamMaster::XGParamMaster (void)
 		XGParamItem *item = &MULTIPARTParamTab[i];
 		for (j = 0; j < 16; ++j) {
 			XGParam *param = new XGParam(0x08, j, item->id);
-			XGParamMaster::add_param(param);
+			XGParamMasterMap::add_param(param);
 			MULTIPART.add_param(param, j);
 		}
 	}
@@ -3101,31 +3113,38 @@ XGParamMaster::XGParamMaster (void)
 		for (j = 0; j < 2; ++j) {
 			for (k = 13; k < 85; ++k) {
 				XGParam *param = new XGParam(0x30 + j, k, item->id);
-				XGParamMaster::add_param(param);
+				XGParamMasterMap::add_param(param);
 				DRUMSETUP.add_param(param, (j << 7) + k);
 			}
 		}
 	}
+
+	// Pseudo-singleton set.
+	g_pParamMasterMap = this;
 }
 
 
 // Destructor.
-XGParamMaster::~XGParamMaster (void)
+XGParamMasterMap::~XGParamMasterMap (void)
 {
-	XGParamMaster::const_iterator iter = XGParamMaster::constBegin();
-	for (; iter != XGParamMaster::constEnd(); ++iter)
+	// Pseudo-singleton reset.
+	g_pParamMasterMap = NULL;
+
+	XGParamMasterMap::const_iterator iter = XGParamMasterMap::constBegin();
+	for (; iter != XGParamMasterMap::constEnd(); ++iter)
 		delete iter.value();
 }
 
+
 // Master append method.
-void XGParamMaster::add_param ( XGParam *param )
+void XGParamMasterMap::add_param ( XGParam *param )
 {
-	XGParamMaster::insertMulti(XGParamKey(param), param);
+	XGParamMasterMap::insertMulti(XGParamKey(param), param);
 }
 
 
 // Master map finders.
-XGParam *XGParamMaster::find_param (
+XGParam *XGParamMasterMap::find_param (
 	unsigned char high, unsigned char mid, unsigned char low ) const
 {
 	unsigned short etype = 0;
@@ -3145,13 +3164,13 @@ XGParam *XGParamMaster::find_param (
 }
 
 
-XGParam *XGParamMaster::find_param (
+XGParam *XGParamMasterMap::find_param (
 	const XGParamKey& key, unsigned short etype ) const
 {
-	XGParamMaster::const_iterator iter = XGParamMaster::constFind(key);
-	for (; iter != XGParamMaster::constEnd() && iter.key() == key; ++iter) {
+	XGParamMasterMap::const_iterator iter = XGParamMasterMap::constFind(key);
+	for (; iter != XGParamMasterMap::constEnd() && iter.key() == key; ++iter) {
 		XGParam *param = iter.value();
-		if (key.high() == 0x02 && key.mid() == 0x01) {
+		if (key.high() == 0x02 && key.mid() == 0x01 && etype > 0) {
 			XGEffectParam *eparam
 				= static_cast<XGEffectParam *> (param);
 			if (eparam->etype() == etype)

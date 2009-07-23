@@ -26,7 +26,7 @@
 
 #include "qxgeditMidiDevice.h"
 
-#include "XGParam.h"
+#include "XGParamWidget.h"
 
 #include "qxgeditOptionsForm.h"
 
@@ -74,7 +74,8 @@ qxgeditMainForm::qxgeditMainForm (
 
 	// Initialize some pointer references.
 	m_pOptions = NULL;
-	m_pParamMaster = NULL;
+	m_pParamMasterMap = NULL;
+	m_pParamWidgetMap = NULL;
 	m_pMidiDevice = NULL;
 
 	// We'll start clean.
@@ -163,8 +164,10 @@ qxgeditMainForm::~qxgeditMainForm (void)
 	// Free designated devices.
 	if (m_pMidiDevice)
 		delete m_pMidiDevice;
-	if (m_pParamMaster)
-		delete m_pParamMaster;
+	if (m_pParamWidgetMap)
+		delete m_pParamWidgetMap;
+	if (m_pParamMasterMap)
+		delete m_pParamMasterMap;
 
 	// Pseudo-singleton reference shut-down.
 	g_pMainForm = NULL;
@@ -201,7 +204,8 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	updateRecentFilesMenu();
 
 	// XG master database...
-	m_pParamMaster = new XGParamMaster();
+	m_pParamMasterMap = new XGParamMasterMap();
+	m_pParamWidgetMap = new XGParamWidgetMap();
 
 	// Start proper devices...
 	m_pMidiDevice = new qxgeditMidiDevice(QXGEDIT_TITLE);
@@ -374,14 +378,14 @@ unsigned short qxgeditMainForm::sysexXGParam (
 	unsigned char high, unsigned char mid, unsigned char low,
 	unsigned char *data )
 {
-	XGParam *param = m_pParamMaster->find_param(high, mid, low);
+	XGParam *param = m_pParamMasterMap->find_param(high, mid, low);
 	if (param == NULL)
 		return 0;
 		
 	param->setValue(param->valueFromData(data));
 
 #ifdef CONFIG_DEBUG
-	fprintf(stderr, "< 0x%02x 0x%02x 0x%02x",
+	fprintf(stderr, "< %02x %02x %02x",
 		param->high(),
 		param->mid(),
 		param->low());

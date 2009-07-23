@@ -28,6 +28,31 @@
 //-------------------------------------------------------------------------
 // class XGParamQWidgetMap - XGParam/Widget cross-map.
 //
+// Pseudo-singleton reference.
+XGParamWidgetMap *XGParamWidgetMap::g_pParamWidgetMap = NULL;
+
+// Pseudo-singleton accessor (static).
+XGParamWidgetMap *XGParamWidgetMap::getInstance (void)
+{
+	return g_pParamWidgetMap;
+}
+
+
+// Constructor.
+XGParamWidgetMap::XGParamWidgetMap(void)
+{
+	// Pseudo-singleton set.
+	g_pParamWidgetMap = this;
+}
+
+
+// Destructor.
+XGParamWidgetMap::~XGParamWidgetMap(void)
+{
+	// Pseudo-singleton reset.
+	g_pParamWidgetMap = NULL;
+}
+
 
 // Add widget to map.
 void XGParamWidgetMap::add_widget (

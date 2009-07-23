@@ -278,15 +278,18 @@ private:
 // class XGParamMaster - XG Parameter master state database.
 //
 
-class XGParamMaster : public QHash<XGParamKey, XGParam *>
+class XGParamMasterMap : public QHash<XGParamKey, XGParam *>
 {
 public:
 
 	// Constructor.
-	XGParamMaster();
+	XGParamMasterMap();
 
 	// Destructor.
-	~XGParamMaster();
+	~XGParamMasterMap();
+
+	// Pseudo-singleton accessor.
+	static XGParamMasterMap *getInstance();
 
 	// Parameter group-maps.
 	XGParamMap SYSTEM;
@@ -310,6 +313,9 @@ protected:
 	XGParam *find_param(
 		const XGParamKey& key,
 		unsigned short etype = 0) const;
+
+	// Pseudo-singleton reference.
+	static XGParamMasterMap *g_pParamMasterMap;
 };
 
 

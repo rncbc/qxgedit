@@ -76,6 +76,15 @@ class XGParamWidgetMap
 {
 public:
 
+	// Constructor.
+	XGParamWidgetMap();
+
+	// Destructor.
+	~XGParamWidgetMap();
+
+	// Pseudo-singleton accessor.
+	static XGParamWidgetMap *getInstance();
+
 	// Add widget to map.
 	void add_widget(QWidget *widget, XGParamMap *map, unsigned id);
 
@@ -90,6 +99,9 @@ private:
 	// Instance parameters.
 	QHash<QWidget *, XGParamInst> m_widget_map;
 	QHash<XGParamInst, QWidget *> m_params_map;
+
+	// Pseudo-singleton accessor.
+	static XGParamWidgetMap *g_pParamWidgetMap;
 };
 
 
