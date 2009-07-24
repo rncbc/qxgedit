@@ -63,6 +63,35 @@ void XGParamWidgetMap::add_widget (
 	m_params_map.insert(inst, widget);
 }
 
+void XGParamWidgetMap::add_widget (
+	QWidget *widget, XGParam *param )
+{
+	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
+	if (pMasterMap == NULL)
+		return;
+
+	XGParamMap *map = pMasterMap->find_param_map(param);
+	if (map == NULL)
+		return;
+
+	add_widget(widget, map, param->low());
+}
+
+void XGParamWidgetMap::add_widget (
+	QWidget *widget, const XGParamKey& key )
+{
+	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
+	if (pMasterMap == NULL)
+		return;
+
+	XGParam *param = pMasterMap->find_param(key);
+	if (param == NULL)
+		return;
+
+	add_widget(widget, param);
+}
+
+
 
 // State parameter lookup.
 XGParam *XGParamWidgetMap::find_param ( QWidget *widget ) const
@@ -81,6 +110,32 @@ QWidget *XGParamWidgetMap::find_widget ( XGParamMap *map, unsigned id ) const
 	if (m_params_map.contains(inst))
 		widget = m_params_map.value(inst);
 	return widget;
+}
+
+QWidget *XGParamWidgetMap::find_widget ( XGParam *param ) const
+{
+	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
+	if (pMasterMap == NULL)
+		return NULL;
+
+	XGParamMap *map = pMasterMap->find_param_map(param);
+	if (map == NULL)
+		return NULL;
+
+	return find_widget(map, param->low());
+};
+
+QWidget *XGParamWidgetMap::find_widget ( const XGParamKey& key ) const
+{
+	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
+	if (pMasterMap == NULL)
+		return NULL;
+
+	XGParam *param = pMasterMap->find_param(key);
+	if (param == NULL)
+		return NULL;
+
+	return find_widget(param);
 }
 
 

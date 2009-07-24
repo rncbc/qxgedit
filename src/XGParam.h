@@ -299,20 +299,29 @@ public:
 	XGParamMap MULTIPART;
 	XGParamMap DRUMSETUP;
 
+	// master append method
+	void add_param(XGParam *param);
+
+	// Add widget to map.
+	void add_param_map(XGParam *param, XGParamMap *map);
+
 	// Master map finders.
 	XGParam *find_param(
 		unsigned char high,
 		unsigned char mid,
 		unsigned char low) const;
 
-protected:
-
-	// master append method
-	void add_param(XGParam *param);
-
 	XGParam *find_param(
 		const XGParamKey& key,
 		unsigned short etype = 0) const;
+
+	// Find map from param.
+	XGParamMap *find_param_map(XGParam *param) const;
+
+private:
+
+	// Instance variables.
+	QHash<XGParam *, XGParamMap *> m_params_map;
 
 	// Pseudo-singleton reference.
 	static XGParamMasterMap *g_pParamMasterMap;

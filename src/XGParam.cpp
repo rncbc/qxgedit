@@ -2957,6 +2957,10 @@ void XGParamMap::add_param ( XGParam *param, unsigned short key )
 {
 	XGParamSet *paramset = find_paramset(param->low());
 	paramset->insert(key, param);
+
+	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
+	if (pMasterMap)
+		pMasterMap->add_param_map(param, this);
 }
 
 
@@ -3142,6 +3146,12 @@ void XGParamMasterMap::add_param ( XGParam *param )
 	XGParamMasterMap::insertMulti(XGParamKey(param), param);
 }
 
+// Add widget to map.
+void XGParamMasterMap::add_param_map ( XGParam *param, XGParamMap *map )
+{
+	m_params_map.insert(param, map);
+}
+
 
 // Master map finders.
 XGParam *XGParamMasterMap::find_param (
@@ -3180,6 +3190,13 @@ XGParam *XGParamMasterMap::find_param (
 	}
 
 	return NULL;
+}
+
+
+// Find map from param.
+XGParamMap *XGParamMasterMap::find_param_map ( XGParam *param ) const
+{
+	return (m_params_map.contains(param) ? m_params_map.value(param) : NULL);
 }
 
 

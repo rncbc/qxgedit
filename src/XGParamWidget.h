@@ -87,12 +87,16 @@ public:
 
 	// Add widget to map.
 	void add_widget(QWidget *widget, XGParamMap *map, unsigned id);
+	void add_widget(QWidget *widget, XGParam *param);
+	void add_widget(QWidget *widget, const XGParamKey& key);
 
 	// State parameter lookup.
 	XGParam *find_param(QWidget *widget) const;
 
 	// Widget lookup.
 	QWidget *find_widget(XGParamMap *map, unsigned id) const;
+	QWidget *find_widget(XGParam *param) const;
+	QWidget *find_widget(const XGParamKey& key) const;
 
 private:
 
