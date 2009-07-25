@@ -98,12 +98,17 @@ const XGParamItem *DRUMSETUPParamItem(unsigned char id);
 //-------------------------------------------------------------------------
 // class XGParam - XG Generic parameter descriptor.
 //
+class XGParamObserver;
+
 class XGParam
 {
 public:
 
 	// Constructor.
 	XGParam(unsigned char high, unsigned char mid, unsigned char low);
+
+	// Virtual destructor.
+	virtual ~XGParam();
 
 	// Address acessors.
 	unsigned char high() const;
@@ -123,12 +128,24 @@ public:
 	virtual const char *gets(unsigned short u) const;
 	virtual const char *unit() const;
 
-	// Value accessors.
-	void setValue(unsigned short c);
-	unsigned short value() const;
-
 	// Decode param value from raw data.
 	unsigned short valueFromData(unsigned char *data) const;
+
+	// Value accessors.
+	void setValue(unsigned short u, XGParamObserver *sender = NULL);
+	unsigned short value() const;
+
+	// Busy flag predicate.
+	bool isBusy() const;
+
+	// Observers notification
+	void notify(XGParamObserver *sender = NULL);
+
+	// Observer list accessors.
+	void attach(XGParamObserver *observer);
+	void detach(XGParamObserver *observer);
+
+	const QList<XGParamObserver *>& observers() const;
 
 protected:
 
@@ -144,6 +161,10 @@ private:
 
 	// Parameter state.
 	unsigned short m_value;
+
+	bool m_busy;
+
+	QList<XGParamObserver *> m_observers;
 };
 
 

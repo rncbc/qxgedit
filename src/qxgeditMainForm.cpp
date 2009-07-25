@@ -381,7 +381,7 @@ unsigned short qxgeditMainForm::sysexXGParam (
 	XGParam *param = m_pParamMasterMap->find_param(high, mid, low);
 	if (param == NULL)
 		return 0;
-		
+
 	param->setValue(param->valueFromData(data));
 
 #ifdef CONFIG_DEBUG

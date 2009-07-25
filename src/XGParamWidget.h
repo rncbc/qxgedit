@@ -23,6 +23,7 @@
 #define __XGParamWidget_h
 
 #include "XGParam.h"
+#include "XGParamObserver.h"
 
 
 //-------------------------------------------------------------------------
@@ -68,7 +69,7 @@ inline uint qHash ( const XGParamInst& inst )
 
 
 //-------------------------------------------------------------------------
-// class XGParamQWidgetMap - XGParam/Widget cross-map.
+// class XGParamWidgetMap - XGParam/Widget cross-map.
 //
 class QWidget;
 
@@ -109,6 +110,69 @@ private:
 };
 
 
-#endif	// __XGParam_h
+//----------------------------------------------------------------------
+// class XGParamWidget -- Template widget observer/visitor.
+//
+#include <QCheckBox>
+#include <QSpinBox>
+#include <QSlider>
 
-// end of XGParam.h
+template <class W>
+class XGParamWidget : public W
+{
+public:
+
+	// Local observer.
+	class Observer : public XGParamObserver
+	{
+	public:
+		// Constructor.
+		Observer(XGParam *param, W *widget)
+			: XGParamObserver(param), m_widget(widget) {}
+
+	protected:
+
+		// Visitors overload.
+		void visit(QCheckBox *checkbox, unsigned short u)
+			{ checkbox->setChecked(u > 0); }
+		void visit(QSpinBox *spinbox, unsigned short u)
+			{ spinbox->setValue(int(u)); }
+		void visit(QSlider *slider, unsigned short u)
+			{ slider->setValue(int(u)); }
+
+		// Observer updater.
+		void update() { visit(m_widget, value()); }
+
+	private:
+		// Members.
+		W *m_widget;
+	};
+
+	// Constructor.
+	XGParamWidget(QWidget *parent = NULL)
+		: W(parent), m_observer(NULL) {};
+
+	// Destructor.
+	~XGParamWidget()
+		{ if (m_observer) delete m_observer; }
+
+	// Setup.
+	void setParam(XGParam *param)
+	{
+		if (m_observer) delete m_observer;
+		m_observer = new Observer(param, this); 
+	}
+
+	// Observer accessor.
+	Observer *observer() const { return m_observer; }
+
+private:
+
+	// Members.
+	Observer *m_observer;
+};
+
+
+#endif	// __XGParamWidget_h
+
+// end of XGParamWidget.h

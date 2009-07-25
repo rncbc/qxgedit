@@ -20,6 +20,7 @@
 *****************************************************************************/
 
 #include "XGParam.h"
+#include "XGParamObserver.h"
 
 #include <cstdio>
 
@@ -2730,7 +2731,8 @@ const XGParamItem *DRUMSETUPParamItem ( unsigned char id )
 
 // Constructor.
 XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
-	: m_param(NULL), m_high(high), m_mid(mid), m_low(low), m_value(0)
+	: m_param(NULL), m_high(high), m_mid(mid), m_low(low),
+		m_value(0), m_busy(false)
 {
 	if (m_high == 0x00 && m_mid == 0x00) {
 		// SYSTEM Parameter Change...
@@ -2751,6 +2753,19 @@ XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
 		// DRUM SETUP Parameter Change...
 		m_param = DRUMSETUPParamItem(m_low);
 	}
+}
+
+
+// Virtual destructor.
+XGParam::~XGParam (void)
+{
+	m_busy = true;
+
+	QListIterator<XGParamObserver *> iter(m_observers);
+	while (iter.hasNext())
+		iter.next()->setParam(NULL);
+
+	m_observers.clear();
 }
 
 
@@ -2820,18 +2835,6 @@ const char *XGParam::unit (void) const
 }
 
 
-// Value accessors.
-void XGParam::setValue ( unsigned short c )
-{
-	m_value = c;
-}
-
-unsigned short XGParam::value (void) const
-{
-	return m_value;
-}
-
-
 // Decode param value from raw data.
 unsigned short XGParam::valueFromData ( unsigned char *data ) const
 {
@@ -2844,6 +2847,65 @@ unsigned short XGParam::valueFromData ( unsigned char *data ) const
 		ret += (data[i] << (bits * (n - i - 1)));
 
 	return ret;
+}
+
+
+// Value accessors.
+void XGParam::setValue ( unsigned short u, XGParamObserver *sender )
+{
+	unsigned short old = u;
+
+	m_value = u;
+
+	if (old != u)
+		notify(sender);
+}
+
+unsigned short XGParam::value (void) const
+{
+	return m_value;
+}
+
+
+// Busy flag predicate.
+bool XGParam::isBusy() const
+{
+	return m_busy;
+}
+
+
+// Observer/view updater.
+void XGParam::notify ( XGParamObserver *sender )
+{
+	m_busy = true;
+
+	QListIterator<XGParamObserver *> iter(m_observers);
+	while (iter.hasNext()) {
+		XGParamObserver *observer = iter.next();
+		if (sender && sender == observer)
+			continue;
+		observer->update();
+	}
+
+	m_busy = false;
+}
+
+
+// Observer list accessors.
+void XGParam::attach ( XGParamObserver *observer )
+{
+	m_observers.append(observer);
+}
+
+void XGParam::detach ( XGParamObserver *observer )
+{
+	m_observers.removeAll(observer);
+}
+
+
+const QList<XGParamObserver *>& XGParam::observers (void) const
+{
+	return m_observers;
 }
 
 
