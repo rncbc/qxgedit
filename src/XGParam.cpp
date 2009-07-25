@@ -3180,7 +3180,7 @@ XGParam *XGParamMasterMap::find_param (
 	XGParamMasterMap::const_iterator iter = XGParamMasterMap::constFind(key);
 	for (; iter != XGParamMasterMap::constEnd() && iter.key() == key; ++iter) {
 		XGParam *param = iter.value();
-		if (key.high() == 0x02 && key.mid() == 0x01 && etype > 0) {
+		if (key.high() == 0x02 && key.mid() == 0x01 && key.low() > 0x00) {
 			XGEffectParam *eparam
 				= static_cast<XGEffectParam *> (param);
 			if (eparam->etype() == etype)
