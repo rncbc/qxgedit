@@ -56,7 +56,7 @@ XGParamWidgetMap::~XGParamWidgetMap(void)
 
 // Add widget to map.
 void XGParamWidgetMap::add_widget (
-	QWidget *widget, XGParamMap *map, unsigned id )
+	QWidget *widget, XGParamMap *map, unsigned short id )
 {
 	XGParamInst inst(map, id);
 	m_widget_map.insert(widget, inst);

@@ -87,7 +87,7 @@ public:
 	static XGParamWidgetMap *getInstance();
 
 	// Add widget to map.
-	void add_widget(QWidget *widget, XGParamMap *map, unsigned id);
+	void add_widget(QWidget *widget, XGParamMap *map, unsigned short id);
 	void add_widget(QWidget *widget, XGParam *param);
 	void add_widget(QWidget *widget, const XGParamKey& key);
 
@@ -113,9 +113,6 @@ private:
 //----------------------------------------------------------------------
 // class XGParamWidget -- Template widget observer/visitor.
 //
-#include <QCheckBox>
-#include <QSpinBox>
-#include <QSlider>
 
 template <class W>
 class XGParamWidget : public W
@@ -131,17 +128,8 @@ public:
 			: XGParamObserver(param), m_widget(widget) {}
 
 	protected:
-
-		// Visitors overload.
-		void visit(QCheckBox *checkbox, unsigned short u)
-			{ checkbox->setChecked(u > 0); }
-		void visit(QSpinBox *spinbox, unsigned short u)
-			{ spinbox->setValue(int(u)); }
-		void visit(QSlider *slider, unsigned short u)
-			{ slider->setValue(int(u)); }
-
 		// Observer updater.
-		void update() { visit(m_widget, value()); }
+		void update() { m_widget->setValue(value()); }
 
 	private:
 		// Members.
@@ -150,26 +138,46 @@ public:
 
 	// Constructor.
 	XGParamWidget(QWidget *parent = NULL)
-		: W(parent), m_observer(NULL) {};
+		: W(parent) {}
 
 	// Destructor.
-	~XGParamWidget()
-		{ if (m_observer) delete m_observer; }
+	virtual ~XGParamWidget()
+		{ clear_observers(); }
 
 	// Setup.
-	void setParam(XGParam *param)
+	void set_param_map(XGParamMap *map, unsigned short id)
 	{
-		if (m_observer) delete m_observer;
-		m_observer = new Observer(param, this); 
+		clear_observers();
+
+		XGParamWidgetMap *pParamWidgetMap = XGParamWidgetMap::getInstance();
+		if (pParamWidgetMap == NULL)
+			return;
+
+		XGParamSet *paramset = map->find_paramset(id);
+		XGParamSet::const_iterator iter = paramset->constBegin();
+		for (; iter != paramset->constEnd(); ++iter)
+			m_observers.append(new Observer(iter.value(), this));
+
+		pParamWidgetMap->add_widget(this, map, id);
 	}
 
 	// Observer accessor.
-	Observer *observer() const { return m_observer; }
+	const QList<Observer *>observers() const
+		{ return m_observers; }
+
+protected:
+
+	// Observers cleaner.
+	void clear_observers()
+	{
+		qDeleteAll(m_observers);
+		m_observers.clear();
+	}
 
 private:
 
 	// Members.
-	Observer *m_observer;
+	QList<Observer *> m_observers;
 };
 
 

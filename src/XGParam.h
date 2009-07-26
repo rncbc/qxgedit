@@ -282,8 +282,6 @@ public:
 	void set_current_key(unsigned short key);
 	unsigned short current_key () const;
 
-protected:
-
 	// Param set/factory method.
 	XGParamSet *find_paramset(unsigned short id);
 
