@@ -161,7 +161,7 @@ public:
 
 		XGParamSet::const_iterator iter = paramset->constBegin();
 		for (; iter != paramset->constEnd(); ++iter)
-			m_observers.append(new Observer(iter.value(), this));
+			m_observers.insert(iter.key(), new Observer(iter.value(), this));
 
 #ifdef XGPARAM_WIDGET_MAP
 		XGParamWidgetMap *pParamWidgetMap = XGParamWidgetMap::getInstance();
@@ -181,18 +181,11 @@ public:
 		if (m_param_map == NULL)
 			return NULL;
 
-		XGParam *param = m_param_map->find_param(m_param_id);
-		if (param == NULL)
+		unsigned short key = m_param_map->current_key();
+		if (!m_observers.contains(key))
 			return NULL;
 
-		QListIterator<Observer *> iter(m_observers);
-		while (iter.hasNext()) {
-			Observer *observer = iter.next();
-			if (observer->param() == param)
-				return observer;
-		}
-
-		return NULL;
+		return static_cast<Observer *> (m_observers.value(key));
 	}
 
 protected:
@@ -200,7 +193,10 @@ protected:
 	// Observers cleaner.
 	void clear_observers()
 	{
-		qDeleteAll(m_observers);
+		QHash<unsigned short, XGParamObserver *>::const_iterator iter
+			= m_observers.constBegin();
+		for (; iter != m_observers.constEnd(); ++iter)
+			delete iter.value();
 		m_observers.clear();
 	}
 
@@ -210,7 +206,7 @@ private:
 	XGParamMap    *m_param_map;
 	unsigned short m_param_id;
 
-	QList<Observer *> m_observers;
+	QHash<unsigned short, XGParamObserver *> m_observers;
 };
 
 
