@@ -25,6 +25,7 @@
 #include "XGParam.h"
 #include "XGParamObserver.h"
 
+#ifdef XGPARAM_WIDGET_MAP
 
 //-------------------------------------------------------------------------
 // class XGParamInst - XGParam/Widget hash key instance.
@@ -109,6 +110,8 @@ private:
 	static XGParamWidgetMap *g_pParamWidgetMap;
 };
 
+#endif	// XGPARAM_WIDGET_MAP
+
 
 //----------------------------------------------------------------------
 // class XGParamWidget -- Template widget observer/visitor.
@@ -138,7 +141,7 @@ public:
 
 	// Constructor.
 	XGParamWidget(QWidget *parent = NULL)
-		: W(parent) {}
+		: W(parent), m_param_map(NULL), m_param_id(0) {}
 
 	// Destructor.
 	virtual ~XGParamWidget()
@@ -149,21 +152,48 @@ public:
 	{
 		clear_observers();
 
-		XGParamWidgetMap *pParamWidgetMap = XGParamWidgetMap::getInstance();
-		if (pParamWidgetMap == NULL)
+		m_param_map = map;
+		m_param_id  = id;
+
+		XGParamSet *paramset = m_param_map->find_paramset(m_param_id);
+		if (paramset == NULL)
 			return;
 
-		XGParamSet *paramset = map->find_paramset(id);
 		XGParamSet::const_iterator iter = paramset->constBegin();
 		for (; iter != paramset->constEnd(); ++iter)
 			m_observers.append(new Observer(iter.value(), this));
 
-		pParamWidgetMap->add_widget(this, map, id);
+#ifdef XGPARAM_WIDGET_MAP
+		XGParamWidgetMap *pParamWidgetMap = XGParamWidgetMap::getInstance();
+		if (pParamWidgetMap)
+			pParamWidgetMap->add_widget(this, m_param_map, m_param_id);
+#endif
 	}
 
+	XGParamMap *param_map() const
+		{ return m_param_map; }
+	unsigned short param_id() const
+		{ return m_param_id; }
+
 	// Observer accessor.
-	const QList<Observer *>observers() const
-		{ return m_observers; }
+	Observer *observer() const
+	{
+		if (m_param_map == NULL)
+			return NULL;
+
+		XGParam *param = m_param_map->find_param(m_param_id);
+		if (param == NULL)
+			return NULL;
+
+		QListIterator<Observer *> iter(m_observers);
+		while (iter.hasNext()) {
+			Observer *observer = iter.next();
+			if (observer->param() == param)
+				return observer;
+		}
+
+		return NULL;
+	}
 
 protected:
 
@@ -177,6 +207,9 @@ protected:
 private:
 
 	// Members.
+	XGParamMap    *m_param_map;
+	unsigned short m_param_id;
+
 	QList<Observer *> m_observers;
 };
 

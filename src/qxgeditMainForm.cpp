@@ -74,9 +74,11 @@ qxgeditMainForm::qxgeditMainForm (
 
 	// Initialize some pointer references.
 	m_pOptions = NULL;
-	m_pParamMasterMap = NULL;
-	m_pParamWidgetMap = NULL;
 	m_pMidiDevice = NULL;
+	m_pParamMasterMap = NULL;
+#ifdef XGPARAM_WIDGET_MAP
+	m_pParamWidgetMap = NULL;
+#endif
 
 	// We'll start clean.
 	m_iUntitled   = 0;
@@ -164,8 +166,10 @@ qxgeditMainForm::~qxgeditMainForm (void)
 	// Free designated devices.
 	if (m_pMidiDevice)
 		delete m_pMidiDevice;
+#ifdef XGPARAM_WIDGET_MAP
 	if (m_pParamWidgetMap)
 		delete m_pParamWidgetMap;
+#endif
 	if (m_pParamMasterMap)
 		delete m_pParamMasterMap;
 
@@ -205,7 +209,9 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 
 	// XG master database...
 	m_pParamMasterMap = new XGParamMasterMap();
+#ifdef XGPARAM_WIDGET_MAP
 	m_pParamWidgetMap = new XGParamWidgetMap();
+#endif
 
 	// Start proper devices...
 	m_pMidiDevice = new qxgeditMidiDevice(QXGEDIT_TITLE);

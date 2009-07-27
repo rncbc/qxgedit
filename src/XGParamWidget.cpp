@@ -21,6 +21,8 @@
 
 #include "XGParamWidget.h"
 
+#ifdef XGPARAM_WIDGET_MAP
+
 #include <QWidget>
 
 #include <cstdio>
@@ -137,6 +139,8 @@ QWidget *XGParamWidgetMap::find_widget ( const XGParamKey& key ) const
 
 	return find_widget(param);
 }
+
+#endif	// XGPARAM_WIDGET_MAP
 
 
 // end of XGParamWidget.cpp

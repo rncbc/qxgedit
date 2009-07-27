@@ -31,7 +31,9 @@ class qxgeditMidiDevice;
 class qxgeditMidiSysexEvent;
 
 class XGParamMasterMap;
+#ifdef XGPARAM_WIDGET_MAP
 class XGParamWidgetMap;
+#endif
 
 class QLabel;
 
@@ -116,7 +118,9 @@ private:
 	// Instance variables...
 	qxgeditOptions    *m_pOptions;
 	XGParamMasterMap  *m_pParamMasterMap;
+#ifdef XGPARAM_WIDGET_MAP
 	XGParamWidgetMap  *m_pParamWidgetMap;
+#endif
 	qxgeditMidiDevice *m_pMidiDevice;
 
 	QString m_sFilename;
