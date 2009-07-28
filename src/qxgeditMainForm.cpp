@@ -388,7 +388,7 @@ unsigned short qxgeditMainForm::sysexXGParam (
 	if (param == NULL)
 		return 0;
 
-	param->setValue(param->valueFromData(data));
+	param->set_value(param->value_data(data));
 
 #ifdef CONFIG_DEBUG
 	fprintf(stderr, "< %02x %02x %02x",

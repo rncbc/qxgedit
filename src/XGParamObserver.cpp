@@ -19,8 +19,6 @@
 
 *****************************************************************************/
 
-#include "XGParamObserver.h"
-
 #include "XGParam.h"
 
 
@@ -42,7 +40,7 @@ XGParamObserver::~XGParamObserver (void)
 
 
 // Subject value accessor.
-void XGParamObserver::setParam ( XGParam *param )
+void XGParamObserver::set_param ( XGParam *param )
 {
 	if (m_param /* && param */)
 		m_param->detach(this);
@@ -60,9 +58,9 @@ XGParam *XGParamObserver::param (void) const
 
 
 // Indirect value accessors.
-void XGParamObserver::setValue ( unsigned short u )
+void XGParamObserver::set_value ( unsigned short u )
 {
-	if (m_param) m_param->setValue(u, this);
+	if (m_param) m_param->set_value(u, this);
 }
 
 unsigned short XGParamObserver::value (void) const
@@ -72,9 +70,9 @@ unsigned short XGParamObserver::value (void) const
 
 
 // Busy flag predicate.
-bool XGParamObserver::isBusy (void) const
+bool XGParamObserver::busy (void) const
 {
-	return (m_param ? m_param->isBusy() : true);
+	return (m_param ? m_param->busy() : true);
 }
 
 

@@ -40,15 +40,18 @@ public:
 	virtual ~XGParamObserver();
 
 	// Subject value accessor.
-	void setParam(XGParam *param);
+	void set_param(XGParam *param);
 	XGParam *param() const;
 
 	// Indirect value accessors.
-	void setValue(unsigned short u);
+	void set_value(unsigned short u);
 	unsigned short value() const;
 
 	// Busy flag predicate.
-	bool isBusy() const;
+	bool busy() const;
+
+	// Pure virtual view updater.
+	virtual void reset() = 0;
 
 	// Pure virtual view updater.
 	virtual void update() = 0;

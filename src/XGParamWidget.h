@@ -23,7 +23,6 @@
 #define __XGParamWidget_h
 
 #include "XGParam.h"
-#include "XGParamObserver.h"
 
 #ifdef XGPARAM_WIDGET_MAP
 
@@ -131,6 +130,8 @@ public:
 			: XGParamObserver(param), m_widget(widget) {}
 
 	protected:
+		// Observer resetter.
+		void reset()  { m_widget->setParam(param()); }
 		// Observer updater.
 		void update() { m_widget->setValue(value()); }
 

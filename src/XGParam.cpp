@@ -20,7 +20,6 @@
 *****************************************************************************/
 
 #include "XGParam.h"
-#include "XGParamObserver.h"
 
 #include <cstdio>
 
@@ -2763,7 +2762,7 @@ XGParam::~XGParam (void)
 
 	QListIterator<XGParamObserver *> iter(m_observers);
 	while (iter.hasNext())
-		iter.next()->setParam(NULL);
+		iter.next()->set_param(NULL);
 
 	m_observers.clear();
 }
@@ -2835,8 +2834,30 @@ const char *XGParam::unit (void) const
 }
 
 
+// Virtual functor accessors.
+float (* XGParam::getv_f (void))(unsigned short u) const
+{
+	return (m_param ? m_param->getv : NULL);
+}
+
+unsigned short (* XGParam::getu_f (void))(float v) const
+{
+	return (m_param ? m_param->getu : NULL);
+}
+
+const char *(* XGParam::gets_f (void))(unsigned short u) const
+{
+	return (m_param ? m_param->gets : NULL);
+}
+
+const char *(* XGParam::unit_f (void))() const
+{
+	return (m_param ? m_param->unit : NULL);
+}
+
+
 // Decode param value from raw data.
-unsigned short XGParam::valueFromData ( unsigned char *data ) const
+unsigned short XGParam::value_data ( unsigned char *data ) const
 {
 	unsigned short bits = 4;
 	if (m_high == 0x02 && m_mid == 0x01)
@@ -2851,14 +2872,14 @@ unsigned short XGParam::valueFromData ( unsigned char *data ) const
 
 
 // Value accessors.
-void XGParam::setValue ( unsigned short u, XGParamObserver *sender )
+void XGParam::set_value ( unsigned short u, XGParamObserver *sender )
 {
 	unsigned short old = u;
 
 	m_value = u;
 
 	if (old != u)
-		notify(sender);
+		notify_update(sender);
 }
 
 unsigned short XGParam::value (void) const
@@ -2868,14 +2889,31 @@ unsigned short XGParam::value (void) const
 
 
 // Busy flag predicate.
-bool XGParam::isBusy() const
+bool XGParam::busy (void) const
 {
 	return m_busy;
 }
 
 
+// Observer/view resetter.
+void XGParam::notify_reset ( XGParamObserver *sender )
+{
+	m_busy = true;
+
+	QListIterator<XGParamObserver *> iter(m_observers);
+	while (iter.hasNext()) {
+		XGParamObserver *observer = iter.next();
+		if (sender && sender == observer)
+			continue;
+		observer->reset();
+	}
+
+	m_busy = false;
+}
+
+
 // Observer/view updater.
-void XGParam::notify ( XGParamObserver *sender )
+void XGParam::notify_update ( XGParamObserver *sender )
 {
 	m_busy = true;
 
@@ -2994,6 +3032,28 @@ const char *XGEffectParam::unit (void) const
 }
 
 
+// Virtual functor accessors.
+float (* XGEffectParam::getv_f (void))(unsigned short u) const
+{
+	return (m_eparam ? m_eparam->getv : XGParam::getv_f());
+}
+
+unsigned short (* XGEffectParam::getu_f (void))(float v) const
+{
+	return (m_eparam ? m_eparam->getu : XGParam::getu_f());
+}
+
+const char *(* XGEffectParam::gets_f (void))(unsigned short u) const
+{
+	return (m_eparam ? m_eparam->gets : XGParam::gets_f());
+}
+
+const char *(* XGEffectParam::unit_f (void))() const
+{
+	return (m_eparam ? m_eparam->unit : XGParam::unit_f());
+}
+
+
 //-------------------------------------------------------------------------
 // class XGParamMap - XG Parameter mapper.
 //
@@ -3002,12 +3062,15 @@ const char *XGEffectParam::unit (void) const
 XGParamMap::XGParamMap (void)
 	: m_key_param(NULL), m_key(0)
 {
+	m_observer = new XGParamMap::Observer(this);
 }
 
 
 // Destructor.
 XGParamMap::~XGParamMap (void)
 {
+	delete m_observer;
+
 	XGParamMap::const_iterator iter = XGParamMap::constBegin();
 	for (; iter != XGParamMap::constEnd(); ++iter)
 		delete iter.value();
@@ -3041,7 +3104,11 @@ XGParam *XGParamMap::find_param ( unsigned short id )
 // Key param accessors.
 void XGParamMap::set_key_param ( XGParam *param )
 {
+	if (m_key_param) m_key_param->detach(m_observer);
+
 	m_key_param = param;
+
+	if (m_key_param) m_key_param->attach(m_observer);
 }
 
 XGParam *XGParamMap::key_param (void) const
@@ -3054,9 +3121,9 @@ XGParam *XGParamMap::key_param (void) const
 void XGParamMap::set_current_key ( unsigned short key )
 {
 	if (m_key_param)
-		m_key_param->setValue(key);
-
-	m_key = key;
+		m_key_param->set_value(key);
+	else
+		m_key = key;
 }
 
 unsigned short XGParamMap::current_key () const
@@ -3078,6 +3145,26 @@ XGParamSet *XGParamMap::find_paramset ( unsigned short id )
 	}
 
 	return paramset;
+}
+
+
+// Local observers notify (key change).
+void XGParamMap::notify_reset (void)
+{
+	if (m_key_param == NULL)
+		return;
+
+	m_key = m_key_param->value();
+
+	XGParamMap::const_iterator iter = XGParamMap::constBegin();
+	for (; iter != XGParamMap::constEnd(); ++iter) {
+		XGParamSet *paramset = iter.value();
+		if (paramset->contains(m_key)) {
+			XGParam *param = paramset->value(m_key);
+			if (param)
+				param->notify_reset();
+		}
+	}
 }
 
 

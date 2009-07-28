@@ -22,6 +22,8 @@
 #ifndef __XGParam_h
 #define __XGParam_h
 
+#include "XGParamObserver.h"
+
 #include <QHash>
 
 
@@ -98,7 +100,6 @@ const XGParamItem *DRUMSETUPParamItem(unsigned char id);
 //-------------------------------------------------------------------------
 // class XGParam - XG Generic parameter descriptor.
 //
-class XGParamObserver;
 
 class XGParam
 {
@@ -128,18 +129,27 @@ public:
 	virtual const char *gets(unsigned short u) const;
 	virtual const char *unit() const;
 
+	// Virtual functor accessors.
+	virtual float (*getv_f())(unsigned short u) const;
+	virtual unsigned short (*getu_f())(float v) const;
+	virtual const char *(*gets_f())(unsigned short u) const;
+	virtual const char *(*unit_f())() const;
+
 	// Decode param value from raw data.
-	unsigned short valueFromData(unsigned char *data) const;
+	unsigned short value_data(unsigned char *data) const;
 
 	// Value accessors.
-	void setValue(unsigned short u, XGParamObserver *sender = NULL);
+	void set_value(unsigned short u, XGParamObserver *sender = NULL);
 	unsigned short value() const;
 
 	// Busy flag predicate.
-	bool isBusy() const;
+	bool busy() const;
 
-	// Observers notification
-	void notify(XGParamObserver *sender = NULL);
+	// Observers reset notification.
+	void notify_reset(XGParamObserver *sender = NULL);
+
+	// Observers update notification.
+	void notify_update(XGParamObserver *sender = NULL);
 
 	// Observer list accessors.
 	void attach(XGParamObserver *observer);
@@ -191,6 +201,12 @@ public:
 	unsigned short getu(float v) const;
 	const char *gets(unsigned short u) const;
 	const char *unit() const;
+
+	// Virtual functor accessors.
+	float (*getv_f())(unsigned short u) const;
+	unsigned short (*getu_f())(float v) const;
+	const char *(*gets_f())(unsigned short u) const;
+	const char *(*unit_f())() const;
 
 private:
 
@@ -285,11 +301,38 @@ public:
 	// Param set/factory method.
 	XGParamSet *find_paramset(unsigned short id);
 
+	// Local observers notify (key change). 
+	void notify_reset();
+
+protected:
+
+	// Local observer.
+	class Observer : public XGParamObserver
+	{
+	public:
+		// Constructor.
+		Observer(XGParamMap *map)
+			: XGParamObserver(NULL), m_map(map) {}
+
+	protected:
+		// Observer reset/updater.
+		void reset() { m_map->notify_reset(); }
+		// Observer updater.
+		void update() { reset(); }
+
+	private:
+		// Members.
+		XGParamMap *m_map;
+	};
+
 private:
 
 	// Instance variables.
 	XGParam *m_key_param;
 	unsigned short m_key;
+
+	// Key param observer.
+	Observer *m_observer;
 };
 
 
