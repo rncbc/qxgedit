@@ -169,6 +169,13 @@ public:
 		if (pParamWidgetMap)
 			pParamWidgetMap->add_widget(this, m_param_map, m_param_id);
 #endif
+
+		unsigned short key = m_param_map->current_key();
+		if (paramset->contains(key)) {
+			XGParam *param = paramset->value(key);
+			if (param)
+				param->notify_reset();
+		}
 	}
 
 	XGParamMap *param_map() const

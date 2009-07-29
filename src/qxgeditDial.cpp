@@ -59,7 +59,7 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	pVBoxLayout->addWidget(m_pSpin);
 	QWidget::setLayout(pVBoxLayout);
 
-	setMaximumSize(QSize(48, 72));
+	setMaximumSize(QSize(56, 72));
 
 	QObject::connect(m_pKnob,
 		SIGNAL(valueChanged(int)),
@@ -111,7 +111,7 @@ void qxgeditDial::setParam ( XGParam *param )
 		m_pKnob->setMinimum(int(param->min()));
 		m_pKnob->setMaximum(int(param->max()));
 		m_pKnob->setDefaultValue(int(param->def()));
-	//	m_pKnob->setValue(int(param->value()));
+		m_pKnob->setValue(int(param->def()));
 		QWidget::setEnabled(true);
 	} else {
 		QWidget::setEnabled(false);

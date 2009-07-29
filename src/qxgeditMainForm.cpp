@@ -240,10 +240,24 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	if (!m_pOptions->sSessionDir.isEmpty())
 		QDir::setCurrent(m_pOptions->sSessionDir);
 
-	qxgeditDialWidget *pDialWidget = new qxgeditDialWidget(centralWidget());
-	pDialWidget->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00); // MASTER TUNE
-	m_pParamMasterMap->SYSTEM.notify_reset();
-	pDialWidget->show();
+	// Set
+	QWidget *pCentralWidget = centralWidget();
+	QGridLayout *pGridLayout = new QGridLayout();
+	pCentralWidget->setFont(QFont(pCentralWidget->font().family(), 6));
+
+	qxgeditDialWidget *pMasterTune = new qxgeditDialWidget(pCentralWidget);
+	pMasterTune->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00); // MASTER TUNE
+	pGridLayout->addWidget(pMasterTune, 0, 0);
+
+	qxgeditDialWidget *pMasterVolume = new qxgeditDialWidget(pCentralWidget);
+	pMasterVolume->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x04); // MASTER VOLUME
+	pGridLayout->addWidget(pMasterVolume, 0, 1);
+
+	qxgeditDialWidget *pMasterTranspose = new qxgeditDialWidget(pCentralWidget);
+	pMasterTranspose->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x06); // MASTER TRANSPOSE
+	pGridLayout->addWidget(pMasterTranspose, 0, 2);
+
+	pCentralWidget->setLayout(pGridLayout);
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {
