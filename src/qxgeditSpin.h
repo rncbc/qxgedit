@@ -24,6 +24,9 @@
 
 #include <QAbstractSpinBox>
 
+// Forward declarations.
+class XGParam;
+
 
 //-------------------------------------------------------------------------
 // qxgeditSpin - A custom QSpinBox
@@ -39,25 +42,23 @@ public:
 	// Destructor.
 	~qxgeditSpin();
 
-	// Nominal value accessors.
-	void setValue(unsigned short iValue);
+	// Specialty parameter accessors.
+	void setParam(XGParam *param);
+	XGParam *param() const;
+
+	// Value getter;
 	unsigned short value() const;
 
-	// Minimum value accessors.
-	void setMinimum(unsigned short iMinimum);
-	unsigned short minimum() const;
+public slots:
 
-	// Maximum value accessors.
-	void setMaximum(unsigned short iMaximum);
-	unsigned short maximum() const;
+	// Value setter.
+	void setValue(unsigned short iValue);
 
-	// Default value accessors.
-	void setDefaultValue(unsigned short iDefaultValue);
-	unsigned short defaultValue() const;
+protected slots:
 
-	// Specialty functors setters.
-	void setGetv(float (*pfnGetv)(unsigned short));
-	void setGetu(unsigned short (*pfnGetu)(float));
+	// Pseudo-fixup slot.
+	void editingFinishedSlot();
+	void valueChangedSlot(const QString&);
 
 signals:
 
@@ -80,23 +81,11 @@ protected:
 	unsigned short valueFromText(const QString& sText) const;
 	QString textFromValue(unsigned short iValue) const;
 
-protected slots:
-
-	// Pseudo-fixup slot.
-	void editingFinishedSlot();
-	void valueChangedSlot(const QString&);
-
 private:
 
-	// Instance variables.
-	unsigned short m_iValue;
-	unsigned short m_iMinimumValue;
-	unsigned short m_iMaximumValue;
-	unsigned short m_iDefaultValue;
-
-	// Specialty functors setters.
-	float (*m_pfnGetv)(unsigned short);
-	unsigned short (*m_pfnGetu)(float);
+	// Instance variables:
+	// - XG parameter reference.
+	XGParam *m_param;
 };
 
 

@@ -29,6 +29,7 @@ class QLabel;
 class qxgeditKnob;
 class qxgeditSpin;
 
+class XGParam;
 
 //-------------------------------------------------------------------------
 // qxgeditDial - Custom composite widget.
@@ -47,28 +48,17 @@ public:
 	// Text label accessor.
 	void setText(const QString& sText);
 	QString text() const;
-	
+
+	// Specialty parameter accessors.
+	void setParam(XGParam *param);
+	XGParam *param() const;
+
 	// Value getter.
 	unsigned short value() const;
 
-	// Minimum value accessors.
-	void setMinimum(unsigned short iMinimum);
-	unsigned short minimum() const;
-
-	// Maximum value accessors.
-	void setMaximum(unsigned short iMaximum);
-	unsigned short maximum() const;
-
-	// Default value accessors.
-	void setDefaultValue(unsigned short iDefaultValue);
-	unsigned short defaultValue() const;
-
-	// Specialty functors setters.
-	void setGetv(float (*pfnGetv)(unsigned short));
-	void setGetu(unsigned short (*pfnGetu)(float));
-
 signals:
 
+	// Value change signal.
 	void valueChanged(unsigned short);
 
 public slots:

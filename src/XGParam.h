@@ -129,12 +129,6 @@ public:
 	virtual const char *gets(unsigned short u) const;
 	virtual const char *unit() const;
 
-	// Virtual functor accessors.
-	virtual float (*getv_f())(unsigned short u) const;
-	virtual unsigned short (*getu_f())(float v) const;
-	virtual const char *(*gets_f())(unsigned short u) const;
-	virtual const char *(*unit_f())() const;
-
 	// Decode param value from raw data.
 	unsigned short value_data(unsigned char *data) const;
 
@@ -201,12 +195,6 @@ public:
 	unsigned short getu(float v) const;
 	const char *gets(unsigned short u) const;
 	const char *unit() const;
-
-	// Virtual functor accessors.
-	float (*getv_f())(unsigned short u) const;
-	unsigned short (*getu_f())(float v) const;
-	const char *(*gets_f())(unsigned short u) const;
-	const char *(*unit_f())() const;
 
 private:
 

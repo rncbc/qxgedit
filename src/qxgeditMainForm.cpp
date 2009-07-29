@@ -55,10 +55,24 @@
 #define QXGEDIT_SYSEX_EVENT QEvent::Type(QEvent::User + 1)
 
 
-//-------------------------------------------------------------------------
-// qxgeditMainForm -- Main window form implementation.
+//----------------------------------------------------------------------------
+// qxgeditDialWidget - XG Param dial widget.
+//
+#include "qxgeditDial.h"
 
-// Kind of singleton reference.
+class qxgeditDialWidget : public XGParamWidget<qxgeditDial>
+{
+public:
+
+	// Constructor.
+	qxgeditDialWidget(QWidget *pParent = NULL)
+		: XGParamWidget<qxgeditDial> (pParent) {}
+};
+
+
+//----------------------------------------------------------------------------
+// qxgeditMainForm -- UI wrapper form.
+//
 qxgeditMainForm *qxgeditMainForm::g_pMainForm = NULL;
 
 // Constructor.
@@ -225,6 +239,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	// Change to last known session dir...
 	if (!m_pOptions->sSessionDir.isEmpty())
 		QDir::setCurrent(m_pOptions->sSessionDir);
+
+	qxgeditDialWidget *pDialWidget = new qxgeditDialWidget(centralWidget());
+	pDialWidget->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00); // MASTER TUNE
+	m_pParamMasterMap->SYSTEM.notify_reset();
+	pDialWidget->show();
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {

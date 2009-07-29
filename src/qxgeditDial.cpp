@@ -25,6 +25,8 @@
 #include "qxgeditKnob.h"
 #include "qxgeditSpin.h"
 
+#include "XGParam.h"
+
 #include <QVBoxLayout>
 #include <QLabel>
 
@@ -65,7 +67,6 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	QObject::connect(m_pSpin,
 		SIGNAL(valueChanged(unsigned short)),
 		SLOT(spinValueChanged(unsigned short)));
-
 }
 
 
@@ -100,54 +101,26 @@ unsigned short qxgeditDial::value (void) const
 }
 
 
-// Minimum value accessors.
-void qxgeditDial::setMinimum ( unsigned short iMinimum )
+// Specialty parameter accessors.
+void qxgeditDial::setParam ( XGParam *param )
 {
-	m_pSpin->setMinimum(iMinimum);
-	m_pKnob->setMinimum(int(iMinimum));
+	m_pSpin->setParam(param);
+
+	if (param && param->name()) {
+		m_pLabel->setText(param->name());
+		m_pKnob->setMinimum(int(param->min()));
+		m_pKnob->setMaximum(int(param->max()));
+		m_pKnob->setDefaultValue(int(param->def()));
+	//	m_pKnob->setValue(int(param->value()));
+		QWidget::setEnabled(true);
+	} else {
+		QWidget::setEnabled(false);
+	}
 }
 
-unsigned short qxgeditDial::minimum (void) const
+XGParam *qxgeditDial::param (void) const
 {
-	return m_pSpin->minimum();
-}
-
-
-// Maximum value accessors.
-void qxgeditDial::setMaximum ( unsigned short iMaximum )
-{
-	m_pSpin->setMaximum(iMaximum);
-	m_pKnob->setMaximum(int(iMaximum));
-}
-
-unsigned short qxgeditDial::maximum (void) const
-{
-	return m_pSpin->maximum();
-}
-
-
-// Default value accessors.
-void qxgeditDial::setDefaultValue ( unsigned short iDefaultValue )
-{
-	m_pSpin->setDefaultValue(iDefaultValue);
-	m_pKnob->setDefaultValue(int(iDefaultValue));
-}
-
-unsigned short qxgeditDial::defaultValue (void) const
-{
-	return m_pSpin->defaultValue();
-}
-
-
-// Specialty functors setters.
-void qxgeditDial::setGetv ( float (*pfnGetv)(unsigned short) )
-{
-	m_pSpin->setGetv(pfnGetv);
-}
-
-void qxgeditDial::setGetu ( unsigned short (*pfnGetu)(float) )
-{
-	m_pSpin->setGetu(pfnGetu);
+	return m_pSpin->param();
 }
 
 
