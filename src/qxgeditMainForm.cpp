@@ -225,24 +225,14 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	if (!m_pOptions->sSessionDir.isEmpty())
 		QDir::setCurrent(m_pOptions->sSessionDir);
 
-	// Set
+	// Setup UI widgets...
 	QWidget *pCentralWidget = centralWidget();
-	QGridLayout *pGridLayout = new QGridLayout();
-	pCentralWidget->setFont(QFont(pCentralWidget->font().family(), 6));
+	const QFont& font = pCentralWidget->font();
+	pCentralWidget->setFont(QFont(font.family(), font.pointSize() - 2));
 
-	qxgeditDial *pMasterTune = new qxgeditDial(pCentralWidget);
-	pMasterTune->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00); // MASTER TUNE
-	pGridLayout->addWidget(pMasterTune, 0, 0);
-
-	qxgeditDial *pMasterVolume = new qxgeditDial(pCentralWidget);
-	pMasterVolume->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x04); // MASTER VOLUME
-	pGridLayout->addWidget(pMasterVolume, 0, 1);
-
-	qxgeditDial *pMasterTranspose = new qxgeditDial(pCentralWidget);
-	pMasterTranspose->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x06); // MASTER TRANSPOSE
-	pGridLayout->addWidget(pMasterTranspose, 0, 2);
-
-	pCentralWidget->setLayout(pGridLayout);
+	m_ui.MasterTuneDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00); // MASTER TUNE
+	m_ui.MasterVolumeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x04); // MASTER VOLUME
+	m_ui.MasterTransposeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x06); // MASTER TRANSPOSE
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {
