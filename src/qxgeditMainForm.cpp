@@ -26,7 +26,7 @@
 
 #include "qxgeditMidiDevice.h"
 
-#include "XGParamWidget.h"
+#include "qxgeditDial.h"
 
 #include "qxgeditOptionsForm.h"
 
@@ -53,21 +53,6 @@
 
 // Specialties for thread-callback comunication.
 #define QXGEDIT_SYSEX_EVENT QEvent::Type(QEvent::User + 1)
-
-
-//----------------------------------------------------------------------------
-// qxgeditDialWidget - XG Param dial widget.
-//
-#include "qxgeditDial.h"
-
-class qxgeditDialWidget : public XGParamWidget<qxgeditDial>
-{
-public:
-
-	// Constructor.
-	qxgeditDialWidget(QWidget *pParent = NULL)
-		: XGParamWidget<qxgeditDial> (pParent) {}
-};
 
 
 //----------------------------------------------------------------------------
@@ -245,15 +230,15 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QGridLayout *pGridLayout = new QGridLayout();
 	pCentralWidget->setFont(QFont(pCentralWidget->font().family(), 6));
 
-	qxgeditDialWidget *pMasterTune = new qxgeditDialWidget(pCentralWidget);
+	qxgeditDial *pMasterTune = new qxgeditDial(pCentralWidget);
 	pMasterTune->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00); // MASTER TUNE
 	pGridLayout->addWidget(pMasterTune, 0, 0);
 
-	qxgeditDialWidget *pMasterVolume = new qxgeditDialWidget(pCentralWidget);
+	qxgeditDial *pMasterVolume = new qxgeditDial(pCentralWidget);
 	pMasterVolume->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x04); // MASTER VOLUME
 	pGridLayout->addWidget(pMasterVolume, 0, 1);
 
-	qxgeditDialWidget *pMasterTranspose = new qxgeditDialWidget(pCentralWidget);
+	qxgeditDial *pMasterTranspose = new qxgeditDial(pCentralWidget);
 	pMasterTranspose->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x06); // MASTER TRANSPOSE
 	pGridLayout->addWidget(pMasterTranspose, 0, 2);
 

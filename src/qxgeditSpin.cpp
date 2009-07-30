@@ -34,8 +34,8 @@
 //
 
 // Constructor.
-qxgeditSpin::qxgeditSpin ( QWidget *parent )
-	: QAbstractSpinBox(parent), m_param(0)
+qxgeditSpin::qxgeditSpin ( QWidget *pParent )
+	: QAbstractSpinBox(pParent), m_pParam(NULL)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(4, 2, 0)
 	QAbstractSpinBox::setAccelerated(true);
@@ -59,8 +59,8 @@ qxgeditSpin::~qxgeditSpin (void)
 // Mark that we got actual value.
 void qxgeditSpin::showEvent ( QShowEvent */*pShowEvent*/ )
 {
-	if (m_param) {
-		QAbstractSpinBox::lineEdit()->setText(textFromValue(m_param->value()));
+	if (m_pParam) {
+		QAbstractSpinBox::lineEdit()->setText(textFromValue(m_pParam->value()));
 		QAbstractSpinBox::interpretText();
 	}
 }
@@ -69,23 +69,23 @@ void qxgeditSpin::showEvent ( QShowEvent */*pShowEvent*/ )
 // Nominal value accessors.
 void qxgeditSpin::setValue ( unsigned short iValue )
 {
-	if (m_param == NULL)
+	if (m_pParam == NULL)
 		return;
 
 	int iCursorPos = QAbstractSpinBox::lineEdit()->cursorPosition();
 
-	if (iValue < m_param->min())
-		iValue = m_param->min();
-	if (iValue > m_param->max() && m_param->max() > m_param->min())
-		iValue = m_param->max();
+	if (iValue < m_pParam->min())
+		iValue = m_pParam->min();
+	if (iValue > m_pParam->max() && m_pParam->max() > m_pParam->min())
+		iValue = m_pParam->max();
 	
-	bool bValueChanged = (iValue != m_param->value());
+	bool bValueChanged = (iValue != m_pParam->value());
 
-	m_param->set_value(iValue);
+	m_pParam->set_value(iValue);
 
 	if (QAbstractSpinBox::isEnabled()) {
 		QPalette pal;
-		if (iValue != m_param->def()) {
+		if (iValue != m_pParam->def()) {
 			const QColor& rgbBase
 				= (pal.window().color().value() < 0x7f
 					? QColor(Qt::darkYellow).darker()
@@ -112,22 +112,20 @@ unsigned short qxgeditSpin::value (void) const
 	if (QAbstractSpinBox::isVisible()) {
 		return valueFromText(QAbstractSpinBox::text());
 	} else {
-		return (m_param ? m_param->value() : 0);
+		return (m_pParam ? m_pParam->value() : 0);
 	}
 }
 
 
 // Specialty functors setters.
-void qxgeditSpin::setParam ( XGParam *param )
+void qxgeditSpin::setParam ( XGParam *pParam )
 {
-	m_param = param;
-
-	QAbstractSpinBox::setEnabled(m_param && m_param->name());
+	m_pParam = pParam;
 }
 
 XGParam *qxgeditSpin::param (void) const
 {
-	return m_param;
+	return m_pParam;
 }
 
 
@@ -159,7 +157,7 @@ void qxgeditSpin::fixup ( QString& sText ) const
 		this, sText.toUtf8().constData());
 #endif
 
-	sText = textFromValue(m_param ? m_param->value() : 0);
+	sText = textFromValue(m_pParam ? m_pParam->value() : 0);
 }
 
 
@@ -185,10 +183,10 @@ QAbstractSpinBox::StepEnabled qxgeditSpin::stepEnabled (void) const
 	StepEnabled flags = StepNone;
 
 	unsigned short iValue = value();
-	if (m_param) {
-		if (iValue < m_param->max() || m_param->min() >= m_param->max())
+	if (m_pParam) {
+		if (iValue < m_pParam->max() || m_pParam->min() >= m_pParam->max())
 			flags |= StepUpEnabled;
-		if (iValue > m_param->min())
+		if (iValue > m_pParam->min())
 			flags |= StepDownEnabled;
 	}
 
@@ -199,12 +197,12 @@ QAbstractSpinBox::StepEnabled qxgeditSpin::stepEnabled (void) const
 // Value/text format converters.
 unsigned short qxgeditSpin::valueFromText ( const QString& sText ) const
 {
-	return (m_param ? m_param->getu(sText.toFloat()) : sText.toUShort());
+	return (m_pParam ? m_pParam->getu(sText.toFloat()) : sText.toUShort());
 }
 
 QString qxgeditSpin::textFromValue ( unsigned short iValue ) const
 {
-	return QString::number(m_param ? m_param->getv(iValue) : float(iValue));
+	return QString::number(m_pParam ? m_pParam->getv(iValue) : float(iValue));
 }
 
 

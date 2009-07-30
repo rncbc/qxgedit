@@ -2852,12 +2852,10 @@ unsigned short XGParam::value_data ( unsigned char *data ) const
 // Value accessors.
 void XGParam::set_value ( unsigned short u, XGParamObserver *sender )
 {
-	unsigned short old = m_value;
-
-	m_value = u;
-
-	if (old != u)
+	if (m_value != u) {
+		m_value  = u;	
 		notify_update(sender);
+	}
 }
 
 unsigned short XGParam::value (void) const
@@ -2876,7 +2874,8 @@ bool XGParam::busy (void) const
 // Observer/view resetter.
 void XGParam::notify_reset ( XGParamObserver *sender )
 {
-	qDebug("DEBUG> XGParam[%p]::notify_reset(%p) %s (%u)", this, sender, name(), value());
+	if (m_busy)
+		return;
 
 	m_busy = true;
 
@@ -2889,13 +2888,16 @@ void XGParam::notify_reset ( XGParamObserver *sender )
 	}
 
 	m_busy = false;
+
+	qDebug("DEBUG> XGParam[%p]::notify_reset(%p) %s (%u)", this, sender, name(), value());
 }
 
 
 // Observer/view updater.
 void XGParam::notify_update ( XGParamObserver *sender )
 {
-	qDebug("DEBUG> XGParam[%p]::notify_update(%p) %s (%u)", this, sender, name(), value());
+	if (m_busy)
+		return;
 
 	m_busy = true;
 
@@ -2908,6 +2910,8 @@ void XGParam::notify_update ( XGParamObserver *sender )
 	}
 
 	m_busy = false;
+
+	qDebug("DEBUG> XGParam[%p]::notify_update(%p) %s (%u)", this, sender, name(), value());
 }
 
 

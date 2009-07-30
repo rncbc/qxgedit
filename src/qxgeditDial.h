@@ -22,6 +22,8 @@
 #ifndef __qxgeditDial_h
 #define __qxgeditDial_h
 
+#include "XGParamWidget.h"
+
 #include <QWidget>
 
 // Forward declarations.
@@ -29,12 +31,11 @@ class QLabel;
 class qxgeditKnob;
 class qxgeditSpin;
 
-class XGParam;
 
 //-------------------------------------------------------------------------
 // qxgeditDial - Custom composite widget.
 
-class qxgeditDial : public QWidget
+class qxgeditDial : public XGParamWidget<QWidget>
 {
 	Q_OBJECT
 
@@ -45,26 +46,22 @@ public:
 	// Destructor.
 	~qxgeditDial();
 
+	// Specialty parameter accessors.
+	void set_param(XGParam *pParam);
+	XGParam *param() const;
+
+	// Value accessors.
+	void set_value(unsigned short iValue);
+	unsigned short value() const;
+
 	// Text label accessor.
 	void setText(const QString& sText);
 	QString text() const;
-
-	// Specialty parameter accessors.
-	void setParam(XGParam *param);
-	XGParam *param() const;
-
-	// Value getter.
-	unsigned short value() const;
 
 signals:
 
 	// Value change signal.
 	void valueChanged(unsigned short);
-
-public slots:
-
-	// Value setter.
-	void setValue(unsigned short iValue);
 
 protected slots:
 

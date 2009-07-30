@@ -126,27 +126,31 @@ public:
 	{
 	public:
 		// Constructor.
-		Observer(XGParam *param, W *widget)
+		Observer(XGParam *param, XGParamWidget<W> *widget)
 			: XGParamObserver(param), m_widget(widget) {}
 
 	protected:
 		// Observer resetter.
-		void reset()  { m_widget->setParam(param()); }
+		void reset()  { m_widget->set_param(param()); }
 		// Observer updater.
-		void update() { m_widget->setValue(value()); }
+		void update() { m_widget->set_value(value()); }
 
 	private:
 		// Members.
-		W *m_widget;
+		XGParamWidget<W> *m_widget;
 	};
 
 	// Constructor.
 	XGParamWidget(QWidget *parent = NULL)
 		: W(parent), m_param_map(NULL), m_param_id(0) {}
 
-	// Destructor.
+	// Virtual destructor.
 	virtual ~XGParamWidget()
 		{ clear_observers(); }
+
+	// Pure virtual methods.
+	virtual void set_param(XGParam *param) = 0;
+	virtual void set_value(unsigned short u) = 0;
 
 	// Setup.
 	void set_param_map(XGParamMap *map, unsigned short id)

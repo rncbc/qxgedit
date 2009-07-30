@@ -22,10 +22,9 @@
 #ifndef __qxgeditSpin_h
 #define __qxgeditSpin_h
 
-#include <QAbstractSpinBox>
+#include "XGParamWidget.h"
 
-// Forward declarations.
-class XGParam;
+#include <QAbstractSpinBox>
 
 
 //-------------------------------------------------------------------------
@@ -43,16 +42,12 @@ public:
 	~qxgeditSpin();
 
 	// Specialty parameter accessors.
-	void setParam(XGParam *param);
+	void setParam(XGParam *pParam);
 	XGParam *param() const;
 
-	// Value getter;
-	unsigned short value() const;
-
-public slots:
-
-	// Value setter.
+	// Value accessors.
 	void setValue(unsigned short iValue);
+	unsigned short value() const;
 
 protected slots:
 
@@ -85,7 +80,7 @@ private:
 
 	// Instance variables:
 	// - XG parameter reference.
-	XGParam *m_param;
+	XGParam *m_pParam;
 };
 
 

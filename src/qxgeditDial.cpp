@@ -37,7 +37,7 @@
 
 // Constructor.
 qxgeditDial::qxgeditDial ( QWidget *pParent )
-	: QWidget(pParent)
+	: XGParamWidget<QWidget> (pParent)
 {
 	m_pLabel = new QLabel();
 	m_pKnob  = new qxgeditKnob();
@@ -89,7 +89,7 @@ QString qxgeditDial::text (void) const
 
 
 // Nominal value accessors.
-void qxgeditDial::setValue ( unsigned short iValue )
+void qxgeditDial::set_value ( unsigned short iValue )
 {
 	m_pSpin->setValue(iValue);
 //	m_pKnob->setValue(int(m_pSpin->value()));
@@ -102,18 +102,21 @@ unsigned short qxgeditDial::value (void) const
 
 
 // Specialty parameter accessors.
-void qxgeditDial::setParam ( XGParam *param )
+void qxgeditDial::set_param ( XGParam *pParam )
 {
-	m_pSpin->setParam(param);
+	m_pSpin->setParam(pParam);
 
-	if (param && param->name()) {
-		m_pLabel->setText(param->name());
-		m_pKnob->setMinimum(int(param->min()));
-		m_pKnob->setMaximum(int(param->max()));
-		m_pKnob->setDefaultValue(int(param->def()));
-		m_pKnob->setValue(int(param->def()));
+	if (pParam && pParam->name()) {
+		QString sText = QString(pParam->name()).simplified();
+		m_pLabel->setText(sText);
+		m_pKnob->setMinimum(int(pParam->min()));
+		m_pKnob->setMaximum(int(pParam->max()));
+		m_pKnob->setDefaultValue(int(pParam->def()));
+		m_pKnob->setValue(int(pParam->def()));
+		QWidget::setToolTip(sText);
 		QWidget::setEnabled(true);
 	} else {
+		m_pLabel->clear();
 		QWidget::setEnabled(false);
 	}
 }

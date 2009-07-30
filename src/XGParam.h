@@ -166,6 +166,7 @@ private:
 	// Parameter state.
 	unsigned short m_value;
 
+	// Parameter subject/observer stuff;
 	bool m_busy;
 
 	QList<XGParamObserver *> m_observers;
