@@ -27,6 +27,7 @@
 #include "qxgeditMidiDevice.h"
 
 #include "qxgeditDial.h"
+#include "qxgeditCombo.h"
 
 #include "qxgeditOptionsForm.h"
 
@@ -230,9 +231,13 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	const QFont& font = pCentralWidget->font();
 	pCentralWidget->setFont(QFont(font.family(), font.pointSize() - 2));
 
-	m_ui.MasterTuneDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00); // MASTER TUNE
-	m_ui.MasterVolumeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x04); // MASTER VOLUME
-	m_ui.MasterTransposeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x06); // MASTER TRANSPOSE
+	m_ui.MasterTuneDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00);			// MASTER TUNE
+	m_ui.MasterVolumeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x04);		// MASTER VOLUME
+	m_ui.MasterTransposeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x06);	// MASTER TRANSPOSE
+
+	m_ui.ReverbTypeCombo->set_param_map(&(m_pParamMasterMap->REVERB), 0x00);		// REVERB TYPE
+	m_ui.ChorusTypeCombo->set_param_map(&(m_pParamMasterMap->CHORUS), 0x20);		// CHORUS TYPE
+	m_ui.VariationTypeCombo->set_param_map(&(m_pParamMasterMap->VARIATION), 0x40);	// VARIATION TYPE
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {

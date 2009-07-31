@@ -180,6 +180,12 @@ public:
 			if (param)
 				param->notify_reset();
 		}
+		else
+		if (m_param_map->key_param()) {
+			XGParam *param = m_param_map->key_param();
+			m_observers.insert(0, new Observer(param, this));
+			param->notify_reset();
+		}
 	}
 
 	XGParamMap *param_map() const

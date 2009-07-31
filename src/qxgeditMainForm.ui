@@ -68,34 +68,34 @@
           <property name="title" >
            <string>SYSTEM</string>
           </property>
-          <layout class="QHBoxLayout">
+          <layout class="QHBoxLayout" >
            <item>
-            <widget class="qxgeditDial" name="MasterTuneDial">
-             <property name="text">
-              <string>TUNE</string>
+            <widget class="qxgeditDial" name="MasterTuneDial" >
+             <property name="text" >
+              <string>Tune</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="qxgeditDial" name="MasterVolumeDial">
-             <property name="text">
-              <string>VOLUME</string>
+            <widget class="qxgeditDial" name="MasterVolumeDial" >
+             <property name="text" >
+              <string>Volume</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="qxgeditDial" name="MasterTransposeDial">
-             <property name="text">
-              <string>TRANSP</string>
+            <widget class="qxgeditDial" name="MasterTransposeDial" >
+             <property name="text" >
+              <string>Transpose</string>
              </property>
             </widget>
            </item>
            <item>
             <spacer>
-             <property name="orientation">
+             <property name="orientation" >
               <enum>Qt::Horizontal</enum>
              </property>
-             <property name="sizeHint" stdset="0">
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>20</height>
@@ -111,6 +111,24 @@
           <property name="title" >
            <string>REVERB</string>
           </property>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="qxgeditCombo" name="ReverbTypeCombo" />
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -118,6 +136,24 @@
           <property name="title" >
            <string>CHORUS</string>
           </property>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="qxgeditCombo" name="ChorusTypeCombo" />
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -125,6 +161,24 @@
           <property name="title" >
            <string>VARIATION</string>
           </property>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="qxgeditCombo" name="VariationTypeCombo" />
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -419,6 +473,12 @@
    <class>qxgeditDial</class>
    <extends>QLabel</extends>
    <header>qxgeditDial.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>qxgeditCombo</class>
+   <extends>QComboBox</extends>
+   <header>qxgeditCombo.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

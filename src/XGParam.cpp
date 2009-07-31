@@ -3129,6 +3129,18 @@ void XGParamMap::notify_reset (void)
 }
 
 
+// Key/type name stuff.
+const XGParamMap::Keys& XGParamMap::keys (void) const
+{
+	return m_keys;
+}
+
+void XGParamMap::add_key ( unsigned short key, const QString& name )
+{
+	m_keys.insert(key, name);
+}
+
+
 //-------------------------------------------------------------------------
 // class XGParamMasterMap - XG Parameter master state database.
 //
@@ -3231,6 +3243,24 @@ XGParamMasterMap::XGParamMasterMap (void)
 				DRUMSETUP.add_param(param, (j << 7) + k);
 			}
 		}
+	}
+
+	// REVERB key names...
+	for (i = 0; i < TSIZE(REVERBEffectTab); ++i) {
+		XGEffectItem *item = &REVERBEffectTab[i];
+		REVERB.add_key((item->msb << 7) + item->lsb, item->name);
+	}
+
+	// CHORUS key names...
+	for (i = 0; i < TSIZE(CHORUSEffectTab); ++i) {
+		XGEffectItem *item = &CHORUSEffectTab[i];
+		CHORUS.add_key((item->msb << 7) + item->lsb, item->name);
+	}
+
+	// VARIATION key names...
+	for (i = 0; i < TSIZE(VARIATIONEffectTab); ++i) {
+		XGEffectItem *item = &VARIATIONEffectTab[i];
+		VARIATION.add_key((item->msb << 7) + item->lsb, item->name);
 	}
 
 	// Pseudo-singleton set.

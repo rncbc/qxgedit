@@ -25,6 +25,7 @@
 #include "XGParamObserver.h"
 
 #include <QHash>
+#include <QMap> // Needed to get XGParamMap::Keys sorted.
 
 
 #ifdef __cplusplus
@@ -293,6 +294,12 @@ public:
 	// Local observers notify (key change). 
 	void notify_reset();
 
+	// Key/type name stuff.
+	typedef QMap<unsigned short, QString> Keys;
+
+	const Keys& keys() const;
+	void add_key(unsigned short key, const QString& name);
+
 protected:
 
 	// Local observer.
@@ -322,6 +329,9 @@ private:
 
 	// Key param observer.
 	Observer *m_observer;
+
+	// Key names registry.
+	Keys m_keys;
 };
 
 
