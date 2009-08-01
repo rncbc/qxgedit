@@ -231,13 +231,87 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	const QFont& font = pCentralWidget->font();
 	pCentralWidget->setFont(QFont(font.family(), font.pointSize() - 2));
 
-	m_ui.MasterTuneDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x00);			// MASTER TUNE
-	m_ui.MasterVolumeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x04);		// MASTER VOLUME
-	m_ui.MasterTransposeDial->set_param_map(&(m_pParamMasterMap->SYSTEM), 0x06);	// MASTER TRANSPOSE
+	XGParamMap *SYSTEM = &(m_pParamMasterMap->SYSTEM);
+	XGParamMap *REVERB = &(m_pParamMasterMap->REVERB);
+	XGParamMap *CHORUS = &(m_pParamMasterMap->CHORUS);
+	XGParamMap *VARIATION = &(m_pParamMasterMap->VARIATION);
+//	XGParamMap *MULTIPART = &(m_pParamMasterMap->MULTIPART);
+//	XGParamMap *DRUMSETUP = &(m_pParamMasterMap->DRUMSETUP);
 
-	m_ui.ReverbTypeCombo->set_param_map(&(m_pParamMasterMap->REVERB), 0x00);		// REVERB TYPE
-	m_ui.ChorusTypeCombo->set_param_map(&(m_pParamMasterMap->CHORUS), 0x20);		// CHORUS TYPE
-	m_ui.VariationTypeCombo->set_param_map(&(m_pParamMasterMap->VARIATION), 0x40);	// VARIATION TYPE
+	// SYSTEM...
+	m_ui.MasterTuneDial      ->set_param_map(SYSTEM, 0x00);
+	m_ui.MasterVolumeDial    ->set_param_map(SYSTEM, 0x04);
+	m_ui.MasterTransposeDial ->set_param_map(SYSTEM, 0x06);
+	// REVERB...
+	m_ui.ReverbTypeCombo     ->set_param_map(REVERB, 0x00);
+	m_ui.ReverbParam1Dial    ->set_param_map(REVERB, 0x02);
+	m_ui.ReverbParam2Dial    ->set_param_map(REVERB, 0x03);
+	m_ui.ReverbParam3Dial    ->set_param_map(REVERB, 0x04);
+	m_ui.ReverbParam4Dial    ->set_param_map(REVERB, 0x05);
+	m_ui.ReverbParam5Dial    ->set_param_map(REVERB, 0x06);
+	m_ui.ReverbParam6Dial    ->set_param_map(REVERB, 0x07);
+	m_ui.ReverbParam7Dial    ->set_param_map(REVERB, 0x08);
+	m_ui.ReverbParam8Dial    ->set_param_map(REVERB, 0x09);
+	m_ui.ReverbParam9Dial    ->set_param_map(REVERB, 0x0a);
+	m_ui.ReverbParam10Dial   ->set_param_map(REVERB, 0x0b);
+	m_ui.ReverbReturnDial    ->set_param_map(REVERB, 0x0c);
+	m_ui.ReverbPanDial       ->set_param_map(REVERB, 0x0d);
+	m_ui.ReverbParam11Dial   ->set_param_map(REVERB, 0x10);
+	m_ui.ReverbParam12Dial   ->set_param_map(REVERB, 0x11);
+	m_ui.ReverbParam13Dial   ->set_param_map(REVERB, 0x12);
+	m_ui.ReverbParam14Dial   ->set_param_map(REVERB, 0x13);
+	m_ui.ReverbParam15Dial   ->set_param_map(REVERB, 0x14);
+	m_ui.ReverbParam16Dial   ->set_param_map(REVERB, 0x15);
+	// CHORUS...
+	m_ui.ChorusTypeCombo     ->set_param_map(CHORUS, 0x20);
+	m_ui.ChorusParam1Dial    ->set_param_map(CHORUS, 0x22);
+	m_ui.ChorusParam2Dial    ->set_param_map(CHORUS, 0x23);
+	m_ui.ChorusParam3Dial    ->set_param_map(CHORUS, 0x24);
+	m_ui.ChorusParam4Dial    ->set_param_map(CHORUS, 0x25);
+	m_ui.ChorusParam5Dial    ->set_param_map(CHORUS, 0x26);
+	m_ui.ChorusParam6Dial    ->set_param_map(CHORUS, 0x27);
+	m_ui.ChorusParam7Dial    ->set_param_map(CHORUS, 0x28);
+	m_ui.ChorusParam8Dial    ->set_param_map(CHORUS, 0x29);
+	m_ui.ChorusParam9Dial    ->set_param_map(CHORUS, 0x2a);
+	m_ui.ChorusParam10Dial   ->set_param_map(CHORUS, 0x2b);
+	m_ui.ChorusReturnDial    ->set_param_map(CHORUS, 0x2c);
+	m_ui.ChorusPanDial       ->set_param_map(CHORUS, 0x2d);
+	m_ui.ChorusReverbDial    ->set_param_map(CHORUS, 0x2e);
+	m_ui.ChorusParam11Dial   ->set_param_map(CHORUS, 0x30);
+	m_ui.ChorusParam12Dial   ->set_param_map(CHORUS, 0x31);
+	m_ui.ChorusParam13Dial   ->set_param_map(CHORUS, 0x32);
+	m_ui.ChorusParam14Dial   ->set_param_map(CHORUS, 0x33);
+	m_ui.ChorusParam15Dial   ->set_param_map(CHORUS, 0x34);
+	m_ui.ChorusParam16Dial   ->set_param_map(CHORUS, 0x35);
+	// VARIATION...
+	m_ui.VariationTypeCombo  ->set_param_map(VARIATION, 0x40);
+	m_ui.VariationParam1Dial ->set_param_map(VARIATION, 0x42);
+	m_ui.VariationParam2Dial ->set_param_map(VARIATION, 0x44);
+	m_ui.VariationParam3Dial ->set_param_map(VARIATION, 0x46);
+	m_ui.VariationParam4Dial ->set_param_map(VARIATION, 0x48);
+	m_ui.VariationParam5Dial ->set_param_map(VARIATION, 0x4a);
+	m_ui.VariationParam6Dial ->set_param_map(VARIATION, 0x4c);
+	m_ui.VariationParam7Dial ->set_param_map(VARIATION, 0x4e);
+	m_ui.VariationParam8Dial ->set_param_map(VARIATION, 0x50);
+	m_ui.VariationParam9Dial ->set_param_map(VARIATION, 0x52);
+	m_ui.VariationParam10Dial->set_param_map(VARIATION, 0x54);
+	m_ui.VariationReturnDial ->set_param_map(VARIATION, 0x56);
+	m_ui.VariationPanDial    ->set_param_map(VARIATION, 0x57);
+	m_ui.VariationReverbDial ->set_param_map(VARIATION, 0x58);
+	m_ui.VariationChorusDial ->set_param_map(VARIATION, 0x59);
+	m_ui.VariationConnectDial->set_param_map(VARIATION, 0x5a);
+	m_ui.VariationPartDial   ->set_param_map(VARIATION, 0x5b);
+	m_ui.VariationWheelDial  ->set_param_map(VARIATION, 0x5c);
+	m_ui.VariationBendDial   ->set_param_map(VARIATION, 0x5d);
+	m_ui.VariationCATDial    ->set_param_map(VARIATION, 0x5e);
+	m_ui.VariationAC1Dial    ->set_param_map(VARIATION, 0x5f);
+	m_ui.VariationAC2Dial    ->set_param_map(VARIATION, 0x60);
+	m_ui.VariationParam11Dial->set_param_map(VARIATION, 0x70);
+	m_ui.VariationParam12Dial->set_param_map(VARIATION, 0x71);
+	m_ui.VariationParam13Dial->set_param_map(VARIATION, 0x72);
+	m_ui.VariationParam14Dial->set_param_map(VARIATION, 0x73);
+	m_ui.VariationParam15Dial->set_param_map(VARIATION, 0x74);
+	m_ui.VariationParam16Dial->set_param_map(VARIATION, 0x75);
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {

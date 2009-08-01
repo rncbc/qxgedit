@@ -2358,7 +2358,7 @@ XGParamItem EFFECTParamTab[] =
 	{ 0x5d, 1,  0,  127, "VARIATION BEND DEPTH",   64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x5e, 1,  0,  127, "VARIATION CAT DEPTH",    64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x5f, 1,  0,  127, "VARIATION AC1 DEPTH",    64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x60, 1,  0,  127, "VARIATION AC1 DEPTH",    64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x60, 1,  0,  127, "VARIATION AC2 DEPTH",    64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x70, 1,  2,   10, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 11 - depends on VARIATION TYPE
 	{ 0x71, 1,  2,   11, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 12 - depends on VARIATION TYPE
 	{ 0x72, 1,  2,   12, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 13 - depends on VARIATION TYPE

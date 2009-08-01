@@ -59,7 +59,7 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	pVBoxLayout->addWidget(m_pSpin);
 	QWidget::setLayout(pVBoxLayout);
 
-	setMaximumSize(QSize(56, 72));
+	setMaximumSize(QSize(52, 72));
 
 	QObject::connect(m_pKnob,
 		SIGNAL(valueChanged(int)),
@@ -118,7 +118,7 @@ void qxgeditDial::set_param ( XGParam *pParam )
 		QWidget::setToolTip(sText);
 		QWidget::setEnabled(true);
 	} else {
-		m_pLabel->clear();
+	//	m_pLabel->clear();
 		QWidget::setEnabled(false);
 	}
 }

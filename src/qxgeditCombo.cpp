@@ -34,6 +34,7 @@ qxgeditCombo::qxgeditCombo ( QWidget *pParent )
 	: XGParamWidget<QComboBox> (pParent), m_pParam(NULL)
 {
 	QComboBox::setMinimumWidth(140);
+	QComboBox::setMaximumHeight(QFontMetrics(font()).lineSpacing() + 2);
 
 	QObject::connect(this,
 		SIGNAL(activated(int)),

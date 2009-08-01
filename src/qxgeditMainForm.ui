@@ -42,143 +42,674 @@
    <string>QXGEdit</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../icons/qxgedit.qrc" >
-    <normaloff>:/icons/qxgedit.png</normaloff>:/icons/qxgedit.png</iconset>
+   <iconset resource="../icons/qxgedit.qrc" >:/icons/qxgedit.png</iconset>
   </property>
-  <widget class="QWidget" name="widget" >
+  <widget class="QWidget" name="MainCentralWidget">
    <layout class="QVBoxLayout" >
-    <property name="spacing" >
-     <number>0</number>
-    </property>
-    <property name="margin" >
-     <number>0</number>
-    </property>
     <item>
      <widget class="QTabWidget" name="MainTabWidget" >
       <property name="currentIndex" >
        <number>0</number>
       </property>
-      <widget class="QWidget" name="SYSTEM_EFFECT" >
+      <widget class="QWidget" name="SYSTEMEFFECT" >
        <attribute name="title" >
         <string>SYSTEM / EFFECT</string>
        </attribute>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QGroupBox" name="SYSTEMGroupBox" >
-          <property name="title" >
-           <string>SYSTEM</string>
+         <widget class="QToolBox" name="SYSTEMEFFECTToolBox" >
+          <property name="currentIndex" >
+           <number>0</number>
           </property>
-          <layout class="QHBoxLayout" >
-           <item>
-            <widget class="qxgeditDial" name="MasterTuneDial" >
-             <property name="text" >
-              <string>Tune</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="qxgeditDial" name="MasterVolumeDial" >
-             <property name="text" >
-              <string>Volume</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="qxgeditDial" name="MasterTransposeDial" >
-             <property name="text" >
-              <string>Transpose</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="REVERBGroupBox" >
-          <property name="title" >
-           <string>REVERB</string>
-          </property>
-          <layout class="QHBoxLayout" >
-           <item>
-            <widget class="qxgeditCombo" name="ReverbTypeCombo" />
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="CHORUSGroupBox" >
-          <property name="title" >
-           <string>CHORUS</string>
-          </property>
-          <layout class="QHBoxLayout" >
-           <item>
-            <widget class="qxgeditCombo" name="ChorusTypeCombo" />
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="VARIATIONGroupBox" >
-          <property name="title" >
-           <string>VARIATION</string>
-          </property>
-          <layout class="QHBoxLayout" >
-           <item>
-            <widget class="qxgeditCombo" name="VariationTypeCombo" />
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
+          <widget class="QWidget" name="SYSTEMPage" >
+           <attribute name="label" >
+            <string>SYSTEM</string>
+           </attribute>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" >
+             <widget class="qxgeditDial" name="MasterTuneDial" >
+              <property name="text" >
+               <string>Tune</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" >
+             <widget class="qxgeditDial" name="MasterVolumeDial" >
+              <property name="text" >
+               <string>Volume</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" >
+             <widget class="qxgeditDial" name="MasterTransposeDial" >
+              <property name="text" >
+               <string>Transpose</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0" colspan="4" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="REVERBPage" >
+           <attribute name="label" >
+            <string>REVERB</string>
+           </attribute>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" colspan="3" >
+             <widget class="qxgeditCombo" name="ReverbTypeCombo" />
+            </item>
+            <item row="0" column="3" colspan="7" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item rowspan="3" row="0" column="10" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0" >
+             <widget class="qxgeditDial" name="ReverbParam1Dial" >
+              <property name="text" >
+               <string>Param 1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="qxgeditDial" name="ReverbParam2Dial" >
+              <property name="text" >
+               <string>Param 2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="qxgeditDial" name="ReverbParam3Dial" >
+              <property name="text" >
+               <string>Param 3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" >
+             <widget class="qxgeditDial" name="ReverbParam4Dial" >
+              <property name="text" >
+               <string>Param 4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4" >
+             <widget class="qxgeditDial" name="ReverbParam5Dial" >
+              <property name="text" >
+               <string>Param 5</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5" >
+             <widget class="qxgeditDial" name="ReverbParam6Dial" >
+              <property name="text" >
+               <string>Param 6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6" >
+             <widget class="qxgeditDial" name="ReverbParam7Dial" >
+              <property name="text" >
+               <string>Param 7</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="7" >
+             <widget class="qxgeditDial" name="ReverbParam8Dial" >
+              <property name="text" >
+               <string>Param 8</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="8" >
+             <widget class="qxgeditDial" name="ReverbParam9Dial" >
+              <property name="text" >
+               <string>Param 9</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="9" >
+             <widget class="qxgeditDial" name="ReverbParam10Dial" >
+              <property name="text" >
+               <string>Param 10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="qxgeditDial" name="ReverbReturnDial" >
+              <property name="text" >
+               <string>Return</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" >
+             <widget class="qxgeditDial" name="ReverbPanDial" >
+              <property name="text" >
+               <string>Pan</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2" >
+             <widget class="qxgeditDial" name="ReverbParam11Dial" >
+              <property name="text" >
+               <string>Param 11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3" >
+             <widget class="qxgeditDial" name="ReverbParam12Dial" >
+              <property name="text" >
+               <string>Param 12</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4" >
+             <widget class="qxgeditDial" name="ReverbParam13Dial" >
+              <property name="text" >
+               <string>Param 13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5" >
+             <widget class="qxgeditDial" name="ReverbParam14Dial" >
+              <property name="text" >
+               <string>Param 14</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6" >
+             <widget class="qxgeditDial" name="ReverbParam15Dial" >
+              <property name="text" >
+               <string>Param 15</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="7" >
+             <widget class="qxgeditDial" name="ReverbParam16Dial" >
+              <property name="text" >
+               <string>Param 16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="11" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="CHORUSPage" >
+           <attribute name="label" >
+            <string>CHORUS</string>
+           </attribute>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" colspan="3" >
+             <widget class="qxgeditCombo" name="ChorusTypeCombo" />
+            </item>
+            <item row="0" column="3" colspan="7" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item rowspan="3" row="0" column="10" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0" >
+             <widget class="qxgeditDial" name="ChorusParam1Dial" >
+              <property name="text" >
+               <string>Param 1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="qxgeditDial" name="ChorusParam2Dial" >
+              <property name="text" >
+               <string>Param 2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="qxgeditDial" name="ChorusParam3Dial" >
+              <property name="text" >
+               <string>Param 3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" >
+             <widget class="qxgeditDial" name="ChorusParam4Dial" >
+              <property name="text" >
+               <string>Param 4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4" >
+             <widget class="qxgeditDial" name="ChorusParam5Dial" >
+              <property name="text" >
+               <string>Param 5</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5" >
+             <widget class="qxgeditDial" name="ChorusParam6Dial" >
+              <property name="text" >
+               <string>Param 6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6" >
+             <widget class="qxgeditDial" name="ChorusParam7Dial" >
+              <property name="text" >
+               <string>Param 7</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="7" >
+             <widget class="qxgeditDial" name="ChorusParam8Dial" >
+              <property name="text" >
+               <string>Param 8</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="8" >
+             <widget class="qxgeditDial" name="ChorusParam9Dial" >
+              <property name="text" >
+               <string>Param 9</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="9" >
+             <widget class="qxgeditDial" name="ChorusParam10Dial" >
+              <property name="text" >
+               <string>Param 10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="qxgeditDial" name="ChorusReturnDial" >
+              <property name="text" >
+               <string>Return</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" >
+             <widget class="qxgeditDial" name="ChorusPanDial" >
+              <property name="text" >
+               <string>Pan</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2" >
+             <widget class="qxgeditDial" name="ChorusReverbDial" >
+              <property name="text" >
+               <string>Reverb</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3" >
+             <widget class="qxgeditDial" name="ChorusParam11Dial" >
+              <property name="text" >
+               <string>Param 11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4" >
+             <widget class="qxgeditDial" name="ChorusParam12Dial" >
+              <property name="text" >
+               <string>Param 12</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5" >
+             <widget class="qxgeditDial" name="ChorusParam13Dial" >
+              <property name="text" >
+               <string>Param 13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6" >
+             <widget class="qxgeditDial" name="ChorusParam14Dial" >
+              <property name="text" >
+               <string>Param 14</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="7" >
+             <widget class="qxgeditDial" name="ChorusParam15Dial" >
+              <property name="text" >
+               <string>Param 15</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="8" >
+             <widget class="qxgeditDial" name="ChorusParam16Dial" >
+              <property name="text" >
+               <string>Param 16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="11" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="VARIATIONPage" >
+           <attribute name="label" >
+            <string>VARIATION</string>
+           </attribute>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" colspan="3" >
+             <widget class="qxgeditCombo" name="VariationTypeCombo" />
+            </item>
+            <item row="0" column="3" colspan="7" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item rowspan="4" row="0" column="10" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0" >
+             <widget class="qxgeditDial" name="VariationParam1Dial" >
+              <property name="text" >
+               <string>Param 1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="qxgeditDial" name="VariationParam2Dial" >
+              <property name="text" >
+               <string>Param 2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="qxgeditDial" name="VariationParam3Dial" >
+              <property name="text" >
+               <string>Param 3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3" >
+             <widget class="qxgeditDial" name="VariationParam4Dial" >
+              <property name="text" >
+               <string>Param 4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4" >
+             <widget class="qxgeditDial" name="VariationParam5Dial" >
+              <property name="text" >
+               <string>Param 5</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5" >
+             <widget class="qxgeditDial" name="VariationParam6Dial" >
+              <property name="text" >
+               <string>Param 6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6" >
+             <widget class="qxgeditDial" name="VariationParam7Dial" >
+              <property name="text" >
+               <string>Param 7</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="7" >
+             <widget class="qxgeditDial" name="VariationParam8Dial" >
+              <property name="text" >
+               <string>Param 8</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="8" >
+             <widget class="qxgeditDial" name="VariationParam9Dial" >
+              <property name="text" >
+               <string>Param 9</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="9" >
+             <widget class="qxgeditDial" name="VariationParam10Dial" >
+              <property name="text" >
+               <string>Param 10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="qxgeditDial" name="VariationReturnDial" >
+              <property name="text" >
+               <string>Return</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" >
+             <widget class="qxgeditDial" name="VariationPanDial" >
+              <property name="text" >
+               <string>Pan</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2" >
+             <widget class="qxgeditDial" name="VariationReverbDial" >
+              <property name="text" >
+               <string>Reverb</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3" >
+             <widget class="qxgeditDial" name="VariationChorusDial" >
+              <property name="text" >
+               <string>Chorus</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4" >
+             <widget class="qxgeditDial" name="VariationConnectDial" >
+              <property name="text" >
+               <string>Connect</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5" >
+             <widget class="qxgeditDial" name="VariationPartDial" >
+              <property name="text" >
+               <string>Part</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6" >
+             <widget class="qxgeditDial" name="VariationWheelDial" >
+              <property name="text" >
+               <string>M.Wheel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="7" >
+             <widget class="qxgeditDial" name="VariationBendDial" >
+              <property name="text" >
+               <string>P.Bend</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="8" >
+             <widget class="qxgeditDial" name="VariationCATDial" >
+              <property name="text" >
+               <string>CAT</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="9" >
+             <widget class="qxgeditDial" name="VariationAC1Dial" >
+              <property name="text" >
+               <string>AC1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" >
+             <widget class="qxgeditDial" name="VariationAC2Dial" >
+              <property name="text" >
+               <string>AC2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" >
+             <widget class="qxgeditDial" name="VariationParam11Dial" >
+              <property name="text" >
+               <string>Param 11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" >
+             <widget class="qxgeditDial" name="VariationParam12Dial" >
+              <property name="text" >
+               <string>Param 12</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3" >
+             <widget class="qxgeditDial" name="VariationParam13Dial" >
+              <property name="text" >
+               <string>Param 13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4" >
+             <widget class="qxgeditDial" name="VariationParam14Dial" >
+              <property name="text" >
+               <string>Param 14</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5" >
+             <widget class="qxgeditDial" name="VariationParam15Dial" >
+              <property name="text" >
+               <string>Param 15</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="6" >
+             <widget class="qxgeditDial" name="VariationParam16Dial" >
+              <property name="text" >
+               <string>Param 16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="11" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -216,7 +747,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
+     <width>905</width>
      <height>30</height>
     </rect>
    </property>
