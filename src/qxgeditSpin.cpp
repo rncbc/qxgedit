@@ -78,7 +78,7 @@ void qxgeditSpin::setValue ( unsigned short iValue )
 		iValue = m_pParam->min();
 	if (iValue > m_pParam->max() && m_pParam->max() > m_pParam->min())
 		iValue = m_pParam->max();
-	
+
 	bool bValueChanged = (iValue != m_pParam->value());
 
 	m_pParam->set_value(iValue);

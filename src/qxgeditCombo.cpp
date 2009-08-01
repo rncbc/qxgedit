@@ -51,12 +51,37 @@ qxgeditCombo::~qxgeditCombo (void)
 // Nominal value accessors.
 void qxgeditCombo::set_value ( unsigned short iValue )
 {
-	if (m_pParam)
-		m_pParam->set_value(iValue);
+	if (m_pParam == NULL)
+		return;
 
-	int iCombo = QComboBox::findData(value());
+	if (iValue < m_pParam->min())
+		iValue = m_pParam->min();
+	if (iValue > m_pParam->max() && m_pParam->max() > m_pParam->min())
+		iValue = m_pParam->max();
+
+	bool bValueChanged = (iValue != m_pParam->value());
+
+	m_pParam->set_value(iValue);
+
+	int iCombo = QComboBox::findData(iValue);
 	if (iCombo >= 0)
 		QComboBox::setCurrentIndex(iCombo);
+
+	if (QComboBox::isEnabled()) {
+		QPalette pal;
+		if (iValue != m_pParam->def()) {
+			const QColor& rgbBase
+				= (pal.window().color().value() < 0x7f
+					? QColor(Qt::darkYellow).darker()
+					: QColor(Qt::yellow).lighter());
+			pal.setColor(QPalette::Base, rgbBase);
+		//	pal.setColor(QPalette::Text, Qt::black);
+		}
+		QComboBox::setPalette(pal);
+	}
+
+	if (bValueChanged)
+		emit valueChanged(iValue);
 }
 
 unsigned short qxgeditCombo::value (void) const
@@ -78,6 +103,7 @@ void qxgeditCombo::set_param ( XGParam *pParam )
 		XGParamMap::Keys::const_iterator iter = keys.constBegin();
 		for (; iter != keys.constEnd(); ++iter)
 			QComboBox::addItem(iter.value(), iter.key());
+		set_value(m_pParam->def());
 	}
 }
 
