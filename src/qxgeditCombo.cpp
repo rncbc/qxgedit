@@ -67,18 +67,17 @@ void qxgeditCombo::set_value ( unsigned short iValue )
 	if (iCombo >= 0)
 		QComboBox::setCurrentIndex(iCombo);
 
-	if (QComboBox::isEnabled()) {
-		QPalette pal;
-		if (iValue != m_pParam->def()) {
-			const QColor& rgbBase
-				= (pal.window().color().value() < 0x7f
-					? QColor(Qt::darkYellow).darker()
-					: QColor(Qt::yellow).lighter());
-			pal.setColor(QPalette::Base, rgbBase);
-		//	pal.setColor(QPalette::Text, Qt::black);
-		}
-		QComboBox::setPalette(pal);
+	QPalette pal;
+	if (QComboBox::isEnabled()
+		&& iValue != m_pParam->def()) {
+		const QColor& rgbBase
+			= (pal.window().color().value() < 0x7f
+				? QColor(Qt::darkYellow).darker()
+				: QColor(Qt::yellow).lighter());
+		pal.setColor(QPalette::Base, rgbBase);
+	//	pal.setColor(QPalette::Text, Qt::black);
 	}
+	QComboBox::setPalette(pal);
 
 	if (bValueChanged)
 		emit valueChanged(iValue);
@@ -103,7 +102,12 @@ void qxgeditCombo::set_param ( XGParam *pParam )
 		XGParamMap::Keys::const_iterator iter = keys.constBegin();
 		for (; iter != keys.constEnd(); ++iter)
 			QComboBox::addItem(iter.value(), iter.key());
-		set_value(m_pParam->def());
+	}
+
+	if (m_pParam) {
+		int iCombo = QComboBox::findData(m_pParam->value());
+		if (iCombo >= 0)
+			QComboBox::setCurrentIndex(iCombo);
 	}
 }
 

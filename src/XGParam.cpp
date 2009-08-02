@@ -2730,8 +2730,8 @@ const XGParamItem *DRUMSETUPParamItem ( unsigned char id )
 
 // Constructor.
 XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
-	: m_param(NULL), m_high(high), m_mid(mid), m_low(low),
-		m_value(0), m_busy(false)
+	: m_param(NULL), m_value(0),
+		m_high(high), m_mid(mid), m_low(low), m_busy(false)
 {
 	if (m_high == 0x00 && m_mid == 0x00) {
 		// SYSTEM Parameter Change...
@@ -2752,6 +2752,10 @@ XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
 		// DRUM SETUP Parameter Change...
 		m_param = DRUMSETUPParamItem(m_low);
 	}
+
+	// Set initial default.
+	if (m_param)
+		m_value = m_param->def;
 }
 
 
@@ -2958,6 +2962,10 @@ XGEffectParam::XGEffectParam (
 		if (effect && effect->params)
 			m_eparam = &(effect->params[m_param->max]);
 	}
+
+	// Re(set) initial default.
+	if (m_eparam)
+		m_value = XGEffectParam::def();
 }
 
 
@@ -2990,7 +2998,7 @@ unsigned short XGEffectParam::def (void) const
 		switch (m_param->min) {
 			case 0: return REVERBEffectDefault(m_etype, m_param->max);
 			case 1: return CHORUSEffectDefault(m_etype, m_param->max);
-			case 2:	return VARIATIONEffectDefault(m_etype, m_param->max);
+			case 2: return VARIATIONEffectDefault(m_etype, m_param->max);
 		}
 	}
 

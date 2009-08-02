@@ -83,18 +83,17 @@ void qxgeditSpin::setValue ( unsigned short iValue )
 
 	m_pParam->set_value(iValue);
 
-	if (QAbstractSpinBox::isEnabled()) {
-		QPalette pal;
-		if (iValue != m_pParam->def()) {
-			const QColor& rgbBase
-				= (pal.window().color().value() < 0x7f
-					? QColor(Qt::darkYellow).darker()
-					: QColor(Qt::yellow).lighter());
-			pal.setColor(QPalette::Base, rgbBase);
-		//	pal.setColor(QPalette::Text, Qt::black);
-		}
-		QAbstractSpinBox::setPalette(pal);
+	QPalette pal;
+	if (QAbstractSpinBox::isEnabled()
+		&& iValue != m_pParam->def()) {
+		const QColor& rgbBase
+			= (pal.window().color().value() < 0x7f
+				? QColor(Qt::darkYellow).darker()
+				: QColor(Qt::yellow).lighter());
+		pal.setColor(QPalette::Base, rgbBase);
+	//	pal.setColor(QPalette::Text, Qt::black);
 	}
+	QAbstractSpinBox::setPalette(pal);
 
 	if (QAbstractSpinBox::isVisible()) {
 		QAbstractSpinBox::lineEdit()->setText(textFromValue(iValue));
@@ -121,6 +120,9 @@ unsigned short qxgeditSpin::value (void) const
 void qxgeditSpin::setParam ( XGParam *pParam )
 {
 	m_pParam = pParam;
+
+	if (m_pParam)
+		setValue(m_pParam->value());
 }
 
 XGParam *qxgeditSpin::param (void) const
@@ -197,12 +199,23 @@ QAbstractSpinBox::StepEnabled qxgeditSpin::stepEnabled (void) const
 // Value/text format converters.
 unsigned short qxgeditSpin::valueFromText ( const QString& sText ) const
 {
-	return (m_pParam ? m_pParam->getu(sText.toFloat()) : sText.toUShort());
+	float fValue = 0.0f;
+	if (sText.indexOf('k') >= 0)
+		fValue = QString(sText).remove('k').toFloat() * 1000.0f;
+	else
+		fValue = sText.toFloat();
+	return (m_pParam ? m_pParam->getu(fValue) : (unsigned short) (fValue));
 }
 
 QString qxgeditSpin::textFromValue ( unsigned short iValue ) const
 {
-	return QString::number(m_pParam ? m_pParam->getv(iValue) : float(iValue));
+	float fValue = (m_pParam ? m_pParam->getv(iValue) : float(iValue));
+	if (fValue >= 1000.0f) {
+		fValue /= 1000.0f;
+		return QString::number(fValue) + 'k';
+	} else {
+		return QString::number(fValue);
+	}
 }
 
 

@@ -104,6 +104,11 @@ unsigned short qxgeditDial::value (void) const
 // Specialty parameter accessors.
 void qxgeditDial::set_param ( XGParam *pParam )
 {
+	if (m_iBusy > 0)
+		return;
+
+	m_iBusy++;
+
 	m_pSpin->setParam(pParam);
 
 	if (pParam && pParam->name()) {
@@ -112,7 +117,7 @@ void qxgeditDial::set_param ( XGParam *pParam )
 		m_pKnob->setMinimum(int(pParam->min()));
 		m_pKnob->setMaximum(int(pParam->max()));
 		m_pKnob->setDefaultValue(int(pParam->def()));
-		m_pKnob->setValue(int(pParam->def()));
+		m_pKnob->setValue(int(pParam->value()));
 		if (pParam->unit())
 			sText += QString(" (%1)").arg(pParam->unit());
 		QWidget::setToolTip(sText);
@@ -121,6 +126,8 @@ void qxgeditDial::set_param ( XGParam *pParam )
 	//	m_pLabel->clear();
 		QWidget::setEnabled(false);
 	}
+
+	m_iBusy--;
 }
 
 XGParam *qxgeditDial::param (void) const

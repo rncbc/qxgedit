@@ -157,15 +157,15 @@ protected:
 	// Parameter descriptor.
 	const XGParamItem *m_param;
 
+	// Parameter state.
+	unsigned short m_value;
+
 private:
 
 	// Parameter address.
 	unsigned char m_high;
 	unsigned char m_mid;
 	unsigned char m_low;
-
-	// Parameter state.
-	unsigned short m_value;
 
 	// Parameter subject/observer stuff;
 	bool m_busy;
