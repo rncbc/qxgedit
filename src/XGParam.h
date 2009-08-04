@@ -152,6 +152,10 @@ public:
 
 	const QList<XGParamObserver *>& observers() const;
 
+	// Textual (name parsed) representations.
+	QString label() const;
+	QString text() const;
+
 protected:
 
 	// Parameter descriptor.

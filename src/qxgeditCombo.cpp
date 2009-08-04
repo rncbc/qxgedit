@@ -108,6 +108,7 @@ void qxgeditCombo::set_param ( XGParam *pParam )
 		int iCombo = QComboBox::findData(m_pParam->value());
 		if (iCombo >= 0)
 			QComboBox::setCurrentIndex(iCombo);
+		QWidget::setToolTip(m_pParam->text());
 	}
 }
 

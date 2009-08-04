@@ -109,23 +109,20 @@ void qxgeditDial::set_param ( XGParam *pParam )
 
 	m_iBusy++;
 
-	m_pSpin->setParam(pParam);
-
 	if (pParam && pParam->name()) {
-		QString sText = QString(pParam->name()).simplified();
-	//	m_pLabel->setText(sText);
+		QWidget::setEnabled(true);
+		m_pLabel->setText(pParam->label());
 		m_pKnob->setMinimum(int(pParam->min()));
 		m_pKnob->setMaximum(int(pParam->max()));
 		m_pKnob->setDefaultValue(int(pParam->def()));
 		m_pKnob->setValue(int(pParam->value()));
-		if (pParam->unit())
-			sText += QString(" (%1)").arg(pParam->unit());
-		QWidget::setToolTip(sText);
-		QWidget::setEnabled(true);
+		QWidget::setToolTip(pParam->text());
 	} else {
-	//	m_pLabel->clear();
 		QWidget::setEnabled(false);
+		m_pLabel->clear();
 	}
+
+	m_pSpin->setParam(pParam);
 
 	m_iBusy--;
 }
