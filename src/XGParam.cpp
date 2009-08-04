@@ -2283,12 +2283,12 @@ XGEffectItem VARIATIONEffectTab[] =
 static
 XGParamItem SYSTEMParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 4,  0, 2047, "MASTER TUNE",          1024, getv1024, getu1024, NULL,     unit_cen },
-	{ 0x04, 1,  0,  127, "MASTER VOLUME",         127, NULL,     NULL,     NULL,     NULL     },
-	{ 0x06, 1, 40,   88, "TRANSPOSE",              64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x7d, 1,  0,    1, "DRUM SETUP RESET",        0, NULL,     NULL,     NULL,     NULL     }, // Drumset number (0,1)
-	{ 0x7e, 1,  0,    0, "XG SYSTEM ON",            0, NULL,     NULL,     NULL,     NULL     }, // 0=XG System ON (receive only)
-	{ 0x7f, 1,  0,    0, "ALL PARAMETER RESET",     0, NULL,     NULL,     NULL,     NULL     }  // 0=ON (receive only)
+	{ 0x00, 4,  0, 2047, "Master Tune",          1024, getv1024, getu1024, NULL,     unit_cen },
+	{ 0x04, 1,  0,  127, "Master Volume",         127, NULL,     NULL,     NULL,     NULL     },
+	{ 0x06, 1, 40,   88, "Transpose",              64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x7d, 1,  0,    1, "Drum Setup Reset",        0, NULL,     NULL,     NULL,     NULL     }, // Drumset number (0,1)
+	{ 0x7e, 1,  0,    0, "XG System On",            0, NULL,     NULL,     NULL,     NULL     }, // 0=XG System ON (receive only)
+	{ 0x7f, 1,  0,    0, "All Parameter Reset",     0, NULL,     NULL,     NULL,     NULL     }  // 0=ON (receive only)
 };
 
 
@@ -2298,7 +2298,7 @@ XGParamItem SYSTEMParamTab[] =
 static
 XGParamItem EFFECTParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 2,  0,16383, "REVERB TYPE",           128, NULL,     NULL,     NULL,     NULL     }, // msb=0x01 lsb=0x00 (HALL 1)
+	{ 0x00, 2,  0,16383, "Reverb Type",           128, NULL,     NULL,     NULL,     NULL     }, // msb=0x01 lsb=0x00 (HALL 1)
 	{ 0x02, 1,  0,    0, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 1  - depends on REVERB TYPE
 	{ 0x03, 1,  0,    1, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 2  - depends on REVERB TYPE
 	{ 0x04, 1,  0,    2, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 3  - depends on REVERB TYPE
@@ -2309,15 +2309,15 @@ XGParamItem EFFECTParamTab[] =
 	{ 0x09, 1,  0,    7, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 8  - depends on REVERB TYPE
 	{ 0x0a, 1,  0,    8, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 9  - depends on REVERB TYPE
 	{ 0x0b, 1,  0,    9, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 10 - depends on REVERB TYPE
-	{ 0x0c, 1,  0,  127, "REVERB RETURN",          64, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x0d, 1,  1,  127, "REVERB PAN",             64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x0c, 1,  0,  127, "Reverb Return",          64, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x0d, 1,  1,  127, "Reverb Pan",             64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x10, 1,  0,   10, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 11 - depends on REVERB TYPE
 	{ 0x11, 1,  0,   11, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 12 - depends on REVERB TYPE
 	{ 0x12, 1,  0,   12, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 13 - depends on REVERB TYPE
 	{ 0x13, 1,  0,   13, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 14 - depends on REVERB TYPE
 	{ 0x14, 1,  0,   14, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 15 - depends on REVERB TYPE
 	{ 0x15, 1,  0,   15, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // REVERB PARAMETER 16 - depends on REVERB TYPE
-	{ 0x20, 2,  0,16383, "CHORUS TYPE",          8320, NULL,     NULL,     NULL,     NULL     }, // msb=41 lsb=00 (CHORUS 1)
+	{ 0x20, 2,  0,16383, "Chorus Type",          8320, NULL,     NULL,     NULL,     NULL     }, // msb=41 lsb=00 (CHORUS 1)
 	{ 0x22, 1,  1,    0, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 1  - depends on CHORUS TYPE
 	{ 0x23, 1,  1,    1, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 2  - depends on CHORUS TYPE
 	{ 0x24, 1,  1,    2, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 3  - depends on CHORUS TYPE
@@ -2328,16 +2328,16 @@ XGParamItem EFFECTParamTab[] =
 	{ 0x29, 1,  1,    7, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 8  - depends on CHORUS TYPE
 	{ 0x2a, 1,  1,    8, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 9  - depends on CHORUS TYPE
 	{ 0x2b, 1,  1,    9, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 10 - depends on CHORUS TYPE
-	{ 0x2c, 1,  0,  127, "CHORUS RETURN",          64, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x2d, 1,  1,  127, "CHORUS PAN",             64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x2e, 1,  0,  127, "CHORUS REVERB SEND",      0, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x2c, 1,  0,  127, "Chorus Return",          64, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x2d, 1,  1,  127, "Chorus Pan",             64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x2e, 1,  0,  127, "Chorus Reverb Send",      0, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
 	{ 0x30, 1,  1,   10, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 11 - depends on CHORUS TYPE
 	{ 0x31, 1,  1,   11, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 12 - depends on CHORUS TYPE
 	{ 0x32, 1,  1,   12, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 13 - depends on CHORUS TYPE
 	{ 0x33, 1,  1,   13, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 14 - depends on CHORUS TYPE
 	{ 0x34, 1,  1,   14, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 15 - depends on CHORUS TYPE
 	{ 0x35, 1,  1,   15, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // CHORUS PARAMETER 16 - depends on CHORUS TYPE
-	{ 0x40, 2,  0,16383, "VARIATION TYPE",        640, NULL,     NULL,     NULL,     NULL     }, // msb=05 lsb=00 (DELAY L,C,R)
+	{ 0x40, 2,  0,16383, "Variation Type",        640, NULL,     NULL,     NULL,     NULL     }, // msb=05 lsb=00 (DELAY L,C,R)
 	{ 0x42, 2,  2,    0, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 1  - depends on VARIATION TYPE
 	{ 0x44, 2,  2,    1, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 2  - depends on VARIATION TYPE
 	{ 0x46, 2,  2,    2, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 3  - depends on VARIATION TYPE
@@ -2348,17 +2348,17 @@ XGParamItem EFFECTParamTab[] =
 	{ 0x50, 2,  2,    7, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 8  - depends on VARIATION TYPE
 	{ 0x52, 2,  2,    8, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 9  - depends on VARIATION TYPE
 	{ 0x54, 2,  2,    9, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 10 - depends on VARIATION TYPE
-	{ 0x56, 1,  0,  127, "VARIATION RETURN",       64, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x57, 1,  1,  127, "VARIATION PAN",          64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x58, 1,  0,  127, "VARIATION REVERB SEND",   0, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x59, 1,  0,  127, "VARIATION CHORUS SEND",   0, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x5a, 1,  0,    1, "VARIATION CONNECTION",    0, NULL,     NULL,     getsconn, NULL     },
-	{ 0x5b, 1,  0,  127, "VARIATION PART",        127, NULL,     NULL,     NULL,     NULL     }, // part=0..15, 127=OFF
-	{ 0x5c, 1,  0,  127, "VARIATION MW DEPTH",     64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x5d, 1,  0,  127, "VARIATION BEND DEPTH",   64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x5e, 1,  0,  127, "VARIATION CAT DEPTH",    64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x5f, 1,  0,  127, "VARIATION AC1 DEPTH",    64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x60, 1,  0,  127, "VARIATION AC2 DEPTH",    64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x56, 1,  0,  127, "Variation Return",       64, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x57, 1,  1,  127, "Variation Pan",          64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x58, 1,  0,  127, "Variation Reverb Send",   0, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x59, 1,  0,  127, "Variation Chorus Send",   0, NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x5a, 1,  0,    1, "Variation Connection",    0, NULL,     NULL,     getsconn, NULL     },
+	{ 0x5b, 1,  0,  127, "Variation Part",        127, NULL,     NULL,     NULL,     NULL     }, // part=0..15, 127=OFF
+	{ 0x5c, 1,  0,  127, "Variation MW Depth",     64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x5d, 1,  0,  127, "Variation Bend Depth",   64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x5e, 1,  0,  127, "Variation CAT Depth",    64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x5f, 1,  0,  127, "Variation AC1 Depth",    64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x60, 1,  0,  127, "Variation AC2 Depth",    64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x70, 1,  2,   10, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 11 - depends on VARIATION TYPE
 	{ 0x71, 1,  2,   11, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 12 - depends on VARIATION TYPE
 	{ 0x72, 1,  2,   12, NULL,                      0, NULL,     NULL,     NULL,     NULL     }, // VARIATION PARAMETER 13 - depends on VARIATION TYPE
@@ -2374,109 +2374,109 @@ XGParamItem EFFECTParamTab[] =
 static
 XGParamItem MULTIPARTParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 1,  0,   32, "ELEMENT RESERVE",         0, NULL,     NULL,     NULL,     NULL     }, // 0=part10, 2=other
-	{ 0x01, 1,  0,  127, "BANK SELECT MSB",         0, NULL,     NULL,     NULL,     NULL     }, // 127=part10, 0=other
-	{ 0x02, 1,  0,  127, "BANK SELECT LSB",         0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x03, 1,  0,  127, "PROGRAM NUMBER",          0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x04, 1,  0,  127, "Rcv CHANNEL",             0, NULL,     NULL,     NULL,     NULL     }, // 0..15=partno, 127=OFF
-	{ 0x05, 1,  0,    1, "MONO/POLY MODE",          1, NULL,     NULL,     getsmmod, NULL     },
-	{ 0x06, 1,  0,    2, "SAME NOTE KEY ASSIGN",    1, NULL,     NULL,     getskeya, NULL     },
-	{ 0x07, 1,  0,    3, "PART MODE",               0, NULL,     NULL,     getspmod, NULL     }, // other than part10, 2=part10
-	{ 0x08, 1, 40,   88, "NOTE SHIFT",             64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x09, 2,  0,  255, "DETUNE",                127, getv12_7, getu12_7, NULL,     unit_Hz  },
-	{ 0x0b, 1,  0,  127, "VOLUME",                 64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x0c, 1,  0,  127, "VELOCITY SENSE DEPTH",   64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x0d, 1,  0,  127, "VELOCITY SENSE OFFSET",  64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x0e, 1,  0,  127, "PAN",                    64, getv0x40, getu0x40, NULL,     NULL     }, // 0=random
-	{ 0x0f, 1,  0,  127, "NOTE LIMIT LOW",          0, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
-	{ 0x10, 1,  0,  127, "NOTE LIMIT HIGH",       127, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
-	{ 0x11, 1,  0,  127, "DRY LEVEL",             127, NULL,     NULL,     NULL,     NULL     },
-	{ 0x12, 1,  0,  127, "CHORUS SEND",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x13, 1,  0,  127, "REVERB SEND",            40, NULL,     NULL,     NULL,     NULL     },
-	{ 0x14, 1,  0,  127, "VARIATION SEND",          0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x15, 1,  0,  127, "VIBRATO RATE",           64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x16, 1,  0,  127, "VIBRATO DEPTH",          64, getv0x40, getu0x40, NULL,     NULL     }, // drum part ignores
-	{ 0x17, 1,  0,  127, "VIBRATO DELAY",          64, getv0x40, getu0x40, NULL,     NULL     }, // drum part ignores
-	{ 0x18, 1,  0,  127, "FILTER CUTOFF FREQ",     64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x19, 1,  0,  127, "FILTER RESONANCE",       64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x1a, 1,  0,  127, "EG ATTACK TIME",         64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x1b, 1,  0,  127, "EG DECAY TIME",          64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x1c, 1,  0,  127, "EG RELEASE TIME",        64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x1d, 1, 40,   88, "MW PITCH CONTROL",       64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x1e, 1,  0,  127, "MW FILTER CONTROL",      64, getv9450, getu9450, NULL,     NULL     },
-	{ 0x1f, 1,  1,  127, "MW AMPLITUDE CONTROL",   64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x20, 1,  0,  127, "MW LFO PMOD DEPTH",      10, NULL,     NULL,     NULL,     NULL     },
-	{ 0x21, 1,  0,  127, "MW LFO FMOD DEPTH",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x22, 1,  0,  127, "MW LFO AMOD DEPTH",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x23, 1, 40,   88, "BEND PITCH CONTROL",     66, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x24, 1,  0,  127, "BEND FILTER CONTROL",    64, getv9450, getu9450, NULL,     unit_cen },
-	{ 0x25, 1,  0,  127, "BEND AMPLITUDE CONTROL", 64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x26, 1,  1,  127, "BEND LFO PMOD DEPTH",    64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x27, 1,  1,  127, "BEND LFO FMOD DEPTH",    64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x28, 1,  1,  127, "BEND LFO AMOD DEPTH",    64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x30, 1,  0,    1, "Rcv PITCH BEND",          1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x31, 1,  0,    1, "Rcv CH AFTER TOUCH",      1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x32, 1,  0,    1, "Rcv PROGRAM CHANGE",      1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x33, 1,  0,    1, "Rcv CONTROL CHANGE",      1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x34, 1,  0,    1, "Rcv POLY AFTER TOUCH",    1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x35, 1,  0,    1, "Rcv NOTE MESSAGE",        1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x00, 1,  0,   32, "Element Reserve",         0, NULL,     NULL,     NULL,     NULL     }, // 0=part10, 2=other
+	{ 0x01, 1,  0,  127, "Bank Select MSB",         0, NULL,     NULL,     NULL,     NULL     }, // 127=part10, 0=other
+	{ 0x02, 1,  0,  127, "Bank Select LSB",         0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x03, 1,  0,  127, "Program Number",          0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x04, 1,  0,  127, "Rcv Channel",             0, NULL,     NULL,     NULL,     NULL     }, // 0..15=partno, 127=OFF
+	{ 0x05, 1,  0,    1, "Mono/Poly Mode",          1, NULL,     NULL,     getsmmod, NULL     },
+	{ 0x06, 1,  0,    2, "Same Note Key Assign",    1, NULL,     NULL,     getskeya, NULL     },
+	{ 0x07, 1,  0,    3, "Part Mode",               0, NULL,     NULL,     getspmod, NULL     }, // other than part10, 2=part10
+	{ 0x08, 1, 40,   88, "Note Shift",             64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x09, 2,  0,  255, "Detune",                127, getv12_7, getu12_7, NULL,     unit_Hz  },
+	{ 0x0b, 1,  0,  127, "Volume",                 64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0c, 1,  0,  127, "Velocity Sense Depth",   64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0d, 1,  0,  127, "Velocity Sense Offset",  64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0e, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, NULL,     NULL     }, // 0=random
+	{ 0x0f, 1,  0,  127, "Note Limit Low",          0, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
+	{ 0x10, 1,  0,  127, "Note Limit High",       127, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
+	{ 0x11, 1,  0,  127, "Dry Level",             127, NULL,     NULL,     NULL,     NULL     },
+	{ 0x12, 1,  0,  127, "Chorus Send",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x13, 1,  0,  127, "Reverb Send",            40, NULL,     NULL,     NULL,     NULL     },
+	{ 0x14, 1,  0,  127, "Variation Send",          0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x15, 1,  0,  127, "Vibrato Rate",           64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x16, 1,  0,  127, "Vibrato Depth",          64, getv0x40, getu0x40, NULL,     NULL     }, // drum part ignores
+	{ 0x17, 1,  0,  127, "Vibrato Delay",          64, getv0x40, getu0x40, NULL,     NULL     }, // drum part ignores
+	{ 0x18, 1,  0,  127, "Filter Cutoff Freq",     64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x19, 1,  0,  127, "Filter Resonance",       64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x1a, 1,  0,  127, "EG Attack Time",         64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x1b, 1,  0,  127, "EG Decay Time",          64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x1c, 1,  0,  127, "EG Release Time",        64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x1d, 1, 40,   88, "MW Pitch Control",       64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x1e, 1,  0,  127, "MW Filter Control",      64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x1f, 1,  1,  127, "MW Amplitude Control",   64, getv_100, getu_100, NULL,     unit_pct },
+	{ 0x20, 1,  0,  127, "MW LFO Pmod Depth",      10, NULL,     NULL,     NULL,     NULL     },
+	{ 0x21, 1,  0,  127, "MW LFO Fmod Depth",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x22, 1,  0,  127, "MW LFO Amod Depth",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x23, 1, 40,   88, "Bend Pitch Control",     66, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x24, 1,  0,  127, "Bend Filter Control",    64, getv9450, getu9450, NULL,     unit_cen },
+	{ 0x25, 1,  0,  127, "Bend Amplitude Control", 64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x26, 1,  1,  127, "Bend LFO Pmod Depth",    64, getv_100, getu_100, NULL,     unit_pct },
+	{ 0x27, 1,  1,  127, "Bend LFO Fmod Depth",    64, getv_100, getu_100, NULL,     unit_pct },
+	{ 0x28, 1,  1,  127, "Bend LFO Amod Depth",    64, getv_100, getu_100, NULL,     unit_pct },
+	{ 0x30, 1,  0,    1, "Rcv Pitch Bend",          1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x31, 1,  0,    1, "Rcv Chan After Touch",    1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x32, 1,  0,    1, "Rcv Program Change",      1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x33, 1,  0,    1, "Rcv Control Change",      1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x34, 1,  0,    1, "Rcv Poly After Touch",    1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x35, 1,  0,    1, "Rcv Note Message",        1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x36, 1,  0,    1, "Rcv RPN",                 1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x37, 1,  0,    1, "Rcv NRPN",                1, NULL,     NULL,     getsonff, NULL     }, // 1=XG, 0=GM
-	{ 0x38, 1,  0,    1, "Rcv MODULATION",          1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x39, 1,  0,    1, "Rcv VOLUME",              1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3a, 1,  0,    1, "Rcv PAN",                 1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3b, 1,  0,    1, "Rcv EXPRESSION",          1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3c, 1,  0,    1, "Rcv HOLD1",               1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3d, 1,  0,    1, "Rcv PORTAMENTO",          1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3e, 1,  0,    1, "Rcv SOSTENUTO",           1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3f, 1,  0,    1, "Rcv SOFT PEDAL",          1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x40, 1,  0,    1, "Rcv BANK SELECT",         1, NULL,     NULL,     getsonff, NULL     }, // 1=XG, 0=GM
-	{ 0x41, 1,  0,  127, "SCALE TUNING C",         64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x42, 1,  0,  127, "SCALE TUNING C#",        64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x43, 1,  0,  127, "SCALE TUNING D",         64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x44, 1,  0,  127, "SCALE TUNING D#",        64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x45, 1,  0,  127, "SCALE TUNING E",         64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x46, 1,  0,  127, "SCALE TUNING F",         64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x47, 1,  0,  127, "SCALE TUNING F#",        64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x48, 1,  0,  127, "SCALE TUNING G",         64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x49, 1,  0,  127, "SCALE TUNING G#",        64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x4a, 1,  0,  127, "SCALE TUNING A",         64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x4b, 1,  0,  127, "SCALE TUNING A#",        64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x4c, 1,  0,  127, "SCALE TUNING B",         64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x4d, 1, 40,   88, "CAT PITCH CONTROL",      64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x4e, 1,  0,  127, "CAT FILTER CONTROL",     64, getv9450, getu9450, NULL,     NULL     },
-	{ 0x4f, 1,  0,  127, "CAT AMPLITUDE CONTROL",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x50, 1,  0,  127, "CAT LFO PMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x51, 1,  0,  127, "CAT LFO FMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x52, 1,  0,  127, "CAT LFO AMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x53, 1, 40,   88, "PAT PITCH CONTROL",      64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x54, 1,  0,  127, "PAT FILTER CONTROL",     64, getv9450, getu9450, NULL,     NULL     },
-	{ 0x55, 1,  0,  127, "PAT AMPLITUDE CONTROL",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x56, 1,  0,  127, "PAT LFO PMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x57, 1,  0,  127, "PAT LFO FMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x58, 1,  0,  127, "PAT LFO AMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x59, 1,  0,   95, "AC1 CONTROLLER NUMBER",  16, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5a, 1, 40,   88, "AC1 PITCH CONTROL",      64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x5b, 1,  0,  127, "AC1 FILTER CONTROL",     64, getv9450, getu9450, NULL,     NULL     },
-	{ 0x5c, 1,  0,  127, "AC1 AMPLITUDE CONTROL",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x5d, 1,  0,  127, "AC1 LFO PMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5e, 1,  0,  127, "AC1 LFO FMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5f, 1,  0,  127, "AC1 LFO AMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x60, 1,  0,   95, "AC2 CONTROLLER NUMBER",  17, NULL,     NULL,     NULL,     NULL     },
-	{ 0x61, 1, 40,   88, "AC2 PITCH CONTROL",      64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x62, 1,  0,  127, "AC2 FILTER CONTROL",     64, getv9450, getu9450, NULL,     NULL     },
-	{ 0x63, 1,  0,  127, "AC2 AMPLITUDE CONTROL",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x64, 1,  0,  127, "AC2 LFO PMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x65, 1,  0,  127, "AC2 LFO FMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x66, 1,  0,  127, "AC2 LFO AMOD DEPTH",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x67, 1,  0,    1, "PORTAMENTO SWITCH",       0, NULL,     NULL,     getsonff, NULL     },
-	{ 0x68, 1,  0,  127, "PORTAMENTO TIME",         0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x69, 1,  0,  127, "PITCH EG INITIAL LEVEL", 64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6a, 1,  0,  127, "PITCH EG ATTACK TIME",   64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6b, 1,  0,  127, "PITCH EG RELEASE LEVEL", 64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6c, 1,  0,  127, "PITCH EG RELEASE TIME",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6d, 1,  1,  127, "VELOCITY LIMIT LOW",      1, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6e, 1,  1,  127, "VELOCITY LIMIT HIGH",   127, NULL,     NULL,     NULL,     NULL     }
+	{ 0x38, 1,  0,    1, "Rcv Modulation",          1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x39, 1,  0,    1, "Rcv Volume",              1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x3a, 1,  0,    1, "Rcv Pan",                 1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x3b, 1,  0,    1, "Rcv Expression",          1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x3c, 1,  0,    1, "Rcv Hold1",               1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x3d, 1,  0,    1, "Rcv Portamento",          1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x3e, 1,  0,    1, "Rcv Sostenuto",           1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x3f, 1,  0,    1, "Rcv Soft Pedal",          1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x40, 1,  0,    1, "Rcv Bank Select",         1, NULL,     NULL,     getsonff, NULL     }, // 1=XG, 0=GM
+	{ 0x41, 1,  0,  127, "Scale Tuning C",         64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x42, 1,  0,  127, "Scale Tuning C#",        64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x43, 1,  0,  127, "Scale Tuning D",         64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x44, 1,  0,  127, "Scale Tuning D#",        64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x45, 1,  0,  127, "Scale Tuning E",         64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x46, 1,  0,  127, "Scale Tuning F",         64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x47, 1,  0,  127, "Scale Tuning F#",        64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x48, 1,  0,  127, "Scale Tuning G",         64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x49, 1,  0,  127, "Scale Tuning G#",        64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x4a, 1,  0,  127, "Scale Tuning A",         64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x4b, 1,  0,  127, "Scale Tuning A#",        64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x4c, 1,  0,  127, "Scale Tuning B",         64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x4d, 1, 40,   88, "CAT Pitch Control",      64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x4e, 1,  0,  127, "CAT Filter Control",     64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x4f, 1,  0,  127, "CAT Amplitude Control",  64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x50, 1,  0,  127, "CAT LFO Pmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x51, 1,  0,  127, "CAT LFO Fmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x52, 1,  0,  127, "CAT LFO Amod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x53, 1, 40,   88, "PAT Pitch Control",      64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x54, 1,  0,  127, "PAT Filter Control",     64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x55, 1,  0,  127, "PAT Amplitude Control",  64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x56, 1,  0,  127, "PAT LFO Pmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x57, 1,  0,  127, "PAT LFO Fmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x58, 1,  0,  127, "PAT LFO Amod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x59, 1,  0,   95, "AC1 Controller Number",  16, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5a, 1, 40,   88, "AC1 Pitch Control",      64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x5b, 1,  0,  127, "AC1 Filter Control",     64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x5c, 1,  0,  127, "AC1 Amplitude Control",  64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x5d, 1,  0,  127, "AC1 LFO Pmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5e, 1,  0,  127, "AC1 LFO Fmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5f, 1,  0,  127, "AC1 LFO Amod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x60, 1,  0,   95, "AC2 Controller Number",  17, NULL,     NULL,     NULL,     NULL     },
+	{ 0x61, 1, 40,   88, "AC2 Pitch Control",      64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x62, 1,  0,  127, "AC2 Filter Control",     64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x63, 1,  0,  127, "AC2 Amplitude Control",  64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x64, 1,  0,  127, "AC2 LFO Pmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x65, 1,  0,  127, "AC2 LFO Fmod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x66, 1,  0,  127, "AC2 LFO Amod Depth",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x67, 1,  0,    1, "Portamento Switch",       0, NULL,     NULL,     getsonff, NULL     },
+	{ 0x68, 1,  0,  127, "Portamento Time",         0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x69, 1,  0,  127, "Pitch EG Initial Level", 64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6a, 1,  0,  127, "Pitch EG Attack Time",   64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6b, 1,  0,  127, "Pitch EG Release Level", 64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6c, 1,  0,  127, "Pitch EG Release Time",  64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6d, 1,  1,  127, "Velocity Limit Low",      1, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6e, 1,  1,  127, "Velocity Limit High",   127, NULL,     NULL,     NULL,     NULL     }
 };
 
 
@@ -2486,22 +2486,22 @@ XGParamItem MULTIPARTParamTab[] =
 static
 XGParamItem DRUMSETUPParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 1,  0,  127, "PITCH COARSE",           64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x01, 1,  0,  127, "PITCH FINE",             64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x02, 1,  0,  127, "LEVEL",                   0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
-	{ 0x03, 1,  0,  127, "ALTERNATE GROUP",         0, NULL,     NULL,     NULL,     NULL     }, // depend on the note (0=OFF)
-	{ 0x04, 1,  0,  127, "PAN",                     0, getv0x40, getu0x40, NULL,     NULL     }, // depend on the note (0=random)
-	{ 0x05, 1,  0,  127, "REVERB SEND",             0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
-	{ 0x06, 1,  0,  127, "CHORUS SEND",             0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
-	{ 0x07, 1,  0,  127, "VARIATION SEND",        127, NULL,     NULL,     NULL,     NULL     },
-	{ 0x08, 1,  0,    1, "KEY ASSIGN",              0, NULL,     NULL,     getskeya, NULL     },
-	{ 0x09, 1,  0,    1, "Rcv NOTE OFF",            0, NULL,     NULL,     getsonff, NULL     }, // depend on the note
-	{ 0x0a, 1,  0,    1, "Rcv NOTE ON",             1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x0b, 1,  0,  127, "FILTER CUTOFF FREQ",     64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x0c, 1,  0,  127, "FILTER RESONANCE",       64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x0d, 1,  0,  127, "EG ATTACK RATE",         64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x0e, 1,  0,  127, "EG DECAY1 RATE",         64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x0f, 1,  0,  127, "EG DECAY2 RATE",         64, getv0x40, getu0x40, NULL,     NULL     } 
+	{ 0x00, 1,  0,  127, "Pitch Coarse",           64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x01, 1,  0,  127, "Pitch Fine",             64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x02, 1,  0,  127, "Level",                   0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
+	{ 0x03, 1,  0,  127, "Alternate Group",         0, NULL,     NULL,     NULL,     NULL     }, // depend on the note (0=OFF)
+	{ 0x04, 1,  0,  127, "Pan",                     0, getv0x40, getu0x40, NULL,     NULL     }, // depend on the note (0=random)
+	{ 0x05, 1,  0,  127, "Reverb Send",             0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
+	{ 0x06, 1,  0,  127, "Chorus Send",             0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
+	{ 0x07, 1,  0,  127, "Variation Send",        127, NULL,     NULL,     NULL,     NULL     },
+	{ 0x08, 1,  0,    1, "Key Assign",              0, NULL,     NULL,     getskeya, NULL     },
+	{ 0x09, 1,  0,    1, "Rcv Note Off",            0, NULL,     NULL,     getsonff, NULL     }, // depend on the note
+	{ 0x0a, 1,  0,    1, "Rcv Note On",             1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x0b, 1,  0,  127, "Filter Cutoff Freq",     64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x0c, 1,  0,  127, "Filter Resonance",       64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x0d, 1,  0,  127, "EG Attack Rate",         64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x0e, 1,  0,  127, "EG Decay1 Rate",         64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x0f, 1,  0,  127, "EG Decay2 Rate",         64, getv0x40, getu0x40, NULL,     NULL     } 
 };
 
 
@@ -2515,88 +2515,88 @@ static
 XGParamItem USERVOICEParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
 	// [Common]
-	{ 0x00, 8, 32,  127, "VOICE NAME",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x0b, 1,  1,    3, "ELEMENT SWITCH",          0, NULL,     NULL,     NULL,     NULL     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
-	{ 0x0c, 1,  0,  127, "VOICE LEVEL",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x00, 8, 32,  127, "Voice Name",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0b, 1,  1,    3, "Element Switch",          0, NULL,     NULL,     NULL,     NULL     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
+	{ 0x0c, 1,  0,  127, "Voice Level",             0, NULL,     NULL,     NULL,     NULL     },
 	// [Element 1]
-	{ 0x3d, 2,  0,16383, "WAVE NUMBER",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x3f, 1,  0,  127, "NOTE LIMIT LOW",          0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x40, 1,  0,  127, "NOTE LIMIT HIGH",         0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x41, 1,  0,  127, "VELOCITY LIMIT LOW",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x42, 1,  0,  127, "VELOCITY LIMIT HIGH",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x43, 1,  0,    1, "FILTER EG VEL CURVE",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x44, 1,  0,    2, "LFO WAVE SELECT",         0, NULL,     NULL,     getswave, NULL     },
-	{ 0x45, 1,  0,    1, "LFO PHASE INITIALIZE",    0, NULL,     NULL,     getsonff, NULL     },
-	{ 0x46, 1,  0,   63, "LFO SPEED",               0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x47, 1,  0,  127, "LFO DELAY",               0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x48, 1,  0,  127, "LFO FADE TIME",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x49, 1,  0,   63, "LFO PMD DEPTH",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4a, 1,  0,   15, "LFO CMD DEPTH",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4b, 1,  0,   31, "LFO AMD DEPTH",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4c, 1, 32,   96, "NOTE SHIFT",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4d, 1, 14,  114, "DETUNE",                  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4e, 1,  0,    5, "PITCH SCALING",           0, NULL,     NULL,     getspscl, NULL     },
-	{ 0x4f, 1,  0,  127, "PITCH SC CENTER NOTE",    0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x50, 1,  0,    3, "PITCH EG DEPTH",          0, NULL,     NULL,     getspdph, NULL     },
-	{ 0x51, 1, 57,   71, "VEL PEG LEVEL SENS",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x52, 1, 57,   71, "VEL PEG RATE SENS",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x53, 1, 57,   71, "PEG RATE SCALING",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x54, 1,  0,  127, "PEG RATE SC CENTER NOTE", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x55, 1,  0,   63, "PEG RATE 1",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x56, 1,  0,   63, "PEG RATE 2",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x57, 1,  0,   63, "PEG RATE 3",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x58, 1,  0,   63, "PEG RATE 4",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x59, 1,  0,  127, "PEG LEVEL 0",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5a, 1,  0,  127, "PEG LEVEL 1",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5b, 1,  0,  127, "PEG LEVEL 2",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5c, 1,  0,  127, "PEG LEVEL 3",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5d, 1,  0,  127, "PEG LEVEL 4",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5e, 1,  0,   63, "FILTER RESONANCE",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5f, 1,  0,    7, "VELOCITY SENSITIVITY",    0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x60, 1,  0,  127, "CUTOFF FREQUENCY",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x61, 1,  0,  127, "CUTOFF SC BREAK POINT 1", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x62, 1,  0,  127, "CUTOFF SC BREAK POINT 2", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x63, 1,  0,  127, "CUTOFF SC BREAK POINT 3", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x64, 1,  0,  127, "CUTOFF SC BREAK POINT 4", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x65, 1,  0,  127, "CUTOFF SC OFFSET 1",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x66, 1,  0,  127, "CUTOFF SC OFFSET 2",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x67, 1,  0,  127, "CUTOFF SC OFFSET 3",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x68, 1,  0,  127, "CUTOFF SC OFFSET 4",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x69, 1, 57,   71, "VEL FEG LEVEL SENS",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6a, 1, 57,   71, "VEL FEG RATE SENS",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6b, 1, 57,   71, "FEG RATE SCALING",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6c, 1,  0,  127, "FEG RATE SC CENTER NOTE", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6d, 1,  0,   63, "FEG RATE 1",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6e, 1,  0,   63, "FEG RATE 2",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6f, 1,  0,   63, "FEG RATE 3",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x70, 1,  0,   63, "FEG RATE 4",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x71, 1,  0,  127, "FEG LEVEL 0",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x72, 1,  0,  127, "FEG LEVEL 1",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x73, 1,  0,  127, "FEG LEVEL 2",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x74, 1,  0,  127, "FEG LEVEL 3",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x75, 1,  0,  127, "FEG LEVEL 4",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x76, 1,  0,  127, "ELEMENT LEVEL",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x77, 1,  0,  127, "LEVEL SC BREAK POINT 1",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x78, 1,  0,  127, "LEVEL SC BREAK POINT 2",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x79, 1,  0,  127, "LEVEL SC BREAK POINT 3",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7a, 1,  0,  127, "LEVEL SC BREAK POINT 4",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7b, 1,  0,  127, "LEVEL SC OFFSET 1",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7c, 1,  0,  127, "LEVEL SC OFFSET 2",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7d, 1,  0,  127, "LEVEL SC OFFSET 3",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7e, 1,  0,  127, "LEVEL SC OFFSET 4",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7f, 1,  0,    6, "VELOCITY CURVE",          0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x80, 1,  0,   15, "PAN",                     0, NULL,     NULL,     NULL,     NULL     }, // 0=Left..14=Right, 15=Scaling
-	{ 0x81, 1, 57,   71, "AEG RATE SCALING",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x82, 1,  0,  127, "AEG SC CENTER NOTE",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x83, 1,  0,   15, "AEG KEY ON DELAY",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x84, 1,  0,  127, "AEG ATTACK RATE",         0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x85, 1,  0,  127, "AEG DECAY 1 RATE",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x86, 1,  0,  127, "AEG DECAY 2 RATE",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x87, 1,  0,  127, "AEG RELEASE RATE",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x88, 1,  0,  127, "AEG DECAY 1 LEVEL",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x89, 1,  0,  127, "AEG DECAY 2 LEVEL",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x8a, 2,  0,16383, "ADDRESS OFFSET",          0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x8c, 1, 57,   71, "RESONANCE SENSITIVITY",   0, NULL,     NULL,     NULL,     NULL     }
+	{ 0x3d, 2,  0,16383, "Wave Number",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x3f, 1,  0,  127, "Note Limit Low",          0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x40, 1,  0,  127, "Note Limit High",         0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x41, 1,  0,  127, "Velocity Limit Low",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x42, 1,  0,  127, "Velocity Limit High",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x43, 1,  0,    1, "Filter EG Vel Curve",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x44, 1,  0,    2, "LFO Wave Select",         0, NULL,     NULL,     getswave, NULL     },
+	{ 0x45, 1,  0,    1, "LFO Phase Initialize",    0, NULL,     NULL,     getsonff, NULL     },
+	{ 0x46, 1,  0,   63, "LFO Speed",               0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x47, 1,  0,  127, "LFO Delay",               0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x48, 1,  0,  127, "LFO Fade Time",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x49, 1,  0,   63, "LFO Pmd Depth",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4a, 1,  0,   15, "LFO Cmd Depth",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4b, 1,  0,   31, "LFO Amd Depth",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4c, 1, 32,   96, "Note Shift",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4d, 1, 14,  114, "Detune",                  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4e, 1,  0,    5, "Pitch Scaling",           0, NULL,     NULL,     getspscl, NULL     },
+	{ 0x4f, 1,  0,  127, "Pitch Sc Center Note",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x50, 1,  0,    3, "Pitch EG Depth",          0, NULL,     NULL,     getspdph, NULL     },
+	{ 0x51, 1, 57,   71, "Vel PEG Level Sens",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x52, 1, 57,   71, "Vel PEG Rate Sens",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x53, 1, 57,   71, "PEG Rate Scaling",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x54, 1,  0,  127, "PEG Rate Sc Center Note", 0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x55, 1,  0,   63, "PEG Rate 1",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x56, 1,  0,   63, "PEG Rate 2",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x57, 1,  0,   63, "PEG Rate 3",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x58, 1,  0,   63, "PEG Rate 4",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x59, 1,  0,  127, "PEG Level 0",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5a, 1,  0,  127, "PEG Level 1",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5b, 1,  0,  127, "PEG Level 2",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5c, 1,  0,  127, "PEG Level 3",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5d, 1,  0,  127, "PEG Level 4",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5e, 1,  0,   63, "Filter Resonance",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5f, 1,  0,    7, "Velocity Sensitivity",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x60, 1,  0,  127, "Cutoff Frequency",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x61, 1,  0,  127, "Cutoff Sc Break Point 1", 0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x62, 1,  0,  127, "Cutoff Sc Break Point 2", 0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x63, 1,  0,  127, "Cutoff Sc Break Point 3", 0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x64, 1,  0,  127, "Cutoff Sc Break Point 4", 0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x65, 1,  0,  127, "Cutoff Sc Offset 1",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x66, 1,  0,  127, "Cutoff Sc Offset 2",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x67, 1,  0,  127, "Cutoff Sc Offset 3",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x68, 1,  0,  127, "Cutoff Sc Offset 4",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x69, 1, 57,   71, "Vel FEG Level Sens",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6a, 1, 57,   71, "Vel FEG Rate Sens",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6b, 1, 57,   71, "FEG Rate Scaling",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6c, 1,  0,  127, "FEG Rate Sc Center Note", 0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6d, 1,  0,   63, "FEG Rate 1",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6e, 1,  0,   63, "FEG Rate 2",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6f, 1,  0,   63, "FEG Rate 3",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x70, 1,  0,   63, "FEG Rate 4",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x71, 1,  0,  127, "FEG Level 0",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x72, 1,  0,  127, "FEG Level 1",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x73, 1,  0,  127, "FEG Level 2",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x74, 1,  0,  127, "FEG Level 3",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x75, 1,  0,  127, "FEG Level 4",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x76, 1,  0,  127, "Element Level",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x77, 1,  0,  127, "Level Sc Break Point 1",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x78, 1,  0,  127, "Level Sc Break Point 2",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x79, 1,  0,  127, "Level Sc Break Point 3",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7a, 1,  0,  127, "Level Sc Break Point 4",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7b, 1,  0,  127, "Level Sc Offset 1",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7c, 1,  0,  127, "Level Sc Offset 2",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7d, 1,  0,  127, "Level Sc Offset 3",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7e, 1,  0,  127, "Level Sc Offset 4",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7f, 1,  0,    6, "Velocity Curve",          0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x80, 1,  0,   15, "Pan",                     0, NULL,     NULL,     NULL,     NULL     }, // 0=Left..14=Right, 15=Scaling
+	{ 0x81, 1, 57,   71, "AEG Rate Scaling",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x82, 1,  0,  127, "AEG Sc Center Note",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x83, 1,  0,   15, "AEG Key On Delay",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x84, 1,  0,  127, "AEG Attack Rate",         0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x85, 1,  0,  127, "AEG Decay 1 Rate",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x86, 1,  0,  127, "AEG Decay 2 Rate",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x87, 1,  0,  127, "AEG Release Rate",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x88, 1,  0,  127, "AEG Decay 1 Level",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x89, 1,  0,  127, "AEG Decay 2 Level",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x8a, 2,  0,16383, "Address Offset",          0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x8c, 1, 57,   71, "Resonance Sensitivity",   0, NULL,     NULL,     NULL,     NULL     }
 	// [Element 2]
 	// ...
 };
