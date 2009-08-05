@@ -24,6 +24,7 @@
 
 #include "qxgeditKnob.h"
 #include "qxgeditSpin.h"
+#include "qxgeditDrop.h"
 
 #include "XGParam.h"
 
@@ -42,6 +43,7 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	m_pLabel = new QLabel();
 	m_pKnob  = new qxgeditKnob();
 	m_pSpin  = new qxgeditSpin();
+	m_pDrop  = new qxgeditDrop();
 
 	m_iBusy = 0;
 
@@ -49,7 +51,10 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	m_pKnob->setSingleStep(7);
 	m_pKnob->setNotchesVisible(true);
 	m_pSpin->setAlignment(Qt::AlignCenter);
-	m_pSpin->setMaximumHeight(QFontMetrics(font()).lineSpacing() + 2);
+
+	int iMaximumHeight = QFontMetrics(QWidget::font()).lineSpacing() + 2;
+	m_pSpin->setMaximumHeight(iMaximumHeight);
+	m_pDrop->setMaximumHeight(iMaximumHeight);
 
 	QVBoxLayout *pVBoxLayout = new QVBoxLayout();
 	pVBoxLayout->setMargin(0);
@@ -57,9 +62,10 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	pVBoxLayout->addWidget(m_pLabel);
 	pVBoxLayout->addWidget(m_pKnob);
 	pVBoxLayout->addWidget(m_pSpin);
+	pVBoxLayout->addWidget(m_pDrop);
 	QWidget::setLayout(pVBoxLayout);
 
-	setMaximumSize(QSize(52, 72));
+	setMaximumSize(QSize(56, 76));
 
 	QObject::connect(m_pKnob,
 		SIGNAL(valueChanged(int)),
@@ -67,6 +73,11 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	QObject::connect(m_pSpin,
 		SIGNAL(valueChanged(unsigned short)),
 		SLOT(spinValueChanged(unsigned short)));
+	QObject::connect(m_pDrop,
+		SIGNAL(valueChanged(unsignde short)),
+		SLOT(dropValueChanged(unsignde short)));
+
+//	m_pDrop->hide();
 }
 
 
@@ -91,8 +102,18 @@ QString qxgeditDial::text (void) const
 // Nominal value accessors.
 void qxgeditDial::set_value ( unsigned short iValue )
 {
-	m_pSpin->setValue(iValue);
-//	m_pKnob->setValue(int(m_pSpin->value()));
+	if (m_iBusy == 0) {
+		m_iBusy++;
+		XGParam *pParam = param();
+		if (pParam) {
+			if (m_pSpin->isVisible())
+				m_pSpin->setValue(iValue);
+			else
+				m_pDrop->setValue(iValue);
+			m_pKnob->setValue(int(pParam->value()));
+		}
+		m_iBusy--;
+	}
 }
 
 unsigned short qxgeditDial::value (void) const
@@ -116,42 +137,59 @@ void qxgeditDial::set_param ( XGParam *pParam )
 		m_pKnob->setMaximum(int(pParam->max()));
 		m_pKnob->setDefaultValue(int(pParam->def()));
 		m_pKnob->setValue(int(pParam->value()));
+		if (pParam->gets(pParam->min())) {
+			m_pSpin->setParam(NULL);
+			m_pSpin->hide();
+			m_pDrop->setParam(pParam);
+			m_pDrop->show();
+		} else {
+			m_pSpin->setParam(pParam);
+			m_pSpin->show();
+			m_pDrop->setParam(NULL);
+			m_pDrop->hide();
+		}
 		QWidget::setToolTip(pParam->text());
 	} else {
 		QWidget::setEnabled(false);
 		m_pLabel->clear();
+		m_pSpin->setParam(NULL);
+		m_pSpin->show();
+		m_pDrop->setParam(NULL);
+		m_pDrop->hide();
 	}
-
-	m_pSpin->setParam(pParam);
 
 	m_iBusy--;
 }
 
 XGParam *qxgeditDial::param (void) const
 {
-	return m_pSpin->param();
+	if (m_pSpin->isVisible())
+		return m_pSpin->param();
+	else
+	if (m_pDrop->isVisible())
+		return m_pDrop->param();
+	else
+		return NULL;
 }
 
 
 // Internal widget slots.
 void qxgeditDial::knobValueChanged ( int iKnobValue )
 {
-	if (m_iBusy == 0) {
-		m_iBusy++;
-		m_pSpin->setValue(iKnobValue);
-		emit valueChanged(value());
-		m_iBusy--;
-	}
+	set_value(iKnobValue);
+	emit valueChanged(value());
 }
 
 void qxgeditDial::spinValueChanged ( unsigned short iSpinValue )
 {
-	if (m_iBusy == 0) {
-		m_iBusy++;
-		m_pKnob->setValue(int(iSpinValue));
-		emit valueChanged(value());
-		m_iBusy--;
-	}
+	set_value(iSpinValue);
+	emit valueChanged(value());
+}
+
+void qxgeditDial::dropValueChanged ( unsigned short iDropValue )
+{
+	set_value(iDropValue);
+	emit valueChanged(value());
 }
 
 

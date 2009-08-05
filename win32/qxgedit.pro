@@ -6,6 +6,7 @@ HEADERS += ../src/XGParam.h \
            ../src/qxgeditAmpEg.h \
            ../src/qxgeditCombo.h \
            ../src/qxgeditDial.h \
+           ../src/qxgeditDrop.h \
            ../src/qxgeditFilter.h \
            ../src/qxgeditKnob.h \
            ../src/qxgeditPitch.h \
@@ -21,6 +22,7 @@ SOURCES += ../src/XGParam.cpp \
            ../src/qxgeditAmpEg.cpp \
            ../src/qxgeditCombo.cpp \
            ../src/qxgeditDial.cpp \
+           ../src/qxgeditDrop.cpp \
            ../src/qxgeditFilter.cpp \
            ../src/qxgeditKnob.cpp \
            ../src/qxgeditPitch.cpp \

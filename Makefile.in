@@ -10,6 +10,7 @@ headers = \
 	src/qxgeditAbout.h \
 	src/qxgeditAmpEg.h \
 	src/qxgeditCombo.h \
+	src/qxgeditDrop.h \
 	src/qxgeditDial.h \
 	src/qxgeditFilter.h \
 	src/qxgeditKnob.h \
@@ -29,6 +30,7 @@ sources = \
 	src/qxgeditAmpEg.cpp \
 	src/qxgeditCombo.cpp \
 	src/qxgeditDial.cpp \
+	src/qxgeditDrop.cpp \
 	src/qxgeditFilter.cpp \
 	src/qxgeditKnob.cpp \
 	src/qxgeditPitch.cpp \

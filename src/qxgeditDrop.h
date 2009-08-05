@@ -1,4 +1,4 @@
-// qxgeditSpin.h
+// qxgeditDrop.h
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -19,28 +19,28 @@
 
 *****************************************************************************/
 
-#ifndef __qxgeditSpin_h
-#define __qxgeditSpin_h
+#ifndef __qxgeditDrop_h
+#define __qxgeditDrop_h
 
-#include <QAbstractSpinBox>
+#include <QComboBox>
 
-// Forward declarations.
+// Forwrad declarations.
 class XGParam;
 
 
 //-------------------------------------------------------------------------
-// qxgeditSpin - A custom QSpinBox
+// qxgeditDrop - Custom drop-down list widget.
 
-class qxgeditSpin : public QAbstractSpinBox
+class qxgeditDrop : public QComboBox
 {
 	Q_OBJECT
 
 public:
 
 	// Constructor.
-	qxgeditSpin(QWidget *pParent = 0);
+	qxgeditDrop(QWidget *pParent = 0);
 	// Destructor.
-	~qxgeditSpin();
+	~qxgeditDrop();
 
 	// Specialty parameter accessors.
 	void setParam(XGParam *pParam);
@@ -50,41 +50,23 @@ public:
 	void setValue(unsigned short iValue);
 	unsigned short value() const;
 
-protected slots:
-
-	// Pseudo-fixup slot.
-	void editingFinishedSlot();
-	void valueChangedSlot(const QString&);
-
 signals:
 
-	// Common value change notification.
+	// Value change signal.
 	void valueChanged(unsigned short);
-	void valueChanged(const QString&);
 
-protected:
+protected slots:
 
-	// Mark that we got actual value.
-	void showEvent(QShowEvent *);
-
-	// Inherited/override methods.
-	QValidator::State validate(QString& sText, int& iPos) const;
-	void fixup(QString& sText) const;
-	void stepBy(int iSteps);
-	StepEnabled stepEnabled() const;
-
-	// Value/text format converters.
-	unsigned short valueFromText(const QString& sText) const;
-	QString textFromValue(unsigned short iValue) const;
+	// Internal widget slots.
+	void comboActivated(int);
 
 private:
 
-	// Instance variables:
-	// - XG parameter reference.
+	// Instance variables.
 	XGParam *m_pParam;
 };
 
 
-#endif  // __qxgeditSpin_h
+#endif  // __qxgeditDrop_h
 
-// end of qxgeditSpin.h
+// end of qxgeditDrop.h

@@ -121,6 +121,8 @@ void qxgeditSpin::setParam ( XGParam *pParam )
 {
 	m_pParam = pParam;
 
+	QAbstractSpinBox::setPalette(QPalette());
+
 	if (m_pParam)
 		setValue(m_pParam->value());
 }
@@ -242,7 +244,6 @@ void qxgeditSpin::valueChangedSlot ( const QString& sText )
 	// Forward this...
 	emit valueChanged(sText);
 }
-
 
 
 // end of qxgeditSpin.cpp

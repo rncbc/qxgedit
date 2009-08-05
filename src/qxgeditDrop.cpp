@@ -1,4 +1,4 @@
-// qxgeditCombo.cpp
+// qxgeditDrop.cpp
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -20,22 +20,19 @@
 *****************************************************************************/
 
 #include "qxgeditAbout.h"
-#include "qxgeditCombo.h"
+#include "qxgeditDrop.h"
 
 #include "XGParam.h"
 
 
 //-------------------------------------------------------------------------
-// qxgeditCombo - Custom combo-box widget.
+// qxgeditDrop - Custom drop-down list widget.
 //
 
 // Constructor.
-qxgeditCombo::qxgeditCombo ( QWidget *pParent )
-	: XGParamWidget<QComboBox> (pParent), m_pParam(NULL)
+qxgeditDrop::qxgeditDrop ( QWidget *pParent )
+	: QComboBox(pParent), m_pParam(NULL)
 {
-	QComboBox::setMinimumWidth(140);
-	QComboBox::setMaximumHeight(QFontMetrics(font()).lineSpacing() + 2);
-
 	QObject::connect(this,
 		SIGNAL(activated(int)),
 		SLOT(comboActivated(int)));
@@ -43,13 +40,13 @@ qxgeditCombo::qxgeditCombo ( QWidget *pParent )
 
 
 // Destructor.
-qxgeditCombo::~qxgeditCombo (void)
+qxgeditDrop::~qxgeditDrop (void)
 {
 }
 
 
 // Nominal value accessors.
-void qxgeditCombo::set_value ( unsigned short iValue )
+void qxgeditDrop::setValue ( unsigned short iValue )
 {
 	if (m_pParam == NULL)
 		return;
@@ -83,48 +80,45 @@ void qxgeditCombo::set_value ( unsigned short iValue )
 		emit valueChanged(iValue);
 }
 
-unsigned short qxgeditCombo::value (void) const
+unsigned short qxgeditDrop::value (void) const
 {
 	return (m_pParam ? m_pParam->value() : 0);
 }
 
 
 // Specialty parameter accessors.
-void qxgeditCombo::set_param ( XGParam *pParam )
+void qxgeditDrop::setParam ( XGParam *pParam )
 {
 	m_pParam = pParam;
 
 	QComboBox::clear();
 	QComboBox::setPalette(QPalette());
 
-	XGParamMap *pParamMap = param_map();
-	if (pParamMap) {
-		const XGParamMap::Keys& keys = pParamMap->keys();
-		XGParamMap::Keys::const_iterator iter = keys.constBegin();
-		for (; iter != keys.constEnd(); ++iter)
-			QComboBox::addItem(iter.value(), iter.key());
+	if (m_pParam) {
+		unsigned short iValue = m_pParam->min();
+		const char *pszItem = m_pParam->gets(iValue);
+		while (pszItem && m_pParam->max() >= iValue) {
+			QComboBox::addItem(pszItem, iValue);
+			pszItem = m_pParam->gets(++iValue);
+		}
 	}
 
-	if (m_pParam) {
-		int iCombo = QComboBox::findData(m_pParam->value());
-		if (iCombo >= 0)
-			QComboBox::setCurrentIndex(iCombo);
-		QWidget::setToolTip(m_pParam->text());
-	}
+	if (m_pParam)
+		setValue(m_pParam->value());
 }
 
-XGParam *qxgeditCombo::param (void) const
+XGParam *qxgeditDrop::param (void) const
 {
 	return m_pParam;
 }
 
 
 // Internal widget slots.
-void qxgeditCombo::comboActivated ( int iCombo )
+void qxgeditDrop::comboActivated ( int iCombo )
 {
-	set_value((unsigned short) QComboBox::itemData(iCombo).toUInt());
+	setValue((unsigned short) QComboBox::itemData(iCombo).toUInt());
 	emit valueChanged(value());
 }
 
 
-// end of qxgeditCombo.cpp
+// end of qxgeditDrop.cpp

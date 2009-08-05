@@ -518,7 +518,7 @@ static
 const char *getsrevt ( unsigned short c )
 {
 	static
-	const char *tabrevt[] = { "TypeA", "TypeB" };
+	const char *tabrevt[] = { "Type A", "Type B" };
 	return tabrevt[c];
 }
 
@@ -545,7 +545,7 @@ static
 const char *getsonff ( unsigned short c )
 {
 	static
-	const char *tabonff[] = { "OFF", "ON" };
+	const char *tabonff[] = { "Off", "On" };
 	return tabonff[c];
 }
 
@@ -554,7 +554,7 @@ static
 const char *getskeya ( unsigned short c )
 {
 	static
-	const char *tabkeya[] = { "SINGLE", "MULTI", "INST(DRUM)" };
+	const char *tabkeya[] = { "Single", "Multi", "Inst(Drum)" };
 	return tabkeya[c];
 }
 
@@ -563,7 +563,7 @@ static
 const char *getsmmod ( unsigned short c )
 {
 	static
-	const char *tabmmod[] = { "MONO", "POLY" };
+	const char *tabmmod[] = { "Mono", "Poly" };
 	return tabmmod[c];
 }
 
@@ -572,7 +572,7 @@ static
 const char *getspmod ( unsigned short c )
 {
 	static
-	const char *tabpmod[] = { "NORMAL", "DRUM", "DRUM 1", "DRUM 2" };
+	const char *tabpmod[] = { "Normal", "Drum", "Drum 1", "Drum 2" };
 	return tabpmod[c];
 }
 
@@ -580,7 +580,7 @@ static
 const char *getsconn ( unsigned short c )
 {
 	static
-	const char *tabconn[] = { "INSERT", "SYSTEM" };
+	const char *tabconn[] = { "Insert", "System" };
 	return tabconn[c];
 }
 
@@ -588,7 +588,7 @@ static
 const char *getswave ( unsigned short c )
 {
 	static
-	const char *tabwave[] = { "SAW", "TRI", "S&H" };
+	const char *tabwave[] = { "Saw", "Tri", "S&H" };
 	return tabwave[c];
 }
 

@@ -30,6 +30,7 @@
 class QLabel;
 class qxgeditKnob;
 class qxgeditSpin;
+class qxgeditDrop;
 
 
 //-------------------------------------------------------------------------
@@ -68,6 +69,7 @@ protected slots:
 	// Internal widget slots.
 	void knobValueChanged(int);
 	void spinValueChanged(unsigned short);
+	void dropValueChanged(unsigned short);
 
 private:
 
@@ -75,6 +77,7 @@ private:
 	QLabel      *m_pLabel;
 	qxgeditKnob *m_pKnob;
 	qxgeditSpin *m_pSpin;
+	qxgeditDrop *m_pDrop;
 
 	// Fake-mutex.
 	int m_iBusy;
