@@ -1725,9 +1725,9 @@ static
 XGEffectParamItem ECHOParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
 	{  0, "L[ch] Delay 1",      1,3550, getv0_10, getu0_10, NULL,     unit_ms  },
-	{  1, "L[ch] Feedback Level",0,127, getv0x40, getu0x40, NULL,     NULL     },
+	{  1, "L[ch] Feedb[ack Level]",0,127,getv0x40,getu0x40, NULL,     NULL     },
 	{  2, "R[ch] Delay 1",      1,3550, getv0_10, getu0_10, NULL,     unit_ms  },
-	{  3, "R[ch] Feedback Level",1,127, getv0x40, getu0x40, NULL,     NULL     },
+	{  3, "R[ch] Feedb[ack Level]",1,127,getv0x40,getu0x40, NULL,     NULL     },
 	{  4, "[High ]Damp",        1,  10, getv0_10, getu0_10, NULL,     unit_ms  },
 	{  5, "L[ch] Delay 2",      1,3550, getv0_10, getu0_10, NULL,     unit_ms  },
 	{  6, "R[ch] Delay 2",      1,3550, getv0_10, getu0_10, NULL,     unit_ms  },
