@@ -131,7 +131,8 @@ public:
 	virtual const char *unit() const;
 
 	// Decode param value from raw data.
-	unsigned short value_data(unsigned char *data) const;
+	void set_data_value(unsigned char *data, unsigned short u) const;
+	unsigned short data_value(unsigned char *data) const;
 
 	// Value accessors.
 	void set_value(unsigned short u, XGParamObserver *sender = NULL);

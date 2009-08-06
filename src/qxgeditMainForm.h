@@ -29,6 +29,7 @@
 class qxgeditOptions;
 class qxgeditMidiDevice;
 class qxgeditMidiSysexEvent;
+class qxgeditXGParamObserver;
 
 class XGParamMasterMap;
 #ifdef XGPARAM_WIDGET_MAP
@@ -126,6 +127,9 @@ private:
 	QString m_sFilename;
 	int m_iUntitled;
 	int m_iDirtyCount;
+
+	// Current XG parameter observers.
+	QList<qxgeditXGParamObserver *> m_observers;
 
 	// Status bar item indexes
 	enum {

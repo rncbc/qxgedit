@@ -2840,14 +2840,25 @@ const char *XGParam::unit (void) const
 }
 
 
-// Decode param value from raw data.
-unsigned short XGParam::value_data ( unsigned char *data ) const
+// Encode raw data from param value.
+void XGParam::set_data_value ( unsigned char *data, unsigned short u ) const
 {
-	unsigned short bits = 4;
-	if (m_high == 0x02 && m_mid == 0x01)
-		bits += 3;
-	unsigned short ret = 0;
+	unsigned short bits = 7;
 	unsigned short n = size();
+	if (n > 2) bits -= 3;
+	unsigned short mask = (1 << bits) - 1;
+	for (unsigned short i = 0; i < n; ++i)
+		data[i] = (u >> (bits * (n - i - 1))) & mask;
+}
+
+
+// Decode param value from raw data.
+unsigned short XGParam::data_value ( unsigned char *data ) const
+{
+	unsigned short bits = 7;
+	unsigned short n = size();
+	if (n > 2) bits -= 3;
+	unsigned short ret = 0;
 	for (unsigned short i = 0; i < n; ++i)
 		ret += (data[i] << (bits * (n - i - 1)));
 

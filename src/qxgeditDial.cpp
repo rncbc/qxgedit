@@ -74,8 +74,8 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 		SIGNAL(valueChanged(unsigned short)),
 		SLOT(spinValueChanged(unsigned short)));
 	QObject::connect(m_pDrop,
-		SIGNAL(valueChanged(unsignde short)),
-		SLOT(dropValueChanged(unsignde short)));
+		SIGNAL(valueChanged(unsigned short)),
+		SLOT(dropValueChanged(unsigned short)));
 
 //	m_pDrop->hide();
 }

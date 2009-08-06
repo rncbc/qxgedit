@@ -57,6 +57,43 @@
 
 
 //----------------------------------------------------------------------------
+// qxgeditXGParamObserver -- Simple XGParam observer.
+//
+class qxgeditXGParamObserver : public XGParamObserver
+{
+public:
+
+	// Constructor.
+	qxgeditXGParamObserver(XGParam *pParam)
+		: XGParamObserver(pParam) {}
+
+protected:
+
+	// View updater (observer callback).
+	void reset() {}
+
+	void update()
+	{
+		qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
+		if (pMidiDevice == NULL)
+			return;
+
+		XGParam *pParam = param();
+		unsigned char  aSysex[]
+			= { 0xf0, 0x43, 0x10, 0x4c, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7 };
+		unsigned short iSysex = 8 + pParam->size();
+		aSysex[4] = pParam->high();
+		aSysex[5] = pParam->mid();
+		aSysex[6] = pParam->low();
+		pParam->set_data_value(&aSysex[7], pParam->value());
+		aSysex[iSysex - 1] = 0xf7;
+		
+		pMidiDevice->sendSysex(aSysex, iSysex);
+	}
+};
+
+
+//----------------------------------------------------------------------------
 // qxgeditMainForm -- UI wrapper form.
 //
 qxgeditMainForm *qxgeditMainForm::g_pMainForm = NULL;
@@ -163,6 +200,10 @@ qxgeditMainForm::qxgeditMainForm (
 // Destructor.
 qxgeditMainForm::~qxgeditMainForm (void)
 {
+	// Cleanup local observers...
+	qDeleteAll(m_observers);
+	m_observers.clear();
+
 	// Free designated devices.
 	if (m_pMidiDevice)
 		delete m_pMidiDevice;
@@ -312,6 +353,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.VariationParam14Dial->set_param_map(VARIATION, 0x73);
 	m_ui.VariationParam15Dial->set_param_map(VARIATION, 0x74);
 	m_ui.VariationParam16Dial->set_param_map(VARIATION, 0x75);
+
+	// Setup local observers...
+	XGParamMasterMap::const_iterator iter = m_pParamMasterMap->constBegin();
+	for (; iter != m_pParamMasterMap->constEnd(); ++iter)
+		m_observers.append(new qxgeditXGParamObserver(iter.value()));
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {
@@ -475,7 +521,7 @@ unsigned short qxgeditMainForm::sysexXGParam (
 	if (param == NULL)
 		return 0;
 
-	param->set_value(param->value_data(data));
+	param->set_value(param->data_value(data));
 
 #ifdef CONFIG_DEBUG
 	fprintf(stderr, "< %02x %02x %02x",
