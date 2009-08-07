@@ -1,4 +1,4 @@
-// qxgeditCombo.cpp
+// qxgeditCheck.cpp
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -20,34 +20,31 @@
 *****************************************************************************/
 
 #include "qxgeditAbout.h"
-#include "qxgeditCombo.h"
+#include "qxgeditCheck.h"
 
 
 //-------------------------------------------------------------------------
-// qxgeditCombo - Custom combo-box widget.
+// qxgeditCheck - Custom check-box widget.
 //
 
 // Constructor.
-qxgeditCombo::qxgeditCombo ( QWidget *pParent )
-	: XGParamWidget<QComboBox> (pParent), m_pParam(NULL)
+qxgeditCheck::qxgeditCheck ( QWidget *pParent )
+	: XGParamWidget<QCheckBox> (pParent), m_pParam(NULL)
 {
-	QComboBox::setMinimumWidth(140);
-	QComboBox::setMaximumHeight(QFontMetrics(font()).lineSpacing() + 2);
-
 	QObject::connect(this,
-		SIGNAL(activated(int)),
-		SLOT(comboActivated(int)));
+		SIGNAL(toggled(bool)),
+		SLOT(checkToggled(bool)));
 }
 
 
 // Destructor.
-qxgeditCombo::~qxgeditCombo (void)
+qxgeditCheck::~qxgeditCheck (void)
 {
 }
 
 
 // Nominal value accessors.
-void qxgeditCombo::set_value ( unsigned short iValue )
+void qxgeditCheck::set_value ( unsigned short iValue )
 {
 	if (m_pParam == NULL)
 		return;
@@ -61,12 +58,10 @@ void qxgeditCombo::set_value ( unsigned short iValue )
 
 	m_pParam->set_value(iValue);
 
-	int iCombo = QComboBox::findData(iValue);
-	if (iCombo >= 0)
-		QComboBox::setCurrentIndex(iCombo);
+	QCheckBox::setChecked(iValue > 0);
 
 	QPalette pal;
-	if (QComboBox::isEnabled()
+	if (QCheckBox::isEnabled()
 		&& iValue != m_pParam->def()) {
 		const QColor& rgbBase
 			= (pal.window().color().value() < 0x7f
@@ -75,54 +70,44 @@ void qxgeditCombo::set_value ( unsigned short iValue )
 		pal.setColor(QPalette::Base, rgbBase);
 	//	pal.setColor(QPalette::Text, Qt::black);
 	}
-	QComboBox::setPalette(pal);
+	QCheckBox::setPalette(pal);
 
 	if (bValueChanged)
 		emit valueChanged(iValue);
 }
 
-unsigned short qxgeditCombo::value (void) const
+unsigned short qxgeditCheck::value (void) const
 {
 	return (m_pParam ? m_pParam->value() : 0);
 }
 
 
 // Specialty parameter accessors.
-void qxgeditCombo::set_param ( XGParam *pParam )
+void qxgeditCheck::set_param ( XGParam *pParam )
 {
 	m_pParam = pParam;
 
-	QComboBox::clear();
-	QComboBox::setPalette(QPalette());
-
-	XGParamMap *pParamMap = param_map();
-	if (pParamMap) {
-		const XGParamMap::Keys& keys = pParamMap->keys();
-		XGParamMap::Keys::const_iterator iter = keys.constBegin();
-		for (; iter != keys.constEnd(); ++iter)
-			QComboBox::addItem(iter.value(), iter.key());
-	}
+	QCheckBox::setPalette(QPalette());
 
 	if (m_pParam) {
-		int iCombo = QComboBox::findData(m_pParam->value());
-		if (iCombo >= 0)
-			QComboBox::setCurrentIndex(iCombo);
-		QComboBox::setToolTip(m_pParam->text());
+		QCheckBox::setText(m_pParam->label());
+		QCheckBox::setChecked(m_pParam->value() > 0);
+		QCheckBox::setToolTip(m_pParam->text());
 	}
 }
 
-XGParam *qxgeditCombo::param (void) const
+XGParam *qxgeditCheck::param (void) const
 {
 	return m_pParam;
 }
 
 
 // Internal widget slots.
-void qxgeditCombo::comboActivated ( int iCombo )
+void qxgeditCheck::checkToggled ( bool bCheck )
 {
-	set_value((unsigned short) QComboBox::itemData(iCombo).toUInt());
+	set_value(bCheck ? 127 : 0);
 	emit valueChanged(value());
 }
 
 
-// end of qxgeditCombo.cpp
+// end of qxgeditCheck.cpp

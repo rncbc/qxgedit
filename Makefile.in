@@ -9,6 +9,7 @@ headers = \
 	src/XGParamWidget.h \
 	src/qxgeditAbout.h \
 	src/qxgeditAmpEg.h \
+	src/qxgeditCheck.h \
 	src/qxgeditCombo.h \
 	src/qxgeditDrop.h \
 	src/qxgeditDial.h \
@@ -28,6 +29,7 @@ sources = \
 	src/XGParamObserver.cpp \
 	src/XGParamWidget.cpp \
 	src/qxgeditAmpEg.cpp \
+	src/qxgeditCheck.cpp \
 	src/qxgeditCombo.cpp \
 	src/qxgeditDial.cpp \
 	src/qxgeditDrop.cpp \

@@ -678,7 +678,7 @@ struct _XGNormalVoiceItem
 
 // Piano
 static
-XGNormalVoiceItem PianoTab[] = 
+XGNormalVoiceItem PianoTab[] =
 {	// bank prog  name      elem
 	{    1,   0, "GrandPno",   1 },
 	{    1,   1, "GrndPnoK",   1 },
@@ -723,7 +723,7 @@ XGNormalVoiceItem PianoTab[] =
 
 // Chromatic Percussion
 static
-XGNormalVoiceItem ChromaticPercussionTab[] = 
+XGNormalVoiceItem ChromaticPercussionTab[] =
 {	// bank prog  name      elem
 	{    9,   0, "Celesta",    1 },
 	{   10,   0, "Glocken",    1 },
@@ -749,7 +749,7 @@ XGNormalVoiceItem ChromaticPercussionTab[] =
 
 // Organ
 static
-XGNormalVoiceItem OrganTab[] = 
+XGNormalVoiceItem OrganTab[] =
 {	// bank prog  name      elem
 	{   17,   0, "DrawOrgn",   1 },
 	{   17,  32, "DetDrwOr",   2 },
@@ -791,7 +791,7 @@ XGNormalVoiceItem OrganTab[] =
 
 // Guitar
 static
-XGNormalVoiceItem GuitarTab[] = 
+XGNormalVoiceItem GuitarTab[] =
 {	// bank prog  name      elem
 	{   25,   0, "NylonGtr",   1 },
 	{   25,  16, "NylonGt2",   1 },
@@ -826,7 +826,7 @@ XGNormalVoiceItem GuitarTab[] =
 
 // Bass
 static
-XGNormalVoiceItem BassTab[] = 
+XGNormalVoiceItem BassTab[] =
 {	// bank prog  name      elem
 	{   33,   0, "Aco.Bass",   1 },
 	{   33,  40, "JazzRthm",   2 },
@@ -874,7 +874,7 @@ XGNormalVoiceItem BassTab[] =
 
 // Strings
 static
-XGNormalVoiceItem StringsTab[] = 
+XGNormalVoiceItem StringsTab[] =
 {	// bank prog  name      elem
 	{   41,   0, "Violin",     1 },
 	{   41,   8, "SlowVln",    1 },
@@ -892,7 +892,7 @@ XGNormalVoiceItem StringsTab[] =
 
 // Ensemble
 static
-XGNormalVoiceItem EnsembleTab[] = 
+XGNormalVoiceItem EnsembleTab[] =
 {	// bank prog  name      elem
 	{   49,   0, "Strings1",   1 },
 	{   49,   3, "S.Strngs",   2 },
@@ -932,7 +932,7 @@ XGNormalVoiceItem EnsembleTab[] =
 
 // Brass
 static
-XGNormalVoiceItem BrassTab[] = 
+XGNormalVoiceItem BrassTab[] =
 {	// bank prog  name      elem
 	{   57,   0, "Trumpet",    1 },
 	{   57,  16, "Trumpet2",   1 },
@@ -970,7 +970,7 @@ XGNormalVoiceItem BrassTab[] =
 
 // Reed
 static
-XGNormalVoiceItem ReedTab[] = 
+XGNormalVoiceItem ReedTab[] =
 {	// bank prog  name      elem
 	{   65,   0, "SprnoSax",   1 },
 	{   66,   0, "Alto Sax",   1 },
@@ -1003,7 +1003,7 @@ XGNormalVoiceItem PipeTab[] =
 
 // Synth Lead
 static
-XGNormalVoiceItem SynthLeadTab[] = 
+XGNormalVoiceItem SynthLeadTab[] =
 {	// bank prog  name      elem
 	{   81,   0, "SquareLd",   2 },
 	{   81,   6, "Square 2",   1 },
@@ -1045,7 +1045,7 @@ XGNormalVoiceItem SynthLeadTab[] =
 
 // Synth Pad
 static
-XGNormalVoiceItem SynthPadTab[] = 
+XGNormalVoiceItem SynthPadTab[] =
 {	// bank prog  name      elem
 	{   89,   0, "NewAgePd",   2 },
 	{   89,  64, "Fantasy2",   2 },
@@ -1080,7 +1080,7 @@ XGNormalVoiceItem SynthPadTab[] =
 
 // Synth Effects
 static
-XGNormalVoiceItem SynthEffectsTab[] = 
+XGNormalVoiceItem SynthEffectsTab[] =
 {	// bank prog  name      elem
 	{   97,   0, "Rain",       2 },
 	{   97,  45, "ClaviPad",   2 },
@@ -1142,7 +1142,7 @@ XGNormalVoiceItem SynthEffectsTab[] =
 
 // Ethnic
 static
-XGNormalVoiceItem EthnicTab[] = 
+XGNormalVoiceItem EthnicTab[] =
 {	// bank prog  name      elem
 	{  105,   0, "Sitar",      1 },
 	{  105,  32, "DetSitar",   2 },
@@ -1169,7 +1169,7 @@ XGNormalVoiceItem EthnicTab[] =
 
 // Percussive
 static
-XGNormalVoiceItem PercussiveTab[] = 
+XGNormalVoiceItem PercussiveTab[] =
 {	// bank prog  name      elem
 	{  113,   0, "TnklBell",   2 },
 	{  113,  96, "Bonang",     2 },
@@ -1198,7 +1198,7 @@ XGNormalVoiceItem PercussiveTab[] =
 
 // SoundEffects
 static
-XGNormalVoiceItem SoundEffectsTab[] = 
+XGNormalVoiceItem SoundEffectsTab[] =
 {	// bank prog  name      elem
 	{  121,   0, "FretNoiz",   2 },
 	{  122,   0, "BrthNoiz",   2 },
@@ -1274,6 +1274,7 @@ struct _XGNormalVoiceGroup
 
 
 // Normal Voice Groups
+static
 XGNormalVoiceGroup InstrumentTab[] =
 {	// name                   items                   size
 	{ "Piano",                PianoTab,               TSIZE(PianoTab)               },
@@ -1312,7 +1313,7 @@ struct _XGDrumVoiceItem
 
 // Standard Kit 
 static
-XGDrumVoiceItem StandardKitTab[] = 
+XGDrumVoiceItem StandardKitTab[] =
 {
 	{ 13, "Surdo Mute"      },
 	{ 14, "Surdo Open"      },
@@ -1390,8 +1391,8 @@ XGDrumVoiceItem StandardKitTab[] =
 
 // Standard2 Kit 
 static
-XGDrumVoiceItem Standard2KitTab[] = 
-{ 
+XGDrumVoiceItem Standard2KitTab[] =
+{
 	{ 29, "Snare Roll 2"    },
 	{ 31, "Snare L 2"       },
 	{ 34, "Open Rim Shot 2" },
@@ -1403,7 +1404,7 @@ XGDrumVoiceItem Standard2KitTab[] =
 
 // Room Kit 
 static
-XGDrumVoiceItem RoomKitTab[] = 
+XGDrumVoiceItem RoomKitTab[] =
 {
 	{ 38, "SD Room L"       },
 	{ 40, "SD Room H"       },
@@ -1418,7 +1419,7 @@ XGDrumVoiceItem RoomKitTab[] =
 
 // Rock Kit 
 static
-XGDrumVoiceItem RockKitTab[] = 
+XGDrumVoiceItem RockKitTab[] =
 {
 	{ 31, "SD Rock M"       },
 	{ 33, "Bass Drum M"     },
@@ -1437,7 +1438,7 @@ XGDrumVoiceItem RockKitTab[] =
 
 // Electro Kit 
 static
-XGDrumVoiceItem ElectroKitTab[] = 
+XGDrumVoiceItem ElectroKitTab[] =
 {
 	{ 28, "Reverse Cymbal"  },
 	{ 30, "Hi Q"            },
@@ -1459,7 +1460,7 @@ XGDrumVoiceItem ElectroKitTab[] =
 
 // Analog Kit 
 static
-XGDrumVoiceItem AnalogKitTab[] = 
+XGDrumVoiceItem AnalogKitTab[] =
 {
 	{ 28, "Reverse Cymbal"  },
 	{ 30, "Hi Q"            },
@@ -1492,7 +1493,7 @@ XGDrumVoiceItem AnalogKitTab[] =
 
 // Jazz Kit 
 static
-XGDrumVoiceItem JazzKitTab[] = 
+XGDrumVoiceItem JazzKitTab[] =
 {
 	{ 36, "BD Jazz"         },
 	{ 41, "Jazz Tom 1"      },
@@ -1505,7 +1506,7 @@ XGDrumVoiceItem JazzKitTab[] =
 
 // Brush Kit 
 static
-XGDrumVoiceItem BrushKitTab[] = 
+XGDrumVoiceItem BrushKitTab[] =
 {
 	{ 31, "Brush Slap L"    },
 	{ 36, "BD Soft"         },
@@ -1521,7 +1522,7 @@ XGDrumVoiceItem BrushKitTab[] =
 
 // Classic Kit 
 static
-XGDrumVoiceItem ClassicKitTab[] = 
+XGDrumVoiceItem ClassicKitTab[] =
 {
 	{ 33, "Bass Drum L2"    },
 	{ 35, "Gran Cassa"      },
@@ -1542,7 +1543,7 @@ XGDrumVoiceItem ClassicKitTab[] =
 
 // SFX1 
 static
-XGDrumVoiceItem SFX1Tab[] = 
+XGDrumVoiceItem SFX1Tab[] =
 {
 	{ 36, "Guitar Cutting Noise" },
 	{ 37, "Guitar Cutting Noise 2" },
@@ -1563,7 +1564,7 @@ XGDrumVoiceItem SFX1Tab[] =
 
 // SFX2
 static
-XGDrumVoiceItem SFX2Tab[] = 
+XGDrumVoiceItem SFX2Tab[] =
 {
 	{ 36, "Dial Tone"       },
 	{ 37, "Door Creaking"   },
@@ -1612,7 +1613,7 @@ struct _XGDrumKitItem
 
 
 static
-XGDrumKitItem DrumKitTab[] = 
+XGDrumKitItem DrumKitTab[] =
 {	// bank prog  name            keys             size
 	{ 16256,  1, "Standard Kit",  StandardKitTab,  TSIZE(StandardKitTab)  },
 	{ 16256,  2, "Standard2 Kit", Standard2KitTab, TSIZE(Standard2KitTab) },
@@ -2380,7 +2381,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x01, 1,  0,  127, "Bank [Select ]MSB",       0, NULL,     NULL,     NULL,     NULL     }, // 127=part10, 0=other
 	{ 0x02, 1,  0,  127, "Bank [Select ]LSB",       0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x03, 1,  0,  127, "Program[ Number]",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x04, 1,  0,  127, "[Rcv ]Ch[annel]",         0, NULL,     NULL,     NULL,     NULL     }, // 0..15=partno, 127=OFF
+	{ 0x04, 1,  0,  127, "[Rcv ]Channel",           0, NULL,     NULL,     NULL,     NULL     }, // 0..15=partno, 127=OFF
 	{ 0x05, 1,  0,    1, "[Mono/Poly ]Mode",        1, NULL,     NULL,     getsmmod, NULL     },
 	{ 0x06, 1,  0,    2, "[Same Note ]Key Assign",  1, NULL,     NULL,     getskeya, NULL     },
 	{ 0x07, 1,  0,    3, "Part Mode",               0, NULL,     NULL,     getspmod, NULL     }, // other than part10, 2=part10
@@ -2416,10 +2417,10 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x26, 1,  1,  127, "Bend LFO P[mod Depth]",  64, getv_100, getu_100, NULL,     unit_pct },
 	{ 0x27, 1,  1,  127, "Bend LFO F[mod Depth]",  64, getv_100, getu_100, NULL,     unit_pct },
 	{ 0x28, 1,  1,  127, "Bend LFO A[mod Depth]",  64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x30, 1,  0,    1, "[Rcv Pitch ]Bend",        1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x30, 1,  0,    1, "[Rcv ]P[itch ]B[end]",    1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x31, 1,  0,    1, "[Rcv ]C[han ]A[fter ]T[ouch]",1,NULL,  NULL,     getsonff, NULL     },
 	{ 0x32, 1,  0,    1, "[Rcv ]P[rogram ]C[hange]",1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x33, 1,  0,    1, "[Rcv ]Control Change",    1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x33, 1,  0,    1, "[Rcv ]C[ontrol ]C[hange]",1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x34, 1,  0,    1, "[Rcv ]P[oly ]A[fter ]T[ouch]",1,NULL,  NULL,     getsonff, NULL     },
 	{ 0x35, 1,  0,    1, "[Rcv ]Note[ Message]",    1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x36, 1,  0,    1, "[Rcv ]RPN",               1, NULL,     NULL,     getsonff, NULL     },
@@ -2428,11 +2429,11 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x39, 1,  0,    1, "[Rcv ]Vol[ume]",          1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x3a, 1,  0,    1, "[Rcv ]Pan",               1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x3b, 1,  0,    1, "[Rcv ]Expr[ession]",      1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3c, 1,  0,    1, "[Rcv ]Hold1",             1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x3c, 1,  0,    1, "[Rcv ]Hold[1]",           1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x3d, 1,  0,    1, "[Rcv ]Porta[mento]",      1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x3e, 1,  0,    1, "[Rcv ]Sost[enuto]",       1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x3f, 1,  0,    1, "[Rcv Soft ]Pedal",        1, NULL,     NULL,     getsonff, NULL     },
-	{ 0x40, 1,  0,    1, "[Rcv ]Bank[ Select]",     1, NULL,     NULL,     getsonff, NULL     }, // 1=XG, 0=GM
+	{ 0x3f, 1,  0,    1, "[Rcv ]S[oft ]P[edal]",    1, NULL,     NULL,     getsonff, NULL     },
+	{ 0x40, 1,  0,    1, "[Rcv ]B[ank ]S[elect]",   1, NULL,     NULL,     getsonff, NULL     }, // 1=XG, 0=GM
 	{ 0x41, 1,  0,  127, "[Scale ]Tuning C",       64, getv0x40, getu0x40, NULL,     unit_cen },
 	{ 0x42, 1,  0,  127, "[Scale ]Tuning C#",      64, getv0x40, getu0x40, NULL,     unit_cen },
 	{ 0x43, 1,  0,  127, "[Scale ]Tuning D",       64, getv0x40, getu0x40, NULL,     unit_cen },
@@ -2474,7 +2475,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x67, 1,  0,    1, "Portamento[ Switch]",     0, NULL,     NULL,     getsonff, NULL     },
 	{ 0x68, 1,  0,  127, "Porta[mento] Time",       0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x69, 1,  0,  127, "[PEG ]Ini[tial ]Level",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6a, 1,  0,  127, "[PEG ]Att[ack ]Time]",   64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6a, 1,  0,  127, "[PEG ]Att[ack ]Time",    64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x6b, 1,  0,  127, "[PEG ]Rel[ease ]Level",  64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x6c, 1,  0,  127, "[PEG ]Rel[ease ]Time",   64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x6d, 1,  1,  127, "Vel[ocity Limit ]Low",    1, NULL,     NULL,     NULL,     NULL     },
@@ -2488,10 +2489,10 @@ XGParamItem MULTIPARTParamTab[] =
 static
 XGParamItem DRUMSETUPParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 1,  0,  127, "Pitch Coarse",           64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x01, 1,  0,  127, "Pitch Fine",             64, getv0x40, getu0x40, NULL,     unit_cen },
+	{ 0x00, 1,  0,  127, "[Pitch ]Coarse",         64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x01, 1,  0,  127, "[Pitch ]Fine",           64, getv0x40, getu0x40, NULL,     unit_cen },
 	{ 0x02, 1,  0,  127, "Level",                   0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
-	{ 0x03, 1,  0,  127, "Alt[ernate ]Group",       0, NULL,     NULL,     NULL,     NULL     }, // depend on the note (0=OFF)
+	{ 0x03, 1,  0,  127, "[Alternate ]Group",       0, NULL,     NULL,     NULL,     NULL     }, // depend on the note (0=OFF)
 	{ 0x04, 1,  0,  127, "Pan",                     0, getv0x40, getu0x40, NULL,     NULL     }, // depend on the note (0=random)
 	{ 0x05, 1,  0,  127, "Reverb[ Send]",           0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
 	{ 0x06, 1,  0,  127, "Chorus[ Send]",           0, NULL,     NULL,     NULL,     NULL     }, // depend on the note

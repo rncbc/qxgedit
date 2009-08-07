@@ -4,6 +4,7 @@ HEADERS += ../src/XGParam.h \
            ../src/XGParamWidget.h \
            ../src/qxgeditAbout.h \
            ../src/qxgeditAmpEg.h \
+           ../src/qxgeditCheck.h \
            ../src/qxgeditCombo.h \
            ../src/qxgeditDial.h \
            ../src/qxgeditDrop.h \
@@ -20,6 +21,7 @@ HEADERS += ../src/XGParam.h \
 SOURCES += ../src/XGParam.cpp \
            ../src/XGParamWidget.cpp \
            ../src/qxgeditAmpEg.cpp \
+           ../src/qxgeditCheck.cpp \
            ../src/qxgeditCombo.cpp \
            ../src/qxgeditDial.cpp \
            ../src/qxgeditDrop.cpp \
@@ -33,7 +35,7 @@ SOURCES += ../src/XGParam.cpp \
            ../src/qxgeditOptionsForm.cpp \
            ../src/qxgeditMainForm.cpp \
            ../src/main.cpp
-           
+
 FORMS    = ../src/qxgeditOptionsForm.ui \
            ../src/qxgeditMainForm.ui
 

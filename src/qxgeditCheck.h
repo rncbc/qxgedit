@@ -1,4 +1,4 @@
-// qxgeditDrop.h
+// qxgeditCheck.h
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -19,35 +19,34 @@
 
 *****************************************************************************/
 
-#ifndef __qxgeditDrop_h
-#define __qxgeditDrop_h
+#ifndef __qxgeditCheck_h
+#define __qxgeditCheck_h
 
-#include <QComboBox>
+#include "XGParamWidget.h"
 
-// Forward declarations.
-class XGParam;
+#include <QCheckBox>
 
 
 //-------------------------------------------------------------------------
-// qxgeditDrop - Custom drop-down list widget.
+// qxgeditCheck - Custom check-box widget.
 
-class qxgeditDrop : public QComboBox
+class qxgeditCheck : public XGParamWidget<QCheckBox>
 {
 	Q_OBJECT
 
 public:
 
 	// Constructor.
-	qxgeditDrop(QWidget *pParent = 0);
+	qxgeditCheck(QWidget *pParent = 0);
 	// Destructor.
-	~qxgeditDrop();
+	~qxgeditCheck();
 
 	// Specialty parameter accessors.
-	void setParam(XGParam *pParam);
+	void set_param(XGParam *pParam);
 	XGParam *param() const;
 
 	// Value accessors.
-	void setValue(unsigned short iValue);
+	void set_value(unsigned short iValue);
 	unsigned short value() const;
 
 signals:
@@ -58,7 +57,7 @@ signals:
 protected slots:
 
 	// Internal widget slots.
-	void comboActivated(int);
+	void checkToggled(bool);
 
 private:
 
@@ -67,6 +66,6 @@ private:
 };
 
 
-#endif  // __qxgeditDrop_h
+#endif  // __qxgeditCheck_h
 
-// end of qxgeditDrop.h
+// end of qxgeditCheck.h

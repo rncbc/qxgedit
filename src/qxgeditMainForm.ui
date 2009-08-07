@@ -718,6 +718,59 @@
        <attribute name="title" >
         <string>MULTI PART</string>
        </attribute>
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="qxgeditCheck" name="MultipartPBCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartCATCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartPCCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartCCCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartPATCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartNoteCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartRPNCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartNRPNCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartModCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartVolCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartPanCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartExprCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartHold1Check" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartPortaCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartSostCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartPedalCheck" />
+        </item>
+        <item>
+         <widget class="qxgeditCheck" name="MultipartBankCheck" />
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="DRUM_SETUP" >
        <attribute name="title" >
@@ -1004,13 +1057,16 @@
    <class>qxgeditDial</class>
    <extends>QLabel</extends>
    <header>qxgeditDial.h</header>
-   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>qxgeditCheck</class>
+   <extends>QCheckBox</extends>
+   <header>qxgeditCheck.h</header>
   </customwidget>
   <customwidget>
    <class>qxgeditCombo</class>
    <extends>QComboBox</extends>
    <header>qxgeditCombo.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
