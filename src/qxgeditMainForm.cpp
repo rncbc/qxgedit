@@ -355,7 +355,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.VariationParam15Dial      -> set_param_map(VARIATION, 0x74);
 	m_ui.VariationParam16Dial      -> set_param_map(VARIATION, 0x75);
 
-#if 0 // MULTIPART...
+	// MULTIPART...
 	m_ui.MultipartElementDial      -> set_param_map(MULTIPART, 0x00);
 	m_ui.MultipartBankMSBDial      -> set_param_map(MULTIPART, 0x01);
 	m_ui.MultipartBankLSBDial      -> set_param_map(MULTIPART, 0x02);
@@ -396,7 +396,6 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.MultipartBendLFOPmodDial  -> set_param_map(MULTIPART, 0x26);
 	m_ui.MultipartBendLFOFmodDial  -> set_param_map(MULTIPART, 0x27);
 	m_ui.MultipartBendLFOAmodDial  -> set_param_map(MULTIPART, 0x28);
-#endif
 	m_ui.MultipartPBCheck          -> set_param_map(MULTIPART, 0x30);
 	m_ui.MultipartCATCheck         -> set_param_map(MULTIPART, 0x31);
 	m_ui.MultipartPCCheck          -> set_param_map(MULTIPART, 0x32);
@@ -414,7 +413,6 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.MultipartSostCheck        -> set_param_map(MULTIPART, 0x3e);
 	m_ui.MultipartPedalCheck       -> set_param_map(MULTIPART, 0x3f);
 	m_ui.MultipartBankCheck        -> set_param_map(MULTIPART, 0x40);
-#if 0
 	m_ui.MultipartTuningC_Dial     -> set_param_map(MULTIPART, 0x41);
 	m_ui.MultipartTuningCsDial     -> set_param_map(MULTIPART, 0x42);
 	m_ui.MultipartTuningD_Dial     -> set_param_map(MULTIPART, 0x43);
@@ -461,7 +459,6 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.MultipartReleaseTimeDial  -> set_param_map(MULTIPART, 0x6c);
 	m_ui.MultipartVelocityLowDial  -> set_param_map(MULTIPART, 0x6d);
 	m_ui.MultipartVelocityHighDial -> set_param_map(MULTIPART, 0x6e);
-#endif
 
 #if 0 // DRUMSETUP...
 	m_ui.DrumsetupCoarseDial       -> set_param_map(DRUMSETUP, 0x00);

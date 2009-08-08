@@ -67,25 +67,13 @@
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
-             <widget class="qxgeditDial" name="MasterTuneDial" >
-              <property name="text" >
-               <string>Tune</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="MasterTuneDial" />
             </item>
             <item row="0" column="1" >
-             <widget class="qxgeditDial" name="MasterVolumeDial" >
-              <property name="text" >
-               <string>Volume</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="MasterVolumeDial" />
             </item>
             <item row="0" column="2" >
-             <widget class="qxgeditDial" name="MasterTransposeDial" >
-              <property name="text" >
-               <string>Transpose</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="MasterTransposeDial" />
             </item>
             <item row="0" column="3" >
              <spacer>
@@ -150,130 +138,58 @@
              </spacer>
             </item>
             <item row="1" column="0" >
-             <widget class="qxgeditDial" name="ReverbParam1Dial" >
-              <property name="text" >
-               <string>Param 1</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam1Dial" />
             </item>
             <item row="1" column="1" >
-             <widget class="qxgeditDial" name="ReverbParam2Dial" >
-              <property name="text" >
-               <string>Param 2</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam2Dial" />
             </item>
             <item row="1" column="2" >
-             <widget class="qxgeditDial" name="ReverbParam3Dial" >
-              <property name="text" >
-               <string>Param 3</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam3Dial" />
             </item>
             <item row="1" column="3" >
-             <widget class="qxgeditDial" name="ReverbParam4Dial" >
-              <property name="text" >
-               <string>Param 4</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam4Dial" />
             </item>
             <item row="1" column="4" >
-             <widget class="qxgeditDial" name="ReverbParam5Dial" >
-              <property name="text" >
-               <string>Param 5</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam5Dial" />
             </item>
             <item row="1" column="5" >
-             <widget class="qxgeditDial" name="ReverbParam6Dial" >
-              <property name="text" >
-               <string>Param 6</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam6Dial" />
             </item>
             <item row="1" column="6" >
-             <widget class="qxgeditDial" name="ReverbParam7Dial" >
-              <property name="text" >
-               <string>Param 7</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam7Dial" />
             </item>
             <item row="1" column="7" >
-             <widget class="qxgeditDial" name="ReverbParam8Dial" >
-              <property name="text" >
-               <string>Param 8</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam8Dial" />
             </item>
             <item row="1" column="8" >
-             <widget class="qxgeditDial" name="ReverbParam9Dial" >
-              <property name="text" >
-               <string>Param 9</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam9Dial" />
             </item>
             <item row="1" column="9" >
-             <widget class="qxgeditDial" name="ReverbParam10Dial" >
-              <property name="text" >
-               <string>Param 10</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam10Dial" />
             </item>
             <item row="2" column="0" >
-             <widget class="qxgeditDial" name="ReverbReturnDial" >
-              <property name="text" >
-               <string>Return</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbReturnDial" />
             </item>
             <item row="2" column="1" >
-             <widget class="qxgeditDial" name="ReverbPanDial" >
-              <property name="text" >
-               <string>Pan</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbPanDial" />
             </item>
             <item row="2" column="2" >
-             <widget class="qxgeditDial" name="ReverbParam11Dial" >
-              <property name="text" >
-               <string>Param 11</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam11Dial" />
             </item>
             <item row="2" column="3" >
-             <widget class="qxgeditDial" name="ReverbParam12Dial" >
-              <property name="text" >
-               <string>Param 12</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam12Dial" />
             </item>
             <item row="2" column="4" >
-             <widget class="qxgeditDial" name="ReverbParam13Dial" >
-              <property name="text" >
-               <string>Param 13</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam13Dial" />
             </item>
             <item row="2" column="5" >
-             <widget class="qxgeditDial" name="ReverbParam14Dial" >
-              <property name="text" >
-               <string>Param 14</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam14Dial" />
             </item>
             <item row="2" column="6" >
-             <widget class="qxgeditDial" name="ReverbParam15Dial" >
-              <property name="text" >
-               <string>Param 15</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam15Dial" />
             </item>
             <item row="2" column="7" >
-             <widget class="qxgeditDial" name="ReverbParam16Dial" >
-              <property name="text" >
-               <string>Param 16</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ReverbParam16Dial" />
             </item>
             <item row="3" column="0" colspan="11" >
              <spacer>
@@ -325,137 +241,61 @@
              </spacer>
             </item>
             <item row="1" column="0" >
-             <widget class="qxgeditDial" name="ChorusParam1Dial" >
-              <property name="text" >
-               <string>Param 1</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam1Dial" />
             </item>
             <item row="1" column="1" >
-             <widget class="qxgeditDial" name="ChorusParam2Dial" >
-              <property name="text" >
-               <string>Param 2</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam2Dial" />
             </item>
             <item row="1" column="2" >
-             <widget class="qxgeditDial" name="ChorusParam3Dial" >
-              <property name="text" >
-               <string>Param 3</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam3Dial" />
             </item>
             <item row="1" column="3" >
-             <widget class="qxgeditDial" name="ChorusParam4Dial" >
-              <property name="text" >
-               <string>Param 4</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam4Dial" />
             </item>
             <item row="1" column="4" >
-             <widget class="qxgeditDial" name="ChorusParam5Dial" >
-              <property name="text" >
-               <string>Param 5</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam5Dial" />
             </item>
             <item row="1" column="5" >
-             <widget class="qxgeditDial" name="ChorusParam6Dial" >
-              <property name="text" >
-               <string>Param 6</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam6Dial" />
             </item>
             <item row="1" column="6" >
-             <widget class="qxgeditDial" name="ChorusParam7Dial" >
-              <property name="text" >
-               <string>Param 7</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam7Dial" />
             </item>
             <item row="1" column="7" >
-             <widget class="qxgeditDial" name="ChorusParam8Dial" >
-              <property name="text" >
-               <string>Param 8</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam8Dial" />
             </item>
             <item row="1" column="8" >
-             <widget class="qxgeditDial" name="ChorusParam9Dial" >
-              <property name="text" >
-               <string>Param 9</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam9Dial" />
             </item>
             <item row="1" column="9" >
-             <widget class="qxgeditDial" name="ChorusParam10Dial" >
-              <property name="text" >
-               <string>Param 10</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam10Dial" />
             </item>
             <item row="2" column="0" >
-             <widget class="qxgeditDial" name="ChorusReturnDial" >
-              <property name="text" >
-               <string>Return</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusReturnDial" />
             </item>
             <item row="2" column="1" >
-             <widget class="qxgeditDial" name="ChorusPanDial" >
-              <property name="text" >
-               <string>Pan</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusPanDial" />
             </item>
             <item row="2" column="2" >
-             <widget class="qxgeditDial" name="ChorusReverbDial" >
-              <property name="text" >
-               <string>Reverb</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusReverbDial" />
             </item>
             <item row="2" column="3" >
-             <widget class="qxgeditDial" name="ChorusParam11Dial" >
-              <property name="text" >
-               <string>Param 11</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam11Dial" />
             </item>
             <item row="2" column="4" >
-             <widget class="qxgeditDial" name="ChorusParam12Dial" >
-              <property name="text" >
-               <string>Param 12</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam12Dial" />
             </item>
             <item row="2" column="5" >
-             <widget class="qxgeditDial" name="ChorusParam13Dial" >
-              <property name="text" >
-               <string>Param 13</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam13Dial" />
             </item>
             <item row="2" column="6" >
-             <widget class="qxgeditDial" name="ChorusParam14Dial" >
-              <property name="text" >
-               <string>Param 14</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam14Dial" />
             </item>
             <item row="2" column="7" >
-             <widget class="qxgeditDial" name="ChorusParam15Dial" >
-              <property name="text" >
-               <string>Param 15</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam15Dial" />
             </item>
             <item row="2" column="8" >
-             <widget class="qxgeditDial" name="ChorusParam16Dial" >
-              <property name="text" >
-               <string>Param 16</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="ChorusParam16Dial" />
             </item>
             <item row="3" column="0" colspan="11" >
              <spacer>
@@ -507,193 +347,85 @@
              </spacer>
             </item>
             <item row="1" column="0" >
-             <widget class="qxgeditDial" name="VariationParam1Dial" >
-              <property name="text" >
-               <string>Param 1</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam1Dial" />
             </item>
             <item row="1" column="1" >
-             <widget class="qxgeditDial" name="VariationParam2Dial" >
-              <property name="text" >
-               <string>Param 2</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam2Dial" />
             </item>
             <item row="1" column="2" >
-             <widget class="qxgeditDial" name="VariationParam3Dial" >
-              <property name="text" >
-               <string>Param 3</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam3Dial" />
             </item>
             <item row="1" column="3" >
-             <widget class="qxgeditDial" name="VariationParam4Dial" >
-              <property name="text" >
-               <string>Param 4</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam4Dial" />
             </item>
             <item row="1" column="4" >
-             <widget class="qxgeditDial" name="VariationParam5Dial" >
-              <property name="text" >
-               <string>Param 5</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam5Dial" />
             </item>
             <item row="1" column="5" >
-             <widget class="qxgeditDial" name="VariationParam6Dial" >
-              <property name="text" >
-               <string>Param 6</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam6Dial" />
             </item>
             <item row="1" column="6" >
-             <widget class="qxgeditDial" name="VariationParam7Dial" >
-              <property name="text" >
-               <string>Param 7</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam7Dial" />
             </item>
             <item row="1" column="7" >
-             <widget class="qxgeditDial" name="VariationParam8Dial" >
-              <property name="text" >
-               <string>Param 8</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam8Dial" />
             </item>
             <item row="1" column="8" >
-             <widget class="qxgeditDial" name="VariationParam9Dial" >
-              <property name="text" >
-               <string>Param 9</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam9Dial" />
             </item>
             <item row="1" column="9" >
-             <widget class="qxgeditDial" name="VariationParam10Dial" >
-              <property name="text" >
-               <string>Param 10</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam10Dial" />
             </item>
             <item row="2" column="0" >
-             <widget class="qxgeditDial" name="VariationReturnDial" >
-              <property name="text" >
-               <string>Return</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationReturnDial" />
             </item>
             <item row="2" column="1" >
-             <widget class="qxgeditDial" name="VariationPanDial" >
-              <property name="text" >
-               <string>Pan</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationPanDial" />
             </item>
             <item row="2" column="2" >
-             <widget class="qxgeditDial" name="VariationReverbDial" >
-              <property name="text" >
-               <string>Reverb</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationReverbDial" />
             </item>
             <item row="2" column="3" >
-             <widget class="qxgeditDial" name="VariationChorusDial" >
-              <property name="text" >
-               <string>Chorus</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationChorusDial" />
             </item>
             <item row="2" column="4" >
-             <widget class="qxgeditDial" name="VariationConnectDial" >
-              <property name="text" >
-               <string>Connect</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationConnectDial" />
             </item>
             <item row="2" column="5" >
-             <widget class="qxgeditDial" name="VariationPartDial" >
-              <property name="text" >
-               <string>Part</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationPartDial" />
             </item>
             <item row="2" column="6" >
-             <widget class="qxgeditDial" name="VariationWheelDial" >
-              <property name="text" >
-               <string>M.Wheel</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationWheelDial" />
             </item>
             <item row="2" column="7" >
-             <widget class="qxgeditDial" name="VariationBendDial" >
-              <property name="text" >
-               <string>P.Bend</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationBendDial" />
             </item>
             <item row="2" column="8" >
-             <widget class="qxgeditDial" name="VariationCATDial" >
-              <property name="text" >
-               <string>CAT</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationCATDial" />
             </item>
             <item row="2" column="9" >
-             <widget class="qxgeditDial" name="VariationAC1Dial" >
-              <property name="text" >
-               <string>AC1</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationAC1Dial" />
             </item>
             <item row="3" column="0" >
-             <widget class="qxgeditDial" name="VariationAC2Dial" >
-              <property name="text" >
-               <string>AC2</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationAC2Dial" />
             </item>
             <item row="3" column="1" >
-             <widget class="qxgeditDial" name="VariationParam11Dial" >
-              <property name="text" >
-               <string>Param 11</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam11Dial" />
             </item>
             <item row="3" column="2" >
-             <widget class="qxgeditDial" name="VariationParam12Dial" >
-              <property name="text" >
-               <string>Param 12</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam12Dial" />
             </item>
             <item row="3" column="3" >
-             <widget class="qxgeditDial" name="VariationParam13Dial" >
-              <property name="text" >
-               <string>Param 13</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam13Dial" />
             </item>
             <item row="3" column="4" >
-             <widget class="qxgeditDial" name="VariationParam14Dial" >
-              <property name="text" >
-               <string>Param 14</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam14Dial" />
             </item>
             <item row="3" column="5" >
-             <widget class="qxgeditDial" name="VariationParam15Dial" >
-              <property name="text" >
-               <string>Param 15</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam15Dial" />
             </item>
             <item row="3" column="6" >
-             <widget class="qxgeditDial" name="VariationParam16Dial" >
-              <property name="text" >
-               <string>Param 16</string>
-              </property>
-             </widget>
+             <widget class="qxgeditDial" name="VariationParam16Dial" />
             </item>
             <item row="4" column="0" colspan="11" >
              <spacer>
@@ -718,57 +450,348 @@
        <attribute name="title" >
         <string>MULTI PART</string>
        </attribute>
-       <layout class="QHBoxLayout" >
-        <item>
-         <widget class="qxgeditCheck" name="MultipartPBCheck" />
+       <layout class="QGridLayout" >
+        <item row="0" column="0" colspan="3" >
+         <widget class="QComboBox" name="MultipartCombo" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartCATCheck" />
+        <item row="0" column="3" colspan="9" >
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartPCCheck" />
+        <item rowspan="10" row="0" column="12" >
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartCCCheck" />
+        <item row="1" column="0" >
+         <widget class="qxgeditDial" name="MultipartElementDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartPATCheck" />
+        <item row="1" column="1" >
+         <widget class="qxgeditDial" name="MultipartBankMSBDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartNoteCheck" />
+        <item row="1" column="2" >
+         <widget class="qxgeditDial" name="MultipartBankLSBDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartRPNCheck" />
+        <item row="1" column="3" >
+         <widget class="qxgeditDial" name="MultipartProgramDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartNRPNCheck" />
+        <item row="1" column="4" >
+         <widget class="qxgeditDial" name="MultipartChannelDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartModCheck" />
+        <item row="1" column="5" >
+         <widget class="qxgeditDial" name="MultipartPolyModeDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartVolCheck" />
+        <item row="1" column="6" >
+         <widget class="qxgeditDial" name="MultipartKeyAssignDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartPanCheck" />
+        <item row="1" column="7" >
+         <widget class="qxgeditDial" name="MultipartPartModeDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartExprCheck" />
+        <item row="1" column="8" >
+         <widget class="qxgeditDial" name="MultipartNoteShiftDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartHold1Check" />
+        <item row="1" column="9" >
+         <widget class="qxgeditDial" name="MultipartDetuneDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartPortaCheck" />
+        <item row="1" column="10" >
+         <widget class="qxgeditDial" name="MultipartVolumeDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartSostCheck" />
+        <item row="1" column="11" >
+         <widget class="qxgeditDial" name="MultipartVelDepthDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartPedalCheck" />
+        <item row="2" column="0" >
+         <widget class="qxgeditDial" name="MultipartVelOffsetDial" />
         </item>
-        <item>
-         <widget class="qxgeditCheck" name="MultipartBankCheck" />
+        <item row="2" column="1" >
+         <widget class="qxgeditDial" name="MultipartPanDial" />
+        </item>
+        <item row="2" column="2" >
+         <widget class="qxgeditDial" name="MultipartNoteLowDial" />
+        </item>
+        <item row="2" column="3" >
+         <widget class="qxgeditDial" name="MultipartNoteHighDial" />
+        </item>
+        <item row="2" column="4" >
+         <widget class="qxgeditDial" name="MultipartDryWetDial" />
+        </item>
+        <item row="2" column="5" >
+         <widget class="qxgeditDial" name="MultipartChorusDial" />
+        </item>
+        <item row="2" column="6" >
+         <widget class="qxgeditDial" name="MultipartReverbDial" />
+        </item>
+        <item row="2" column="7" >
+         <widget class="qxgeditDial" name="MultipartVariationDial" />
+        </item>
+        <item row="2" column="8" >
+         <widget class="qxgeditDial" name="MultipartRateDial" />
+        </item>
+        <item row="2" column="9" >
+         <widget class="qxgeditDial" name="MultipartDepthDial" />
+        </item>
+        <item row="2" column="10" >
+         <widget class="qxgeditDial" name="MultipartDelayDial" />
+        </item>
+        <item row="2" column="11" >
+         <widget class="qxgeditDial" name="MultipartCutoffDial" />
+        </item>
+        <item row="3" column="0" >
+         <widget class="qxgeditDial" name="MultipartResonanceDial" />
+        </item>
+        <item row="3" column="1" >
+         <widget class="qxgeditDial" name="MultipartAttackDial" />
+        </item>
+        <item row="3" column="2" >
+         <widget class="qxgeditDial" name="MultipartDecayDial" />
+        </item>
+        <item row="3" column="3" >
+         <widget class="qxgeditDial" name="MultipartReleaseDial" />
+        </item>
+        <item row="3" column="4" >
+         <widget class="qxgeditDial" name="MultipartWheelPitchDial" />
+        </item>
+        <item row="3" column="5" >
+         <widget class="qxgeditDial" name="MultipartWheelFilterDial" />
+        </item>
+        <item row="3" column="6" >
+         <widget class="qxgeditDial" name="MultipartWheelAmplDial" />
+        </item>
+        <item row="3" column="7" >
+         <widget class="qxgeditDial" name="MultipartWheelLFOPmodDial" />
+        </item>
+        <item row="3" column="8" >
+         <widget class="qxgeditDial" name="MultipartWheelLFOFmodDial" />
+        </item>
+        <item row="3" column="9" >
+         <widget class="qxgeditDial" name="MultipartWheelLFOAmodDial" />
+        </item>
+        <item row="3" column="10" >
+         <widget class="qxgeditDial" name="MultipartBendPitchDial" />
+        </item>
+        <item row="3" column="11" >
+         <widget class="qxgeditDial" name="MultipartBendFilterDial" />
+        </item>
+        <item row="4" column="0" >
+         <widget class="qxgeditDial" name="MultipartBendAmplDial" />
+        </item>
+        <item row="4" column="1" >
+         <widget class="qxgeditDial" name="MultipartBendLFOPmodDial" />
+        </item>
+        <item row="4" column="2" >
+         <widget class="qxgeditDial" name="MultipartBendLFOFmodDial" />
+        </item>
+        <item row="4" column="3" >
+         <widget class="qxgeditDial" name="MultipartBendLFOAmodDial" />
+        </item>
+        <item row="4" column="4" >
+         <widget class="qxgeditDial" name="MultipartTuningC_Dial" />
+        </item>
+        <item row="4" column="5" >
+         <widget class="qxgeditDial" name="MultipartTuningCsDial" />
+        </item>
+        <item row="4" column="6" >
+         <widget class="qxgeditDial" name="MultipartTuningD_Dial" />
+        </item>
+        <item row="4" column="7" >
+         <widget class="qxgeditDial" name="MultipartTuningDsDial" />
+        </item>
+        <item row="4" column="8" >
+         <widget class="qxgeditDial" name="MultipartTuningE_Dial" />
+        </item>
+        <item row="4" column="9" >
+         <widget class="qxgeditDial" name="MultipartTuningF_Dial" />
+        </item>
+        <item row="4" column="10" >
+         <widget class="qxgeditDial" name="MultipartTuningFsDial" />
+        </item>
+        <item row="4" column="11" >
+         <widget class="qxgeditDial" name="MultipartTuningG_Dial" />
+        </item>
+        <item row="5" column="0" >
+         <widget class="qxgeditDial" name="MultipartTuningGsDial" />
+        </item>
+        <item row="5" column="1" >
+         <widget class="qxgeditDial" name="MultipartTuningA_Dial" />
+        </item>
+        <item row="5" column="2" >
+         <widget class="qxgeditDial" name="MultipartTuningAsDial" />
+        </item>
+        <item row="5" column="3" >
+         <widget class="qxgeditDial" name="MultipartTuningB_Dial" />
+        </item>
+        <item row="5" column="4" >
+         <widget class="qxgeditDial" name="MultipartCATPitchDial" />
+        </item>
+        <item row="5" column="5" >
+         <widget class="qxgeditDial" name="MultipartCATFilterDial" />
+        </item>
+        <item row="5" column="6" >
+         <widget class="qxgeditDial" name="MultipartCATAmplDial" />
+        </item>
+        <item row="5" column="7" >
+         <widget class="qxgeditDial" name="MultipartCATLFOPmodDial" />
+        </item>
+        <item row="5" column="8" >
+         <widget class="qxgeditDial" name="MultipartCATLFOFmodDial" />
+        </item>
+        <item row="5" column="9" >
+         <widget class="qxgeditDial" name="MultipartCATLFOAmodDial" />
+        </item>
+        <item row="5" column="10" >
+         <widget class="qxgeditDial" name="MultipartPATPitchDial" />
+        </item>
+        <item row="5" column="11" >
+         <widget class="qxgeditDial" name="MultipartPATFilterDial" />
+        </item>
+        <item row="6" column="0" >
+         <widget class="qxgeditDial" name="MultipartPATAmplDial" />
+        </item>
+        <item row="6" column="1" >
+         <widget class="qxgeditDial" name="MultipartPATLFOPmodDial" />
+        </item>
+        <item row="6" column="2" >
+         <widget class="qxgeditDial" name="MultipartPATLFOFmodDial" />
+        </item>
+        <item row="6" column="3" >
+         <widget class="qxgeditDial" name="MultipartPATLFOAmodDial" />
+        </item>
+        <item row="6" column="4" >
+         <widget class="qxgeditDial" name="MultipartAC1ControlDial" />
+        </item>
+        <item row="6" column="5" >
+         <widget class="qxgeditDial" name="MultipartAC1PitchDial" />
+        </item>
+        <item row="6" column="6" >
+         <widget class="qxgeditDial" name="MultipartAC1FilterDial" />
+        </item>
+        <item row="6" column="7" >
+         <widget class="qxgeditDial" name="MultipartAC1AmplDial" />
+        </item>
+        <item row="6" column="8" >
+         <widget class="qxgeditDial" name="MultipartAC1LFOPmodDial" />
+        </item>
+        <item row="6" column="9" >
+         <widget class="qxgeditDial" name="MultipartAC1LFOFmodDial" />
+        </item>
+        <item row="6" column="10" >
+         <widget class="qxgeditDial" name="MultipartAC1LFOAmodDial" />
+        </item>
+        <item row="6" column="11" >
+         <widget class="qxgeditDial" name="MultipartAC2ControlDial" />
+        </item>
+        <item row="7" column="0" >
+         <widget class="qxgeditDial" name="MultipartAC2PitchDial" />
+        </item>
+        <item row="7" column="1" >
+         <widget class="qxgeditDial" name="MultipartAC2FilterDial" />
+        </item>
+        <item row="7" column="2" >
+         <widget class="qxgeditDial" name="MultipartAC2AmplDial" />
+        </item>
+        <item row="7" column="3" >
+         <widget class="qxgeditDial" name="MultipartAC2LFOPmodDial" />
+        </item>
+        <item row="7" column="4" >
+         <widget class="qxgeditDial" name="MultipartAC2LFOFmodDial" />
+        </item>
+        <item row="7" column="5" >
+         <widget class="qxgeditDial" name="MultipartAC2LFOAmodDial" />
+        </item>
+        <item row="7" column="6" >
+         <widget class="qxgeditDial" name="MultipartPortaSwitchDial" />
+        </item>
+        <item row="7" column="7" >
+         <widget class="qxgeditDial" name="MultipartPortaTimeDial" />
+        </item>
+        <item row="7" column="8" >
+         <widget class="qxgeditDial" name="MultipartAttackLevelDial" />
+        </item>
+        <item row="7" column="9" >
+         <widget class="qxgeditDial" name="MultipartAttackTimeDial" />
+        </item>
+        <item row="7" column="10" >
+         <widget class="qxgeditDial" name="MultipartReleaseLevelDial" />
+        </item>
+        <item row="7" column="11" >
+         <widget class="qxgeditDial" name="MultipartReleaseTimeDial" />
+        </item>
+        <item row="8" column="0" >
+         <widget class="qxgeditDial" name="MultipartVelocityLowDial" />
+        </item>
+        <item row="8" column="1" >
+         <widget class="qxgeditDial" name="MultipartVelocityHighDial" />
+        </item>
+        <item row="9" column="0" colspan="12" >
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="qxgeditCheck" name="MultipartPBCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartCATCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartPCCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartCCCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartPATCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartNoteCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartRPNCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartNRPNCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartModCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartVolCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartPanCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartExprCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartHold1Check" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartPortaCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartSostCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartPedalCheck" />
+          </item>
+          <item>
+           <widget class="qxgeditCheck" name="MultipartBankCheck" />
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
