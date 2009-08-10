@@ -3141,6 +3141,8 @@ void XGParamMap::set_current_key ( unsigned short key )
 		m_key_param->set_value(key);
 	else
 		m_key = key;
+
+	notify_reset();
 }
 
 unsigned short XGParamMap::current_key () const
@@ -3168,7 +3170,8 @@ XGParamSet *XGParamMap::find_paramset ( unsigned short id )
 // Local observers notify (key change).
 void XGParamMap::notify_reset (void)
 {
-	m_key = (m_key_param ? m_key_param->value() : 0);
+	if (m_key_param)
+		m_key = m_key_param->value();
 
 	XGParamMap::const_iterator iter = XGParamMap::constBegin();
 	for (; iter != XGParamMap::constEnd(); ++iter) {

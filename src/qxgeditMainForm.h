@@ -83,6 +83,8 @@ public slots:
 
 	void updateRecentFilesMenu();
 
+	void multipartComboActivated(int);
+
 protected:
 
 	void closeEvent(QCloseEvent *pCloseEvent);

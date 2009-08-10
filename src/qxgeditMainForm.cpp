@@ -356,6 +356,14 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.VariationParam16Dial      -> set_param_map(VARIATION, 0x75);
 
 	// MULTIPART...
+	m_ui.MultipartCombo->clear();
+	for (int iPart = 0; iPart < 16; ++iPart)
+		m_ui.MultipartCombo->addItem(tr("Part %1").arg(iPart + 1));
+
+	QObject::connect(m_ui.MultipartCombo,
+		SIGNAL(activated(int)),
+		SLOT(multipartComboActivated(int)));
+
 	m_ui.MultipartElementDial      -> set_param_map(MULTIPART, 0x00);
 	m_ui.MultipartBankMSBDial      -> set_param_map(MULTIPART, 0x01);
 	m_ui.MultipartBankLSBDial      -> set_param_map(MULTIPART, 0x02);
@@ -1135,6 +1143,14 @@ void qxgeditMainForm::updateRecentFilesMenu (void)
 			pAction->setData(i);
 		}
 	}
+}
+
+
+// Switch the current MULTIPART section...
+void qxgeditMainForm::multipartComboActivated ( int iPart )
+{
+	if (m_pParamMasterMap)
+		m_pParamMasterMap->MULTIPART.set_current_key(iPart);
 }
 
 
