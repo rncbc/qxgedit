@@ -272,18 +272,19 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	const QFont& font = pCentralWidget->font();
 	pCentralWidget->setFont(QFont(font.family(), font.pointSize() - 2));
 
-	XGParamMap *SYSTEM = &(m_pParamMasterMap->SYSTEM);
-	XGParamMap *REVERB = &(m_pParamMasterMap->REVERB);
-	XGParamMap *CHORUS = &(m_pParamMasterMap->CHORUS);
+	XGParamMap *SYSTEM    = &(m_pParamMasterMap->SYSTEM);
+	XGParamMap *REVERB    = &(m_pParamMasterMap->REVERB);
+	XGParamMap *CHORUS    = &(m_pParamMasterMap->CHORUS);
 	XGParamMap *VARIATION = &(m_pParamMasterMap->VARIATION);
 	XGParamMap *MULTIPART = &(m_pParamMasterMap->MULTIPART);
-//	XGParamMap *DRUMSETUP = &(m_pParamMasterMap->DRUMSETUP);
+	XGParamMap *DRUMSETUP = &(m_pParamMasterMap->DRUMSETUP);
 
 	// SYSTEM...
 	m_ui.MasterTuneDial            -> set_param_map(SYSTEM, 0x00);
 	m_ui.MasterVolumeDial          -> set_param_map(SYSTEM, 0x04);
 	m_ui.MasterTransposeDial       -> set_param_map(SYSTEM, 0x06);
 //	m_ui.MasterSystemResetButton   -> set_param_map(SYSTEM, 0x7e);
+
 	// REVERB...
 	m_ui.ReverbTypeCombo           -> set_param_map(REVERB, 0x00);
 	m_ui.ReverbParam1Dial          -> set_param_map(REVERB, 0x02);
@@ -304,6 +305,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.ReverbParam14Dial         -> set_param_map(REVERB, 0x13);
 	m_ui.ReverbParam15Dial         -> set_param_map(REVERB, 0x14);
 	m_ui.ReverbParam16Dial         -> set_param_map(REVERB, 0x15);
+
 	// CHORUS...
 	m_ui.ChorusTypeCombo           -> set_param_map(CHORUS, 0x20);
 	m_ui.ChorusParam1Dial          -> set_param_map(CHORUS, 0x22);
@@ -325,6 +327,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.ChorusParam14Dial         -> set_param_map(CHORUS, 0x33);
 	m_ui.ChorusParam15Dial         -> set_param_map(CHORUS, 0x34);
 	m_ui.ChorusParam16Dial         -> set_param_map(CHORUS, 0x35);
+
 	// VARIATION...
 	m_ui.VariationTypeCombo        -> set_param_map(VARIATION, 0x40);
 	m_ui.VariationParam1Dial       -> set_param_map(VARIATION, 0x42);
@@ -468,7 +471,23 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.MultipartVelocityLowDial  -> set_param_map(MULTIPART, 0x6d);
 	m_ui.MultipartVelocityHighDial -> set_param_map(MULTIPART, 0x6e);
 
-#if 0 // DRUMSETUP...
+	// DRUMSETUP...
+	m_ui.DrumsetupCombo->clear();
+	for (int iDrumset = 0; iDrumset < 2; ++iDrumset)
+		m_ui.DrumsetupCombo->addItem(tr("Drums %1").arg(iDrumset + 1));
+
+	m_ui.DrumsetupNoteCombo->clear();
+	for (unsigned short k = 13; k < 85; ++k)
+		m_ui.DrumsetupNoteCombo->addItem(tr("Note %1").arg(k), k);
+
+	QObject::connect(m_ui.DrumsetupCombo,
+		SIGNAL(activated(int)),
+		SLOT(drumsetupComboActivated(int)));
+
+	QObject::connect(m_ui.DrumsetupNoteCombo,
+		SIGNAL(activated(int)),
+		SLOT(drumsetupNoteComboActivated(int)));
+
 	m_ui.DrumsetupCoarseDial       -> set_param_map(DRUMSETUP, 0x00);
 	m_ui.DrumsetupFineDial         -> set_param_map(DRUMSETUP, 0x01);
 	m_ui.DrumsetupLevelDial        -> set_param_map(DRUMSETUP, 0x02);
@@ -485,7 +504,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.DrumsetupAttackDial       -> set_param_map(DRUMSETUP, 0x0d);
 	m_ui.DrumsetupDecay1Dial       -> set_param_map(DRUMSETUP, 0x0e);
 	m_ui.DrumsetupDecay2Dial       -> set_param_map(DRUMSETUP, 0x0f);
-#endif
+
+	// FIXME: Can't really tell why notify_reset() is not issued
+	// on the DRUMSETUP map, as is on the other sections, so that
+	// we try to force the update here...
+	drumsetupNoteComboActivated(0);
 
 	// Setup local observers...
 	XGParamMasterMap::const_iterator iter = m_pParamMasterMap->constBegin();
@@ -1151,6 +1174,29 @@ void qxgeditMainForm::multipartComboActivated ( int iPart )
 {
 	if (m_pParamMasterMap)
 		m_pParamMasterMap->MULTIPART.set_current_key(iPart);
+}
+
+
+// Switch the current DRUMSETUP section...
+void qxgeditMainForm::drumsetupComboActivated ( int iDrumset )
+{
+	if (m_pParamMasterMap) {
+		int iNote = m_ui.DrumsetupNoteCombo->currentIndex();
+		unsigned short key = (unsigned short) (iDrumset << 7)
+			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
+		m_pParamMasterMap->DRUMSETUP.set_current_key(key);
+	}
+}
+
+
+void qxgeditMainForm::drumsetupNoteComboActivated ( int iNote )
+{
+	if (m_pParamMasterMap) {
+		int iDrumset = m_ui.DrumsetupCombo->currentIndex();
+		unsigned short key = (unsigned short) (iDrumset << 7)
+			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
+		m_pParamMasterMap->DRUMSETUP.set_current_key(key);
+	}
 }
 
 

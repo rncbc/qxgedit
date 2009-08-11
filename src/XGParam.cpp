@@ -2474,12 +2474,12 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x66, 1,  0,  127, "AC2 LFO A[mod Depth]",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x67, 1,  0,    1, "Portamento[ Switch]",     0, NULL,     NULL,     getsonff, NULL     },
 	{ 0x68, 1,  0,  127, "Porta[mento] Time",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x69, 1,  0,  127, "[PEG ]Ini[tial ]Level",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6a, 1,  0,  127, "[PEG ]Att[ack ]Time",    64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6b, 1,  0,  127, "[PEG ]Rel[ease ]Level",  64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6c, 1,  0,  127, "[PEG ]Rel[ease ]Time",   64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x6d, 1,  1,  127, "Vel[ocity Limit ]Low",    1, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6e, 1,  1,  127, "Vel[ocity Limit ]High", 127, NULL,     NULL,     NULL,     NULL     }
+	{ 0x69, 1,  0,  127, "[PEG ]Ini[tial] Level",  64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6a, 1,  0,  127, "[PEG ]Att[ack] Time",    64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6b, 1,  0,  127, "[PEG ]Rel[ease] Level",  64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6c, 1,  0,  127, "[PEG ]Rel[ease] Time",   64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6d, 1,  1,  127, "Vel[ocity Limit] Low",    1, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6e, 1,  1,  127, "Vel[ocity Limit] High", 127, NULL,     NULL,     NULL,     NULL     }
 };
 
 
@@ -3137,12 +3137,12 @@ XGParam *XGParamMap::key_param (void) const
 // Key value accessors.
 void XGParamMap::set_current_key ( unsigned short key )
 {
-	if (m_key_param)
+	if (m_key_param) {
 		m_key_param->set_value(key);
-	else
+	} else {
 		m_key = key;
-
-	notify_reset();
+		notify_reset();
+	}
 }
 
 unsigned short XGParamMap::current_key () const

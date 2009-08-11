@@ -85,6 +85,9 @@ public slots:
 
 	void multipartComboActivated(int);
 
+	void drumsetupComboActivated(int);
+	void drumsetupNoteComboActivated(int);
+
 protected:
 
 	void closeEvent(QCloseEvent *pCloseEvent);
