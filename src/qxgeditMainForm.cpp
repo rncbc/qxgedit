@@ -480,6 +480,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (unsigned short k = 13; k < 85; ++k)
 		m_ui.DrumsetupNoteCombo->addItem(tr("Note %1").arg(k), k);
 
+	int iNote = m_ui.DrumsetupNoteCombo->findData(DRUMSETUP->current_key());
+	if (iNote >= 0)
+		m_ui.DrumsetupNoteCombo->setCurrentIndex(iNote);
+	
 	QObject::connect(m_ui.DrumsetupCombo,
 		SIGNAL(activated(int)),
 		SLOT(drumsetupComboActivated(int)));
@@ -504,11 +508,6 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.DrumsetupAttackDial       -> set_param_map(DRUMSETUP, 0x0d);
 	m_ui.DrumsetupDecay1Dial       -> set_param_map(DRUMSETUP, 0x0e);
 	m_ui.DrumsetupDecay2Dial       -> set_param_map(DRUMSETUP, 0x0f);
-
-	// FIXME: Can't really tell why notify_reset() is not issued
-	// on the DRUMSETUP map, as is on the other sections, so that
-	// we try to force the update here...
-	drumsetupNoteComboActivated(0);
 
 	// Setup local observers...
 	XGParamMasterMap::const_iterator iter = m_pParamMasterMap->constBegin();

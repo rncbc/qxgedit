@@ -3280,6 +3280,7 @@ XGParamMasterMap::XGParamMasterMap (void)
 	}
 
 	// XG MULTI PART...
+	MULTIPART.set_current_key(0);
 	for (i = 0; i < TSIZE(MULTIPARTParamTab); ++i) {
 		XGParamItem *item = &MULTIPARTParamTab[i];
 		for (j = 0; j < 16; ++j) {
@@ -3290,6 +3291,7 @@ XGParamMasterMap::XGParamMasterMap (void)
 	}
 
 	// XG DRUM SETUP...
+	DRUMSETUP.set_current_key(35); // Drums 1, Bass Drum.
 	for (i = 0; i < TSIZE(DRUMSETUPParamTab); ++i) {
 		XGParamItem *item = &DRUMSETUPParamTab[i];
 		for (j = 0; j < 2; ++j) {
