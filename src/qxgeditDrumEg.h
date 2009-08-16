@@ -1,4 +1,4 @@
-// qxgeditAmpEg.h
+// qxgeditDrumEg.h
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -19,44 +19,44 @@
 
 *****************************************************************************/
 
-#ifndef __qxgeditAmpEg_h
-#define __qxgeditAmpEg_h
+#ifndef __qxgeditDrumEg_h
+#define __qxgeditDrumEg_h
 
 #include <QFrame>
 
 
 //----------------------------------------------------------------------------
-// qxgeditAmpEg -- Custom widget
+// qxgeditDrumEg -- Custom widget
 
-class qxgeditAmpEg : public QFrame
+class qxgeditDrumEg : public QFrame
 {
 	Q_OBJECT
 
 public:
 
 	// Constructor.
-	qxgeditAmpEg(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditDrumEg(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
 	// Destructor.
-	~qxgeditAmpEg();
+	~qxgeditDrumEg();
 
 	// Parameter getters.
 	unsigned short attack() const;
-	unsigned short decay() const;
-	unsigned short release() const;
+	unsigned short decay1() const;
+	unsigned short decay2() const;
 
 public slots:
 
 	// Parameter setters.
 	void setAttack(unsigned short iAttack);
-	void setDecay(unsigned short iDecay);
-	void setRelease(unsigned short iRelease);
+	void setDecay1(unsigned short iDecay1);
+	void setDecay2(unsigned short iDecay2);
 
 signals:
 
 	// Parameter change signals.
 	void attackChanged(unsigned short iAttack);
-	void decayChanged(unsigned short iDecay);
-	void releaseChanged(unsigned short iRelease);
+	void decay1Changed(unsigned short iDecay1);
+	void decay2Changed(unsigned short iDecay2);
 
 protected:
 
@@ -78,8 +78,8 @@ private:
 
 	// Instance state.
 	unsigned short m_iAttack;
-	unsigned short m_iDecay;
-	unsigned short m_iRelease;
+	unsigned short m_iDecay1;
+	unsigned short m_iDecay2;
 
 	// Draw state.
 	QPolygon m_poly;
@@ -89,6 +89,6 @@ private:
 	QPoint m_posDrag;
 };
 
-#endif	// __qxgeditAmpEg_h
+#endif	// __qxgeditDrumEg_h
 
-// end of qxgeditAmpEg.h
+// end of qxgeditDrumEg.h

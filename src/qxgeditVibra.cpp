@@ -37,7 +37,10 @@ qxgeditVibra::qxgeditVibra (
 		m_poly(3), m_iDragNode(-1)
 {
 	setMouseTracking(true);
-	setMinimumSize(QSize(120, 80));
+	setMinimumSize(QSize(160, 80));
+
+	QFrame::setFrameShape(QFrame::Panel);
+	QFrame::setFrameShadow(QFrame::Sunken);
 }
 
 
@@ -142,7 +145,7 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.drawRect(nodeRect(1));
 	painter.drawRect(nodeRect(2));
 
-#ifdef CONFIG_DEBUG
+#ifdef CONFIG_DEBUG_0
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
 		tr("Delay (%1) Rate (%2) Depth (%3)")

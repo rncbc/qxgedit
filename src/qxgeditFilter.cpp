@@ -36,7 +36,10 @@ qxgeditFilter::qxgeditFilter (
 		m_iFreq(0), m_iReso(0),
 		m_bDragging(false)
 {
-	setMinimumSize(QSize(120, 80));
+	setMinimumSize(QSize(160, 80));
+
+	QFrame::setFrameShape(QFrame::Panel);
+	QFrame::setFrameShadow(QFrame::Sunken);
 }
 
 
@@ -118,7 +121,7 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.setBrush(grad);
 	painter.drawPath(path);
 
-#ifdef CONFIG_DEBUG
+#ifdef CONFIG_DEBUG_0
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
 		tr("Cutoff-Frequency (%1) Resonance (%2)")

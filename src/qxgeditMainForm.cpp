@@ -367,6 +367,86 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(activated(int)),
 		SLOT(multipartComboActivated(int)));
 
+	// AmpEg...
+	QObject::connect(
+		m_ui.MultipartAmpEg, SIGNAL(attackChanged(unsigned short)),
+		m_ui.MultipartAttackDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartAttackDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartAmpEg, SLOT(setAttack(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartAmpEg, SIGNAL(decayChanged(unsigned short)),
+		m_ui.MultipartDecayDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartDecayDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartAmpEg, SLOT(setDecay(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartAmpEg, SIGNAL(releaseChanged(unsigned short)),
+		m_ui.MultipartReleaseDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartReleaseDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartAmpEg, SLOT(setRelease(unsigned short)));
+
+	// Filter...
+	QObject::connect(
+		m_ui.MultipartFilter, SIGNAL(freqChanged(unsigned short)),
+		m_ui.MultipartCutoffDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartCutoffDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartFilter, SLOT(setFreq(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartFilter, SIGNAL(resoChanged(unsigned short)),
+		m_ui.MultipartResonanceDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartResonanceDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartFilter, SLOT(setReso(unsigned short)));
+
+	// Pitch...
+	QObject::connect(
+		m_ui.MultipartPitch, SIGNAL(attackTimeChanged(unsigned short)),
+		m_ui.MultipartAttackTimeDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartAttackTimeDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartPitch, SLOT(setAttackTime(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartPitch, SIGNAL(attackLevelChanged(unsigned short)),
+		m_ui.MultipartAttackLevelDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartAttackLevelDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartPitch, SLOT(setAttackLevel(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartPitch, SIGNAL(releaseTimeChanged(unsigned short)),
+		m_ui.MultipartReleaseTimeDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartReleaseTimeDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartPitch, SLOT(setReleaseTime(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartPitch, SIGNAL(releaseLevelChanged(unsigned short)),
+		m_ui.MultipartReleaseLevelDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartReleaseLevelDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartPitch, SLOT(setReleaseLevel(unsigned short)));
+
+	// Vibrato...
+	QObject::connect(
+		m_ui.MultipartVibra, SIGNAL(delayChanged(unsigned short)),
+		m_ui.MultipartDelayDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartDelayDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartVibra, SLOT(setDelay(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartVibra, SIGNAL(rateChanged(unsigned short)),
+		m_ui.MultipartRateDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartRateDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartVibra, SLOT(setRate(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartVibra, SIGNAL(depthChanged(unsigned short)),
+		m_ui.MultipartDepthDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.MultipartDepthDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.MultipartVibra, SLOT(setDepth(unsigned short)));
+
 	m_ui.MultipartElementDial      -> set_param_map(MULTIPART, 0x00);
 	m_ui.MultipartBankMSBDial      -> set_param_map(MULTIPART, 0x01);
 	m_ui.MultipartBankLSBDial      -> set_param_map(MULTIPART, 0x02);
@@ -491,6 +571,26 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_ui.DrumsetupNoteCombo,
 		SIGNAL(activated(int)),
 		SLOT(drumsetupNoteComboActivated(int)));
+
+	// AmpEg...
+	QObject::connect(
+		m_ui.DrumsetupAmpEg, SIGNAL(attackChanged(unsigned short)),
+		m_ui.DrumsetupAttackDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupAttackDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.DrumsetupAmpEg, SLOT(setAttack(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupAmpEg, SIGNAL(decay1Changed(unsigned short)),
+		m_ui.DrumsetupDecay1Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupDecay1Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.DrumsetupAmpEg, SLOT(setDecay1(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupAmpEg, SIGNAL(decay2Changed(unsigned short)),
+		m_ui.DrumsetupDecay2Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupDecay2Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.DrumsetupAmpEg, SLOT(setDecay2(unsigned short)));
 
 	m_ui.DrumsetupCoarseDial       -> set_param_map(DRUMSETUP, 0x00);
 	m_ui.DrumsetupFineDial         -> set_param_map(DRUMSETUP, 0x01);

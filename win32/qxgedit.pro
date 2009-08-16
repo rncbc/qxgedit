@@ -3,13 +3,14 @@ INCPATH += ../src
 HEADERS += ../src/XGParam.h \
            ../src/XGParamWidget.h \
            ../src/qxgeditAbout.h \
-           ../src/qxgeditAmpEg.h \
            ../src/qxgeditCheck.h \
            ../src/qxgeditCombo.h \
            ../src/qxgeditDial.h \
            ../src/qxgeditDrop.h \
+           ../src/qxgeditDrumEg.h \
            ../src/qxgeditFilter.h \
            ../src/qxgeditKnob.h \
+           ../src/qxgeditPartEg.h \
            ../src/qxgeditPitch.h \
            ../src/qxgeditSpin.h \
            ../src/qxgeditVibra.h \
@@ -20,13 +21,14 @@ HEADERS += ../src/XGParam.h \
 
 SOURCES += ../src/XGParam.cpp \
            ../src/XGParamWidget.cpp \
-           ../src/qxgeditAmpEg.cpp \
            ../src/qxgeditCheck.cpp \
            ../src/qxgeditCombo.cpp \
            ../src/qxgeditDial.cpp \
            ../src/qxgeditDrop.cpp \
+           ../src/qxgeditDrumEg.cpp \
            ../src/qxgeditFilter.cpp \
            ../src/qxgeditKnob.cpp \
+           ../src/qxgeditPartEg.cpp \
            ../src/qxgeditPitch.cpp \
            ../src/qxgeditSpin.cpp \
            ../src/qxgeditVibra.cpp \

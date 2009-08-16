@@ -118,7 +118,13 @@ void qxgeditDial::set_value ( unsigned short iValue )
 
 unsigned short qxgeditDial::value (void) const
 {
-	return m_pSpin->value();
+	if (m_pSpin->isVisible())
+		return m_pSpin->value();
+	else
+	if (m_pDrop->isVisible())
+		return m_pDrop->value();
+	else
+		return 0;
 }
 
 
@@ -149,6 +155,7 @@ void qxgeditDial::set_param ( XGParam *pParam )
 			m_pDrop->hide();
 		}
 		QWidget::setToolTip(pParam->text());
+		emit valueChanged(pParam->value());
 	} else {
 		QWidget::setEnabled(false);
 		m_pLabel->clear();
@@ -170,6 +177,13 @@ XGParam *qxgeditDial::param (void) const
 		return m_pDrop->param();
 	else
 		return NULL;
+}
+
+
+// Value settler public slot.
+void qxgeditDial::setValue ( unsigned short iValue )
+{
+	set_value(iValue);
 }
 
 

@@ -64,6 +64,11 @@ signals:
 	// Value change signal.
 	void valueChanged(unsigned short);
 
+public slots:
+
+	// Value settler.
+	void setValue(unsigned short);
+
 protected slots:
 
 	// Internal widget slots.

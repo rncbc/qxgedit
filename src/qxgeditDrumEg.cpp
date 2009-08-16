@@ -1,4 +1,4 @@
-// qxgeditAmpEg.cpp
+// qxgeditDrumEg.cpp
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -20,35 +20,38 @@
 *****************************************************************************/
 
 #include "qxgeditAbout.h"
-#include "qxgeditAmpEg.h"
+#include "qxgeditDrumEg.h"
 
 #include <QPainter>
 #include <QMouseEvent>
 
 
 //----------------------------------------------------------------------------
-// qxgeditAmpEg -- Custom widget
+// qxgeditDrumEg -- Custom widget
 
 // Constructor.
-qxgeditAmpEg::qxgeditAmpEg (
+qxgeditDrumEg::qxgeditDrumEg (
 	QWidget *pParent, Qt::WindowFlags wflags )
 	: QFrame(pParent, wflags),
-		m_iAttack(0), m_iDecay(0), m_iRelease(0),
-		m_poly(7), m_iDragNode(-1)
+		m_iAttack(0), m_iDecay1(0), m_iDecay2(0),
+		m_poly(6), m_iDragNode(-1)
 {
 	setMouseTracking(true);
-	setMinimumSize(QSize(120, 80));
+	setMinimumSize(QSize(160, 80));
+
+	QFrame::setFrameShape(QFrame::Panel);
+	QFrame::setFrameShadow(QFrame::Sunken);
 }
 
 
 // Destructor.
-qxgeditAmpEg::~qxgeditAmpEg (void)
+qxgeditDrumEg::~qxgeditDrumEg (void)
 {
 }
 
 
 // Parameter accessors.
-void qxgeditAmpEg::setAttack ( unsigned short iAttack )
+void qxgeditDrumEg::setAttack ( unsigned short iAttack )
 {
 	if (m_iAttack != iAttack) {
 		m_iAttack  = iAttack;
@@ -57,43 +60,44 @@ void qxgeditAmpEg::setAttack ( unsigned short iAttack )
 	}
 }
 
-unsigned short qxgeditAmpEg::attack (void) const
+unsigned short qxgeditDrumEg::attack (void) const
 {
 	return m_iAttack;
 }
 
 
-void qxgeditAmpEg::setDecay ( unsigned short iDecay )
+void qxgeditDrumEg::setDecay1 ( unsigned short iDecay1 )
 {
-	if (m_iDecay != iDecay) {
-		m_iDecay  = iDecay;
+	if (m_iDecay1 != iDecay1) {
+		m_iDecay1  = iDecay1;
 		update();
-		emit decayChanged(decay());
+		emit decay1Changed(decay1());
 	}
 }
 
-unsigned short qxgeditAmpEg::decay (void) const
+unsigned short qxgeditDrumEg::decay1 (void) const
 {
-	return m_iDecay;
+	return m_iDecay1;
 }
 
-void qxgeditAmpEg::setRelease ( unsigned short iRelease )
+
+void qxgeditDrumEg::setDecay2 ( unsigned short iDecay2 )
 {
-	if (m_iRelease != iRelease) {
-		m_iRelease  = iRelease;
+	if (m_iDecay2 != iDecay2) {
+		m_iDecay2  = iDecay2;
 		update();
-		emit releaseChanged(release());
+		emit decay2Changed(decay2());
 	}
 }
 
-unsigned short qxgeditAmpEg::release (void) const
+unsigned short qxgeditDrumEg::decay2 (void) const
 {
-	return m_iRelease;
+	return m_iDecay2;
 }
 
 
 // Draw curve.
-void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
+void qxgeditDrumEg::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
@@ -101,20 +105,19 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 	int w  = width();
 
 	int h2 = h >> 1;
-	int w4 = w >> 2;
+	int w3 = (w / 3) - 3;
 
-	int x1 = int((m_iAttack  * w4) >> 7);
-	int x2 = int((m_iDecay   * w4) >> 7) + x1;
-	int x3 = int((m_iRelease * w4) >> 7) + x2 + w4;
+	int x1 = int((m_iAttack * w3) >> 7) + 6;
+	int x2 = int((m_iDecay1 * w3) >> 7) + x1;
+	int x3 = int((m_iDecay2 * w3) >> 7) + x2;
 
-	m_poly.putPoints(0, 7,
+	m_poly.putPoints(0, 6,
 		0, h,
 		6, h - 6,
-		x1 + 6, 6,
-		x2 + 6, h2,
-		x2 + w4 - 6, h2,
-		x3 - 6, h - 6,
-		x3, h);
+		x1, 6,
+		x2, h2,
+		x3, h - 6,
+		x3 + 6, h);
 
 //	painter.drawPolyline(m_poly);
 
@@ -135,18 +138,17 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.setBrush(rgbLite); // pal.midlight().color()
 	painter.drawRect(nodeRect(2));
 	painter.drawRect(nodeRect(3));
-	painter.drawRect(nodeRect(5));
+	painter.drawRect(nodeRect(4));
 	painter.setBrush(pal.mid().color());
 	painter.drawRect(nodeRect(1));
-	painter.drawRect(nodeRect(4));
 
-#ifdef CONFIG_DEBUG
+#ifdef CONFIG_DEBUG_0
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
-		tr("Attack (%1) Decay (%2) Release (%3)")
-		.arg(int(attack())  - 64)
-		.arg(int(decay())   - 64)
-		.arg(int(release()) - 64));
+		tr("Attack (%1) Decay1 (%2) Decay2 (%3)")
+		.arg(int(attack()) - 64)
+		.arg(int(decay1()) - 64)
+		.arg(int(decay2()) - 64));
 #endif
 
 	painter.end();
@@ -156,40 +158,40 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 
 
 // Draw rectangular point.
-QRect qxgeditAmpEg::nodeRect ( int iNode ) const
+QRect qxgeditDrumEg::nodeRect ( int iNode ) const
 {
 	const QPoint& pos = m_poly.at(iNode);
 	return QRect(pos.x() - 4, pos.y() - 4, 8, 8); 
 }
 
 
-int qxgeditAmpEg::nodeIndex ( const QPoint& pos ) const
+int qxgeditDrumEg::nodeIndex ( const QPoint& pos ) const
 {
 	if (nodeRect(2).contains(pos))
 		return 2; // Attack
 
 	if (nodeRect(3).contains(pos))
-		return 3; // Decay
+		return 3; // Decay1
 
-	if (nodeRect(5).contains(pos))
-		return 5; // Release
+	if (nodeRect(4).contains(pos))
+		return 4; // Decay2
 
 	return -1;
 }
 
 
-void qxgeditAmpEg::dragNode ( const QPoint& pos )
+void qxgeditDrumEg::dragNode ( const QPoint& pos )
 {
 	unsigned short *piValue = NULL;
 	switch (m_iDragNode) {
 	case 2: // Attack
 		piValue = &m_iAttack;
 		break;
-	case 3: // Decay
-		piValue = &m_iDecay;
+	case 3: // Decay1
+		piValue = &m_iDecay1;
 		break;
-	case 5: // Release
-		piValue = &m_iRelease;
+	case 4: // Decay2
+		piValue = &m_iDecay2;
 		break;
 	}
 
@@ -207,11 +209,11 @@ void qxgeditAmpEg::dragNode ( const QPoint& pos )
 			case 2: // Attack
 				emit attackChanged(attack());
 				break;
-			case 3: // Decay
-				emit decayChanged(decay());
+			case 3: // Decay1
+				emit decay1Changed(decay1());
 				break;
-			case 5: // Release
-				emit releaseChanged(release());
+			case 4: // Decay2
+				emit decay2Changed(decay2());
 				break;
 			}
 		}
@@ -224,7 +226,7 @@ void qxgeditAmpEg::dragNode ( const QPoint& pos )
 
 
 // Mouse interaction.
-void qxgeditAmpEg::mousePressEvent ( QMouseEvent *pMouseEvent )
+void qxgeditDrumEg::mousePressEvent ( QMouseEvent *pMouseEvent )
 {
 	if (pMouseEvent->button() == Qt::LeftButton) {
 		const QPoint& pos = pMouseEvent->pos();
@@ -240,13 +242,13 @@ void qxgeditAmpEg::mousePressEvent ( QMouseEvent *pMouseEvent )
 }
 
 
-void qxgeditAmpEg::mouseMoveEvent ( QMouseEvent *pMouseEvent )
+void qxgeditDrumEg::mouseMoveEvent ( QMouseEvent *pMouseEvent )
 {
 	dragNode(pMouseEvent->pos());
 }
 
 
-void qxgeditAmpEg::mouseReleaseEvent ( QMouseEvent *pMouseEvent )
+void qxgeditDrumEg::mouseReleaseEvent ( QMouseEvent *pMouseEvent )
 {
 	QFrame::mouseReleaseEvent(pMouseEvent);
 
@@ -259,4 +261,4 @@ void qxgeditAmpEg::mouseReleaseEvent ( QMouseEvent *pMouseEvent )
 }
 
 
-// end of qxgeditAmpEg.cpp
+// end of qxgeditDrumEg.cpp
