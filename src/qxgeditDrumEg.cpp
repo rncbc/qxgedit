@@ -53,6 +53,9 @@ qxgeditDrumEg::~qxgeditDrumEg (void)
 // Parameter accessors.
 void qxgeditDrumEg::setAttack ( unsigned short iAttack )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iAttack != iAttack) {
 		m_iAttack  = iAttack;
 		update();
@@ -68,6 +71,9 @@ unsigned short qxgeditDrumEg::attack (void) const
 
 void qxgeditDrumEg::setDecay1 ( unsigned short iDecay1 )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iDecay1 != iDecay1) {
 		m_iDecay1  = iDecay1;
 		update();
@@ -83,6 +89,9 @@ unsigned short qxgeditDrumEg::decay1 (void) const
 
 void qxgeditDrumEg::setDecay2 ( unsigned short iDecay2 )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iDecay2 != iDecay2) {
 		m_iDecay2  = iDecay2;
 		update();

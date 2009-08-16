@@ -389,17 +389,17 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 
 	// Filter...
 	QObject::connect(
-		m_ui.MultipartFilter, SIGNAL(freqChanged(unsigned short)),
+		m_ui.MultipartFilter, SIGNAL(cutoffChanged(unsigned short)),
 		m_ui.MultipartCutoffDial, SLOT(setValue(unsigned short)));
 	QObject::connect(
 		m_ui.MultipartCutoffDial, SIGNAL(valueChanged(unsigned short)),
-		m_ui.MultipartFilter, SLOT(setFreq(unsigned short)));
+		m_ui.MultipartFilter, SLOT(setCutoff(unsigned short)));
 	QObject::connect(
-		m_ui.MultipartFilter, SIGNAL(resoChanged(unsigned short)),
+		m_ui.MultipartFilter, SIGNAL(resonanceChanged(unsigned short)),
 		m_ui.MultipartResonanceDial, SLOT(setValue(unsigned short)));
 	QObject::connect(
 		m_ui.MultipartResonanceDial, SIGNAL(valueChanged(unsigned short)),
-		m_ui.MultipartFilter, SLOT(setReso(unsigned short)));
+		m_ui.MultipartFilter, SLOT(setResonance(unsigned short)));
 
 	// Pitch...
 	QObject::connect(
@@ -788,7 +788,7 @@ unsigned short qxgeditMainForm::sysexXGParam (
 		unsigned short c = param->value();
 		const char *s = param->gets(c);
 		const char *u = param->unit();
-		fprintf(stderr, " %s", name);
+		fprintf(stderr, " %s", param->text().toUtf8().constData());
 		fprintf(stderr, " %g", param->getv(c));
 		if (s) fprintf(stderr, " %s", s);
 		if (u) fprintf(stderr, " %s", u);

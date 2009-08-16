@@ -53,6 +53,9 @@ qxgeditPartEg::~qxgeditPartEg (void)
 // Parameter accessors.
 void qxgeditPartEg::setAttack ( unsigned short iAttack )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iAttack != iAttack) {
 		m_iAttack  = iAttack;
 		update();
@@ -68,6 +71,9 @@ unsigned short qxgeditPartEg::attack (void) const
 
 void qxgeditPartEg::setDecay ( unsigned short iDecay )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iDecay != iDecay) {
 		m_iDecay  = iDecay;
 		update();
@@ -82,6 +88,9 @@ unsigned short qxgeditPartEg::decay (void) const
 
 void qxgeditPartEg::setRelease ( unsigned short iRelease )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iRelease != iRelease) {
 		m_iRelease  = iRelease;
 		update();

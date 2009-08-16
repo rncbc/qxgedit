@@ -54,6 +54,9 @@ qxgeditPitch::~qxgeditPitch (void)
 // Parameter accessors.
 void qxgeditPitch::setAttackTime ( unsigned short iAttackTime )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iAttackTime != iAttackTime) {
 		m_iAttackTime  = iAttackTime;
 		update();
@@ -69,6 +72,9 @@ unsigned short qxgeditPitch::attackTime (void) const
 
 void qxgeditPitch::setAttackLevel ( unsigned short iAttackLevel )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iAttackLevel != iAttackLevel) {
 		m_iAttackLevel  = iAttackLevel;
 		update();
@@ -84,6 +90,9 @@ unsigned short qxgeditPitch::attackLevel (void) const
 
 void qxgeditPitch::setReleaseTime ( unsigned short iReleaseTime )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iReleaseTime != iReleaseTime) {
 		m_iReleaseTime  = iReleaseTime;
 		update();
@@ -99,6 +108,9 @@ unsigned short qxgeditPitch::releaseTime (void) const
 
 void qxgeditPitch::setReleaseLevel ( unsigned short iReleaseLevel )
 {
+	if (m_iDragNode >= 0)
+		return;
+
 	if (m_iReleaseLevel != iReleaseLevel) {
 		m_iReleaseLevel  = iReleaseLevel;
 		update();

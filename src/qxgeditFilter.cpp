@@ -33,7 +33,7 @@
 qxgeditFilter::qxgeditFilter (
 	QWidget *pParent, Qt::WindowFlags wflags )
 	: QFrame(pParent, wflags),
-		m_iFreq(0), m_iReso(0),
+		m_iCutoff(0), m_iResonance(0),
 		m_bDragging(false)
 {
 	setMinimumSize(QSize(160, 80));
@@ -50,32 +50,35 @@ qxgeditFilter::~qxgeditFilter (void)
 
 
 // Parameter accessors.
-void qxgeditFilter::setFreq ( unsigned short iFreq )
+void qxgeditFilter::setCutoff ( unsigned short iCutoff )
 {
-	if (m_iFreq != iFreq) {
-		m_iFreq  = iFreq;
+	if (m_bDragging)
+		return;
+
+	if (m_iCutoff != iCutoff) {
+		m_iCutoff  = iCutoff;
 		update();
-		emit freqChanged(freq());
+		emit cutoffChanged(cutoff());
 	}
 }
 
-unsigned short qxgeditFilter::freq (void) const
+unsigned short qxgeditFilter::cutoff (void) const
 {
-	return m_iFreq;
+	return m_iCutoff;
 }
 
-void qxgeditFilter::setReso ( unsigned short iReso )
+void qxgeditFilter::setResonance ( unsigned short iResonance )
 {
-	if (m_iReso != iReso) {
-		m_iReso  = iReso;
+	if (m_iResonance != iResonance) {
+		m_iResonance  = iResonance;
 		update();
-		emit resoChanged(reso());
+		emit resonanceChanged(resonance());
 	}
 }
 
-unsigned short qxgeditFilter::reso (void) const
+unsigned short qxgeditFilter::resonance (void) const
 {
-	return m_iReso;
+	return m_iResonance;
 }
 
 
@@ -92,8 +95,8 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	int w4 = w >> 2;
 	int w8 = w >> 3;
 
-	int x = w8 + int((m_iFreq * (w - w4)) >> 7);
-	int y = h2 - int((m_iReso * (h + h4)) >> 7);
+	int x = w8 + int((m_iCutoff * (w - w4)) >> 7);
+	int y = h2 - int((m_iResonance * (h + h4)) >> 7);
 
 	QPolygon poly(6);
 	poly.putPoints(0, 6,
@@ -125,9 +128,9 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 #ifdef CONFIG_DEBUG_0
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
-		tr("Cutoff-Frequency (%1) Resonance (%2)")
-		.arg(int(freq()) - 64)
-		.arg(int(reso()) - 64));
+		tr("Cutoff (%1) Resonance (%2)")
+		.arg(int(cutoff()) - 64)
+		.arg(int(resonance()) - 64));
 #endif
 
 	painter.end();
@@ -139,32 +142,32 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 // Drag/move curve.
 void qxgeditFilter::dragCurve ( const QPoint& pos )
 {
-	int iFreq = int(m_iFreq)
+	int iCutoff = int(m_iCutoff)
 		+ ((pos.x() - m_posDrag.x()) << 7) / width();
-	int iReso = int(m_iReso)
+	int iResonance = int(m_iResonance)
 		+ ((m_posDrag.y() - pos.y()) << 7) / height();
 
-	if (iFreq < 0) iFreq = 0;
+	if (iCutoff < 0) iCutoff = 0;
 	else
-	if (iFreq > 127) iFreq = 127;
+	if (iCutoff > 127) iCutoff = 127;
 
-	if (iReso < 0) iReso = 0;
+	if (iResonance < 0) iResonance = 0;
 	else
-	if (iReso > 127) iReso = 127;
+	if (iResonance > 127) iResonance = 127;
 
-	if (m_iFreq == (unsigned short) iFreq &&
-		m_iReso == (unsigned short) iReso)
+	if (m_iCutoff == (unsigned short) iCutoff &&
+		m_iResonance == (unsigned short) iResonance)
 		return;
 
-	m_iFreq = (unsigned short) iFreq;
-	m_iReso = (unsigned short) iReso;
+	m_iCutoff = (unsigned short) iCutoff;
+	m_iResonance = (unsigned short) iResonance;
 
 	m_posDrag = pos;
 
 	update();
 
-	emit freqChanged(freq());
-	emit resoChanged(reso());
+	emit cutoffChanged(cutoff());
+	emit resonanceChanged(resonance());
 }
 
 

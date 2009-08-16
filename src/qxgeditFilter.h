@@ -40,20 +40,20 @@ public:
 	~qxgeditFilter();
 
 	// Parameter getters.
-	unsigned short freq() const;
-	unsigned short reso() const;
+	unsigned short cutoff() const;
+	unsigned short resonance() const;
 
 public slots:
 
 	// Parameter setters.
-	void setFreq(unsigned short ifreq);
-	void setReso(unsigned short ireso);
+	void setCutoff(unsigned short iCutoff);
+	void setResonance(unsigned short iResonance);
 
 signals:
 
 	// Parameter change signals.
-	void freqChanged(unsigned short iFreq);
-	void resoChanged(unsigned short iReso);
+	void cutoffChanged(unsigned short iCutoff);
+	void resonanceChanged(unsigned short iResonance);
 
 protected:
 
@@ -71,8 +71,8 @@ protected:
 private:
 
 	// Instance state.
-	unsigned short m_iFreq;
-	unsigned short m_iReso;
+	unsigned short m_iCutoff;
+	unsigned short m_iResonance;
 
 	// Drag state.
 	bool   m_bDragging;
