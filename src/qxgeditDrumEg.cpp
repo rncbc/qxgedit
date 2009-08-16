@@ -119,14 +119,14 @@ void qxgeditDrumEg::paintEvent ( QPaintEvent *pPaintEvent )
 		x3, h - 6,
 		x3 + 6, h);
 
-//	painter.drawPolyline(m_poly);
-
 	QPainterPath path;
 	path.addPolygon(m_poly);
 
 	const QPalette& pal = palette();
-	const QColor& rgbLite = (pal.window().color().value() < 0x7f
-		? Qt::darkYellow : Qt::yellow);
+	const QColor& rgbLite = Qt::darkYellow;
+
+	painter.fillRect(0, 0, w, h, pal.dark().color());
+//	painter.drawPolyline(m_poly);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
 	grad.setColorAt(0.0f, rgbLite);

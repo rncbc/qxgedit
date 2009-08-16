@@ -38,7 +38,10 @@ qxgeditPitch::qxgeditPitch (
 		m_poly(4), m_iDragNode(-1)
 {
 	setMouseTracking(true);
-	setMinimumSize(QSize(120, 80));
+	setMinimumSize(QSize(160, 80));
+
+	QFrame::setFrameShape(QFrame::Panel);
+	QFrame::setFrameShadow(QFrame::Sunken);
 }
 
 
@@ -134,11 +137,11 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 		x3, h2,
 		x4, y2);
 
-	painter.drawPolyline(m_poly);
-
 	const QPalette& pal = palette();
-	const QColor& rgbLite = (pal.window().color().value() < 0x7f
-		? Qt::darkYellow : Qt::yellow);
+	const QColor& rgbLite = Qt::darkYellow;
+
+	painter.fillRect(0, 0, w, h, pal.dark().color());
+	painter.drawPolyline(m_poly);
 
 	painter.setBrush(rgbLite); // pal.midlight().color()
 	painter.drawRect(nodeRect(0));
@@ -147,7 +150,7 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.drawRect(nodeRect(1));
 	painter.drawRect(nodeRect(2));
 
-#ifdef CONFIG_DEBUG
+#ifdef CONFIG_DEBUG_0
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
 		tr("Attack (%1,%2) Release (%3,%4)")

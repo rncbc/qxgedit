@@ -117,8 +117,6 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 		x1, y1,
 		x2, y1 - y2);
 
-//	painter.drawPolyline(m_poly);
-
 	QPainterPath path;
 	path.addPolygon(m_poly);
 	int dx = ((x2 - x1) << 1) + 1;
@@ -131,8 +129,10 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 	path.lineTo(0, h);
 
 	const QPalette& pal = palette();
-	const QColor& rgbLite = (pal.window().color().value() < 0x7f
-		? Qt::darkYellow : Qt::yellow);
+	const QColor& rgbLite = Qt::darkYellow;
+
+	painter.fillRect(0, 0, w, h, pal.dark().color());
+//	painter.drawPolyline(m_poly);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
 	grad.setColorAt(0.0f, rgbLite);

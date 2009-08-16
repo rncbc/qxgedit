@@ -2907,7 +2907,8 @@ void XGParam::notify_reset ( XGParamObserver *sender )
 
 	m_busy = false;
 
-	qDebug("DEBUG> XGParam[%p]::notify_reset(%p) %s (%u)", this, sender, name(), value());
+	qDebug("DEBUG> XGParam[%p]::notify_reset(%p) %s (%u)", this,
+		sender, text().toUtf8().constData(), value());
 }
 
 
@@ -2929,7 +2930,8 @@ void XGParam::notify_update ( XGParamObserver *sender )
 
 	m_busy = false;
 
-	qDebug("DEBUG> XGParam[%p]::notify_update(%p) %s (%u)", this, sender, name(), value());
+	qDebug("DEBUG> XGParam[%p]::notify_update(%p) %s (%u)", this,
+		sender, text().toUtf8().constData(), value());
 }
 
 

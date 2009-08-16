@@ -111,8 +111,9 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	path.lineTo(poly.at(5));
 
 	const QPalette& pal = palette();
-	const QColor& rgbLite = (pal.window().color().value() < 0x7f
-		? Qt::darkYellow : Qt::yellow);
+	const QColor& rgbLite = Qt::darkYellow;
+
+	painter.fillRect(0, 0, w, h, pal.dark().color());
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
 	grad.setColorAt(0.0f, rgbLite);
