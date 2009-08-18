@@ -96,15 +96,13 @@ void qxgeditDrop::setParam ( XGParam *pParam )
 
 	if (m_pParam) {
 		unsigned short iValue = m_pParam->min();
-		const char *pszItem = m_pParam->gets(iValue);
-		while (pszItem && m_pParam->max() >= iValue) {
-			QComboBox::addItem(pszItem, iValue);
-			pszItem = m_pParam->gets(++iValue);
+		for (; m_pParam->max() >= iValue; ++iValue) {
+			const char *pszItem = m_pParam->gets(iValue);
+			if (pszItem)
+				QComboBox::addItem(pszItem, iValue);
 		}
-	}
-
-	if (m_pParam)
 		setValue(m_pParam->value());
+	}
 }
 
 XGParam *qxgeditDrop::param (void) const

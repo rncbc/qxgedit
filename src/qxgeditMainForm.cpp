@@ -24,6 +24,7 @@
 #include "qxgeditAbout.h"
 #include "qxgeditOptions.h"
 
+#include "qxgeditXGParamMap.h"
 #include "qxgeditMidiDevice.h"
 
 #include "qxgeditDial.h"
@@ -57,43 +58,6 @@
 
 
 //----------------------------------------------------------------------------
-// qxgeditXGParamObserver -- Simple XGParam observer.
-//
-class qxgeditXGParamObserver : public XGParamObserver
-{
-public:
-
-	// Constructor.
-	qxgeditXGParamObserver(XGParam *pParam)
-		: XGParamObserver(pParam) {}
-
-protected:
-
-	// View updater (observer callback).
-	void reset() {}
-
-	void update()
-	{
-		qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
-		if (pMidiDevice == NULL)
-			return;
-
-		XGParam *pParam = param();
-		unsigned char  aSysex[]
-			= { 0xf0, 0x43, 0x10, 0x4c, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7 };
-		unsigned short iSysex = 8 + pParam->size();
-		aSysex[4] = pParam->high();
-		aSysex[5] = pParam->mid();
-		aSysex[6] = pParam->low();
-		pParam->set_data_value(&aSysex[7], pParam->value());
-		aSysex[iSysex - 1] = 0xf7;
-		
-		pMidiDevice->sendSysex(aSysex, iSysex);
-	}
-};
-
-
-//----------------------------------------------------------------------------
 // qxgeditMainForm -- UI wrapper form.
 //
 qxgeditMainForm *qxgeditMainForm::g_pMainForm = NULL;
@@ -112,10 +76,7 @@ qxgeditMainForm::qxgeditMainForm (
 	// Initialize some pointer references.
 	m_pOptions = NULL;
 	m_pMidiDevice = NULL;
-	m_pParamMasterMap = NULL;
-#ifdef XGPARAM_WIDGET_MAP
-	m_pParamWidgetMap = NULL;
-#endif
+	m_pParamMap = NULL;
 
 	// We'll start clean.
 	m_iUntitled   = 0;
@@ -200,19 +161,11 @@ qxgeditMainForm::qxgeditMainForm (
 // Destructor.
 qxgeditMainForm::~qxgeditMainForm (void)
 {
-	// Cleanup local observers...
-	qDeleteAll(m_observers);
-	m_observers.clear();
-
 	// Free designated devices.
 	if (m_pMidiDevice)
 		delete m_pMidiDevice;
-#ifdef XGPARAM_WIDGET_MAP
-	if (m_pParamWidgetMap)
-		delete m_pParamWidgetMap;
-#endif
-	if (m_pParamMasterMap)
-		delete m_pParamMasterMap;
+	if (m_pParamMap)
+		delete m_pParamMap;
 
 	// Pseudo-singleton reference shut-down.
 	g_pMainForm = NULL;
@@ -249,10 +202,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	updateRecentFilesMenu();
 
 	// XG master database...
-	m_pParamMasterMap = new XGParamMasterMap();
-#ifdef XGPARAM_WIDGET_MAP
-	m_pParamWidgetMap = new XGParamWidgetMap();
-#endif
+	m_pParamMap = new qxgeditXGParamMap();
 
 	// Start proper devices...
 	m_pMidiDevice = new qxgeditMidiDevice(QXGEDIT_TITLE);
@@ -272,18 +222,21 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	const QFont& font = pCentralWidget->font();
 	pCentralWidget->setFont(QFont(font.family(), font.pointSize() - 2));
 
-	XGParamMap *SYSTEM    = &(m_pParamMasterMap->SYSTEM);
-	XGParamMap *REVERB    = &(m_pParamMasterMap->REVERB);
-	XGParamMap *CHORUS    = &(m_pParamMasterMap->CHORUS);
-	XGParamMap *VARIATION = &(m_pParamMasterMap->VARIATION);
-	XGParamMap *MULTIPART = &(m_pParamMasterMap->MULTIPART);
-	XGParamMap *DRUMSETUP = &(m_pParamMasterMap->DRUMSETUP);
+	XGParamMap *SYSTEM    = &(m_pParamMap->SYSTEM);
+	XGParamMap *REVERB    = &(m_pParamMap->REVERB);
+	XGParamMap *CHORUS    = &(m_pParamMap->CHORUS);
+	XGParamMap *VARIATION = &(m_pParamMap->VARIATION);
+	XGParamMap *MULTIPART = &(m_pParamMap->MULTIPART);
+	XGParamMap *DRUMSETUP = &(m_pParamMap->DRUMSETUP);
 
 	// SYSTEM...
+	QObject::connect(m_ui.MasterResetButton,
+		SIGNAL(clicked()),
+		SLOT(masterResetButtonClicked()));
+
 	m_ui.MasterTuneDial            -> set_param_map(SYSTEM, 0x00);
 	m_ui.MasterVolumeDial          -> set_param_map(SYSTEM, 0x04);
 	m_ui.MasterTransposeDial       -> set_param_map(SYSTEM, 0x06);
-//	m_ui.MasterSystemResetButton   -> set_param_map(SYSTEM, 0x7e);
 
 	// REVERB...
 	m_ui.ReverbTypeCombo           -> set_param_map(REVERB, 0x00);
@@ -572,6 +525,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(activated(int)),
 		SLOT(drumsetupNoteComboActivated(int)));
 
+	QObject::connect(m_ui.DrumsetupResetButton,
+		SIGNAL(clicked()),
+		SLOT(drumsetupResetButtonClicked()));
+
 	// AmpEg...
 	QObject::connect(
 		m_ui.DrumsetupAmpEg, SIGNAL(attackChanged(unsigned short)),
@@ -608,11 +565,6 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.DrumsetupAttackDial       -> set_param_map(DRUMSETUP, 0x0d);
 	m_ui.DrumsetupDecay1Dial       -> set_param_map(DRUMSETUP, 0x0e);
 	m_ui.DrumsetupDecay2Dial       -> set_param_map(DRUMSETUP, 0x0f);
-
-	// Setup local observers...
-	XGParamMasterMap::const_iterator iter = m_pParamMasterMap->constBegin();
-	for (; iter != m_pParamMasterMap->constEnd(); ++iter)
-		m_observers.append(new qxgeditXGParamObserver(iter.value()));
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {
@@ -714,10 +666,6 @@ bool qxgeditMainForm::sysexEvent ( qxgeditMidiSysexEvent *pSysexEvent )
 
 bool qxgeditMainForm::sysexData ( unsigned char *data, unsigned short len )
 {
-#ifdef CONFIG_DEBUG
-	qDebug("qxgeditMainForm::sysexData(%p, %u)", data, len);
-#endif
-
 	bool ret = false;
 	unsigned short i;
 
@@ -772,31 +720,7 @@ unsigned short qxgeditMainForm::sysexXGParam (
 	unsigned char high, unsigned char mid, unsigned char low,
 	unsigned char *data )
 {
-	XGParam *param = m_pParamMasterMap->find_param(high, mid, low);
-	if (param == NULL)
-		return 0;
-
-	param->set_value(param->data_value(data));
-
-#ifdef CONFIG_DEBUG
-	fprintf(stderr, "< %02x %02x %02x",
-		param->high(),
-		param->mid(),
-		param->low());
-	const char *name = param->name();
-	if (name) {
-		unsigned short c = param->value();
-		const char *s = param->gets(c);
-		const char *u = param->unit();
-		fprintf(stderr, " %s", param->text().toUtf8().constData());
-		fprintf(stderr, " %g", param->getv(c));
-		if (s) fprintf(stderr, " %s", s);
-		if (u) fprintf(stderr, " %s", u);
-	}
-	fprintf(stderr, " >\n");
-#endif
-
-	return param->size();
+	return m_pParamMap->set_param_data(high, mid, low, data);
 }
 
 
@@ -992,7 +916,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	//	TODO: Actually load the file...
+	// TODO: Actually load the file...
 	bool bResult = false;
 
 	// We're formerly done.
@@ -1014,7 +938,7 @@ bool qxgeditMainForm::saveSessionFile (	const QString& sFilename )
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	//	TODO: Actually save the file...
+	// TODO: Actually save the file...
 	bool bResult = false;
 
 	// We're formerly done.
@@ -1268,33 +1192,55 @@ void qxgeditMainForm::updateRecentFilesMenu (void)
 }
 
 
+// XG System Reset...
+void qxgeditMainForm::masterResetButtonClicked (void)
+{
+	if (m_pParamMap) {
+		XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7e);
+		if (pParam)
+			pParam->set_value_update(0);
+	}
+}
+
+
 // Switch the current MULTIPART section...
 void qxgeditMainForm::multipartComboActivated ( int iPart )
 {
-	if (m_pParamMasterMap)
-		m_pParamMasterMap->MULTIPART.set_current_key(iPart);
+	if (m_pParamMap)
+		m_pParamMap->MULTIPART.set_current_key(iPart);
 }
 
 
 // Switch the current DRUMSETUP section...
 void qxgeditMainForm::drumsetupComboActivated ( int iDrumset )
 {
-	if (m_pParamMasterMap) {
+	if (m_pParamMap) {
 		int iNote = m_ui.DrumsetupNoteCombo->currentIndex();
 		unsigned short key = (unsigned short) (iDrumset << 7)
 			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
-		m_pParamMasterMap->DRUMSETUP.set_current_key(key);
+		m_pParamMap->DRUMSETUP.set_current_key(key);
 	}
 }
 
 
 void qxgeditMainForm::drumsetupNoteComboActivated ( int iNote )
 {
-	if (m_pParamMasterMap) {
+	if (m_pParamMap) {
 		int iDrumset = m_ui.DrumsetupCombo->currentIndex();
 		unsigned short key = (unsigned short) (iDrumset << 7)
 			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
-		m_pParamMasterMap->DRUMSETUP.set_current_key(key);
+		m_pParamMap->DRUMSETUP.set_current_key(key);
+	}
+}
+
+
+void qxgeditMainForm::drumsetupResetButtonClicked (void)
+{
+	if (m_pParamMap) {
+		int iDrumset = m_ui.DrumsetupCombo->currentIndex();
+		XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7d);
+		if (pParam)
+			pParam->set_value_update(iDrumset);
 	}
 }
 

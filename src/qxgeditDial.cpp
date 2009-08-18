@@ -104,13 +104,14 @@ void qxgeditDial::set_value ( unsigned short iValue )
 {
 	if (m_iBusy == 0) {
 		m_iBusy++;
-		XGParam *pParam = param();
-		if (pParam) {
-			if (m_pSpin->isVisible())
-				m_pSpin->setValue(iValue);
-			else
-				m_pDrop->setValue(iValue);
-			m_pKnob->setValue(int(pParam->value()));
+		if (m_pSpin->param()) {
+			m_pSpin->setValue(iValue);
+			m_pKnob->setValue(int(m_pSpin->value()));
+		}
+		else
+		if (m_pDrop->param()) {
+			m_pDrop->setValue(iValue);
+			m_pKnob->setValue(int(m_pDrop->value()));
 		}
 		m_iBusy--;
 	}
@@ -118,13 +119,13 @@ void qxgeditDial::set_value ( unsigned short iValue )
 
 unsigned short qxgeditDial::value (void) const
 {
-	if (m_pSpin->isVisible())
+	if (m_pSpin->param())
 		return m_pSpin->value();
 	else
-	if (m_pDrop->isVisible())
+	if (m_pDrop->param())
 		return m_pDrop->value();
-	else
-		return 0;
+
+	return 0;
 }
 
 
@@ -170,10 +171,10 @@ void qxgeditDial::set_param ( XGParam *pParam )
 
 XGParam *qxgeditDial::param (void) const
 {
-	if (m_pSpin->isVisible())
+	if (m_pSpin->param())
 		return m_pSpin->param();
 	else
-	if (m_pDrop->isVisible())
+	if (m_pDrop->param())
 		return m_pDrop->param();
 	else
 		return NULL;

@@ -608,6 +608,19 @@ const char *getspdph ( unsigned short c )
 	return tabpdph[c];
 }
 
+static
+const char *getschan ( unsigned short c )
+{
+	if (c < 16) {
+		static char chan[4];
+		snprintf(chan, sizeof(chan), "%u", c + 1);
+		return chan;
+	}
+	else if (c == 127)
+		return "Off";
+
+	return NULL;
+}
 
 //-------------------------------------------------------------------------
 //
@@ -2381,7 +2394,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x01, 1,  0,  127, "Bank [Select ]MSB",       0, NULL,     NULL,     NULL,     NULL     }, // 127=part10, 0=other
 	{ 0x02, 1,  0,  127, "Bank [Select ]LSB",       0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x03, 1,  0,  127, "Program[ Number]",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x04, 1,  0,  127, "[Rcv ]Channel",           0, NULL,     NULL,     NULL,     NULL     }, // 0..15=partno, 127=OFF
+	{ 0x04, 1,  0,  127, "[Rcv ]Channel",           0, NULL,     NULL,     getschan, NULL     }, // 0..15=partno, 127=OFF
 	{ 0x05, 1,  0,    1, "[Mono/Poly ]Mode",        1, NULL,     NULL,     getsmmod, NULL     },
 	{ 0x06, 1,  0,    2, "[Same Note ]Key Assign",  1, NULL,     NULL,     getskeya, NULL     },
 	{ 0x07, 1,  0,    3, "Part Mode",               0, NULL,     NULL,     getspmod, NULL     }, // other than part10, 2=part10
@@ -2405,12 +2418,12 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x1a, 1,  0,  127, "[EG ]Attack[ Time]",     64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x1b, 1,  0,  127, "[EG ]Decay[ Time]",      64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x1c, 1,  0,  127, "[EG ]Release[ Time]",    64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x1d, 1, 40,   88, "MW Pitch[ Control]",     64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x1e, 1,  0,  127, "MW Filter[ Control]",    64, getv9450, getu9450, NULL,     NULL     },
-	{ 0x1f, 1,  1,  127, "MW Ampl[itude Control]", 64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x20, 1,  0,  127, "MW LFO P[mod Depth]",    10, NULL,     NULL,     NULL,     NULL     },
-	{ 0x21, 1,  0,  127, "MW LFO F[mod Depth]",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x22, 1,  0,  127, "MW LFO A[mod Depth]",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x1d, 1, 40,   88, "Wheel Pitch[ Control]",  64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x1e, 1,  0,  127, "Wheel Filter[ Control]", 64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x1f, 1,  1,  127, "Wheel Ampl[itude Control]",64,getv_100,getu_100, NULL,     unit_pct },
+	{ 0x20, 1,  0,  127, "Wheel LFO P[mod Depth]", 10, NULL,     NULL,     NULL,     NULL     },
+	{ 0x21, 1,  0,  127, "Whell LFO F[mod Depth]",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x22, 1,  0,  127, "Wheel LFO A[mod Depth]",  0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x23, 1, 40,   88, "Bend Pitch[ Control]",   66, getv0x40, getu0x40, NULL,     unit_sem },
 	{ 0x24, 1,  0,  127, "Bend Filter[ Control]",  64, getv9450, getu9450, NULL,     unit_cen },
 	{ 0x25, 1,  0,  127, "Bend Ampl[itude Control]",64,getv0x40, getu0x40, NULL,     NULL     },
@@ -2758,7 +2771,7 @@ XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
 
 	// Set initial defaults.
 	if (m_param)
-		m_value = m_param->def;
+		m_value = XGParam::def();
 }
 
 
@@ -2817,6 +2830,9 @@ unsigned short XGParam::max (void) const
 
 unsigned short XGParam::def (void) const
 {
+	if (m_high == 0x08 && m_low == 0x04)
+		return m_mid;
+
 	return (m_param ? m_param->def : 0);
 }
 
@@ -2868,12 +2884,22 @@ unsigned short XGParam::data_value ( unsigned char *data ) const
 
 
 // Value accessors.
+void XGParam::set_value_update ( unsigned short u, XGParamObserver *sender )
+{
+	if (gets(min()) && !gets(u))
+		return;
+
+	m_value = u;
+
+	notify_update(sender);
+}
+
 void XGParam::set_value ( unsigned short u, XGParamObserver *sender )
 {
-	if (m_value != u) {
-		m_value  = u;	
-		notify_update(sender);
-	}
+	if (m_value == u)
+		return;
+
+	set_value_update(u, sender);
 }
 
 unsigned short XGParam::value (void) const
@@ -3231,8 +3257,8 @@ XGParamMasterMap::XGParamMasterMap (void)
 		if (item->id > 0x00 && item->id < 0x20) {
 			// REVERB...
 			for (j = 0; j < TSIZE(REVERBEffectTab); ++j) {
-				XGEffectItem  *eitem  = &REVERBEffectTab[j];
-				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
+				XGEffectItem  *eitem = &REVERBEffectTab[j];
+				unsigned short etype = (eitem->msb << 7) + eitem->lsb;
 				XGEffectParam *eparam
 					= new XGEffectParam(0x02, 0x01, item->id, etype);
 				XGParamMasterMap::add_param(eparam);
@@ -3243,8 +3269,8 @@ XGParamMasterMap::XGParamMasterMap (void)
 		if (item->id > 0x20 && item->id < 0x40) {
 			// CHORUS...
 			for (j = 0; j < TSIZE(CHORUSEffectTab); ++j) {
-				XGEffectItem  *eitem  = &CHORUSEffectTab[j];
-				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
+				XGEffectItem  *eitem = &CHORUSEffectTab[j];
+				unsigned short etype = (eitem->msb << 7) + eitem->lsb;
 				XGEffectParam *eparam
 					= new XGEffectParam(0x02, 0x01, item->id, etype);
 				XGParamMasterMap::add_param(eparam);
@@ -3255,8 +3281,8 @@ XGParamMasterMap::XGParamMasterMap (void)
 		if (item->id > 0x40 && item->id < 0x80) {
 			// VARIATION...
 			for (j = 0; j < TSIZE(VARIATIONEffectTab); ++j) {
-				XGEffectItem  *eitem  = &VARIATIONEffectTab[j];
-				unsigned short etype  = (eitem->msb << 7) + eitem->lsb;
+				XGEffectItem  *eitem = &VARIATIONEffectTab[j];
+				unsigned short etype = (eitem->msb << 7) + eitem->lsb;
 				XGEffectParam *eparam
 					= new XGEffectParam(0x02, 0x01, item->id, etype);
 				XGParamMasterMap::add_param(eparam);

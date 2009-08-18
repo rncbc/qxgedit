@@ -29,12 +29,7 @@
 class qxgeditOptions;
 class qxgeditMidiDevice;
 class qxgeditMidiSysexEvent;
-class qxgeditXGParamObserver;
-
-class XGParamMasterMap;
-#ifdef XGPARAM_WIDGET_MAP
-class XGParamWidgetMap;
-#endif
+class qxgeditXGParamMap;
 
 class QLabel;
 
@@ -83,10 +78,13 @@ public slots:
 
 	void updateRecentFilesMenu();
 
+	void masterResetButtonClicked();
+
 	void multipartComboActivated(int);
 
 	void drumsetupComboActivated(int);
 	void drumsetupNoteComboActivated(int);
+	void drumsetupResetButtonClicked();
 
 protected:
 
@@ -123,18 +121,12 @@ private:
 
 	// Instance variables...
 	qxgeditOptions    *m_pOptions;
-	XGParamMasterMap  *m_pParamMasterMap;
-#ifdef XGPARAM_WIDGET_MAP
-	XGParamWidgetMap  *m_pParamWidgetMap;
-#endif
 	qxgeditMidiDevice *m_pMidiDevice;
+	qxgeditXGParamMap *m_pParamMap;
 
 	QString m_sFilename;
 	int m_iUntitled;
 	int m_iDirtyCount;
-
-	// Current XG parameter observers.
-	QList<qxgeditXGParamObserver *> m_observers;
 
 	// Status bar item indexes
 	enum {

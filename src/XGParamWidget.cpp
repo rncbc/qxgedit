@@ -28,7 +28,7 @@
 #include <cstdio>
 
 //-------------------------------------------------------------------------
-// class XGParamQWidgetMap - XGParam/Widget cross-map.
+// class XGParamWidgetMap - XGParam/Widget cross-map.
 //
 // Pseudo-singleton reference.
 XGParamWidgetMap *XGParamWidgetMap::g_pParamWidgetMap = NULL;

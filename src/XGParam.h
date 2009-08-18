@@ -135,6 +135,7 @@ public:
 	unsigned short data_value(unsigned char *data) const;
 
 	// Value accessors.
+	void set_value_update(unsigned short u, XGParamObserver *sender = NULL);
 	void set_value(unsigned short u, XGParamObserver *sender = NULL);
 	unsigned short value() const;
 

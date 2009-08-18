@@ -67,15 +67,25 @@
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
-             <widget class="qxgeditDial" name="MasterTuneDial" />
+             <widget class="QPushButton" name="MasterResetButton">
+              <property name="text">
+               <string>Reset</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../icons/qxgedit.qrc">:/icons/qxgedit.png</iconset>
+              </property>
+             </widget>
             </item>
             <item row="0" column="1" >
-             <widget class="qxgeditDial" name="MasterVolumeDial" />
+             <widget class="qxgeditDial" name="MasterTuneDial" />
             </item>
             <item row="0" column="2" >
-             <widget class="qxgeditDial" name="MasterTransposeDial" />
+             <widget class="qxgeditDial" name="MasterVolumeDial" />
             </item>
             <item row="0" column="3" >
+             <widget class="qxgeditDial" name="MasterTransposeDial" />
+            </item>
+            <item row="0" column="4" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
@@ -88,7 +98,7 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="0" colspan="4" >
+            <item row="1" column="0" colspan="5" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -1066,6 +1076,13 @@
        <layout class="QVBoxLayout" >
         <item>
          <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QPushButton" name="DrumsetupResetButton">
+            <property name="text">
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QComboBox" name="DrumsetupCombo" />
           </item>

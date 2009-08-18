@@ -1,0 +1,76 @@
+// qxgeditXGParamMap.h
+//
+/****************************************************************************
+   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License
+   as published by the Free Software Foundation; either version 2
+   of the License, or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+*****************************************************************************/
+
+#ifndef __qxgeditXGParamMap_h
+#define __qxgeditXGParamMap_h
+
+#include "XGParam.h"
+
+
+//----------------------------------------------------------------------------
+// qxgeditXGParamMap -- XGParam master map.
+//
+class qxgeditXGParamMap : public XGParamMasterMap
+{
+public:
+
+	// Constructor.
+	qxgeditXGParamMap();
+
+	// Destructor.
+	~qxgeditXGParamMap();
+
+	// Direct parameter data access.
+	unsigned short set_param_data(
+		unsigned char high, unsigned char mid, unsigned char low,
+		unsigned char *data);
+
+	// All parameter reset (to default)
+	void reset_all();
+
+	// Drums reset (to default)
+	void reset_drums(unsigned short iDrumSet);
+
+private:
+
+	// Simple XGParam observer.
+	class Observer : public XGParamObserver
+	{
+	public:
+		// Constructor.
+		Observer(XGParam *pParam);
+	protected:
+		// View updater (observer callback).
+		void reset();
+		void update();
+	};
+
+	// Local observer map.
+	typedef QHash<XGParam *, Observer *> ObserverMap;
+
+	// Instance variables.
+	ObserverMap m_observers;
+};
+
+#endif	// __qxgeditXGParamMap_h
+
+// end of qxgeditXGParamMap.h
+
