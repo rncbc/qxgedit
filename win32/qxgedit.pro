@@ -1,6 +1,7 @@
 INCPATH += ../src
 
 HEADERS += ../src/XGParam.h \
+           ../src/XGParamObserver.h \
            ../src/XGParamWidget.h \
            ../src/qxgeditXGParamMap.h \
            ../src/qxgeditAbout.h \
@@ -21,6 +22,7 @@ HEADERS += ../src/XGParam.h \
            ../src/qxgeditMainForm.h
 
 SOURCES += ../src/XGParam.cpp \
+           ../src/XGParamObserver.cpp \
            ../src/XGParamWidget.cpp \
            ../src/qxgeditXGParamMap.cpp \
            ../src/qxgeditCheck.cpp \
