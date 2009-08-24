@@ -24,6 +24,8 @@
 
 #include "qxgeditMidiDevice.h"
 
+#include "qxgeditMainForm.h"
+
 
 //----------------------------------------------------------------------------
 // qxgeditXGParamMap::Observer -- XGParam master map observer.
@@ -74,6 +76,11 @@ void qxgeditXGParamMap::Observer::update (void)
 			}
 		}
 	}
+
+	// HACK: Flag dirty the main form...
+	qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
+	if (pMainForm)
+		pMainForm->contentsChanged();
 }
 
 

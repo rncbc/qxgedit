@@ -86,6 +86,8 @@ public slots:
 	void drumsetupNoteComboActivated(int);
 	void drumsetupResetButtonClicked();
 
+	void contentsChanged();
+
 protected:
 
 	void closeEvent(QCloseEvent *pCloseEvent);

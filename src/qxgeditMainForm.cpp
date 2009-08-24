@@ -913,14 +913,56 @@ bool qxgeditMainForm::closeSession (void)
 // Load a session from specific file path.
 bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 {
+	// open the source file...
+	QFile file(sFilename);
+	if (!file.open(QIODevice::ReadOnly))
+		return false;
+
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	// TODO: Actually load the file...
-	bool bResult = false;
+	int iSysex = 0;
+	unsigned short iBuff = 0;
+	unsigned char *pBuff = NULL;
+	unsigned short i = 0;
+
+	// Read the file....
+	while (!file.atEnd()) {
+		// (Re)allocate buffer...
+		if (i >= iBuff) {
+			unsigned char *pTemp = pBuff;
+			iBuff += 1024;
+			pBuff  = new unsigned char [iBuff];
+			if (pTemp) {
+				::memcpy(pBuff, pTemp, i);
+				delete [] pTemp;
+			}
+		}
+		// Read the next chunk...
+		unsigned short iRead = file.read((char *) pBuff + i, iBuff - i) + i;
+		while (i < iRead) {
+			if (pBuff[i++] == 0xf7) {
+				sysexData(pBuff, i);
+				if (i < iRead) {
+					::memmove(pBuff, pBuff + i, iRead -= i);
+					i = 0;
+				}
+			}
+		}
+	}
+
+	// Cleanup...
+	if (pBuff)
+		delete [] pBuff;	
+	file.close();
 
 	// We're formerly done.
 	QApplication::restoreOverrideCursor();
+
+	// Reset the official session title.
+	m_sFilename = sFilename;
+	updateRecentFiles(sFilename);
+	m_iDirtyCount = 0;
 
 	// Save as default session directory.
 	if (m_pOptions)
@@ -928,21 +970,46 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 
 	stabilizeForm();
 
-	return bResult;
+	return (iSysex > 0);
 }
 
 
 // Save current session to specific file path.
 bool qxgeditMainForm::saveSessionFile (	const QString& sFilename )
 {
+	// Open the target file...
+	QFile file(sFilename);
+	if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
+		return false;
+
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	// TODO: Actually save the file...
-	bool bResult = false;
+	XGParamMasterMap::const_iterator iter = m_pParamMap->constBegin();
+	for (; iter != m_pParamMap->constEnd(); ++iter) {
+		XGParam *pParam = iter.value();
+		if (pParam->value() == pParam->def())
+			continue;
+		unsigned char aSysex[]  = { 0xf0, 0x43, 0x10, 0x4c,
+			0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7 };
+		unsigned short iSysex = 8 + pParam->size();
+		aSysex[4] = pParam->high();
+		aSysex[5] = pParam->mid();
+		aSysex[6] = pParam->low();
+		pParam->set_data_value(&aSysex[7], pParam->value());
+		aSysex[iSysex - 1] = 0xf7;
+		file.write((const char *) aSysex, iSysex);
+	}
+
+	file.close();
 
 	// We're formerly done.
 	QApplication::restoreOverrideCursor();
+
+	// Reset the official session title.
+	m_sFilename = sFilename;
+	updateRecentFiles(sFilename);
+	m_iDirtyCount = 0;
 
 	// Save as default session directory.
 	if (m_pOptions)
@@ -950,7 +1017,7 @@ bool qxgeditMainForm::saveSessionFile (	const QString& sFilename )
 
 	stabilizeForm();
 
-	return bResult;
+	return true;
 }
 
 
@@ -1242,6 +1309,14 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 		if (pParam)
 			pParam->set_value_update(iDrumset);
 	}
+}
+
+
+// Main dirty flag raiser.
+void qxgeditMainForm::contentsChanged (void)
+{
+	m_iDirtyCount++;
+	stabilizeForm();
 }
 
 
