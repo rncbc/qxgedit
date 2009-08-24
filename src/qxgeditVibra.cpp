@@ -132,7 +132,7 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 	const bool bDark = (pal.window().color().value() < 0x7f);
 	const QColor& rgbLite = (bDark ? Qt::darkYellow : Qt::yellow);
 	if (bDark)
-		painter.fillRect(0, 0, w, h, pal.shadow().color());
+		painter.fillRect(0, 0, w, h, pal.dark().color());
 //	painter.drawPolyline(m_poly);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
