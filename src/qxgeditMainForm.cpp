@@ -529,6 +529,20 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(clicked()),
 		SLOT(drumsetupResetButtonClicked()));
 
+	// Filter...
+	QObject::connect(
+		m_ui.DrumsetupFilter, SIGNAL(cutoffChanged(unsigned short)),
+		m_ui.DrumsetupCutoffDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupCutoffDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.DrumsetupFilter, SLOT(setCutoff(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupFilter, SIGNAL(resonanceChanged(unsigned short)),
+		m_ui.DrumsetupResonanceDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.DrumsetupResonanceDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.DrumsetupFilter, SLOT(setResonance(unsigned short)));
+
 	// AmpEg...
 	QObject::connect(
 		m_ui.DrumsetupAmpEg, SIGNAL(attackChanged(unsigned short)),
