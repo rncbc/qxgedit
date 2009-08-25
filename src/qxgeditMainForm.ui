@@ -25,8 +25,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>640</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="minimumSize" >
@@ -63,7 +63,7 @@
           </property>
           <widget class="QWidget" name="SYSTEMPage" >
            <attribute name="label" >
-            <string>SYSTEM</string>
+            <string>MASTER</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -542,19 +542,6 @@
               </layout>
              </widget>
             </item>
-            <item rowspan="4" row="0" column="8" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
             <item row="1" column="0" colspan="2" >
              <widget class="QGroupBox" name="MultipartControlBox" >
               <property name="title" >
@@ -648,7 +635,7 @@
               </layout>
              </widget>
             </item>
-            <item row="4" column="0" colspan="9" >
+            <item row="4" column="0" colspan="8" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -668,7 +655,7 @@
             <string>TONE</string>
            </attribute>
            <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="4" >
+            <item row="0" column="0" >
              <widget class="QGroupBox" name="MultipartVibratoBox" >
               <property name="title" >
                <string>Vibrato</string>
@@ -693,7 +680,7 @@
                  </property>
                  <property name="sizeHint" >
                   <size>
-                   <width>20</width>
+                   <width>60</width>
                    <height>20</height>
                   </size>
                  </property>
@@ -702,7 +689,20 @@
               </layout>
              </widget>
             </item>
-            <item row="0" column="4" colspan="4" >
+            <item row="0" column="2" rowspan="2" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="1" >
              <widget class="QGroupBox" name="MultipartFilterBox" >
               <property name="title" >
                <string>Filter</string>
@@ -733,7 +733,7 @@
               </layout>
              </widget>
             </item>
-            <item row="1" column="0" colspan="4" >
+            <item row="1" column="0" >
              <widget class="QGroupBox" name="MultipartAmpEgBox" >
               <property name="title" >
                <string>Amp EG</string>
@@ -758,7 +758,7 @@
                  </property>
                  <property name="sizeHint" >
                   <size>
-                   <width>20</width>
+                   <width>60</width>
                    <height>20</height>
                   </size>
                  </property>
@@ -767,7 +767,7 @@
               </layout>
              </widget>
             </item>
-            <item row="1" column="4" colspan="4" >
+            <item row="1" column="1" >
              <widget class="QGroupBox" name="MultipartPitchEgBox" >
               <property name="title" >
                <string>Pitch EG</string>
@@ -791,20 +791,7 @@
               </layout>
              </widget>
             </item>
-            <item rowspan="2" row="0" column="8" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0" colspan="9" >
+            <item row="2" column="0" colspan="3" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -850,19 +837,6 @@
                </item>
               </layout>
              </widget>
-            </item>
-            <item rowspan="2" row="0" column="3" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
             <item row="0" column="1" >
              <widget class="QGroupBox" name="MultipartBendBox" >
@@ -990,7 +964,7 @@
               </layout>
              </widget>
             </item>
-            <item row="2" column="0" colspan="4" >
+            <item row="2" column="0" colspan="3" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -1039,19 +1013,6 @@
                </item>
               </layout>
              </widget>
-            </item>
-            <item row="0" column="1" rowspan="3" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
             <item row="1" column="0" >
              <widget class="QGroupBox" name="MultipartAC2Box" >
@@ -1143,7 +1104,7 @@
               </layout>
              </widget>
             </item>
-            <item row="3" column="0" colspan="2" >
+            <item row="3" column="0" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -1262,19 +1223,6 @@
             </layout>
            </widget>
           </item>
-          <item rowspan="2" row="0" column="9" >
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
           <item row="1" column="0" colspan="3" >
            <widget class="QGroupBox" name="DrumsetupFilterBox" >
             <property name="title" >
@@ -1342,7 +1290,7 @@
             </layout>
            </widget>
           </item>
-          <item row="2" column="0" colspan="10" >
+          <item row="2" column="0" colspan="9" >
            <spacer>
             <property name="orientation" >
              <enum>Qt::Vertical</enum>
