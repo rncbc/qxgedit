@@ -761,12 +761,16 @@ bool qxgeditMainForm::newSession (void)
 	if (!closeSession())
 		return false;
 
+	// Reset it all.
+	if (m_pParamMap)
+		m_pParamMap->reset_all();
+
 	// Ok, increment untitled count.
 	m_iUntitled++;
 
 	// Stabilize form.
 	m_sFilename.clear();
-//	m_iDirtyCount = 0;
+	m_iDirtyCount = 0;
 
 	stabilizeForm();
 

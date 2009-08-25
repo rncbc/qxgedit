@@ -2401,12 +2401,12 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x08, 1, 40,   88, "Note Shift",             64, getv0x40, getu0x40, NULL,     unit_sem },
 	{ 0x09, 2,  0,  255, "Detune",                127, getv12_7, getu12_7, NULL,     unit_Hz  },
 	{ 0x0b, 1,  0,  127, "Volume",                 64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x0c, 1,  0,  127, "Vel[ocity Sense ]Depth", 64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x0d, 1,  0,  127, "Vel[ocity Sense ]Offset",64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0c, 1,  0,  127, "Vel[ocity Sense] Depth", 64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0d, 1,  0,  127, "Vel[ocity Sense] Offset",64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0e, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, NULL,     NULL     }, // 0=random
 	{ 0x0f, 1,  0,  127, "Note [Limit ]Low",        0, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
 	{ 0x10, 1,  0,  127, "Note [Limit ]High",     127, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
-	{ 0x11, 1,  0,  127, "Dry[ Level]",           127, NULL,     NULL,     NULL,     NULL     },
+	{ 0x11, 1,  0,  127, "Dry/Wet[ Level]",       127, NULL,     NULL,     NULL,     NULL     },
 	{ 0x12, 1,  0,  127, "Chorus[ Send]",           0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x13, 1,  0,  127, "Reverb[ Send]",          40, NULL,     NULL,     NULL,     NULL     },
 	{ 0x14, 1,  0,  127, "Variation[ Send]",        0, NULL,     NULL,     NULL,     NULL     },

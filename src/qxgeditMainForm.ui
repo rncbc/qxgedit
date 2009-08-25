@@ -1105,148 +1105,164 @@
          </layout>
         </item>
         <item>
-         <widget class="QToolBox" name="DRUMSETUPToolBox" >
-          <property name="currentIndex" >
-           <number>0</number>
-          </property>
-          <widget class="QWidget" name="DrumsetupPage1" >
-           <attribute name="label" >
-            <string>Page 1</string>
-           </attribute>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" >
-             <widget class="qxgeditDial" name="DrumsetupCoarseDial" />
-            </item>
-            <item row="0" column="1" >
-             <widget class="qxgeditDial" name="DrumsetupFineDial" />
-            </item>
-            <item row="0" column="2" >
-             <widget class="qxgeditDial" name="DrumsetupLevelDial" />
-            </item>
-            <item row="0" column="3" >
-             <widget class="qxgeditDial" name="DrumsetupGroupDial" />
-            </item>
-            <item row="0" column="4" >
-             <widget class="qxgeditDial" name="DrumsetupPanDial" />
-            </item>
-            <item row="0" column="5" >
-             <widget class="qxgeditDial" name="DrumsetupReverbDial" />
-            </item>
-            <item row="0" column="6" >
-             <widget class="qxgeditDial" name="DrumsetupChorusDial" />
-            </item>
-            <item row="0" column="7" >
-             <widget class="qxgeditDial" name="DrumsetupVariationDial" />
-            </item>
-            <item row="0" column="8" >
-             <widget class="qxgeditDial" name="DrumsetupKeyAssignDial" />
-            </item>
-            <item row="0" column="9" rowspan="3" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0" >
-             <widget class="qxgeditDial" name="DrumsetupCutoffDial" />
-            </item>
-            <item row="1" column="1" >
-             <widget class="qxgeditDial" name="DrumsetupResonanceDial" />
-            </item>
-            <item row="1" column="2" >
-             <widget class="qxgeditDial" name="DrumsetupAttackDial" />
-            </item>
-            <item row="1" column="3" >
-             <widget class="qxgeditDial" name="DrumsetupDecay1Dial" />
-            </item>
-            <item row="1" column="4" >
-             <widget class="qxgeditDial" name="DrumsetupDecay2Dial" />
-            </item>
-            <item row="2" column="0" colspan="9" >
-             <layout class="QHBoxLayout" >
-              <item>
-               <widget class="qxgeditFilter" name="DrumsetupFilter" />
-              </item>
-              <item>
-               <widget class="qxgeditDrumEg" name="DrumsetupAmpEg" />
-              </item>
-              <item>
-               <spacer>
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" >
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item row="3" column="0" colspan="10" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="DrumsetupPage2" >
-           <attribute name="label" >
-            <string>Page 2</string>
-           </attribute>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" >
-             <widget class="qxgeditCheck" name="DrumsetupNoteOffCheck" />
-            </item>
-            <item row="0" column="1" >
-             <widget class="qxgeditCheck" name="DrumsetupNoteOnCheck" />
-            </item>
-            <item row="0" column="2" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0" colspan="3" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </widget>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" colspan="2" >
+		   <widget class="QGroupBox" name="DrumsetupPitchBox" >
+            <property name="title" >
+             <string>Pitch</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0" >
+              <widget class="qxgeditDial" name="DrumsetupCoarseDial" />
+             </item>
+             <item row="0" column="1" >
+              <widget class="qxgeditDial" name="DrumsetupFineDial" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="2" colspan="2" >
+		   <widget class="QGroupBox" name="DrumsetupSampleBox" >
+            <property name="title" >
+             <string>Sample</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0" >
+              <widget class="qxgeditDial" name="DrumsetupLevelDial" />
+             </item>
+             <item row="0" column="1" >
+              <widget class="qxgeditDial" name="DrumsetupPanDial" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="4" colspan="2" >
+		   <widget class="QGroupBox" name="DrumsetupModeBox" >
+            <property name="title" >
+             <string>Mode</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0" >
+              <widget class="qxgeditDial" name="DrumsetupGroupDial" />
+             </item>
+             <item row="0" column="1" >
+              <widget class="qxgeditDial" name="DrumsetupKeyAssignDial" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="6" colspan="3" >
+		   <widget class="QGroupBox" name="DrumsetupEffectBox" >
+            <property name="title" >
+             <string>Effect</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0" >
+              <widget class="qxgeditDial" name="DrumsetupReverbDial" />
+             </item>
+             <item row="0" column="1" >
+              <widget class="qxgeditDial" name="DrumsetupChorusDial" />
+             </item>
+             <item row="0" column="2" >
+              <widget class="qxgeditDial" name="DrumsetupVariationDial" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="9" rowspan="3" >
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="0" colspan="3" >
+		   <widget class="QGroupBox" name="DrumsetupFilterBox" >
+            <property name="title" >
+             <string>Filter</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0" colspan="3" >
+              <widget class="qxgeditFilter" name="DrumsetupFilter" />
+             </item>
+             <item row="1" column="0" >
+              <widget class="qxgeditDial" name="DrumsetupCutoffDial" />
+             </item>
+             <item row="1" column="1" >
+              <widget class="qxgeditDial" name="DrumsetupResonanceDial" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="3" colspan="3" >
+		   <widget class="QGroupBox" name="DrumsetupAmpEgBox" >
+            <property name="title" >
+             <string>Amp EG</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0" colspan="3" >
+              <widget class="qxgeditDrumEg" name="DrumsetupAmpEg" />
+             </item>
+             <item row="1" column="0" >
+              <widget class="qxgeditDial" name="DrumsetupAttackDial" />
+             </item>
+             <item row="1" column="1" >
+              <widget class="qxgeditDial" name="DrumsetupDecay1Dial" />
+             </item>
+             <item row="1" column="2" >
+              <widget class="qxgeditDial" name="DrumsetupDecay2Dial" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="6" colspan="2" >
+		   <widget class="QGroupBox" name="DrumsetupNoteBox" >
+            <property name="title" >
+             <string>Receive</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0" >
+              <widget class="qxgeditCheck" name="DrumsetupNoteOffCheck" />
+             </item>
+             <item row="0" column="1" >
+              <widget class="qxgeditCheck" name="DrumsetupNoteOnCheck" />
+             </item>
+             <item row="1" column="0" colspan="2" >
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" >
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="10" >
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
