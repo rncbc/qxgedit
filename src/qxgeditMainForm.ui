@@ -25,8 +25,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize" >
@@ -44,20 +44,20 @@
   <property name="windowIcon" >
    <iconset resource="../icons/qxgedit.qrc" >:/icons/qxgedit.png</iconset>
   </property>
-  <widget class="QWidget" name="MainCentralWidget">
+  <widget class="QWidget" name="MainCentralWidget" >
    <layout class="QVBoxLayout" >
     <item>
      <widget class="QTabWidget" name="MainTabWidget" >
       <property name="currentIndex" >
        <number>0</number>
       </property>
-      <widget class="QWidget" name="SYSTEMEFFECT" >
+      <widget class="QWidget" name="SystemEffectTab" >
        <attribute name="title" >
         <string>SYSTEM / EFFECT</string>
        </attribute>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QToolBox" name="SYSTEMEFFECTToolBox" >
+         <widget class="QToolBox" name="SystemEffectToolBox" >
           <property name="currentIndex" >
            <number>0</number>
           </property>
@@ -67,12 +67,12 @@
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
-             <widget class="QPushButton" name="MasterResetButton">
-              <property name="text">
+             <widget class="QPushButton" name="MasterResetButton" >
+              <property name="text" >
                <string>Reset</string>
               </property>
-              <property name="icon">
-               <iconset resource="../icons/qxgedit.qrc">:/icons/qxgedit.png</iconset>
+              <property name="icon" >
+               <iconset resource="../icons/qxgedit.qrc" >:/icons/qxgedit.png</iconset>
               </property>
              </widget>
             </item>
@@ -113,7 +113,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="REVERBPage" >
+          <widget class="QWidget" name="ReverbPage" >
            <attribute name="label" >
             <string>REVERB</string>
            </attribute>
@@ -134,7 +134,7 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="10" rowspan="3" >
+            <item rowspan="3" row="0" column="10" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
@@ -216,7 +216,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="CHORUSPage" >
+          <widget class="QWidget" name="ChorusPage" >
            <attribute name="label" >
             <string>CHORUS</string>
            </attribute>
@@ -237,7 +237,7 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="10" rowspan="3" >
+            <item rowspan="3" row="0" column="10" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
@@ -322,7 +322,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="VARIATIONPage" >
+          <widget class="QWidget" name="VariationPage" >
            <attribute name="label" >
             <string>VARIATION</string>
            </attribute>
@@ -343,7 +343,7 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="10" rowspan="4" >
+            <item rowspan="4" row="0" column="10" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
@@ -456,7 +456,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="MULTI_PART" >
+      <widget class="QWidget" name="MultipartTab" >
        <attribute name="title" >
         <string>MULTI PART</string>
        </attribute>
@@ -482,21 +482,21 @@
          </layout>
         </item>
         <item>
-         <widget class="QToolBox" name="MULTIPARTToolBox" >
+         <widget class="QToolBox" name="MultipartToolBox" >
           <property name="currentIndex" >
            <number>0</number>
           </property>
           <widget class="QWidget" name="MultipartMainPage" >
            <attribute name="label" >
-            <string>Main</string>
+            <string>MAIN</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" colspan="2" >
-		     <widget class="QGroupBox" name="MultipartPartBox" >
+             <widget class="QGroupBox" name="MultipartPartBox" >
               <property name="title" >
                <string>Part</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartChannelDial" />
                </item>
@@ -507,11 +507,11 @@
              </widget>
             </item>
             <item row="0" column="2" colspan="3" >
-		     <widget class="QGroupBox" name="MultipartVoiceBox" >
+             <widget class="QGroupBox" name="MultipartVoiceBox" >
               <property name="title" >
                <string>Voice</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartBankMSBDial" />
                </item>
@@ -525,11 +525,11 @@
              </widget>
             </item>
             <item row="0" column="5" colspan="3" >
-		     <widget class="QGroupBox" name="MultipartModeBox" >
+             <widget class="QGroupBox" name="MultipartModeBox" >
               <property name="title" >
                <string>Mode</string>
               </property>
-               <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartPolyModeDial" />
                </item>
@@ -542,7 +542,7 @@
               </layout>
              </widget>
             </item>
-            <item row="0" column="8" rowspan="4" >
+            <item rowspan="4" row="0" column="8" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
@@ -556,11 +556,11 @@
              </spacer>
             </item>
             <item row="1" column="0" colspan="2" >
-		     <widget class="QGroupBox" name="MultipartControlBox" >
+             <widget class="QGroupBox" name="MultipartControlBox" >
               <property name="title" >
                <string>Control</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartVolumeDial" />
                </item>
@@ -571,11 +571,11 @@
              </widget>
             </item>
             <item row="1" column="2" colspan="2" >
-		     <widget class="QGroupBox" name="MultipartPortamentoBox" >
+             <widget class="QGroupBox" name="MultipartPortamentoBox" >
               <property name="title" >
                <string>Portamento</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartPortamentoDial" />
                </item>
@@ -586,11 +586,11 @@
              </widget>
             </item>
             <item row="1" column="4" colspan="4" >
-		     <widget class="QGroupBox" name="MultipartNoteBox" >
+             <widget class="QGroupBox" name="MultipartNoteBox" >
               <property name="title" >
                <string>Note</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartNoteLowDial" />
                </item>
@@ -607,11 +607,11 @@
              </widget>
             </item>
             <item row="2" column="0" colspan="4" >
-		     <widget class="QGroupBox" name="MultipartVelocityBox" >
+             <widget class="QGroupBox" name="MultipartVelocityBox" >
               <property name="title" >
                <string>Velocity</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartVelDepthDial" />
                </item>
@@ -628,11 +628,11 @@
              </widget>
             </item>
             <item row="2" column="4" colspan="4" >
-		     <widget class="QGroupBox" name="MultipartEffectBox" >
+             <widget class="QGroupBox" name="MultipartEffectBox" >
               <property name="title" >
                <string>Effect</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditDial" name="MultipartDryWetDial" />
                </item>
@@ -648,12 +648,447 @@
               </layout>
              </widget>
             </item>
-            <item row="3" column="0" colspan="8" >
-		     <widget class="QGroupBox" name="MultipartReceiveBox" >
+            <item row="4" column="0" colspan="9" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="MultipartTonePage" >
+           <attribute name="label" >
+            <string>TONE</string>
+           </attribute>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" colspan="4" >
+             <widget class="QGroupBox" name="MultipartVibratoBox" >
+              <property name="title" >
+               <string>Vibrato</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" colspan="4" >
+                <widget class="qxgeditVibra" name="MultipartVibra" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartRateDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartDepthDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartDelayDial" />
+               </item>
+               <item row="1" column="3" >
+                <spacer>
+                 <property name="orientation" >
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" >
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="4" colspan="4" >
+             <widget class="QGroupBox" name="MultipartFilterBox" >
+              <property name="title" >
+               <string>Filter</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" colspan="4" >
+                <widget class="qxgeditFilter" name="MultipartFilter" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartCutoffDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartResonanceDial" />
+               </item>
+               <item row="1" column="2" colspan="2" >
+                <spacer>
+                 <property name="orientation" >
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" >
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="4" >
+             <widget class="QGroupBox" name="MultipartAmpEgBox" >
+              <property name="title" >
+               <string>Amp EG</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" colspan="4" >
+                <widget class="qxgeditPartEg" name="MultipartAmpEg" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartAttackDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartDecayDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartReleaseDial" />
+               </item>
+               <item row="1" column="3" >
+                <spacer>
+                 <property name="orientation" >
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" >
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="4" colspan="4" >
+             <widget class="QGroupBox" name="MultipartPitchEgBox" >
+              <property name="title" >
+               <string>Pitch EG</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" colspan="4" >
+                <widget class="qxgeditPitch" name="MultipartPitch" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartAttackLevelDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartAttackTimeDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartReleaseLevelDial" />
+               </item>
+               <item row="1" column="3" >
+                <widget class="qxgeditDial" name="MultipartReleaseTimeDial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item rowspan="2" row="0" column="8" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="0" colspan="9" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="MultipartControlPage" >
+           <attribute name="label" >
+            <string>CONTROL</string>
+           </attribute>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" >
+             <widget class="QGroupBox" name="MultipartWheelBox" >
+              <property name="title" >
+               <string>Modulation Wheel</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" >
+                <widget class="qxgeditDial" name="MultipartWheelPitchDial" />
+               </item>
+               <item row="0" column="1" >
+                <widget class="qxgeditDial" name="MultipartWheelFilterDial" />
+               </item>
+               <item row="0" column="2" >
+                <widget class="qxgeditDial" name="MultipartWheelAmplDial" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartWheelLFOPmodDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartWheelLFOFmodDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartWheelLFOAmodDial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item rowspan="2" row="0" column="3" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="1" >
+             <widget class="QGroupBox" name="MultipartBendBox" >
+              <property name="title" >
+               <string>Pitch Bend</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" >
+                <widget class="qxgeditDial" name="MultipartBendPitchDial" />
+               </item>
+               <item row="0" column="1" >
+                <widget class="qxgeditDial" name="MultipartBendFilterDial" />
+               </item>
+               <item row="0" column="2" >
+                <widget class="qxgeditDial" name="MultipartBendAmplDial" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartBendLFOPmodDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartBendLFOFmodDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartBendLFOAmodDial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="2" >
+             <widget class="QGroupBox" name="MultipartCATBox" >
+              <property name="title" >
+               <string>Channel After Touch (CAT)</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" >
+                <widget class="qxgeditDial" name="MultipartCATPitchDial" />
+               </item>
+               <item row="0" column="1" >
+                <widget class="qxgeditDial" name="MultipartCATFilterDial" />
+               </item>
+               <item row="0" column="2" >
+                <widget class="qxgeditDial" name="MultipartCATAmplDial" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartCATLFOPmodDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartCATLFOFmodDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartCATLFOAmodDial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="QGroupBox" name="MultipartPATBox" >
+              <property name="title" >
+               <string>Polyphonic After Touch (PAT)</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" >
+                <widget class="qxgeditDial" name="MultipartPATPitchDial" />
+               </item>
+               <item row="0" column="1" >
+                <widget class="qxgeditDial" name="MultipartPATFilterDial" />
+               </item>
+               <item row="0" column="2" >
+                <widget class="qxgeditDial" name="MultipartPATAmplDial" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartPATLFOPmodDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartPATLFOFmodDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartPATLFOAmodDial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2" >
+             <widget class="QGroupBox" name="MultipartTuningBox" >
+              <property name="title" >
+               <string>Scale Tuning</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" >
+                <widget class="qxgeditDial" name="MultipartTuningC_Dial" />
+               </item>
+               <item row="0" column="1" >
+                <widget class="qxgeditDial" name="MultipartTuningCsDial" />
+               </item>
+               <item row="0" column="2" >
+                <widget class="qxgeditDial" name="MultipartTuningD_Dial" />
+               </item>
+               <item row="0" column="3" >
+                <widget class="qxgeditDial" name="MultipartTuningDsDial" />
+               </item>
+               <item row="0" column="4" >
+                <widget class="qxgeditDial" name="MultipartTuningE_Dial" />
+               </item>
+               <item row="0" column="5" >
+                <widget class="qxgeditDial" name="MultipartTuningF_Dial" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="MultipartTuningFsDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="MultipartTuningG_Dial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="MultipartTuningGsDial" />
+               </item>
+               <item row="1" column="3" >
+                <widget class="qxgeditDial" name="MultipartTuningA_Dial" />
+               </item>
+               <item row="1" column="4" >
+                <widget class="qxgeditDial" name="MultipartTuningAsDial" />
+               </item>
+               <item row="1" column="5" >
+                <widget class="qxgeditDial" name="MultipartTuningB_Dial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="4" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="MultipartOptionsPage" >
+           <attribute name="label" >
+            <string>OPTIONS</string>
+           </attribute>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" >
+             <widget class="QGroupBox" name="MultipartAC1Box" >
+              <property name="title" >
+               <string>AC1</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" >
+                <widget class="qxgeditDial" name="MultipartAC1ControlDial" />
+               </item>
+               <item row="0" column="1" >
+                <widget class="qxgeditDial" name="MultipartAC1PitchDial" />
+               </item>
+               <item row="0" column="2" >
+                <widget class="qxgeditDial" name="MultipartAC1FilterDial" />
+               </item>
+               <item row="0" column="3" >
+                <widget class="qxgeditDial" name="MultipartAC1AmplDial" />
+               </item>
+               <item row="0" column="4" >
+                <widget class="qxgeditDial" name="MultipartAC1LFOPmodDial" />
+               </item>
+               <item row="0" column="5" >
+                <widget class="qxgeditDial" name="MultipartAC1LFOFmodDial" />
+               </item>
+               <item row="0" column="6" >
+                <widget class="qxgeditDial" name="MultipartAC1LFOAmodDial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="1" rowspan="3" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QGroupBox" name="MultipartAC2Box" >
+              <property name="title" >
+               <string>AC2</string>
+              </property>
+              <layout class="QGridLayout" >
+               <item row="0" column="0" >
+                <widget class="qxgeditDial" name="MultipartAC2ControlDial" />
+               </item>
+               <item row="0" column="1" >
+                <widget class="qxgeditDial" name="MultipartAC2PitchDial" />
+               </item>
+               <item row="0" column="2" >
+                <widget class="qxgeditDial" name="MultipartAC2FilterDial" />
+               </item>
+               <item row="0" column="3" >
+                <widget class="qxgeditDial" name="MultipartAC2AmplDial" />
+               </item>
+               <item row="0" column="4" >
+                <widget class="qxgeditDial" name="MultipartAC2LFOPmodDial" />
+               </item>
+               <item row="0" column="5" >
+                <widget class="qxgeditDial" name="MultipartAC2LFOFmodDial" />
+               </item>
+               <item row="0" column="6" >
+                <widget class="qxgeditDial" name="MultipartAC2LFOAmodDial" />
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="QGroupBox" name="MultipartReceiveBox" >
               <property name="title" >
                <string>Receive</string>
               </property>
-              <layout class="QGridLayout">
+              <layout class="QGridLayout" >
                <item row="0" column="0" >
                 <widget class="qxgeditCheck" name="MultipartPBCheck" />
                </item>
@@ -708,469 +1143,7 @@
               </layout>
              </widget>
             </item>
-            <item row="4" column="0" colspan="9" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="MultipartTonePage" >
-           <attribute name="label" >
-            <string>Tone</string>
-           </attribute>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="4" >
-		     <widget class="QGroupBox" name="MultipartVibratoBox" >
-              <property name="title" >
-               <string>Vibrato</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" colspan="4" >
-                <widget class="qxgeditVibra" name="MultipartVibra" />
-               </item>
-               <item row="1" column="0" >
-                <widget class="qxgeditDial" name="MultipartRateDial" />
-               </item>
-               <item row="1" column="1" >
-                <widget class="qxgeditDial" name="MultipartDepthDial" />
-               </item>
-               <item row="1" column="2" >
-                <widget class="qxgeditDial" name="MultipartDelayDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="4" colspan="4" >
-		     <widget class="QGroupBox" name="MultipartFilterBox" >
-              <property name="title" >
-               <string>Filter</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" colspan="4" >
-                <widget class="qxgeditFilter" name="MultipartFilter" />
-               </item>
-               <item row="1" column="0" >
-                <widget class="qxgeditDial" name="MultipartCutoffDial" />
-               </item>
-               <item row="1" column="1" >
-                <widget class="qxgeditDial" name="MultipartResonanceDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="0" colspan="4" >
-		     <widget class="QGroupBox" name="MultipartAmpEgBox" >
-              <property name="title" >
-               <string>Amp EG</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" colspan="4" >
-                <widget class="qxgeditPartEg" name="MultipartAmpEg" />
-               </item>
-               <item row="1" column="0" >
-                <widget class="qxgeditDial" name="MultipartAttackDial" />
-               </item>
-               <item row="1" column="1" >
-                <widget class="qxgeditDial" name="MultipartDecayDial" />
-               </item>
-               <item row="1" column="2" >
-                <widget class="qxgeditDial" name="MultipartReleaseDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="4" colspan="4" >
-		     <widget class="QGroupBox" name="MultipartPitchEgBox" >
-              <property name="title" >
-               <string>Pitch EG</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" colspan="4" >
-                <widget class="qxgeditPitch" name="MultipartPitch" />
-               </item>
-               <item row="1" column="0" >
-                <widget class="qxgeditDial" name="MultipartAttackLevelDial" />
-               </item>
-               <item row="1" column="1" >
-                <widget class="qxgeditDial" name="MultipartAttackTimeDial" />
-               </item>
-               <item row="1" column="2" >
-                <widget class="qxgeditDial" name="MultipartReleaseLevelDial" />
-               </item>
-               <item row="1" column="3" >
-                <widget class="qxgeditDial" name="MultipartReleaseTimeDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="8" rowspan="2" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0" colspan="9" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="MultipartModulationPage" >
-           <attribute name="label" >
-            <string>Modulation</string>
-           </attribute>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="6" >
-		     <widget class="QGroupBox" name="MultipartWheelBox" >
-              <property name="title" >
-               <string>Wheel</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" >
-                <widget class="qxgeditDial" name="MultipartWheelPitchDial" />
-               </item>
-               <item row="0" column="1" >
-                <widget class="qxgeditDial" name="MultipartWheelFilterDial" />
-               </item>
-               <item row="0" column="2" >
-                <widget class="qxgeditDial" name="MultipartWheelAmplDial" />
-               </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="MultipartWheelLFOPmodDial" />
-               </item>
-               <item row="0" column="4" >
-                <widget class="qxgeditDial" name="MultipartWheelLFOFmodDial" />
-               </item>
-               <item row="0" column="5" >
-                <widget class="qxgeditDial" name="MultipartWheelLFOAmodDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="0" colspan="6" >
-		     <widget class="QGroupBox" name="MultipartBendBox" >
-              <property name="title" >
-               <string>Bend</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" >
-                <widget class="qxgeditDial" name="MultipartBendPitchDial" />
-               </item>
-               <item row="0" column="1" >
-                <widget class="qxgeditDial" name="MultipartBendFilterDial" />
-               </item>
-               <item row="0" column="2" >
-                <widget class="qxgeditDial" name="MultipartBendAmplDial" />
-               </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="MultipartBendLFOPmodDial" />
-               </item>
-               <item row="0" column="4" >
-                <widget class="qxgeditDial" name="MultipartBendLFOFmodDial" />
-               </item>
-               <item row="0" column="5" >
-                <widget class="qxgeditDial" name="MultipartBendLFOAmodDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="6" rowspan="2" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0" colspan="7" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="MultipartScalePage" >
-           <attribute name="label" >
-            <string>Scale</string>
-           </attribute>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="6" >
-		     <widget class="QGroupBox" name="MultipartTuningBox" >
-              <property name="title" >
-               <string>Tuning</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" >
-                <widget class="qxgeditDial" name="MultipartTuningC_Dial" />
-               </item>
-               <item row="0" column="1" >
-                <widget class="qxgeditDial" name="MultipartTuningCsDial" />
-               </item>
-               <item row="0" column="2" >
-                <widget class="qxgeditDial" name="MultipartTuningD_Dial" />
-               </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="MultipartTuningDsDial" />
-               </item>
-               <item row="0" column="4" >
-                <widget class="qxgeditDial" name="MultipartTuningE_Dial" />
-               </item>
-               <item row="0" column="5" >
-                <widget class="qxgeditDial" name="MultipartTuningF_Dial" />
-               </item>
-               <item row="1" column="0" >
-                <widget class="qxgeditDial" name="MultipartTuningFsDial" />
-               </item>
-               <item row="1" column="1" >
-                <widget class="qxgeditDial" name="MultipartTuningG_Dial" />
-               </item>
-               <item row="1" column="2" >
-                <widget class="qxgeditDial" name="MultipartTuningGsDial" />
-               </item>
-               <item row="1" column="3" >
-                <widget class="qxgeditDial" name="MultipartTuningA_Dial" />
-               </item>
-               <item row="1" column="4" >
-                <widget class="qxgeditDial" name="MultipartTuningAsDial" />
-               </item>
-               <item row="1" column="5" >
-                <widget class="qxgeditDial" name="MultipartTuningB_Dial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="6" rowspan="1" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0" colspan="7" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="MultipartAfterTouchPage" >
-           <attribute name="label" >
-            <string>After Touch</string>
-           </attribute>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="6" >
-		     <widget class="QGroupBox" name="MultipartCATBox" >
-              <property name="title" >
-               <string>Channel (CAT)</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" >
-                <widget class="qxgeditDial" name="MultipartCATPitchDial" />
-               </item>
-               <item row="0" column="1" >
-                <widget class="qxgeditDial" name="MultipartCATFilterDial" />
-               </item>
-               <item row="0" column="2" >
-                <widget class="qxgeditDial" name="MultipartCATAmplDial" />
-               </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="MultipartCATLFOPmodDial" />
-               </item>
-               <item row="0" column="4" >
-                <widget class="qxgeditDial" name="MultipartCATLFOFmodDial" />
-               </item>
-               <item row="0" column="5" >
-                <widget class="qxgeditDial" name="MultipartCATLFOAmodDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="0" colspan="6" >
-		     <widget class="QGroupBox" name="MultipartPATBox" >
-              <property name="title" >
-               <string>Polyphonic (PAT)</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" >
-                <widget class="qxgeditDial" name="MultipartPATPitchDial" />
-               </item>
-               <item row="0" column="1" >
-                <widget class="qxgeditDial" name="MultipartPATFilterDial" />
-               </item>
-               <item row="0" column="2" >
-                <widget class="qxgeditDial" name="MultipartPATAmplDial" />
-               </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="MultipartPATLFOPmodDial" />
-               </item>
-               <item row="0" column="4" >
-                <widget class="qxgeditDial" name="MultipartPATLFOFmodDial" />
-               </item>
-               <item row="0" column="5" >
-                <widget class="qxgeditDial" name="MultipartPATLFOAmodDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="6" rowspan="2" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0" colspan="7" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="MultipartControllersPage" >
-           <attribute name="label" >
-            <string>Controllers</string>
-           </attribute>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="7" >
-		     <widget class="QGroupBox" name="MultipartAC1Box" >
-              <property name="title" >
-               <string>AC1</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" >
-                <widget class="qxgeditDial" name="MultipartAC1ControlDial" />
-               </item>
-               <item row="0" column="1" >
-                <widget class="qxgeditDial" name="MultipartAC1PitchDial" />
-               </item>
-               <item row="0" column="2" >
-                <widget class="qxgeditDial" name="MultipartAC1FilterDial" />
-               </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="MultipartAC1AmplDial" />
-               </item>
-               <item row="0" column="4" >
-                <widget class="qxgeditDial" name="MultipartAC1LFOPmodDial" />
-               </item>
-               <item row="0" column="5" >
-                <widget class="qxgeditDial" name="MultipartAC1LFOFmodDial" />
-               </item>
-               <item row="0" column="6" >
-                <widget class="qxgeditDial" name="MultipartAC1LFOAmodDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="0" colspan="7" >
-		     <widget class="QGroupBox" name="MultipartAC2Box" >
-              <property name="title" >
-               <string>AC2</string>
-              </property>
-              <layout class="QGridLayout">
-               <item row="0" column="0" >
-                <widget class="qxgeditDial" name="MultipartAC2ControlDial" />
-               </item>
-               <item row="0" column="1" >
-                <widget class="qxgeditDial" name="MultipartAC2PitchDial" />
-               </item>
-               <item row="0" column="2" >
-                <widget class="qxgeditDial" name="MultipartAC2FilterDial" />
-               </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="MultipartAC2AmplDial" />
-               </item>
-               <item row="0" column="4" >
-                <widget class="qxgeditDial" name="MultipartAC2LFOPmodDial" />
-               </item>
-               <item row="0" column="5" >
-                <widget class="qxgeditDial" name="MultipartAC2LFOFmodDial" />
-               </item>
-               <item row="0" column="6" >
-                <widget class="qxgeditDial" name="MultipartAC2LFOAmodDial" />
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="7" rowspan="2" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0" colspan="8" >
+            <item row="3" column="0" colspan="2" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -1189,7 +1162,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="DRUM_SETUP" >
+      <widget class="QWidget" name="DrumsetupTab" >
        <attribute name="title" >
         <string>DRUM SETUP</string>
        </attribute>
@@ -1197,8 +1170,8 @@
         <item>
          <layout class="QHBoxLayout" >
           <item>
-           <widget class="QPushButton" name="DrumsetupResetButton">
-            <property name="text">
+           <widget class="QPushButton" name="DrumsetupResetButton" >
+            <property name="text" >
              <string>Reset</string>
             </property>
            </widget>
@@ -1227,11 +1200,11 @@
         <item>
          <layout class="QGridLayout" >
           <item row="0" column="0" colspan="2" >
-		   <widget class="QGroupBox" name="DrumsetupPitchBox" >
+           <widget class="QGroupBox" name="DrumsetupPitchBox" >
             <property name="title" >
              <string>Pitch</string>
             </property>
-            <layout class="QGridLayout">
+            <layout class="QGridLayout" >
              <item row="0" column="0" >
               <widget class="qxgeditDial" name="DrumsetupCoarseDial" />
              </item>
@@ -1242,11 +1215,11 @@
            </widget>
           </item>
           <item row="0" column="2" colspan="2" >
-		   <widget class="QGroupBox" name="DrumsetupControlBox" >
+           <widget class="QGroupBox" name="DrumsetupControlBox" >
             <property name="title" >
              <string>Control</string>
             </property>
-            <layout class="QGridLayout">
+            <layout class="QGridLayout" >
              <item row="0" column="0" >
               <widget class="qxgeditDial" name="DrumsetupLevelDial" />
              </item>
@@ -1257,11 +1230,11 @@
            </widget>
           </item>
           <item row="0" column="4" colspan="2" >
-		   <widget class="QGroupBox" name="DrumsetupModeBox" >
+           <widget class="QGroupBox" name="DrumsetupModeBox" >
             <property name="title" >
              <string>Mode</string>
             </property>
-            <layout class="QGridLayout">
+            <layout class="QGridLayout" >
              <item row="0" column="0" >
               <widget class="qxgeditDial" name="DrumsetupGroupDial" />
              </item>
@@ -1272,11 +1245,11 @@
            </widget>
           </item>
           <item row="0" column="6" colspan="3" >
-		   <widget class="QGroupBox" name="DrumsetupEffectBox" >
+           <widget class="QGroupBox" name="DrumsetupEffectBox" >
             <property name="title" >
              <string>Effect</string>
             </property>
-            <layout class="QGridLayout">
+            <layout class="QGridLayout" >
              <item row="0" column="0" >
               <widget class="qxgeditDial" name="DrumsetupReverbDial" />
              </item>
@@ -1289,7 +1262,7 @@
             </layout>
            </widget>
           </item>
-          <item row="0" column="9" rowspan="2" >
+          <item rowspan="2" row="0" column="9" >
            <spacer>
             <property name="orientation" >
              <enum>Qt::Horizontal</enum>
@@ -1303,11 +1276,11 @@
            </spacer>
           </item>
           <item row="1" column="0" colspan="3" >
-		   <widget class="QGroupBox" name="DrumsetupFilterBox" >
+           <widget class="QGroupBox" name="DrumsetupFilterBox" >
             <property name="title" >
              <string>Filter</string>
             </property>
-            <layout class="QGridLayout">
+            <layout class="QGridLayout" >
              <item row="0" column="0" colspan="3" >
               <widget class="qxgeditFilter" name="DrumsetupFilter" />
              </item>
@@ -1321,11 +1294,11 @@
            </widget>
           </item>
           <item row="1" column="3" colspan="3" >
-		   <widget class="QGroupBox" name="DrumsetupAmpEgBox" >
+           <widget class="QGroupBox" name="DrumsetupAmpEgBox" >
             <property name="title" >
              <string>Amp EG</string>
             </property>
-            <layout class="QGridLayout">
+            <layout class="QGridLayout" >
              <item row="0" column="0" colspan="3" >
               <widget class="qxgeditDrumEg" name="DrumsetupAmpEg" />
              </item>
@@ -1342,11 +1315,11 @@
            </widget>
           </item>
           <item row="1" column="6" colspan="3" >
-		   <widget class="QGroupBox" name="DrumsetupNoteBox" >
+           <widget class="QGroupBox" name="DrumsetupNoteBox" >
             <property name="title" >
              <string>Receive</string>
             </property>
-            <layout class="QGridLayout">
+            <layout class="QGridLayout" >
              <item row="0" column="0" >
               <widget class="qxgeditCheck" name="DrumsetupNoteOffCheck" />
              </item>
@@ -1409,8 +1382,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>905</width>
-     <height>30</height>
+     <width>771</width>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu" >
@@ -1456,8 +1429,7 @@
   </widget>
   <action name="fileNewAction" >
    <property name="icon" >
-    <iconset resource="../icons/qxgedit.qrc" >
-     <normaloff>:/icons/fileNew.png</normaloff>:/icons/fileNew.png</iconset>
+    <iconset resource="../icons/qxgedit.qrc" >:/icons/fileNew.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;New</string>
@@ -1477,8 +1449,7 @@
   </action>
   <action name="fileOpenAction" >
    <property name="icon" >
-    <iconset resource="../icons/qxgedit.qrc" >
-     <normaloff>:/icons/fileOpen.png</normaloff>:/icons/fileOpen.png</iconset>
+    <iconset resource="../icons/qxgedit.qrc" >:/icons/fileOpen.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Open...</string>
@@ -1498,8 +1469,7 @@
   </action>
   <action name="fileSaveAction" >
    <property name="icon" >
-    <iconset resource="../icons/qxgedit.qrc" >
-     <normaloff>:/icons/fileSave.png</normaloff>:/icons/fileSave.png</iconset>
+    <iconset resource="../icons/qxgedit.qrc" >:/icons/fileSave.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Save</string>
@@ -1681,26 +1651,31 @@
    <class>qxgeditPartEg</class>
    <extends>QFrame</extends>
    <header>qxgeditPartEg.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>qxgeditFilter</class>
    <extends>QFrame</extends>
    <header>qxgeditFilter.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>qxgeditPitch</class>
    <extends>QFrame</extends>
    <header>qxgeditPitch.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>qxgeditVibra</class>
    <extends>QFrame</extends>
    <header>qxgeditVibra.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>qxgeditDrumEg</class>
    <extends>QFrame</extends>
    <header>qxgeditDrumEg.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
