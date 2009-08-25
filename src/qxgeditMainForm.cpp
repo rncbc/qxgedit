@@ -495,14 +495,14 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.MultipartAC2LFOPmodDial   -> set_param_map(MULTIPART, 0x64);
 	m_ui.MultipartAC2LFOFmodDial   -> set_param_map(MULTIPART, 0x65);
 	m_ui.MultipartAC2LFOAmodDial   -> set_param_map(MULTIPART, 0x66);
-	m_ui.MultipartPortaSwitchDial  -> set_param_map(MULTIPART, 0x67);
+	m_ui.MultipartPortamentoDial   -> set_param_map(MULTIPART, 0x67);
 	m_ui.MultipartPortaTimeDial    -> set_param_map(MULTIPART, 0x68);
 	m_ui.MultipartAttackLevelDial  -> set_param_map(MULTIPART, 0x69);
 	m_ui.MultipartAttackTimeDial   -> set_param_map(MULTIPART, 0x6a);
 	m_ui.MultipartReleaseLevelDial -> set_param_map(MULTIPART, 0x6b);
 	m_ui.MultipartReleaseTimeDial  -> set_param_map(MULTIPART, 0x6c);
-	m_ui.MultipartVelocityLowDial  -> set_param_map(MULTIPART, 0x6d);
-	m_ui.MultipartVelocityHighDial -> set_param_map(MULTIPART, 0x6e);
+	m_ui.MultipartVelLowDial       -> set_param_map(MULTIPART, 0x6d);
+	m_ui.MultipartVelHighDial      -> set_param_map(MULTIPART, 0x6e);
 
 	// DRUMSETUP...
 	m_ui.DrumsetupCombo->clear();
