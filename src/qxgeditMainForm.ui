@@ -1341,7 +1341,7 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="6" colspan="2" >
+          <item row="1" column="6" colspan="3" >
 		   <widget class="QGroupBox" name="DrumsetupNoteBox" >
             <property name="title" >
              <string>Receive</string>

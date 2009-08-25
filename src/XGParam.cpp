@@ -2510,7 +2510,7 @@ XGParamItem DRUMSETUPParamTab[] =
 	{ 0x05, 1,  0,  127, "Reverb[ Send]",           0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
 	{ 0x06, 1,  0,  127, "Chorus[ Send]",           0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
 	{ 0x07, 1,  0,  127, "Variation[ Send]",      127, NULL,     NULL,     NULL,     NULL     },
-	{ 0x08, 1,  0,    1, "Key Assign",              0, NULL,     NULL,     getskeya, NULL     },
+	{ 0x08, 1,  0,    1, "Same [Note ]Key[ Assign]",0, NULL,     NULL,     getskeya, NULL     },
 	{ 0x09, 1,  0,    1, "[Rcv ]Note Off",          0, NULL,     NULL,     getsonff, NULL     }, // depend on the note
 	{ 0x0a, 1,  0,    1, "[Rcv ]Note On",           1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x0b, 1,  0,  127, "[Filter ]Cutoff[ Freq]", 64, getv0x40, getu0x40, NULL,     NULL     },
