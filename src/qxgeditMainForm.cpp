@@ -38,6 +38,8 @@
 #include <QFileInfo>
 #include <QUrl>
 
+#include <QTreeWidget>
+
 #include <QStatusBar>
 #include <QLabel>
 
@@ -81,6 +83,10 @@ qxgeditMainForm::qxgeditMainForm (
 	// We'll start clean.
 	m_iUntitled   = 0;
 	m_iDirtyCount = 0;
+
+	// Instrument/Normal Voice combo-box view.
+	m_pMultipartVoiceListView = NULL;
+	m_iMultipartVoiceUpdate = 0;
 
 #ifdef HAVE_SIGNAL_H
 	// Set to ignore any fatal "Broken pipe" signals.
@@ -319,6 +325,46 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_ui.MultipartCombo,
 		SIGNAL(activated(int)),
 		SLOT(multipartComboActivated(int)));
+
+	// Instrument model/view combo-box...
+	m_pMultipartVoiceListView = new QTreeWidget();
+	m_pMultipartVoiceListView->header()->hide();
+	m_pMultipartVoiceListView->setRootIsDecorated(true);
+	m_pMultipartVoiceListView->setAllColumnsShowFocus(true);
+	m_pMultipartVoiceListView->setUniformRowHeights(true);
+	m_ui.MultipartVoiceCombo->setModel(m_pMultipartVoiceListView->model());
+	m_ui.MultipartVoiceCombo->setView(m_pMultipartVoiceListView);
+	m_ui.MultipartVoiceCombo->clear();
+
+	QList<QTreeWidgetItem *> items;
+	for (unsigned short i = 0; i < XGInstrument::count(); ++i) {
+		XGInstrument instr(i);
+		QTreeWidgetItem *pInstrumentItem
+			= new QTreeWidgetItem(m_pMultipartVoiceListView);
+		pInstrumentItem->setFlags(/*Qt::ItemIsUserCheckable | */Qt::ItemIsEnabled);
+		pInstrumentItem->setText(0, instr.name());
+		for (unsigned short j = 0; j < instr.size(); ++j) {
+			XGNormalVoice voice(&instr, j);
+			QTreeWidgetItem *pVoiceItem = new QTreeWidgetItem(pInstrumentItem);
+			pVoiceItem->setText(0, voice.name());
+		}
+		items.append(pInstrumentItem);
+	}
+	m_pMultipartVoiceListView->addTopLevelItems(items);
+
+	QObject::connect(m_ui.MultipartVoiceCombo,
+		SIGNAL(activated(int)),
+		SLOT(multipartVoiceComboActivated(int)));
+
+	QObject::connect(m_ui.MultipartBankMSBDial,
+		SIGNAL(valueChanged(unsigned short)),
+		SLOT(multipartVoiceChanged()));
+	QObject::connect(m_ui.MultipartBankLSBDial,
+		SIGNAL(valueChanged(unsigned short)),
+		SLOT(multipartVoiceChanged()));
+	QObject::connect(m_ui.MultipartProgramDial,
+		SIGNAL(valueChanged(unsigned short)),
+		SLOT(multipartVoiceChanged()));
 
 	// AmpEg...
 	QObject::connect(
@@ -1293,6 +1339,71 @@ void qxgeditMainForm::multipartComboActivated ( int iPart )
 {
 	if (m_pParamMap)
 		m_pParamMap->MULTIPART.set_current_key(iPart);
+}
+
+
+// Switch the current MULTIPART Instrument Normal Voice...
+void qxgeditMainForm::multipartVoiceComboActivated ( int iVoice )
+{
+	if (m_iMultipartVoiceUpdate > 0)
+		return;
+
+	m_iMultipartVoiceUpdate++;
+
+	const QModelIndex& parent
+		= m_ui.MultipartVoiceCombo->view()->currentIndex().parent();
+
+	XGInstrument instr(parent.row());
+	if (instr.group()) {
+		XGNormalVoice voice(&instr, iVoice);
+	#ifdef CONFIG_DEBUG
+		qDebug("qxgeditMainForm::multipartVoiceComboActivated(%d)"
+			" parent=(%d) [%s/%s]",
+			iVoice, parent.row(),
+			instr.name(), voice.name());
+	#endif
+		m_ui.MultipartBankMSBDial->setValue(voice.bank() >> 7);
+		m_ui.MultipartBankLSBDial->setValue(voice.bank() & 0x7f);
+		m_ui.MultipartProgramDial->setValue(voice.prog());
+	}
+
+	m_iMultipartVoiceUpdate--;
+}
+
+void qxgeditMainForm::multipartVoiceChanged (void)
+{
+	if (m_iMultipartVoiceUpdate > 0)
+		return;
+
+	m_iMultipartVoiceUpdate++;
+
+	unsigned short iBank
+		= (m_ui.MultipartBankMSBDial->value() << 7)
+		| m_ui.MultipartBankLSBDial->value();
+	unsigned char iProg = m_ui.MultipartProgramDial->value();
+
+	for (unsigned short i = 0; i < XGInstrument::count(); ++i) {
+		XGInstrument instr(i);
+		for (unsigned short j = 0; j < instr.size(); ++j) {
+			XGNormalVoice voice(&instr, j);
+			if (voice.bank() == iBank && voice.prog() == iProg) {
+				m_ui.MultipartVoiceCombo->showPopup();
+				const QModelIndex& parent
+					= m_ui.MultipartVoiceCombo->model()->index(i, 0);
+				const QModelIndex& index
+					= m_ui.MultipartVoiceCombo->model()->index(j, 0, parent);
+			#ifdef CONFIG_DEBUG
+				qDebug("qxgeditMainForm::multipartVoiceChanged(%d)"
+					" parent=%d bank=%u prog=%u [%s/%s]",
+					index.row(), parent.row(),
+					iBank, iProg, instr.name(), voice.name());
+			#endif
+				m_ui.MultipartVoiceCombo->view()->setCurrentIndex(index);
+			}
+		}
+	}
+
+	m_iMultipartVoiceUpdate--;
 }
 
 

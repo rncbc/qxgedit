@@ -31,6 +31,7 @@ class qxgeditMidiDevice;
 class qxgeditMidiSysexEvent;
 class qxgeditXGParamMap;
 
+class QTreeWidget;
 class QLabel;
 
 
@@ -81,6 +82,8 @@ public slots:
 	void masterResetButtonClicked();
 
 	void multipartComboActivated(int);
+	void multipartVoiceComboActivated(int);
+	void multipartVoiceChanged();
 
 	void drumsetupComboActivated(int);
 	void drumsetupNoteComboActivated(int);
@@ -138,6 +141,10 @@ private:
 	};
 
 	QLabel *m_statusItems[StatusItems];
+
+	// Instrument/Normal Voice combo-box view.
+	QTreeWidget *m_pMultipartVoiceListView;
+	int m_iMultipartVoiceUpdate;
 
 	// Kind-of singleton reference.
 	static qxgeditMainForm *g_pMainForm;

@@ -467,6 +467,9 @@
            <widget class="QComboBox" name="MultipartCombo" />
           </item>
           <item>
+           <widget class="QComboBox" name="MultipartVoiceCombo" />
+          </item>
+          <item>
            <spacer>
             <property name="orientation" >
              <enum>Qt::Horizontal</enum>
