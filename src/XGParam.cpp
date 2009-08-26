@@ -1643,6 +1643,35 @@ XGDrumKitItem DrumKitTab[] =
 
 
 //-------------------------------------------------------------------------
+// XG Effect table helpers.
+//
+typedef
+struct _XGEffectParamItem
+{
+	unsigned char    id;                    // parameter index
+	const char      *name;                  // parameter name.
+	unsigned short   min;                   // minimum value.
+	unsigned short   max;                   // maximum value.
+	float          (*getv)(unsigned short); // convert to display value.
+	unsigned short (*getu)(float);          // invert to native value.
+	const char *   (*gets)(unsigned short); // enumerated string value.
+	const char *   (*unit)();               // unit suffix label.
+
+} XGEffectParamItem;
+
+typedef
+struct _XGEffectItem
+{
+	unsigned char      msb;                 // effect type MSB
+	unsigned char      lsb;                 // effect type LSB
+	const char        *name;                // effect type name
+	XGEffectParamItem *params;              // effect type parameters
+	unsigned short    *defs;                // effect type defaults
+
+} XGEffectItem;
+
+
+//-------------------------------------------------------------------------
 // XG Effect Parameter List
 //
 
@@ -2291,7 +2320,27 @@ XGEffectItem VARIATIONEffectTab[] =
 
 
 //-------------------------------------------------------------------------
-// XG Parameter Change tables
+// XG Parameter table helpers.
+//
+typedef
+struct _XGParamItem
+{
+	unsigned char    id;	// id=low address.
+	unsigned char    size;  // data size in bytes.
+	unsigned short   min;   // minimum value; 0=REVERB, 1=CHORUS, 2=VARIATION.
+	unsigned short   max;   // maximum value; parameter index (0..15)
+	const char      *name;  // parameter name; NULL=depends on effect type.
+	unsigned short   def;   // default value;
+	float          (*getv)(unsigned short); // convert to display value.
+	unsigned short (*getu)(float);          // invert to native value.
+	const char *   (*gets)(unsigned short); // enumerated string value.
+	const char *   (*unit)();               // unit suffix label.
+
+} XGParamItem;
+
+
+//-------------------------------------------------------------------------
+// XG Parameter tables
 
 // SYSTEM
 // Address: 0x00 0x00 <id>
@@ -2617,6 +2666,7 @@ XGParamItem USERVOICEParamTab[] =
 	// ...
 };
 
+
 //-------------------------------------------------------------------------
 // XG Effect table helpers.
 
@@ -2636,18 +2686,21 @@ const XGEffectItem *XGEffectItem_find (
 }
 
 
+static inline
 const XGEffectItem *REVERBEffectItem ( unsigned short etype )
 {
 	return XGEffectItem_find(etype,
 		REVERBEffectTab, TSIZE(REVERBEffectTab));
 }
 
+static inline
 const XGEffectItem *CHORUSEffectItem ( unsigned short etype )
 {
 	return XGEffectItem_find(etype,
 		CHORUSEffectTab, TSIZE(CHORUSEffectTab));
 }
 
+static inline
 const XGEffectItem *VARIATIONEffectItem ( unsigned short etype )
 {
 	return XGEffectItem_find(etype,
@@ -2676,6 +2729,7 @@ unsigned short XGEffectDefault_find (
 }
 
 
+static inline
 unsigned short REVERBEffectDefault (
 	unsigned short etype, unsigned char index )
 {
@@ -2684,6 +2738,7 @@ unsigned short REVERBEffectDefault (
 		REVERBDefaultTab);
 }
 
+static inline
 unsigned short CHORUSEffectDefault (
 	unsigned short etype, unsigned char index )
 {
@@ -2692,6 +2747,7 @@ unsigned short CHORUSEffectDefault (
 		CHORUSDefaultTab);
 }
 
+static inline
 unsigned short VARIATIONEffectDefault (
 	unsigned short etype, unsigned char index )
 {
@@ -2720,24 +2776,174 @@ const XGParamItem *XGParamItem_find (
 }
 
 
+static inline
 const XGParamItem *SYSTEMParamItem ( unsigned char id )
 {
 	return XGParamItem_find(id, SYSTEMParamTab, TSIZE(SYSTEMParamTab));
 }
 
+static inline
 const XGParamItem *EFFECTParamItem ( unsigned char id )
 {
 	return XGParamItem_find(id, EFFECTParamTab, TSIZE(EFFECTParamTab));
 }
 
+static inline
 const XGParamItem *MULTIPARTParamItem ( unsigned char id )
 {
 	return XGParamItem_find(id, MULTIPARTParamTab, TSIZE(MULTIPARTParamTab));
 }
 
+static inline
 const XGParamItem *DRUMSETUPParamItem ( unsigned char id )
 {
 	return XGParamItem_find(id, DRUMSETUPParamTab, TSIZE(DRUMSETUPParamTab));
+}
+
+
+//-------------------------------------------------------------------------
+// class XGInstrument - XG Instrument/Normal Voice Group descriptor.
+//
+
+// Constructor.
+XGInstrument::XGInstrument ( unsigned short id )
+	: m_group(NULL)
+{
+	if (id < XGInstrument::count())
+		m_group = &(InstrumentTab[id]);
+}
+
+// Descriptor acessor.
+const XGNormalVoiceGroup *XGInstrument::group (void) const
+{
+	return m_group;
+}
+
+
+// Instrument name.
+const char *XGInstrument::name (void) const
+{
+	return (m_group ? m_group->name : NULL);
+}
+
+
+// Number of items.
+unsigned char XGInstrument::size (void) const
+{
+	return (m_group ? m_group->size : 0);
+}
+
+
+// Instrument list size (static).
+unsigned short XGInstrument::count (void)
+{
+	return TSIZE(InstrumentTab);
+}
+
+
+//-------------------------------------------------------------------------
+// class XGNormalVoice - XG Normal Voice descriptor.
+//
+
+// Constructor.
+XGNormalVoice::XGNormalVoice ( XGInstrument *instr, unsigned short id )
+	: m_item(NULL)
+{
+	if (instr && instr->group() && id < instr->size())
+		m_item = &((instr->group())->items[id]);
+}
+
+
+// Voice properties accessors.
+unsigned short XGNormalVoice::bank (void) const
+{
+	return (m_item ? m_item->bank : 0);
+}
+
+unsigned char XGNormalVoice::prog (void) const
+{
+	return (m_item ? m_item->prog : 0);
+}
+
+const char *XGNormalVoice::name (void) const
+{
+	return (m_item ? m_item->name : NULL);
+}
+
+unsigned char XGNormalVoice::elem (void) const
+{
+	return (m_item ? m_item->elem : 0);
+}
+
+
+//-------------------------------------------------------------------------
+// class XGDrumKit - XG Drum Kit descriptor.
+//
+
+// Constructor.
+XGDrumKit::XGDrumKit ( unsigned short id )
+	: m_item(NULL)
+{
+	if (id < XGDrumKit::count())
+		m_item = &(DrumKitTab[id]);
+}
+
+// Descriptor acessor.
+const XGDrumKitItem *XGDrumKit::item (void) const
+{
+	return m_item;
+}
+
+// Drum Kit property accessors.
+unsigned short XGDrumKit::bank (void) const
+{
+	return (m_item ? m_item->bank : 0);
+}
+
+unsigned char XGDrumKit::prog (void) const
+{
+	return (m_item ? m_item->prog : 0);
+}
+
+const char *XGDrumKit::name (void) const
+{
+	return (m_item ? m_item->name : NULL);
+}
+
+unsigned short XGDrumKit::size (void) const
+{
+	return (m_item ? m_item->size : 0);
+}
+
+
+// Drum Kit list size (static).
+unsigned short XGDrumKit::count (void)
+{
+	return TSIZE(DrumKitTab);
+}
+
+
+//-------------------------------------------------------------------------
+// class XGDrumVoice - XG Drum Voice descriptor.
+//
+
+// Constructor.
+XGDrumVoice::XGDrumVoice ( XGDrumKit *drumkit, unsigned short id )
+	: m_key(NULL)
+{
+	if (drumkit && drumkit->item() && id < drumkit->size())
+		m_key = &((drumkit->item())->keys[id]);
+}
+
+// Voice properties accessors.
+unsigned char XGDrumVoice::note (void) const
+{
+	return (m_key ? m_key->note : 0);
+}
+
+const char *XGDrumVoice::name (void) const
+{
+	return (m_key ? m_key->name : NULL);
 }
 
 

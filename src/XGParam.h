@@ -28,75 +28,137 @@
 #include <QMap> // Needed to get XGParamMap::Keys sorted.
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 //-------------------------------------------------------------------------
-// XG Effect table helpers.
+// Forward declarations (XGParam internals)
 //
-typedef
-struct _XGEffectParamItem
-{
-	unsigned char    id;                    // parameter index
-	const char      *name;                  // parameter name.
-	unsigned short   min;                   // minimum value.
-	unsigned short   max;                   // maximum value.
-	float          (*getv)(unsigned short); // convert to display value.
-	unsigned short (*getu)(float);          // invert to native value.
-	const char *   (*gets)(unsigned short); // enumerated string value.
-	const char *   (*unit)();               // unit suffix label.
-
-} XGEffectParamItem;
 
 typedef
-struct _XGEffectItem
-{
-	unsigned char      msb;                 // effect type MSB
-	unsigned char      lsb;                 // effect type LSB
-	const char        *name;                // effect type name
-	XGEffectParamItem *params;              // effect type parameters
-	unsigned short    *defs;                // effect type defaults
+struct _XGNormalVoiceGroup XGNormalVoiceGroup;
 
-} XGEffectItem;
+typedef
+struct _XGNormalVoiceItem  XGNormalVoiceItem;
 
-const XGEffectItem *REVERBEffectItem(unsigned short etype);
-const XGEffectItem *CHORUSEffectItem(unsigned short etype);
-const XGEffectItem *VARIATIONEffectItem(unsigned short etype);
+typedef
+struct _XGDrumKitItem XGDrumKitItem;
 
-unsigned short REVERBEffectDefault(unsigned short etype, unsigned char index);
-unsigned short CHORUSEffectDefault(unsigned short etype, unsigned char index);
-unsigned short VARIATIONEffectDefault(unsigned short etype, unsigned char index);
+typedef
+struct _XGDrumVoiceItem  XGDrumVoiceItem;
+
+typedef
+struct _XGEffectParamItem XGEffectParamItem;
+
+typedef
+struct _XGEffectItem XGEffectItem;
+
+typedef
+struct _XGParamItem XGParamItem;
 
 
 //-------------------------------------------------------------------------
-// XG Parameter table helpers.
+// class XGInstrument - XG Instrument/Normal Voice Group descriptor.
 //
-typedef
-struct _XGParamItem
+
+class XGInstrument
 {
-	unsigned char    id;	// id=low address.
-	unsigned char    size;  // data size in bytes.
-	unsigned short   min;   // minimum value; 0=REVERB, 1=CHORUS, 2=VARIATION.
-	unsigned short   max;   // maximum value; parameter index (0..15)
-	const char      *name;  // parameter name; NULL=depends on effect type.
-	unsigned short   def;   // default value;
-	float          (*getv)(unsigned short); // convert to display value.
-	unsigned short (*getu)(float);          // invert to native value.
-	const char *   (*gets)(unsigned short); // enumerated string value.
-	const char *   (*unit)();               // unit suffix label.
+public:
 
-} XGParamItem;
+	// Constructor.
+	XGInstrument(unsigned short id);
+
+	// Descriptor acessor.
+	const XGNormalVoiceGroup *group() const;
+
+	// Instrument name.
+	const char *name() const;
+
+	// Number of items.
+	unsigned char size() const;
+
+	// Instrument list size.
+	static unsigned short count();
+
+private:
+
+	// Parameter descriptor.
+	const XGNormalVoiceGroup *m_group;
+};
 
 
-const XGParamItem *SYSTEMParamItem(unsigned char id);
-const XGParamItem *EFFECTParamItem(unsigned char id);
-const XGParamItem *MULTIPARTParamItem(unsigned char id);
-const XGParamItem *DRUMSETUPParamItem(unsigned char id);
+//-------------------------------------------------------------------------
+// class XGNormalVoice - XG Normal Voice descriptor.
+//
 
-#ifdef __cplusplus
-}
-#endif
+class XGNormalVoice
+{
+public:
+
+	// Constructor.
+	XGNormalVoice(XGInstrument *instr, unsigned short id);
+
+	// Voice properties accessors.
+	unsigned short bank() const;
+	unsigned char  prog() const;
+	const char    *name() const;
+	unsigned char  elem() const;
+
+private:
+
+	// Parameter descriptor.
+	const XGNormalVoiceItem *m_item;
+};
+
+
+//-------------------------------------------------------------------------
+// class XGDrumKit - XG Drum Kit descriptor.
+//
+
+class XGDrumKit
+{
+public:
+
+	// Constructor.
+	XGDrumKit(unsigned short id);
+
+	// Descriptor acessor.
+	const XGDrumKitItem *item() const;
+
+	// Drum Kit property accessors.
+	unsigned short   bank() const;
+	unsigned char    prog() const;
+	const char      *name() const;
+	unsigned short   size() const;
+
+	// Drum Kit list size.
+	static unsigned short count();
+
+private:
+
+	// Parameter descriptor.
+	const XGDrumKitItem *m_item;
+};
+
+
+//-------------------------------------------------------------------------
+// class XGDrumVoice - XG Drum Voice descriptor.
+//
+
+class XGDrumVoice
+{
+public:
+
+	// Constructor.
+	XGDrumVoice(XGDrumKit *drumkit, unsigned short id);
+
+	// Voice properties accessors.
+	unsigned char  note() const;
+	const char    *name() const;
+
+private:
+
+	// Parameter descriptor.
+	const XGDrumVoiceItem *m_key;
+};
+
 
 //-------------------------------------------------------------------------
 // class XGParam - XG Generic parameter descriptor.
