@@ -39,6 +39,7 @@
 #include <QUrl>
 
 #include <QTreeWidget>
+#include <QHeaderView>
 
 #include <QStatusBar>
 #include <QLabel>
@@ -365,6 +366,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_ui.MultipartProgramDial,
 		SIGNAL(valueChanged(unsigned short)),
 		SLOT(multipartVoiceChanged()));
+
+	QObject::connect(m_ui.MultipartResetButton,
+		SIGNAL(clicked()),
+		SLOT(multipartResetButtonClicked()));
 
 	// AmpEg...
 	QObject::connect(
@@ -1387,7 +1392,7 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 		for (unsigned short j = 0; j < instr.size(); ++j) {
 			XGNormalVoice voice(&instr, j);
 			if (voice.bank() == iBank && voice.prog() == iProg) {
-				m_ui.MultipartVoiceCombo->showPopup();
+			//	m_ui.MultipartVoiceCombo->showPopup();
 				const QModelIndex& parent
 					= m_ui.MultipartVoiceCombo->model()->index(i, 0);
 				const QModelIndex& index
@@ -1404,6 +1409,13 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 	}
 
 	m_iMultipartVoiceUpdate--;
+}
+
+
+void qxgeditMainForm::multipartResetButtonClicked (void)
+{
+	if (m_pParamMap)
+		m_pParamMap->reset_part(m_ui.MultipartCombo->currentIndex());
 }
 
 

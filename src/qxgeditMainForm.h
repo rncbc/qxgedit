@@ -81,13 +81,14 @@ public slots:
 
 	void masterResetButtonClicked();
 
+	void multipartResetButtonClicked();
 	void multipartComboActivated(int);
 	void multipartVoiceComboActivated(int);
 	void multipartVoiceChanged();
 
+	void drumsetupResetButtonClicked();
 	void drumsetupComboActivated(int);
 	void drumsetupNoteComboActivated(int);
-	void drumsetupResetButtonClicked();
 
 	void contentsChanged();
 

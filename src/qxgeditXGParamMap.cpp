@@ -165,6 +165,34 @@ void qxgeditXGParamMap::reset_all (void)
 }
 
 
+// Part reset (to default)
+void qxgeditXGParamMap::reset_part ( unsigned short iPart )
+{
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditXGParamMap::reset_part(%u)", iPart);
+#endif
+
+#if 0
+	ObserverMap::const_iterator iter = m_observers.constBegin();
+	for (; iter != m_observers.constEnd(); ++iter) {
+		XGParam *pParam = iter.key();
+		if (pParam->high() == 0x08 && pParam->mid() == iPart)
+			pParam->set_value(pParam->def()/*, iter.value()*/);
+	}
+#else
+	XGParamMap::const_iterator iter = MULTIPART.constBegin();
+	for (; iter != MULTIPART.constEnd(); ++iter) {
+		XGParamSet *pParamSet = iter.value();
+		if (pParamSet->contains(iPart)) {
+			XGParam *pParam = pParamSet->value(iPart);
+			if (pParam)
+				pParam->set_value(pParam->def());
+		}
+	}
+#endif
+}
+
+
 // Drums reset (to default)
 void qxgeditXGParamMap::reset_drums ( unsigned short iDrumSet )
 {

@@ -46,6 +46,9 @@ public:
 	// All parameter reset (to default)
 	void reset_all();
 
+	// Part reset (to default)
+	void reset_part(unsigned short iPart);
+
 	// Drums reset (to default)
 	void reset_drums(unsigned short iDrumSet);
 

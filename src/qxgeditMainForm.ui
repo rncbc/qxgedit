@@ -464,6 +464,13 @@
         <item>
          <layout class="QHBoxLayout" >
           <item>
+           <widget class="QPushButton" name="MultipartResetButton" >
+            <property name="text" >
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QComboBox" name="MultipartCombo" />
           </item>
           <item>
