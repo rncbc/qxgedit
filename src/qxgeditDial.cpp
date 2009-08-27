@@ -192,25 +192,19 @@ void qxgeditDial::setValue ( unsigned short iValue )
 void qxgeditDial::knobValueChanged ( int iKnobValue )
 {
 	set_value(iKnobValue);
-
-	if (m_iBusy == 0)
-		emit valueChanged(value());
+	emit valueChanged(value());
 }
 
 void qxgeditDial::spinValueChanged ( unsigned short iSpinValue )
 {
 	set_value(iSpinValue);
-
-	if (m_iBusy == 0)
-		emit valueChanged(value());
+	emit valueChanged(value());
 }
 
 void qxgeditDial::dropValueChanged ( unsigned short iDropValue )
 {
 	set_value(iDropValue);
-
-	if (m_iBusy == 0)
-		emit valueChanged(value());
+	emit valueChanged(value());
 }
 
 
