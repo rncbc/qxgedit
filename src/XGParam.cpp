@@ -489,6 +489,22 @@ unsigned short getu1024 ( float v )
 //
 
 static
+float getvprog ( unsigned short c )
+{
+	return (float) (c + 1);
+}
+
+static
+unsigned short getuprog ( float v )
+{
+	return (unsigned short) (v) - 1;
+}
+
+
+//-------------------------------------------------------------------------
+//
+
+static
 const char *getsimod ( unsigned short c )
 {
 	static
@@ -2443,7 +2459,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x00, 1,  0,   32, "Element[ Reserve]",       0, NULL,     NULL,     NULL,     NULL     }, // 0=part10, 2=other
 	{ 0x01, 1,  0,  127, "Bank [Select ]MSB",       0, NULL,     NULL,     NULL,     NULL     }, // 127=part10, 0=other
 	{ 0x02, 1,  0,  127, "Bank [Select ]LSB",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x03, 1,  0,  127, "Program[ Number]",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x03, 1,  0,  127, "Program[ Number]",        0, getvprog, getuprog, NULL,     NULL     },
 	{ 0x04, 1,  0,  127, "[Rcv ]Channel",           0, NULL,     NULL,     getschan, NULL     }, // 0..15=partno, 127=OFF
 	{ 0x05, 1,  0,    1, "Mono/Poly[ Mode]",        1, NULL,     NULL,     getsmmod, NULL     },
 	{ 0x06, 1,  0,    2, "Same [Note ]Key[ Assign]",1, NULL,     NULL,     getskeya, NULL     },
@@ -2863,7 +2879,7 @@ unsigned short XGNormalVoice::bank (void) const
 
 unsigned char XGNormalVoice::prog (void) const
 {
-	return (m_item ? m_item->prog : 0);
+	return (m_item ? (m_item->prog - 1): 0);
 }
 
 const char *XGNormalVoice::name (void) const
@@ -2903,7 +2919,7 @@ unsigned short XGDrumKit::bank (void) const
 
 unsigned char XGDrumKit::prog (void) const
 {
-	return (m_item ? m_item->prog : 0);
+	return (m_item ? (m_item->prog - 1): 0);
 }
 
 const char *XGDrumKit::name (void) const

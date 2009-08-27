@@ -1403,7 +1403,11 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 					index.row(), parent.row(),
 					iBank, iProg, instr.name(), voice.name());
 			#endif
-				m_ui.MultipartVoiceCombo->view()->setCurrentIndex(index);
+			//	m_ui.MultipartVoiceCombo->view()->setCurrentIndex(index);
+				QModelIndex oldroot = m_ui.MultipartVoiceCombo->rootModelIndex();
+				m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
+				m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
+				m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
 			}
 		}
 	}
@@ -1416,6 +1420,8 @@ void qxgeditMainForm::multipartResetButtonClicked (void)
 {
 	if (m_pParamMap)
 		m_pParamMap->reset_part(m_ui.MultipartCombo->currentIndex());
+
+	multipartVoiceChanged();
 }
 
 
