@@ -88,6 +88,7 @@ public slots:
 
 	void drumsetupResetButtonClicked();
 	void drumsetupComboActivated(int);
+	void drumsetupVoiceComboActivated(int);
 	void drumsetupNoteComboActivated(int);
 
 	void contentsChanged();
@@ -143,8 +144,7 @@ private:
 
 	QLabel *m_statusItems[StatusItems];
 
-	// Instrument/Normal Voice combo-box view.
-	QTreeWidget *m_pMultipartVoiceListView;
+	// Instrument/Normal Voice combo-box view soft-mutex.
 	int m_iMultipartVoiceUpdate;
 
 	// Kind-of singleton reference.

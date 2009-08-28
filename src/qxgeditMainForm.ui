@@ -1151,6 +1151,9 @@
            <widget class="QComboBox" name="DrumsetupCombo" />
           </item>
           <item>
+           <widget class="QComboBox" name="DrumsetupVoiceCombo" />
+          </item>
+          <item>
            <widget class="QComboBox" name="DrumsetupNoteCombo" />
           </item>
           <item>

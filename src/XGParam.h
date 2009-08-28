@@ -74,6 +74,9 @@ public:
 	// Number of items.
 	unsigned char size() const;
 
+	// Voice index finder.
+	int find_voice(unsigned short bank, unsigned char prog) const;
+
 	// Instrument list size.
 	static unsigned short count();
 
@@ -127,6 +130,9 @@ public:
 	unsigned char    prog() const;
 	const char      *name() const;
 	unsigned short   size() const;
+
+	// Voice index finder.
+	int find_voice(unsigned short key) const;
 
 	// Drum Kit list size.
 	static unsigned short count();

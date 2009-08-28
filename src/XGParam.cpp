@@ -2851,6 +2851,21 @@ unsigned char XGInstrument::size (void) const
 }
 
 
+// Voice index finder.
+int XGInstrument::find_voice ( unsigned short bank, unsigned char prog ) const
+{
+	if (m_group) {
+		for (int i = 0; i < m_group->size; ++i) {
+			XGNormalVoiceItem *item = &(m_group->items[i]);
+			if (item->bank == bank && (item->prog - 1) == prog)
+				return i;
+		}
+	}
+
+	return -1;
+}
+
+
 // Instrument list size (static).
 unsigned short XGInstrument::count (void)
 {
@@ -2930,6 +2945,20 @@ const char *XGDrumKit::name (void) const
 unsigned short XGDrumKit::size (void) const
 {
 	return (m_item ? m_item->size : 0);
+}
+
+
+// Voice index finder.
+int XGDrumKit::find_voice ( unsigned short key ) const
+{
+	if (m_item) {
+		for (int i = 0; i < m_item->size; ++i) {
+			if (m_item->keys[i].note == key)
+				return i;
+		}
+	}
+
+	return -1;
 }
 
 
@@ -3542,7 +3571,7 @@ XGParamMasterMap::XGParamMasterMap (void)
 	}
 
 	// XG DRUM SETUP...
-	DRUMSETUP.set_current_key(35); // Drums 1, Bass Drum.
+	DRUMSETUP.set_current_key(36); // Drums 1, Bass Drum (C1).
 	for (i = 0; i < TSIZE(DRUMSETUPParamTab); ++i) {
 		XGParamItem *item = &DRUMSETUPParamTab[i];
 		for (j = 0; j < 2; ++j) {

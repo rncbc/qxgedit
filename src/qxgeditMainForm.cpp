@@ -85,8 +85,7 @@ qxgeditMainForm::qxgeditMainForm (
 	m_iUntitled   = 0;
 	m_iDirtyCount = 0;
 
-	// Instrument/Normal Voice combo-box view.
-	m_pMultipartVoiceListView = NULL;
+	// Instrument/Normal Voice combo-box view soft-mutex.
 	m_iMultipartVoiceUpdate = 0;
 
 #ifdef HAVE_SIGNAL_H
@@ -328,20 +327,20 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SLOT(multipartComboActivated(int)));
 
 	// Instrument model/view combo-box...
-	m_pMultipartVoiceListView = new QTreeWidget();
-	m_pMultipartVoiceListView->header()->hide();
-	m_pMultipartVoiceListView->setRootIsDecorated(true);
-	m_pMultipartVoiceListView->setAllColumnsShowFocus(true);
-	m_pMultipartVoiceListView->setUniformRowHeights(true);
-	m_ui.MultipartVoiceCombo->setModel(m_pMultipartVoiceListView->model());
-	m_ui.MultipartVoiceCombo->setView(m_pMultipartVoiceListView);
+	QTreeWidget *pMultipartVoiceListView = new QTreeWidget();
+	pMultipartVoiceListView->header()->hide();
+	pMultipartVoiceListView->setRootIsDecorated(true);
+	pMultipartVoiceListView->setAllColumnsShowFocus(true);
+	pMultipartVoiceListView->setUniformRowHeights(true);
+	m_ui.MultipartVoiceCombo->setModel(pMultipartVoiceListView->model());
+	m_ui.MultipartVoiceCombo->setView(pMultipartVoiceListView);
 	m_ui.MultipartVoiceCombo->clear();
 
 	QList<QTreeWidgetItem *> items;
 	for (unsigned short i = 0; i < XGInstrument::count(); ++i) {
 		XGInstrument instr(i);
 		QTreeWidgetItem *pInstrumentItem
-			= new QTreeWidgetItem(m_pMultipartVoiceListView);
+			= new QTreeWidgetItem(pMultipartVoiceListView);
 		pInstrumentItem->setFlags(/*Qt::ItemIsUserCheckable | */Qt::ItemIsEnabled);
 		pInstrumentItem->setText(0, instr.name());
 		for (unsigned short j = 0; j < instr.size(); ++j) {
@@ -351,7 +350,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		}
 		items.append(pInstrumentItem);
 	}
-	m_pMultipartVoiceListView->addTopLevelItems(items);
+	pMultipartVoiceListView->addTopLevelItems(items);
 
 	QObject::connect(m_ui.MultipartVoiceCombo,
 		SIGNAL(activated(int)),
@@ -560,17 +559,21 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iDrumset = 0; iDrumset < 2; ++iDrumset)
 		m_ui.DrumsetupCombo->addItem(tr("Drums %1").arg(iDrumset + 1));
 
-	m_ui.DrumsetupNoteCombo->clear();
-	for (unsigned short k = 13; k < 85; ++k)
-		m_ui.DrumsetupNoteCombo->addItem(tr("Note %1").arg(k), k);
+	m_ui.DrumsetupVoiceCombo->clear();
+	for (unsigned short k = 0; k < XGDrumKit::count(); ++k) {
+		XGDrumKit drumkit(k);
+		m_ui.DrumsetupVoiceCombo->addItem(drumkit.name());
+	}
 
-	int iNote = m_ui.DrumsetupNoteCombo->findData(DRUMSETUP->current_key());
-	if (iNote >= 0)
-		m_ui.DrumsetupNoteCombo->setCurrentIndex(iNote);
+	drumsetupVoiceComboActivated(0);
 	
 	QObject::connect(m_ui.DrumsetupCombo,
 		SIGNAL(activated(int)),
 		SLOT(drumsetupComboActivated(int)));
+
+	QObject::connect(m_ui.DrumsetupVoiceCombo,
+		SIGNAL(activated(int)),
+		SLOT(drumsetupVoiceComboActivated(int)));
 
 	QObject::connect(m_ui.DrumsetupNoteCombo,
 		SIGNAL(activated(int)),
@@ -1389,26 +1392,25 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 
 	for (unsigned short i = 0; i < XGInstrument::count(); ++i) {
 		XGInstrument instr(i);
-		for (unsigned short j = 0; j < instr.size(); ++j) {
+		int j = instr.find_voice(iBank, iProg);
+		if (j >= 0) {
 			XGNormalVoice voice(&instr, j);
-			if (voice.bank() == iBank && voice.prog() == iProg) {
-			//	m_ui.MultipartVoiceCombo->showPopup();
-				const QModelIndex& parent
-					= m_ui.MultipartVoiceCombo->model()->index(i, 0);
-				const QModelIndex& index
-					= m_ui.MultipartVoiceCombo->model()->index(j, 0, parent);
-			#ifdef CONFIG_DEBUG
-				qDebug("qxgeditMainForm::multipartVoiceChanged(%d)"
-					" parent=%d bank=%u prog=%u [%s/%s]",
-					index.row(), parent.row(),
-					iBank, iProg, instr.name(), voice.name());
-			#endif
-			//	m_ui.MultipartVoiceCombo->view()->setCurrentIndex(index);
-				QModelIndex oldroot = m_ui.MultipartVoiceCombo->rootModelIndex();
-				m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
-				m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
-				m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
-			}
+		//	m_ui.MultipartVoiceCombo->showPopup();
+			const QModelIndex& parent
+				= m_ui.MultipartVoiceCombo->model()->index(i, 0);
+			const QModelIndex& index
+				= m_ui.MultipartVoiceCombo->model()->index(j, 0, parent);
+		#ifdef CONFIG_DEBUG
+			qDebug("qxgeditMainForm::multipartVoiceChanged(%d)"
+				" parent=%d bank=%u prog=%u [%s/%s]",
+				index.row(), parent.row(),
+				iBank, iProg, instr.name(), voice.name());
+		#endif
+		//	m_ui.MultipartVoiceCombo->view()->setCurrentIndex(index);
+			QModelIndex oldroot = m_ui.MultipartVoiceCombo->rootModelIndex();
+			m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
+			m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
+			m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
 		}
 	}
 
@@ -1433,6 +1435,39 @@ void qxgeditMainForm::drumsetupComboActivated ( int iDrumset )
 		unsigned short key = (unsigned short) (iDrumset << 7)
 			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
 		m_pParamMap->DRUMSETUP.set_current_key(key);
+	}
+}
+
+// Switch the current DRUMSETUP Drum Kit Voice...
+void qxgeditMainForm::drumsetupVoiceComboActivated ( int iDrumKit )
+{
+	// Diatonic note map...
+	static const char *notes[] =
+		{ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+
+	XGDrumKit drumkit(iDrumKit);
+	if (drumkit.item()) {
+		XGDrumKit stdkit(0); // Standard Kit (default)
+		m_ui.DrumsetupNoteCombo->clear();
+		for (unsigned short k = 13; k < 85; ++k) {
+			QString sName;
+			int i = drumkit.find_voice(k);
+			if (i >= 0)  {
+				sName = XGDrumVoice(&drumkit, i).name();
+			} else if (stdkit.item()) {
+				i = stdkit.find_voice(k);
+				if (i >= 0)
+					sName = XGDrumVoice(&stdkit, i).name();
+			}
+			if (!sName.isEmpty())
+				sName += ' ';
+			sName += QString("(%1%2)").arg(notes[k % 12]).arg((k / 12) - 2);
+			m_ui.DrumsetupNoteCombo->addItem(sName, k);
+		}
+		int iNote = m_ui.DrumsetupNoteCombo->findData(
+			m_pParamMap->DRUMSETUP.current_key());
+		if (iNote >= 0)
+			m_ui.DrumsetupNoteCombo->setCurrentIndex(iNote);
 	}
 }
 
