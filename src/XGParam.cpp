@@ -749,7 +749,7 @@ XGNormalVoiceItem PianoTab[] =
 	{   27,   8, "ClaviWah",   2 },
 	{   64,   8, "PulseClv",   1 },
 	{   65,   8, "PierceCl",   2 }
-};     
+};
 
 // Chromatic Percussion
 static
@@ -775,7 +775,7 @@ XGNormalVoiceItem ChromaticPercussionTab[] =
 	{   35,  16, "Dulcimr2",   2 },
 	{   96,  16, "Cimbalom",   2 },
 	{   97,  16, "Santur",     2 }
-};     
+};
 
 // Organ
 static
@@ -817,7 +817,7 @@ XGNormalVoiceItem OrganTab[] =
 	{   32,  23, "Harmo 2",    2 },
 	{    0,  24, "TangoAcd",   2 },
 	{   64,  24, "TngoAcd2",   2 }
-};     
+};
 
 // Guitar
 static
@@ -852,7 +852,7 @@ XGNormalVoiceItem GuitarTab[] =
 	{    0,  32, "GtrHarmo",   1 },
 	{   65,  32, "GtFeedbk",   1 },
 	{   66,  32, "GtrHrmo2",   1 }
-};     
+};
 
 // Bass
 static
@@ -900,7 +900,7 @@ XGNormalVoiceItem BassTab[] =
 	{   40,  40, "ModulrBa",   2 },
 	{   41,  40, "DX Bass",    2 },
 	{   64,  40, "X WireBa",   2 }
-};     
+};
 
 // Strings
 static
@@ -918,7 +918,7 @@ XGNormalVoiceItem StringsTab[] =
 	{    0,  47, "Harp",       1 },
 	{   40,  47, "YangChin",   2 },
 	{    0,  48, "Timpani",    1 }
-};     
+};
 
 // Ensemble
 static
@@ -958,7 +958,7 @@ XGNormalVoiceItem EnsembleTab[] =
 	{    0,  56, "Orch.Hit",   2 },
 	{   35,  56, "OrchHit2",   2 },
 	{   64,  56, "Impact",     2 }
-};     
+};
 
 // Brass
 static
@@ -996,7 +996,7 @@ XGNormalVoiceItem BrassTab[] =
 	{   41,  64, "ChorBrss",   2 },
 	{   45,  64, "VelBras2",   2 },
 	{   64,  64, "AnaBras2",   2 }
-};     
+};
 
 // Reed
 static
@@ -1015,7 +1015,7 @@ XGNormalVoiceItem ReedTab[] =
 	{    0,  70, "Eng.Horn",   1 },
 	{    0,  71, "Bassoon",    1 },
 	{    0,  72, "Clarinet",   1 }
-};     
+};
 
 // Pipe
 static
@@ -1029,7 +1029,7 @@ XGNormalVoiceItem PipeTab[] =
 	{    0,  78, "Shakhchi",   2 },
 	{    0,  79, "Whistle",    1 },
 	{    0,  80, "Ocarina",    1 }
-};     
+};
 
 // Synth Lead
 static
@@ -1071,7 +1071,7 @@ XGNormalVoiceItem SynthLeadTab[] =
 	{   16,  88, "Big&Low",    2 },
 	{   64,  88, "Fat&Prky",   2 },
 	{   65,  88, "SoftWurl",   2 }
-};     
+};
 
 // Synth Pad
 static
@@ -1106,7 +1106,7 @@ XGNormalVoiceItem SynthPadTab[] =
 	{   27,  96, "Converge",   2 },
 	{   64,  96, "PolarPad",   2 },
 	{   66,  96, "Celstial",   2 }
-};     
+};
 
 // Synth Effects
 static
@@ -1168,7 +1168,7 @@ XGNormalVoiceItem SynthEffectsTab[] =
 	{   69, 103, "Reso Pan",   2 },
 	{    0, 104, "Sci-Fi",     2 },
 	{   64, 104, "Starz",      2 }
-};     
+};
 
 // Ethnic
 static
@@ -1195,7 +1195,7 @@ XGNormalVoiceItem EthnicTab[] =
 	{   64, 112, "Shanai2",    1 },
 	{   96, 112, "Pungi",      1 },
 	{   97, 112, "Hichriki",   2 }
-};     
+};
 
 // Percussive
 static
@@ -1224,7 +1224,7 @@ XGNormalVoiceItem PercussiveTab[] =
 	{   64, 119, "Ana Tom",    1 },
 	{   65, 119, "ElecPerc",   2 },
 	{    0, 120, "RevCymbl",   1 }
-};     
+};
 
 // SoundEffects
 static
@@ -1238,54 +1238,54 @@ XGNormalVoiceItem SoundEffectsTab[] =
 	{    0, 126, "Helicptr",   1 },
 	{    0, 127, "Applause",   1 },
 	{    0, 128, "Gunshot",    1 }
-};     
+};
 
 // SFX
 static
 XGNormalVoiceItem SFXTab[] = 
 {	// bank prog  name      elem
-	{ 8192,   0, "CuttngNz",   1 },
-	{ 8192,   1, "CttngNz2",   2 },
-	{ 8192,   3, "Str Slap",   1 },
-	{ 8192,  16, "Fl.KClik",   1 },
-	{ 8192,  32, "Rain",       1 },
-	{ 8192,  33, "Thunder",    1 },
-	{ 8192,  34, "Wind",       1 },
-	{ 8192,  35, "Stream",     2 },
-	{ 8192,  36, "Bubble",     2 },
-	{ 8192,  37, "Feed",       2 },
-	{ 8192,  48, "Dog",        1 },
-	{ 8192,  49, "Horse",      1 },
-	{ 8192,  50, "Bird 2",     1 },
-	{ 8192,  54, "Ghost",      2 },
-	{ 8192,  55, "Maou",       2 },
-	{ 8192,  64, "Tel.Dial",   1 },
-	{ 8192,  65, "DoorSqek",   1 },
-	{ 8192,  66, "Door Slam",  1 },
-	{ 8192,  67, "Scratch",    1 },
-	{ 8192,  68, "Scratch 2",  2 },
-	{ 8192,  69, "WindChm",    1 },
-	{ 8192,  70, "Telphon2",   1 },
-	{ 8192,  80, "CarEngin",   1 },
-	{ 8192,  81, "Car Stop",   1 },
-	{ 8192,  82, "Car Pass",   1 },
-	{ 8192,  83, "CarCrash",   1 },
-	{ 8192,  84, "Siren",      2 },
-	{ 8192,  85, "Train",      1 },
-	{ 8192,  86, "Jetplane",   2 },
-	{ 8192,  87, "Starship",   2 },
-	{ 8192,  88, "Burst",      2 },
-	{ 8192,  89, "Coaster",    2 },
-	{ 8192,  90, "SbMarine",   2 },
-	{ 8192,  96, "Laughing",   1 },
-	{ 8192,  97, "Scream",     1 },
-	{ 8192,  98, "Punch",      1 },
-	{ 8192,  99, "Heart",      1 },
-	{ 8192, 100, "FootStep",   1 },
-	{ 8192, 112, "MchinGun",   1 },
-	{ 8192, 113, "LaserGun",   2 },
-	{ 8192, 114, "Xplosion",   2 },
-	{ 8192, 115, "FireWork",   2 }
+	{ 8192,   1, "CuttngNz",   1 },
+	{ 8192,   2, "CttngNz2",   2 },
+	{ 8192,   4, "Str Slap",   1 },
+	{ 8192,  17, "Fl.KClik",   1 },
+	{ 8192,  33, "Rain",       1 },
+	{ 8192,  34, "Thunder",    1 },
+	{ 8192,  35, "Wind",       1 },
+	{ 8192,  36, "Stream",     2 },
+	{ 8192,  37, "Bubble",     2 },
+	{ 8192,  38, "Feed",       2 },
+	{ 8192,  49, "Dog",        1 },
+	{ 8192,  50, "Horse",      1 },
+	{ 8192,  51, "Bird 2",     1 },
+	{ 8192,  55, "Ghost",      2 },
+	{ 8192,  56, "Maou",       2 },
+	{ 8192,  65, "Tel.Dial",   1 },
+	{ 8192,  66, "DoorSqek",   1 },
+	{ 8192,  67, "Door Slam",  1 },
+	{ 8192,  68, "Scratch",    1 },
+	{ 8192,  69, "Scratch 2",  2 },
+	{ 8192,  70, "WindChm",    1 },
+	{ 8192,  71, "Telphon2",   1 },
+	{ 8192,  81, "CarEngin",   1 },
+	{ 8192,  82, "Car Stop",   1 },
+	{ 8192,  83, "Car Pass",   1 },
+	{ 8192,  84, "CarCrash",   1 },
+	{ 8192,  85, "Siren",      2 },
+	{ 8192,  86, "Train",      1 },
+	{ 8192,  87, "Jetplane",   2 },
+	{ 8192,  88, "Starship",   2 },
+	{ 8192,  89, "Burst",      2 },
+	{ 8192,  90, "Coaster",    2 },
+	{ 8192,  91, "SbMarine",   2 },
+	{ 8192,  97, "Laughing",   1 },
+	{ 8192,  98, "Scream",     1 },
+	{ 8192,  99, "Punch",      1 },
+	{ 8192, 100, "Heart",      1 },
+	{ 8192, 101, "FootStep",   1 },
+	{ 8192, 113, "MchinGun",   1 },
+	{ 8192, 114, "LaserGun",   2 },
+	{ 8192, 115, "Xplosion",   2 },
+	{ 8192, 116, "FireWork",   2 }
 };
 
 
@@ -3082,8 +3082,19 @@ unsigned short XGParam::max (void) const
 
 unsigned short XGParam::def (void) const
 {
-	if (m_high == 0x08 && m_low == 0x04)
-		return m_mid;
+	// Take care of very special, hardcoded here cases...
+	if (m_high == 0x08) {
+		switch (m_low) {
+		case 0x00: // MULTIPART Element Reserve.
+			return (m_mid == 9 ? 0x00 : 0x02);
+		case 0x01: // MULTIPART Bank MSB.
+			return (m_mid == 9 ? 0x7f : 0x00);
+		case 0x04: // MULTIPART Channel.
+			return m_mid;
+		case 0x07: // MULTIPART Part Mode.
+			return (m_mid == 9 ? 0x02 : 0x00);
+		}
+	}
 
 	return (m_param ? m_param->def : 0);
 }

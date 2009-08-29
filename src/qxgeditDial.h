@@ -52,6 +52,8 @@ public:
 	XGParam *param() const;
 
 	// Value accessors.
+	void reset_value();
+	void set_value_update(unsigned short iValue);
 	void set_value(unsigned short iValue);
 	unsigned short value() const;
 

@@ -100,6 +100,21 @@ QString qxgeditDial::text (void) const
 
 
 // Nominal value accessors.
+void qxgeditDial::reset_value (void)
+{
+	XGParam *pParam = param();
+	if (pParam)
+		pParam->set_value_update(pParam->def());
+}
+
+void qxgeditDial::set_value_update ( unsigned short iValue )
+{
+	XGParam *pParam = param();
+	if (pParam)
+		pParam->set_value_update(iValue);
+}
+
+
 void qxgeditDial::set_value ( unsigned short iValue )
 {
 	if (m_iBusy == 0) {

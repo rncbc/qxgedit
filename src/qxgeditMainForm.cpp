@@ -337,11 +337,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.MultipartVoiceCombo->clear();
 
 	QList<QTreeWidgetItem *> items;
+	QTreeWidgetItem *pInstrumentItem;
 	for (unsigned short i = 0; i < XGInstrument::count(); ++i) {
 		XGInstrument instr(i);
-		QTreeWidgetItem *pInstrumentItem
-			= new QTreeWidgetItem(pMultipartVoiceListView);
-		pInstrumentItem->setFlags(/*Qt::ItemIsUserCheckable | */Qt::ItemIsEnabled);
+		pInstrumentItem = new QTreeWidgetItem(pMultipartVoiceListView);
+		pInstrumentItem->setFlags(Qt::ItemIsEnabled);
 		pInstrumentItem->setText(0, instr.name());
 		for (unsigned short j = 0; j < instr.size(); ++j) {
 			XGNormalVoice voice(&instr, j);
@@ -349,6 +349,14 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 			pVoiceItem->setText(0, voice.name());
 		}
 		items.append(pInstrumentItem);
+	}
+	pInstrumentItem = new QTreeWidgetItem(pMultipartVoiceListView);
+	pInstrumentItem->setFlags(Qt::ItemIsEnabled);
+	pInstrumentItem->setText(0, "Drums");
+	for (unsigned short k = 0; k < XGDrumKit::count(); ++k) {
+		XGDrumKit drumkit(k);
+		QTreeWidgetItem *pVoiceItem = new QTreeWidgetItem(pInstrumentItem);
+		pVoiceItem->setText(0, drumkit.name());
 	}
 	pMultipartVoiceListView->addTopLevelItems(items);
 
@@ -1370,9 +1378,24 @@ void qxgeditMainForm::multipartVoiceComboActivated ( int iVoice )
 			iVoice, parent.row(),
 			instr.name(), voice.name());
 	#endif
-		m_ui.MultipartBankMSBDial->setValue(voice.bank() >> 7);
-		m_ui.MultipartBankLSBDial->setValue(voice.bank() & 0x7f);
-		m_ui.MultipartProgramDial->setValue(voice.prog());
+		m_ui.MultipartPartModeDial->reset_value();
+		m_ui.MultipartBankMSBDial->set_value_update(voice.bank() >> 7);
+		m_ui.MultipartBankLSBDial->set_value_update(voice.bank() & 0x7f);
+		m_ui.MultipartProgramDial->set_value_update(voice.prog());
+	} else {
+		XGDrumKit drumkit(iVoice);
+		if (drumkit.item()) {
+		#ifdef CONFIG_DEBUG
+			qDebug("qxgeditMainForm::multipartVoiceComboActivated(%d)"
+				" parent=(%d) [Drums/%s]",
+				iVoice, parent.row(),
+				drumkit.name());
+		#endif
+			m_ui.MultipartPartModeDial->set_value_update(1); // DRUMS
+			m_ui.MultipartBankMSBDial->set_value_update(drumkit.bank() >> 7);
+			m_ui.MultipartBankLSBDial->set_value_update(drumkit.bank() & 0x7f);
+			m_ui.MultipartProgramDial->set_value_update(drumkit.prog());
+		}
 	}
 
 	m_iMultipartVoiceUpdate--;
@@ -1390,7 +1413,9 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 		| m_ui.MultipartBankLSBDial->value();
 	unsigned char iProg = m_ui.MultipartProgramDial->value();
 
-	for (unsigned short i = 0; i < XGInstrument::count(); ++i) {
+	unsigned short i = 0;
+
+	for (; i < XGInstrument::count(); ++i) {
 		XGInstrument instr(i);
 		int j = instr.find_voice(iBank, iProg);
 		if (j >= 0) {
@@ -1411,6 +1436,34 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 			m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
 			m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
 			m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
+			m_ui.MultipartPartModeDial->reset_value();
+			break;
+		}
+	}
+
+	if (i >= XGInstrument::count()) {
+		for (unsigned short k = 0; k < XGDrumKit::count(); ++k) {
+			XGDrumKit drumkit(k);
+			if (drumkit.bank() == iBank && drumkit.prog() == iProg) {
+			//	m_ui.MultipartVoiceCombo->showPopup();
+				const QModelIndex& parent
+					= m_ui.MultipartVoiceCombo->model()->index(i, 0);
+				const QModelIndex& index
+					= m_ui.MultipartVoiceCombo->model()->index(k, 0, parent);
+			#ifdef CONFIG_DEBUG
+				qDebug("qxgeditMainForm::multipartVoiceChanged(%d)"
+					" parent=%d bank=%u prog=%u [Drums/%s]",
+					index.row(), parent.row(),
+					iBank, iProg, drumkit.name());
+			#endif
+			//	m_ui.MultipartVoiceCombo->view()->setCurrentIndex(index);
+				QModelIndex oldroot = m_ui.MultipartVoiceCombo->rootModelIndex();
+				m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
+				m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
+				m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
+				m_ui.MultipartPartModeDial->set_value_update(1); // DRUMS
+				break;
+			}
 		}
 	}
 
