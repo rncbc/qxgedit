@@ -373,6 +373,9 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_ui.MultipartProgramDial,
 		SIGNAL(valueChanged(unsigned short)),
 		SLOT(multipartVoiceChanged()));
+	QObject::connect(m_ui.MultipartPartModeDial,
+		SIGNAL(valueChanged(unsigned short)),
+		SLOT(multipartPartModeChanged(unsigned short)));
 
 	QObject::connect(m_ui.MultipartResetButton,
 		SIGNAL(clicked()),
@@ -1436,7 +1439,7 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 			m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
 			m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
 			m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
-			m_ui.MultipartPartModeDial->reset_value();
+		//	m_ui.MultipartPartModeDial->reset_value();
 			break;
 		}
 	}
@@ -1461,13 +1464,27 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 				m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
 				m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
 				m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
-				m_ui.MultipartPartModeDial->set_value_update(1); // DRUMS
+			//	m_ui.MultipartPartModeDial->set_value_update(1); // DRUMS
 				break;
 			}
 		}
 	}
 
 	m_iMultipartVoiceUpdate--;
+}
+
+
+void qxgeditMainForm::multipartPartModeChanged ( unsigned short iPartMode )
+{
+	bool bEnabled = (iPartMode == 0);
+
+	m_ui.MultipartPedalCheck->setEnabled(bEnabled);
+	m_ui.MultipartBankLSBDial->setEnabled(bEnabled);
+	m_ui.MultipartPolyModeDial->setEnabled(bEnabled);
+	m_ui.MultipartPortamentoBox->setEnabled(bEnabled);
+	m_ui.MultipartTuningBox->setEnabled(bEnabled);
+	m_ui.MultipartPATBox->setEnabled(bEnabled);
+	m_ui.MultipartPitchEgBox->setEnabled(bEnabled);
 }
 
 

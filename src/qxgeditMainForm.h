@@ -85,6 +85,7 @@ public slots:
 	void multipartComboActivated(int);
 	void multipartVoiceComboActivated(int);
 	void multipartVoiceChanged();
+	void multipartPartModeChanged(unsigned short);
 
 	void drumsetupResetButtonClicked();
 	void drumsetupComboActivated(int);
