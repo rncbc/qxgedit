@@ -210,5 +210,24 @@ void qxgeditXGParamMap::reset_drums ( unsigned short iDrumSet )
 }
 
 
+// user voice reset (to default)
+void qxgeditXGParamMap::reset_user ( unsigned short iUser )
+{
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditXGParamMap::reset_user(%u)", iUser);
+#endif
+
+	XGParamMap::const_iterator iter = USERVOICE.constBegin();
+	for (; iter != USERVOICE.constEnd(); ++iter) {
+		XGParamSet *pParamSet = iter.value();
+		if (pParamSet->contains(iUser)) {
+			XGParam *pParam = pParamSet->value(iUser);
+			if (pParam)
+				pParam->set_value(pParam->def());
+		}
+	}
+}
+
+
 // end of qxgeditXGParamMap.cpp
 

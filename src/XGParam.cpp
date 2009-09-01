@@ -2605,88 +2605,88 @@ static
 XGParamItem USERVOICEParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
 	// [Common]
-	{ 0x00, 8, 32,  127, "Voice Name",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x0b, 1,  1,    3, "Element Switch",          0, NULL,     NULL,     getselem, NULL     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
-	{ 0x0c, 1,  0,  127, "Voice Level",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x00, 8, 32,  127, "[Voice ]Name",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0b, 1,  1,    3, "Element[ Switch]",        1, NULL,     NULL,     getselem, NULL     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
+	{ 0x0c, 1,  0,  127, "[Voice ]Level",           0, NULL,     NULL,     NULL,     NULL     },
 	// [Element 1]
-	{ 0x3d, 2,  0,16383, "Wave Number",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x3f, 1,  0,  127, "Note Limit Low",          0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x40, 1,  0,  127, "Note Limit High",         0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x41, 1,  0,  127, "Velocity Limit Low",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x42, 1,  0,  127, "Velocity Limit High",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x43, 1,  0,    1, "Filter EG Vel Curve",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x44, 1,  0,    2, "LFO Wave Select",         0, NULL,     NULL,     getswave, NULL     },
-	{ 0x45, 1,  0,    1, "LFO Phase Initialize",    0, NULL,     NULL,     getsonff, NULL     },
-	{ 0x46, 1,  0,   63, "LFO Speed",               0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x47, 1,  0,  127, "LFO Delay",               0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x48, 1,  0,  127, "LFO Fade Time",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x49, 1,  0,   63, "LFO Pmd Depth",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4a, 1,  0,   15, "LFO Cmd Depth",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4b, 1,  0,   31, "LFO Amd Depth",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4c, 1, 32,   96, "Note Shift",              0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x3d, 2,  0,16383, "Wave[ Number]",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x3f, 1,  0,  127, "[Note Limit ]Low",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x40, 1,  0,  127, "[Note Limit ]High",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x41, 1,  0,  127, "[Velocity Limit ]Low",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x42, 1,  0,  127, "[Velocity Limit ]High",   0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x43, 1,  0,    1, "[FEG ]Vel Curve",         0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x44, 1,  0,    2, "[LFO ]Wave[ Select]",     0, NULL,     NULL,     getswave, NULL     },
+	{ 0x45, 1,  0,    1, "[LFO ]Phase{ Initialize]",0, NULL,     NULL,     getsonff, NULL     },
+	{ 0x46, 1,  0,   63, "[LFO ]Speed",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x47, 1,  0,  127, "[LFO ]Delay",             0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x48, 1,  0,  127, "[LFO ]Fade[ Time]",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x49, 1,  0,   63, "[LFO ]Pitch[ Depth]",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4a, 1,  0,   15, "[LFO ]Cutoff[ Depth]",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4b, 1,  0,   31, "[LFO ]Ampl[itude Depth]", 0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4c, 1, 32,   96, "[Note ]Shift",            0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x4d, 1, 14,  114, "Detune",                  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4e, 1,  0,    5, "Pitch Scaling",           0, NULL,     NULL,     getspscl, NULL     },
-	{ 0x4f, 1,  0,  127, "Pitch Sc Center Note",    0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x50, 1,  0,    3, "Pitch EG Depth",          0, NULL,     NULL,     getspdph, NULL     },
-	{ 0x51, 1, 57,   71, "Vel PEG Level Sens",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x52, 1, 57,   71, "Vel PEG Rate Sens",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x53, 1, 57,   71, "PEG Rate Scaling",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x54, 1,  0,  127, "PEG Rate Sc Center Note", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x55, 1,  0,   63, "PEG Rate 1",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x56, 1,  0,   63, "PEG Rate 2",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x57, 1,  0,   63, "PEG Rate 3",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x58, 1,  0,   63, "PEG Rate 4",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x59, 1,  0,  127, "PEG Level 0",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5a, 1,  0,  127, "PEG Level 1",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5b, 1,  0,  127, "PEG Level 2",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5c, 1,  0,  127, "PEG Level 3",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5d, 1,  0,  127, "PEG Level 4",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5e, 1,  0,   63, "Filter Resonance",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x5f, 1,  0,    7, "Velocity Sensitivity",    0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x60, 1,  0,  127, "Cutoff Frequency",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x61, 1,  0,  127, "Cutoff Sc Break Point 1", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x62, 1,  0,  127, "Cutoff Sc Break Point 2", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x63, 1,  0,  127, "Cutoff Sc Break Point 3", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x64, 1,  0,  127, "Cutoff Sc Break Point 4", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x65, 1,  0,  127, "Cutoff Sc Offset 1",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x66, 1,  0,  127, "Cutoff Sc Offset 2",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x67, 1,  0,  127, "Cutoff Sc Offset 3",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x68, 1,  0,  127, "Cutoff Sc Offset 4",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x69, 1, 57,   71, "Vel FEG Level Sens",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6a, 1, 57,   71, "Vel FEG Rate Sens",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6b, 1, 57,   71, "FEG Rate Scaling",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6c, 1,  0,  127, "FEG Rate Sc Center Note", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6d, 1,  0,   63, "FEG Rate 1",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6e, 1,  0,   63, "FEG Rate 2",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6f, 1,  0,   63, "FEG Rate 3",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x70, 1,  0,   63, "FEG Rate 4",              0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x71, 1,  0,  127, "FEG Level 0",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x72, 1,  0,  127, "FEG Level 1",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x73, 1,  0,  127, "FEG Level 2",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x74, 1,  0,  127, "FEG Level 3",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x75, 1,  0,  127, "FEG Level 4",             0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x76, 1,  0,  127, "Element Level",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x77, 1,  0,  127, "Level Sc Break Point 1",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x78, 1,  0,  127, "Level Sc Break Point 2",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x79, 1,  0,  127, "Level Sc Break Point 3",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7a, 1,  0,  127, "Level Sc Break Point 4",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7b, 1,  0,  127, "Level Sc Offset 1",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7c, 1,  0,  127, "Level Sc Offset 2",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7d, 1,  0,  127, "Level Sc Offset 3",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7e, 1,  0,  127, "Level Sc Offset 4",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7f, 1,  0,    6, "Velocity Curve",          0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4e, 1,  0,    5, "[Pitch ]Scaling",         0, NULL,     NULL,     getspscl, NULL     },
+	{ 0x4f, 1,  0,  127, "[Pitch Sc ]Center[ Note]",0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x50, 1,  0,    3, "[PEG ]Depth",             0, NULL,     NULL,     getspdph, NULL     },
+	{ 0x51, 1, 57,   71, "[Vel PEG ]Level[ Sens]",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x52, 1, 57,   71, "[Vel PEG ]Rate[ Sens]",   0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x53, 1, 57,   71, "[PEG Rate ]Scaling",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x54, 1,  0,  127, "[PEG Rate Sc ]Center[ Note]",0,NULL,   NULL,     NULL,     NULL     },
+	{ 0x55, 1,  0,   63, "[PEG ]Rate 1",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x56, 1,  0,   63, "[PEG ]Rate 2",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x57, 1,  0,   63, "[PEG ]Rate 3",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x58, 1,  0,   63, "[PEG ]Rate 4",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x59, 1,  0,  127, "[PEG ]]Level 0",          0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5a, 1,  0,  127, "[PEG ]Level 1",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5b, 1,  0,  127, "[PEG ]Level 2",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5c, 1,  0,  127, "[PEG ]Level 3",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5d, 1,  0,  127, "[PEG ]Level 4",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5e, 1,  0,   63, "[Filter ]Resonance",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x5f, 1,  0,    7, "Velocity[ Sensitivity]",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x60, 1,  0,  127, "[Cutoff Frequency",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x61, 1,  0,  127, "[Cutoff Sc ]Break 1",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x62, 1,  0,  127, "[Cutoff Sc ]Break 2",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x63, 1,  0,  127, "[Cutoff Sc ]Break 3",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x64, 1,  0,  127, "[Cutoff Sc ]Break 4",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x65, 1,  0,  127, "[Cutoff Sc ]Offset 1",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x66, 1,  0,  127, "[Cutoff Sc ]Offset 2",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x67, 1,  0,  127, "[Cutoff Sc ]Offset 3",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x68, 1,  0,  127, "[Cutoff Sc ]Offset 4",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x69, 1, 57,   71, "[Vel FEG ]Level[ Sens]",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6a, 1, 57,   71, "[Vel FEG ]Rate[ Sens]",   0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6b, 1, 57,   71, "[FEG Rate ]Scaling",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6c, 1,  0,  127, "[FEG Rate Sc ]Center[ Note]",0,NULL,   NULL,     NULL,     NULL     },
+	{ 0x6d, 1,  0,   63, "[FEG ]Rate 1",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6e, 1,  0,   63, "[FEG ]Rate 2",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x6f, 1,  0,   63, "[FEG 9Rate 3",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x70, 1,  0,   63, "[FEG ]Rate 4",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x71, 1,  0,  127, "[FEG ]Level 0",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x72, 1,  0,  127, "[FEG ]Level 1",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x73, 1,  0,  127, "[FEG ]Level 2",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x74, 1,  0,  127, "[FEG ]Level 3",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x75, 1,  0,  127, "[FEG ]Level 4",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x76, 1,  0,  127, "[Element ]Level",         0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x77, 1,  0,  127, "[Level Sc ]Break 1",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x78, 1,  0,  127, "[Level Sc ]Break 2",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x79, 1,  0,  127, "[Level Sc ]Break 3",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7a, 1,  0,  127, "[Level Sc ]Break 4",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7b, 1,  0,  127, "[Level Sc ]Offset 1",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7c, 1,  0,  127, "[Level Sc ]Offset 2",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7d, 1,  0,  127, "[Level Sc ]Offset 3",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7e, 1,  0,  127, "[Level Sc ]Offset 4",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x7f, 1,  0,    6, "[Velocity ]Curve",        0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x80, 1,  0,   15, "Pan",                     0, NULL,     NULL,     NULL,     NULL     }, // 0=Left..14=Right, 15=Scaling
-	{ 0x81, 1, 57,   71, "AEG Rate Scaling",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x82, 1,  0,  127, "AEG Sc Center Note",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x83, 1,  0,   15, "AEG Key On Delay",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x84, 1,  0,  127, "AEG Attack Rate",         0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x85, 1,  0,  127, "AEG Decay 1 Rate",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x86, 1,  0,  127, "AEG Decay 2 Rate",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x87, 1,  0,  127, "AEG Release Rate",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x88, 1,  0,  127, "AEG Decay 1 Level",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x89, 1,  0,  127, "AEG Decay 2 Level",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x8a, 2,  0,16383, "Address Offset",          0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x8c, 1, 57,   71, "Resonance Sensitivity",   0, NULL,     NULL,     NULL,     NULL     }
+	{ 0x81, 1, 57,   71, "[AEG Rate ]Scaling",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x82, 1,  0,  127, "[AEG Sc ]Center[ Note]",  0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x83, 1,  0,   15, "[AEG Key On ]Delay",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x84, 1,  0,  127, "[AEG ]Attack[ Rate]",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x85, 1,  0,  127, "[AEG ]Decay 1[ Rate]",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x86, 1,  0,  127, "[AEG ]Decay 2[ Rate]",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x87, 1,  0,  127, "[AEG ]Release[ Rate]",    0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x88, 1,  0,  127, "[AEG Decay ]Level 1",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x8a, 2,  0,16383, "[Address ]Offset",        0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x8c, 1, 57,   71, "[Resonance ]Sensitivity", 0, NULL,     NULL,     NULL,     NULL     }
 	// [Element 2]
 	// ...
 };
@@ -2823,6 +2823,12 @@ static inline
 const XGParamItem *DRUMSETUPParamItem ( unsigned char id )
 {
 	return XGParamItem_find(id, DRUMSETUPParamTab, TSIZE(DRUMSETUPParamTab));
+}
+
+static inline
+const XGParamItem *USERVOICEParamItem ( unsigned char id )
+{
+	return XGParamItem_find(id, USERVOICEParamTab, TSIZE(USERVOICEParamTab));
 }
 
 
@@ -3027,6 +3033,12 @@ XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
 	if (high == 0x30 || high == 0x31) {
 		// DRUM SETUP Parameter Change...
 		m_param = DRUMSETUPParamItem(m_low);
+	}
+	else
+	if (high == 0x11) {
+		// USER VOICE Parameter Change...
+		m_param = USERVOICEParamItem(
+			m_low < 0x8d ? m_low : 0x3d + ((m_low - 0x3d) % 0x50));
 	}
 
 	// Set initial defaults.
@@ -3598,6 +3610,20 @@ XGParamMasterMap::XGParamMasterMap (void)
 				XGParam *param = new XGParam(0x30 + j, k, item->id);
 				XGParamMasterMap::add_param(param);
 				DRUMSETUP.add_param(param, (j << 7) + k);
+			}
+		}
+	}
+
+	// QS300 USER VOICE...
+	USERVOICE.set_current_key(0); // User 1.
+	for (i = 0; i < TSIZE(USERVOICEParamTab); ++i) {
+		XGParamItem *item = &USERVOICEParamTab[i];
+		for (k = 0; k < 32; ++k) {
+			for (j = 0; j < 2; ++j) {
+				if (item->id >= 0x3d || j == 0) {
+					XGParam *param = new XGParam(0x11, k, item->id + (j * 0x50));
+					USERVOICE.add_param(param, k);
+				}
 			}
 		}
 	}

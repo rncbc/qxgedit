@@ -433,6 +433,7 @@ public:
 	XGParamMap VARIATION;
 	XGParamMap MULTIPART;
 	XGParamMap DRUMSETUP;
+	XGParamMap USERVOICE;
 
 	// master append method
 	void add_param(XGParam *param);

@@ -52,6 +52,9 @@ public:
 	// Drums reset (to default)
 	void reset_drums(unsigned short iDrumSet);
 
+	// user voice reset (to default)
+	void reset_user(unsigned short iUser);
+
 private:
 
 	// Simple XGParam observer.

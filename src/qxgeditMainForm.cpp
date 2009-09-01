@@ -234,6 +234,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	XGParamMap *VARIATION = &(m_pParamMap->VARIATION);
 	XGParamMap *MULTIPART = &(m_pParamMap->MULTIPART);
 	XGParamMap *DRUMSETUP = &(m_pParamMap->DRUMSETUP);
+	XGParamMap *USERVOICE = &(m_pParamMap->USERVOICE);
 
 	// SYSTEM...
 	QObject::connect(m_ui.MasterResetButton,
@@ -644,6 +645,26 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.DrumsetupAttackDial       -> set_param_map(DRUMSETUP, 0x0d);
 	m_ui.DrumsetupDecay1Dial       -> set_param_map(DRUMSETUP, 0x0e);
 	m_ui.DrumsetupDecay2Dial       -> set_param_map(DRUMSETUP, 0x0f);
+
+	// USERVOICE...
+	m_ui.UservoiceCombo->clear();
+	for (int iUser = 0; iUser < 32; ++iUser)
+		m_ui.UservoiceCombo->addItem(tr("User %1").arg(iUser + 1));
+
+	QObject::connect(m_ui.UservoiceCombo,
+		SIGNAL(activated(int)),
+		SLOT(uservoiceComboActivated(int)));
+
+	QObject::connect(m_ui.UservoiceNameEdit,
+		SIGNAL(textChanged(const QString&)),
+		SLOT(uservoiceNameEditChanged(const QString&)));
+
+	QObject::connect(m_ui.UservoiceResetButton,
+		SIGNAL(clicked()),
+		SLOT(uservoiceResetButtonClicked()));
+
+	m_ui.UservoiceElementDial      -> set_param_map(USERVOICE, 0x0b);
+	m_ui.UservoiceLevelDial        -> set_param_map(USERVOICE, 0x0c);
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {
@@ -1561,6 +1582,26 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 		if (pParam)
 			pParam->set_value_update(iDrumset);
 	}
+}
+
+
+// Switch the current USERVOICE section...
+void qxgeditMainForm::uservoiceComboActivated ( int iUser )
+{
+	if (m_pParamMap)
+		m_pParamMap->USERVOICE.set_current_key(iUser);
+}
+
+
+void qxgeditMainForm::uservoiceNameEditChanged ( const QString& sName )
+{
+}
+
+
+void qxgeditMainForm::uservoiceResetButtonClicked (void)
+{
+	if (m_pParamMap)
+		m_pParamMap->reset_user(m_ui.UservoiceCombo->currentIndex());
 }
 
 

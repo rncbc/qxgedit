@@ -92,6 +92,10 @@ public slots:
 	void drumsetupVoiceComboActivated(int);
 	void drumsetupNoteComboActivated(int);
 
+	void uservoiceResetButtonClicked();
+	void uservoiceComboActivated(int);
+	void uservoiceNameEditChanged(const QString&);
+
 	void contentsChanged();
 
 protected:
