@@ -669,15 +669,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(activated(int)),
 		SLOT(uservoiceElementComboActivated(int)));
 
-	QObject::connect(m_ui.UservoiceNameEdit,
-		SIGNAL(textChanged(const QString&)),
-		SLOT(uservoiceNameEditChanged(const QString&)));
-
 	QObject::connect(m_ui.UservoiceResetButton,
 		SIGNAL(clicked()),
 		SLOT(uservoiceResetButtonClicked()));
 
-//	m_ui.UservoiceNameDial         -> set_param_map(USERVOICE, 0x00);
+  	m_ui.UservoiceNameEdit         -> set_param_map(USERVOICE, 0x00);
 	m_ui.UservoiceElementDial      -> set_param_map(USERVOICE, 0x0b);
 	m_ui.UservoiceLevelDial        -> set_param_map(USERVOICE, 0x0c);
 
@@ -1692,11 +1688,6 @@ void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 {
 	if (m_pParamMap)
 		m_pParamMap->USERVOICE.set_current_element(iElem);
-}
-
-
-void qxgeditMainForm::uservoiceNameEditChanged ( const QString& sName )
-{
 }
 
 

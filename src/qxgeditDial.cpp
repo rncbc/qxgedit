@@ -87,18 +87,6 @@ qxgeditDial::~qxgeditDial (void)
 }
 
 
-// Text label accessor.
-void qxgeditDial::setText ( const QString& sText )
-{
-	m_pLabel->setText(sText);
-}
-
-QString qxgeditDial::text (void) const
-{
-	return m_pLabel->text();
-}
-
-
 // Special value text accessor.
 void qxgeditDial::setSpecialValueText ( const QString& sText )
 {

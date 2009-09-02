@@ -1,4 +1,4 @@
-// qxgeditDial.h
+// qxgeditEdit.h
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -19,8 +19,8 @@
 
 *****************************************************************************/
 
-#ifndef __qxgeditDial_h
-#define __qxgeditDial_h
+#ifndef __qxgeditEdit_h
+#define __qxgeditEdit_h
 
 #include "XGParamWidget.h"
 
@@ -28,69 +28,47 @@
 
 // Forward declarations.
 class QLabel;
-class qxgeditKnob;
-class qxgeditSpin;
-class qxgeditDrop;
+class QLineEdit;
 
 
 //-------------------------------------------------------------------------
-// qxgeditDial - Custom composite widget.
+// qxgeditEdit - Custom edit-box widget.
 
-class qxgeditDial : public XGParamWidget<QWidget>
+class qxgeditEdit : public XGParamWidget<QWidget>
 {
 	Q_OBJECT
 
 public:
 
 	// Constructor.
-	qxgeditDial(QWidget *pParent = 0);
+	qxgeditEdit(QWidget *pParent = 0);
 	// Destructor.
-	~qxgeditDial();
+	~qxgeditEdit();
 
 	// Specialty parameter accessors.
 	void set_param(XGParam *pParam);
 	XGParam *param() const;
 
 	// Value accessors.
-	void reset_value();
-	void set_value_update(unsigned short iValue);
 	void set_value(unsigned short iValue);
 	unsigned short value() const;
-
-	// Special value text accessor.
-	void setSpecialValueText(const QString& sText);
-	QString specialValueText() const;
-
-signals:
-
-	// Value change signal.
-	void valueChanged(unsigned short);
-
-public slots:
-
-	// Value settler.
-	void setValue(unsigned short);
 
 protected slots:
 
 	// Internal widget slots.
-	void knobValueChanged(int);
-	void spinValueChanged(unsigned short);
-	void dropValueChanged(unsigned short);
+	void editChanged(const QString&);
 
 private:
 
-	// Widget members.
-	QLabel      *m_pLabel;
-	qxgeditKnob *m_pKnob;
-	qxgeditSpin *m_pSpin;
-	qxgeditDrop *m_pDrop;
+	// Instance variables.
+	XGDataParam *m_pParam;
 
-	// Fake-mutex.
-	int m_iBusy;
+	// Widget members.
+	QLabel    *m_pLabel;
+	QLineEdit *m_pEdit;
 };
 
 
-#endif  // __qxgeditDial_h
+#endif  // __qxgeditEdit_h
 
-// end of qxgeditDial.h
+// end of qxgeditEdit.h

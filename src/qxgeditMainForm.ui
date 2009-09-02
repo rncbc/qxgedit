@@ -1366,7 +1366,7 @@
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
-             <widget class="QLineEdit" name="UservoiceNameEdit" />
+             <widget class="qxgeditEdit" name="UservoiceNameEdit" />
             </item>
             <item row="0" column="1" >
              <widget class="qxgeditDial" name="UservoiceLevelDial" />
@@ -2154,6 +2154,12 @@
    <class>qxgeditDrumEg</class>
    <extends>QFrame</extends>
    <header>qxgeditDrumEg.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>qxgeditEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qxgeditEdit.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

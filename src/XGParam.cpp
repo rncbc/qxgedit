@@ -3047,7 +3047,7 @@ XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
 	if (high == 0x11) {
 		// USER VOICE Parameter Change...
 		m_param = USERVOICEParamItem(
-			m_low < 0x8d ? m_low : 0x3d + ((m_low - 0x3d) % 0x50));
+			m_low >= 0x3d ? 0x3d + ((m_low - 0x3d) % 0x50) : m_low);
 	}
 
 	// Set initial defaults.
@@ -3111,7 +3111,7 @@ unsigned short XGParam::max (void) const
 
 unsigned short XGParam::def (void) const
 {
-	// Take care of very special, hardcoded here cases...
+	// Take care of very special, hardcoded cases, here...
 	if (m_high == 0x08) {
 		switch (m_low) {
 		case 0x00: // MULTIPART Element Reserve.
@@ -3392,6 +3392,37 @@ const char *XGEffectParam::unit (void) const
 
 
 //-------------------------------------------------------------------------
+// class XGDataParam - XG Data parameter descriptor.
+//
+// Constructor.
+XGDataParam::XGDataParam ( unsigned char high, unsigned char mid, unsigned char low )
+	: XGParam(high, mid, low)
+{
+	unsigned short n = size() + 1;
+	m_data = new unsigned char [n];
+	::memset(m_data, 0, n);
+}
+
+// Destructor.
+XGDataParam::~XGDataParam (void)
+{
+	delete m_data;
+}
+
+
+// Data accessors.
+void XGDataParam::set_data ( unsigned char *data )
+{
+	::memcpy(m_data, data, size());
+}
+
+unsigned char *XGDataParam::data() const
+{
+	return m_data;
+}
+
+
+//-------------------------------------------------------------------------
 // class XGParamMap - XG Parameter mapper.
 //
 
@@ -3493,8 +3524,12 @@ void XGParamMap::notify_reset (void)
 	if (m_key_param)
 		m_key = m_key_param->value();
 
+	unsigned short id0 = 0x3d + (m_element * 0x50);
 	XGParamMap::const_iterator iter = XGParamMap::constBegin();
 	for (; iter != XGParamMap::constEnd(); ++iter) {
+		unsigned short id = iter.key();
+		if (m_elements > 0 && id >= 0x3d && (id < id0 || id >= id0 + 0x50))
+			continue;
 		XGParamSet *paramset = iter.value();
 		if (paramset->contains(m_key)) {
 			XGParam *param = paramset->value(m_key);
@@ -3670,8 +3705,14 @@ XGParamMasterMap::XGParamMasterMap (void)
 		for (k = 0; k < 32; ++k) {
 			for (j = 0; j < 2; ++j) {
 				if (item->id >= 0x3d || j == 0) {
-					XGParam *param = new XGParam(0x11, k, item->id + (j * 0x50));
-					USERVOICE.add_param(param, k);
+					unsigned char id = item->id + (j * 0x50);
+					if (item->size > 4) {
+						XGDataParam *param = new XGDataParam(0x11, k, id);
+						USERVOICE.add_param(param, k);
+					} else {
+						XGParam *param = new XGParam(0x11, k, id);
+						USERVOICE.add_param(param, k);
+					}
 				}
 			}
 		}

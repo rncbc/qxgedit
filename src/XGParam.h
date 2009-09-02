@@ -283,6 +283,30 @@ private:
 
 
 //-------------------------------------------------------------------------
+// class XGDataParam - XG Data parameter descriptor.
+//
+class XGDataParam : public XGParam
+{
+public:
+
+	// Constructor.
+	XGDataParam(unsigned char high, unsigned char mid, unsigned char low);
+
+	// Destructor.
+	~XGDataParam();
+
+	// Data accessors.
+	void set_data(unsigned char *data);
+	unsigned char *data() const;
+
+private:
+
+	// Parameter sub-descriptor.
+	unsigned char *m_data;
+};
+
+
+//-------------------------------------------------------------------------
 // class XGParamKey - XG Parameter hash key.
 //
 class XGParamKey
