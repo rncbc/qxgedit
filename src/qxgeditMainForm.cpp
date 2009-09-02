@@ -863,8 +863,8 @@ bool qxgeditMainForm::sysexData ( unsigned char *data, unsigned short len )
 			// Yamaha ID...
 			unsigned char mode  = (data[2] & 0x70);
 		//	unsigned char devno = (data[2] & 0x0f);
-			if (data[3] == 0x4c) {
-				// XG Model ID...
+			if (data[3] == 0x4c || data[3] == 0x4b) {
+				// XG/QS300 Model ID...
 				if (mode == 0x00) {
 					// Native Bulk Dump...
 					unsigned short size = (data[4] << 7) + data[5];
@@ -881,8 +881,6 @@ bool qxgeditMainForm::sysexData ( unsigned char *data, unsigned short len )
 							// Parameter Change...
 							unsigned short n
 								= sysexXGParam(high, mid, low + i, &data[9 + i]);
-							if (n < 1)
-								break;
 							if (n > 1)
 								i += (n - 1);
 						}
@@ -1697,6 +1695,8 @@ void qxgeditMainForm::uservoiceResetButtonClicked (void)
 
 void qxgeditMainForm::uservoiceSendButtonClicked (void)
 {
+	if (m_pParamMap)
+		m_pParamMap->send_user(m_ui.UservoiceCombo->currentIndex());
 }
 
 // Main dirty flag raiser.

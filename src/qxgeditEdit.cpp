@@ -48,6 +48,8 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	pVBoxLayout->addSpacing(20);
 	QWidget::setLayout(pVBoxLayout);
 
+	QWidget::setMaximumWidth(120);
+
 	QObject::connect(m_pEdit,
 		SIGNAL(textChanged(const QString&)),
 		SLOT(editChanged(const QString&)));

@@ -716,9 +716,9 @@ typedef
 struct _XGNormalVoiceItem
 {
 	unsigned short     bank;
-	unsigned char      prog;
+	unsigned short     prog;
 	const char        *name;
-	unsigned char      elem;
+	unsigned short     elem;
 
 } XGNormalVoiceItem;
 
@@ -1352,7 +1352,7 @@ XGNormalVoiceGroup InstrumentTab[] =
 typedef
 struct _XGDrumVoiceItem
 {
-	unsigned char  note;
+	unsigned short note;
 	const char    *name;
 
 } XGDrumVoiceItem;
@@ -1651,7 +1651,7 @@ typedef
 struct _XGDrumKitItem
 {
 	unsigned short   bank;
-	unsigned char    prog;
+	unsigned short   prog;
 	const char      *name;
 	XGDrumVoiceItem *keys;
 	unsigned short   size;
@@ -1682,7 +1682,7 @@ XGDrumKitItem DrumKitTab[] =
 typedef
 struct _XGEffectParamItem
 {
-	unsigned char    id;                    // parameter index
+	unsigned short   id;                    // parameter index
 	const char      *name;                  // parameter name.
 	unsigned short   min;                   // minimum value.
 	unsigned short   max;                   // maximum value.
@@ -2359,8 +2359,8 @@ XGEffectItem VARIATIONEffectTab[] =
 typedef
 struct _XGParamItem
 {
-	unsigned char    id;	// id=low address.
-	unsigned char    size;  // data size in bytes.
+	unsigned short   id;	// id=low address.
+	unsigned short   size;  // data size in bytes.
 	unsigned short   min;   // minimum value; 0=REVERB, 1=CHORUS, 2=VARIATION.
 	unsigned short   max;   // maximum value; parameter index (0..15)
 	const char      *name;  // parameter name; NULL=depends on effect type.
@@ -2747,7 +2747,7 @@ const XGEffectItem *VARIATIONEffectItem ( unsigned short etype )
 
 static inline
 unsigned short XGEffectDefault_find (
-	unsigned short etype, unsigned char index,
+	unsigned short etype, unsigned short index,
 	XGEffectItem items[], unsigned short nitems,
 	unsigned short defaults[][16] )
 {
@@ -2765,7 +2765,7 @@ unsigned short XGEffectDefault_find (
 
 static inline
 unsigned short REVERBEffectDefault (
-	unsigned short etype, unsigned char index )
+	unsigned short etype, unsigned short index )
 {
 	return XGEffectDefault_find(etype, index,
 		REVERBEffectTab, TSIZE(REVERBEffectTab),
@@ -2774,7 +2774,7 @@ unsigned short REVERBEffectDefault (
 
 static inline
 unsigned short CHORUSEffectDefault (
-	unsigned short etype, unsigned char index )
+	unsigned short etype, unsigned short index )
 {
 	return XGEffectDefault_find(etype, index,
 		CHORUSEffectTab, TSIZE(CHORUSEffectTab),
@@ -2783,7 +2783,7 @@ unsigned short CHORUSEffectDefault (
 
 static inline
 unsigned short VARIATIONEffectDefault (
-	unsigned short etype, unsigned char index )
+	unsigned short etype, unsigned short index )
 {
 	return XGEffectDefault_find(etype, index,
 		VARIATIONEffectTab, TSIZE(VARIATIONEffectTab),
@@ -2796,7 +2796,7 @@ unsigned short VARIATIONEffectDefault (
 
 static inline
 const XGParamItem *XGParamItem_find (
-	unsigned char id, XGParamItem items[], unsigned short nitems )
+	unsigned short id, XGParamItem items[], unsigned short nitems )
 {
 	unsigned short i;
 
@@ -2811,31 +2811,31 @@ const XGParamItem *XGParamItem_find (
 
 
 static inline
-const XGParamItem *SYSTEMParamItem ( unsigned char id )
+const XGParamItem *SYSTEMParamItem ( unsigned short id )
 {
 	return XGParamItem_find(id, SYSTEMParamTab, TSIZE(SYSTEMParamTab));
 }
 
 static inline
-const XGParamItem *EFFECTParamItem ( unsigned char id )
+const XGParamItem *EFFECTParamItem ( unsigned short id )
 {
 	return XGParamItem_find(id, EFFECTParamTab, TSIZE(EFFECTParamTab));
 }
 
 static inline
-const XGParamItem *MULTIPARTParamItem ( unsigned char id )
+const XGParamItem *MULTIPARTParamItem ( unsigned short id )
 {
 	return XGParamItem_find(id, MULTIPARTParamTab, TSIZE(MULTIPARTParamTab));
 }
 
 static inline
-const XGParamItem *DRUMSETUPParamItem ( unsigned char id )
+const XGParamItem *DRUMSETUPParamItem ( unsigned short id )
 {
 	return XGParamItem_find(id, DRUMSETUPParamTab, TSIZE(DRUMSETUPParamTab));
 }
 
 static inline
-const XGParamItem *USERVOICEParamItem ( unsigned char id )
+const XGParamItem *USERVOICEParamItem ( unsigned short id )
 {
 	return XGParamItem_find(id, USERVOICEParamTab, TSIZE(USERVOICEParamTab));
 }
@@ -2868,14 +2868,14 @@ const char *XGInstrument::name (void) const
 
 
 // Number of items.
-unsigned char XGInstrument::size (void) const
+unsigned short XGInstrument::size (void) const
 {
 	return (m_group ? m_group->size : 0);
 }
 
 
 // Voice index finder.
-int XGInstrument::find_voice ( unsigned short bank, unsigned char prog ) const
+int XGInstrument::find_voice ( unsigned short bank, unsigned short prog ) const
 {
 	if (m_group) {
 		for (int i = 0; i < m_group->size; ++i) {
@@ -2915,7 +2915,7 @@ unsigned short XGNormalVoice::bank (void) const
 	return (m_item ? m_item->bank : 0);
 }
 
-unsigned char XGNormalVoice::prog (void) const
+unsigned short XGNormalVoice::prog (void) const
 {
 	return (m_item ? (m_item->prog - 1): 0);
 }
@@ -2925,7 +2925,7 @@ const char *XGNormalVoice::name (void) const
 	return (m_item ? m_item->name : NULL);
 }
 
-unsigned char XGNormalVoice::elem (void) const
+unsigned short XGNormalVoice::elem (void) const
 {
 	return (m_item ? m_item->elem : 0);
 }
@@ -2955,7 +2955,7 @@ unsigned short XGDrumKit::bank (void) const
 	return (m_item ? m_item->bank : 0);
 }
 
-unsigned char XGDrumKit::prog (void) const
+unsigned short XGDrumKit::prog (void) const
 {
 	return (m_item ? (m_item->prog - 1): 0);
 }
@@ -3005,7 +3005,7 @@ XGDrumVoice::XGDrumVoice ( XGDrumKit *drumkit, unsigned short id )
 }
 
 // Voice properties accessors.
-unsigned char XGDrumVoice::note (void) const
+unsigned short XGDrumVoice::note (void) const
 {
 	return (m_key ? m_key->note : 0);
 }
@@ -3020,7 +3020,7 @@ const char *XGDrumVoice::name (void) const
 // class XGParam - XG Generic parameter descriptor.
 
 // Constructor.
-XGParam::XGParam ( unsigned char high, unsigned char mid, unsigned char low )
+XGParam::XGParam ( unsigned short high, unsigned short mid, unsigned short low )
 	: m_param(NULL), m_value(0),
 		m_high(high), m_mid(mid), m_low(low), m_busy(false)
 {
@@ -3070,24 +3070,24 @@ XGParam::~XGParam (void)
 
 
 // Address acessors.
-unsigned char XGParam::high (void) const
+unsigned short XGParam::high (void) const
 {
 	return m_high;
 }
 
-unsigned char XGParam::mid (void) const
+unsigned short XGParam::mid (void) const
 {
 	return m_mid;
 }
 
-unsigned char XGParam::low (void) const
+unsigned short XGParam::low (void) const
 {
 	return m_low;
 }
 
 
 // Number of bytes needed to encode subject.
-unsigned char XGParam::size (void) const
+unsigned short XGParam::size (void) const
 {
 	return (m_param ? m_param->size : 0);
 }
@@ -3314,7 +3314,7 @@ QString XGParam::text (void) const
 
 // Constructor.
 XGEffectParam::XGEffectParam (
-	unsigned char high, unsigned char mid, unsigned char low,
+	unsigned short high, unsigned short mid, unsigned short low,
 	unsigned short etype) : XGParam(high, mid, low),
 		m_etype(etype), m_eparam(NULL)
 {
@@ -3402,7 +3402,8 @@ const char *XGEffectParam::unit (void) const
 // class XGDataParam - XG Data parameter descriptor.
 //
 // Constructor.
-XGDataParam::XGDataParam ( unsigned char high, unsigned char mid, unsigned char low )
+XGDataParam::XGDataParam (
+	unsigned short high, unsigned short mid, unsigned short low )
 	: XGParam(high, mid, low)
 {
 	unsigned short n = size();
@@ -3728,7 +3729,7 @@ XGParamMasterMap::XGParamMasterMap (void)
 		for (k = 0; k < 32; ++k) {
 			for (j = 0; j < 2; ++j) {
 				if (item->id >= 0x3d || j == 0) {
-					unsigned char id = item->id + (j * 0x50);
+					unsigned short id = item->id + (j * 0x50);
 					if (item->size > 4) {
 						XGDataParam *param = new XGDataParam(0x11, k, id);
 						XGParamMasterMap::add_param(param);
@@ -3793,7 +3794,7 @@ void XGParamMasterMap::add_param_map ( XGParam *param, XGParamMap *map )
 
 // Master map finders.
 XGParam *XGParamMasterMap::find_param (
-	unsigned char high, unsigned char mid, unsigned char low ) const
+	unsigned short high, unsigned short mid, unsigned short low ) const
 {
 	unsigned short etype = 0;
 

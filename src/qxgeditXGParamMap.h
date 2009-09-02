@@ -40,7 +40,7 @@ public:
 
 	// Direct parameter data access.
 	unsigned short set_param_data(
-		unsigned char high, unsigned char mid, unsigned char low,
+		unsigned short high, unsigned short mid, unsigned short low,
 		unsigned char *data);
 
 	// All parameter reset (to default)
@@ -54,6 +54,12 @@ public:
 
 	// user voice reset (to default)
 	void reset_user(unsigned short iUser);
+
+	// Send regular XG Parameter change SysEx message.
+	void send_param(XGParam *pParam);
+
+	// Send USER VOICE Bulk Dump SysEx message.
+	void send_user(unsigned short iUser) const;
 
 private:
 

@@ -72,10 +72,10 @@ public:
 	const char *name() const;
 
 	// Number of items.
-	unsigned char size() const;
+	unsigned short size() const;
 
 	// Voice index finder.
-	int find_voice(unsigned short bank, unsigned char prog) const;
+	int find_voice(unsigned short bank, unsigned short prog) const;
 
 	// Instrument list size.
 	static unsigned short count();
@@ -100,9 +100,9 @@ public:
 
 	// Voice properties accessors.
 	unsigned short bank() const;
-	unsigned char  prog() const;
+	unsigned short prog() const;
 	const char    *name() const;
-	unsigned char  elem() const;
+	unsigned short elem() const;
 
 private:
 
@@ -127,7 +127,7 @@ public:
 
 	// Drum Kit property accessors.
 	unsigned short   bank() const;
-	unsigned char    prog() const;
+	unsigned short   prog() const;
 	const char      *name() const;
 	unsigned short   size() const;
 
@@ -156,7 +156,7 @@ public:
 	XGDrumVoice(XGDrumKit *drumkit, unsigned short id);
 
 	// Voice properties accessors.
-	unsigned char  note() const;
+	unsigned short note() const;
 	const char    *name() const;
 
 private:
@@ -175,18 +175,18 @@ class XGParam
 public:
 
 	// Constructor.
-	XGParam(unsigned char high, unsigned char mid, unsigned char low);
+	XGParam(unsigned short high, unsigned short mid, unsigned short low);
 
 	// Virtual destructor.
 	virtual ~XGParam();
 
 	// Address acessors.
-	unsigned char high() const;
-	unsigned char mid()  const;
-	unsigned char low()  const;
+	unsigned short high() const;
+	unsigned short mid()  const;
+	unsigned short low()  const;
 
 	// Number of bytes needed to encode subject.
-	unsigned char size() const;
+	unsigned short size() const;
 
 	// Virtual accessors.
 	virtual const char *name() const;
@@ -240,9 +240,9 @@ protected:
 private:
 
 	// Parameter address.
-	unsigned char m_high;
-	unsigned char m_mid;
-	unsigned char m_low;
+	unsigned short m_high;
+	unsigned short m_mid;
+	unsigned short m_low;
 
 	// Parameter subject/observer stuff;
 	bool m_busy;
@@ -259,7 +259,7 @@ class XGEffectParam : public XGParam
 public:
 
 	// Constructor.
-	XGEffectParam(unsigned char high, unsigned char mid, unsigned char low,
+	XGEffectParam(unsigned short high, unsigned short mid, unsigned short low,
 		unsigned short etype);
 
 	// Sub-address accessors.
@@ -293,7 +293,7 @@ class XGDataParam : public XGParam
 public:
 
 	// Constructor.
-	XGDataParam(unsigned char high, unsigned char mid, unsigned char low);
+	XGDataParam(unsigned short high, unsigned short mid, unsigned short low);
 
 	// Destructor.
 	~XGDataParam();
@@ -322,17 +322,17 @@ class XGParamKey
 public:
 
 	// Constructor helper.
-	XGParamKey(unsigned char high, unsigned char mid, unsigned char low)
+	XGParamKey(unsigned short high, unsigned short mid, unsigned short low)
 		: m_high(high), m_mid(mid), m_low(low) {}
 	XGParamKey(XGParam *param)
 		: m_high(param->high()), m_mid(param->mid()), m_low(param->low()) {}
 
 	// Key accessors.
-	unsigned char high() const
+	unsigned short high() const
 		{ return m_high; }
-	unsigned char mid() const
+	unsigned short mid() const
 		{ return m_mid; }
-	unsigned char low() const
+	unsigned short low() const
 		{ return m_low; }
 
 	// Hash key comparator.
@@ -346,9 +346,9 @@ public:
 private:
 
 	// Key members.
-	unsigned char m_high;
-	unsigned char m_mid;
-	unsigned char m_low;
+	unsigned short m_high;
+	unsigned short m_mid;
+	unsigned short m_low;
 };
 
 
@@ -487,9 +487,9 @@ public:
 
 	// Master map finders.
 	XGParam *find_param(
-		unsigned char high,
-		unsigned char mid,
-		unsigned char low) const;
+		unsigned short high,
+		unsigned short mid,
+		unsigned short low) const;
 
 	XGParam *find_param(
 		const XGParamKey& key,

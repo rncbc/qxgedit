@@ -43,52 +43,20 @@ void qxgeditXGParamMap::Observer::reset (void)
 
 void qxgeditXGParamMap::Observer::update (void)
 {
-	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
-	if (pMidiDevice == NULL)
+	qxgeditXGParamMap *pParamMap
+		= static_cast<qxgeditXGParamMap *> (
+			XGParamMasterMap::getInstance());
+	if (pParamMap == NULL)
 		return;
 
 	XGParam *pParam = param();
 
-	// HACK: Special USERVOICE stuff...
+	// Special USERVOICE stuff...
 	if (pParam->high() == 0x11) {
-		// TODO: Send complete USERVOICE bulk dump?
-		return;
+		pParamMap->send_user(pParamMap->USERVOICE.current_key());
+	} else {
+		pParamMap->send_param(pParam);
 	}
-
-	// Regular XG Parameter change...
-	unsigned char aSysex[]  = { 0xf0, 0x43, 0x10, 0x4c,
-		0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7 };
-	unsigned short iSysex = 8 + pParam->size();
-	aSysex[4] = pParam->high();
-	aSysex[5] = pParam->mid();
-	aSysex[6] = pParam->low();
-	pParam->set_data_value(&aSysex[7], pParam->value());
-	aSysex[iSysex - 1] = 0xf7;
-
-	pMidiDevice->sendSysex(aSysex, iSysex);
-
-	// HACK: Special reset actions...
-	if (pParam->high() == 0x00 && pParam->mid() == 0x00) {
-		qxgeditXGParamMap *pParamMap
-			= static_cast<qxgeditXGParamMap *> (
-				XGParamMasterMap::getInstance());
-		if (pParamMap) {
-			switch (pParam->low()) {
-			case 0x7d: // Drum Setup Reset
-				pParamMap->reset_drums(pParam->value());
-				break;
-			case 0x7e: // XG System On
-			case 0x7f: // All Parameter Reset
-				pParamMap->reset_all();
-				break;
-			}
-		}
-	}
-
-	// HACK: Flag dirty the main form...
-	qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
-	if (pMainForm)
-		pMainForm->contentsChanged();
 }
 
 
@@ -124,7 +92,7 @@ qxgeditXGParamMap::~qxgeditXGParamMap (void)
 
 // Direct parameter data access.
 unsigned short qxgeditXGParamMap::set_param_data (
-	unsigned char high, unsigned char mid, unsigned char low,
+	unsigned short high, unsigned short mid, unsigned short low,
 	unsigned char *data )
 {
 	XGParam *pParam = find_param(high, mid, low);
@@ -237,5 +205,127 @@ void qxgeditXGParamMap::reset_user ( unsigned short iUser )
 }
 
 
-// end of qxgeditXGParamMap.cpp
+// Send regular XG Parameter change SysEx message.
+void qxgeditXGParamMap::send_param ( XGParam *pParam )
+{
+	if (pParam == NULL)
+		return;
 
+	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
+	if (pMidiDevice == NULL)
+		return;
+
+	// Build the complete SysEx message...
+	unsigned short iSysex = 8 + pParam->size();
+	unsigned char *pSysex = new unsigned char [iSysex];
+
+	unsigned short i = 0;
+	pSysex[i++] = 0xf0;	// SysEx status (SOX)
+	pSysex[i++] = 0x43;	// Yamaha id.
+	pSysex[i++] = 0x10;	// Device no.
+	pSysex[i++] = 0x4c;	// XG Model id.
+
+	// Regular XG Parameter change...
+	pSysex[i++] = pParam->high();
+	pSysex[i++] = pParam->mid();
+	pSysex[i++] = pParam->low();
+	pParam->set_data_value(&pSysex[i], pParam->value());
+	i += pParam->size();
+
+	// Coda...
+	pSysex[i] = 0xf7;	// SysEx status (EOX)
+
+	// Send it out...
+	pMidiDevice->sendSysex(pSysex, iSysex);
+
+	delete [] pSysex;
+
+	// HACK: Special reset actions...
+	if (pParam->high() == 0x00 && pParam->mid() == 0x00) {
+		switch (pParam->low()) {
+		case 0x7d: // Drum Setup Reset
+			reset_drums(pParam->value());
+			break;
+		case 0x7e: // XG System On
+		case 0x7f: // All Parameter Reset
+			reset_all();
+			break;
+		}
+	}
+
+	// HACK: Flag dirty the main form...
+	qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
+	if (pMainForm)
+		pMainForm->contentsChanged();
+}
+
+
+// Send USER VOICE Bulk Dump SysEx message.
+void qxgeditXGParamMap::send_user ( unsigned short iUser ) const
+{
+	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
+	if (pMidiDevice == NULL)
+		return;
+
+	// USER VOICE (QS300) Bulk Dump...
+	unsigned short high = 0x11;
+	unsigned short mid  = iUser;
+	unsigned short low  = 0x00;
+
+	// Build the complete SysEx message...
+	unsigned short iSysex = 0x188;	// (= 11 + 0x17d);
+	unsigned char *pSysex = new unsigned char [iSysex];
+
+	unsigned short i = 0;
+	pSysex[i++] = 0xf0;	// SysEx status (SOX)
+	pSysex[i++] = 0x43;	// Yamaha id.
+	pSysex[i++] = 0x00;	// Device no.
+	pSysex[i++] = 0x4b;	// QS300 Model id.
+	pSysex[i++] = 0x02;	// Byte count MSB (= 0x17d >> 7).
+	pSysex[i++] = 0x7d;	// Byte count LSB (= 0x17d & 0x7f).
+
+	pSysex[i++] = high;
+	pSysex[i++] = mid;
+	pSysex[i++] = low;
+
+	unsigned short i0 = i;
+	while (i < iSysex - 2) {
+		low = i - i0;
+		XGParam *pParam = find_param(high, mid, low);
+		if (pParam) {
+			if (pParam->size() > 4) {
+				XGDataParam *pDataParam	= static_cast<XGDataParam *> (pParam);
+				::memcpy(&pSysex[i], pDataParam->data(), pDataParam->size());
+			} else {
+				pParam->set_data_value(&pSysex[i], pParam->value());
+			}
+			i += pParam->size();
+		} else {
+			pSysex[i++] = 0x00;
+		}
+	}
+
+	// Compute checksum...
+	unsigned char cksum = 0;
+	for (unsigned short j = 4; j < i; ++j) {
+		cksum += pSysex[j];
+		cksum &= 0x7f;
+	}
+	pSysex[i++] = 0x80 - cksum;
+
+	// Coda...
+	pSysex[i] = 0xf7;	// SysEx status (EOX)
+
+	// Send it out...
+	pMidiDevice->sendSysex(pSysex, iSysex);
+
+	delete [] pSysex;
+
+	// HACK: Flag dirty the main form...
+	qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
+	if (pMainForm)
+		pMainForm->contentsChanged();
+}
+
+
+// end of qxgeditXGParamMap.cpp
