@@ -374,6 +374,14 @@ public:
 	const Keys& keys() const;
 	void add_key(unsigned short key, const QString& name);
 
+	// Special element stride settings (USERVOICE, QS300).
+	void set_elements(unsigned short elements);
+	unsigned short elements() const;
+
+	// Element key value accessors.
+	void set_current_element(unsigned short element);
+	unsigned short current_element () const;
+
 protected:
 
 	// Local observer.
@@ -406,6 +414,10 @@ private:
 
 	// Key names registry.
 	Keys m_keys;
+
+	// Special element stride settings (USERVOICE, QS300).
+	unsigned short m_elements;
+	unsigned short m_element;
 };
 
 

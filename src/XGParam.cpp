@@ -3397,7 +3397,7 @@ const char *XGEffectParam::unit (void) const
 
 // Constructor.
 XGParamMap::XGParamMap (void)
-	: m_key_param(NULL), m_key(0)
+	: m_key_param(NULL), m_key(0), m_elements(0), m_element(0)
 {
 	m_observer = new XGParamMap::Observer(this);
 }
@@ -3517,6 +3517,45 @@ void XGParamMap::add_key ( unsigned short key, const QString& name )
 }
 
 
+// Special element stride settings (USERVOICE, QS300).
+void XGParamMap::set_elements ( unsigned short elements )
+{
+	m_elements = elements;
+}
+
+unsigned short XGParamMap::elements (void) const
+{
+	return m_elements;
+}
+
+
+// Element key value accessors.
+void XGParamMap::set_current_element ( unsigned short element )
+{
+	m_element = element;
+
+	unsigned short key = current_key();
+	unsigned short id0 = 0x3d + (m_element * 0x50);
+	XGParamMap::const_iterator iter = XGParamMap::constBegin();
+	for (; iter != XGParamMap::constEnd(); ++iter) {
+		unsigned short id = iter.key();
+		if (id >= id0 && id < id0 + 0x50) {
+			XGParamSet *paramset = iter.value();
+			if (paramset->contains(key)) {
+				XGParam *param = paramset->value(key);
+				if (param)
+					param->notify_reset();
+			}
+		}
+	}
+}
+
+unsigned short XGParamMap::current_element (void) const
+{
+	return m_element;
+}
+
+
 //-------------------------------------------------------------------------
 // class XGParamMasterMap - XG Parameter master state database.
 //
@@ -3624,6 +3663,7 @@ XGParamMasterMap::XGParamMasterMap (void)
 	}
 
 	// QS300 USER VOICE...
+	USERVOICE.set_elements(2);
 	USERVOICE.set_current_key(0); // User 1.
 	for (i = 0; i < TSIZE(USERVOICEParamTab); ++i) {
 		XGParamItem *item = &USERVOICEParamTab[i];

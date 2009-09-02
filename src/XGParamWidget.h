@@ -160,13 +160,9 @@ public:
 		m_param_map = map;
 		m_param_id  = id;
 
-		XGParamSet *paramset = m_param_map->find_paramset(m_param_id);
+		XGParamSet *paramset = add_paramset(m_param_id);
 		if (paramset == NULL)
 			return;
-
-		XGParamSet::const_iterator iter = paramset->constBegin();
-		for (; iter != paramset->constEnd(); ++iter)
-			m_observers.insert(iter.key(), new Observer(iter.value(), this));
 
 #ifdef XGPARAM_WIDGET_MAP
 		XGParamWidgetMap *pParamWidgetMap = XGParamWidgetMap::getInstance();
@@ -185,6 +181,11 @@ public:
 			XGParam *param = m_param_map->key_param();
 			m_observers.insert(0, new Observer(param, this));
 			param->notify_reset();
+		}
+
+		for (unsigned short i = 1; i < m_param_map->elements(); ++i) {
+			if (m_param_id >= 0x3d)
+				add_paramset(m_param_id + (i * 0x50));
 		}
 	}
 
@@ -207,6 +208,23 @@ public:
 	}
 
 protected:
+
+	// Paramset observers.
+	XGParamSet *add_paramset(unsigned short id)
+	{
+		if (m_param_map == NULL)
+			return NULL;
+
+		XGParamSet *paramset = m_param_map->find_paramset(id);
+		if (paramset == NULL)
+			return NULL;
+
+		XGParamSet::const_iterator iter = paramset->constBegin();
+		for (; iter != paramset->constEnd(); ++iter)
+			m_observers.insert(iter.key(), new Observer(iter.value(), this));
+
+		return paramset;
+	}
 
 	// Observers cleaner.
 	void clear_observers()

@@ -1690,6 +1690,8 @@ void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 
 void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 {
+	if (m_pParamMap)
+		m_pParamMap->USERVOICE.set_current_element(iElem);
 }
 
 
