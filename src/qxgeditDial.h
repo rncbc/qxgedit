@@ -61,6 +61,10 @@ public:
 	void setText(const QString& sText);
 	QString text() const;
 
+	// Special value text accessor.
+	void setSpecialValueText(const QString& sText);
+	QString specialValueText() const;
+
 signals:
 
 	// Value change signal.

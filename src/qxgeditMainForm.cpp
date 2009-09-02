@@ -361,6 +361,9 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	}
 	pMultipartVoiceListView->addTopLevelItems(items);
 
+	// Special values...
+	m_ui.MultipartPanDial->setSpecialValueText(tr("Random"));
+
 	QObject::connect(m_ui.MultipartVoiceCombo,
 		SIGNAL(activated(int)),
 		SLOT(multipartVoiceComboActivated(int)));
@@ -578,6 +581,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	}
 
 	drumsetupVoiceComboActivated(0);
+
+	// Special values...
+	m_ui.DrumsetupGroupDial->setSpecialValueText(tr("Off"));
+	m_ui.DrumsetupPanDial->setSpecialValueText(tr("Random"));
 	
 	QObject::connect(m_ui.DrumsetupCombo,
 		SIGNAL(activated(int)),
@@ -651,9 +658,16 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iUser = 0; iUser < 32; ++iUser)
 		m_ui.UservoiceCombo->addItem(tr("User %1").arg(iUser + 1));
 
+	m_ui.UservoiceElementCombo->clear();
+	for (int iElem = 0; iElem < 2; ++iElem)
+		m_ui.UservoiceElementCombo->addItem(tr("Element %1").arg(iElem + 1));
+
 	QObject::connect(m_ui.UservoiceCombo,
 		SIGNAL(activated(int)),
 		SLOT(uservoiceComboActivated(int)));
+	QObject::connect(m_ui.UservoiceElementCombo,
+		SIGNAL(activated(int)),
+		SLOT(uservoiceElementComboActivated(int)));
 
 	QObject::connect(m_ui.UservoiceNameEdit,
 		SIGNAL(textChanged(const QString&)),
@@ -1671,6 +1685,11 @@ void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 {
 	if (m_pParamMap)
 		m_pParamMap->USERVOICE.set_current_key(iUser);
+}
+
+
+void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
+{
 }
 
 

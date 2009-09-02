@@ -94,6 +94,7 @@ public slots:
 
 	void uservoiceResetButtonClicked();
 	void uservoiceComboActivated(int);
+	void uservoiceElementComboActivated(int);
 	void uservoiceNameEditChanged(const QString&);
 
 	void contentsChanged();

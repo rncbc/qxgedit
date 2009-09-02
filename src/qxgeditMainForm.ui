@@ -1338,7 +1338,7 @@
            <widget class="QComboBox" name="UservoiceCombo" />
           </item>
           <item>
-           <widget class="QLineEdit" name="UservoiceNameEdit" />
+           <widget class="QComboBox" name="UservoiceElementCombo" />
           </item>
           <item>
            <spacer>
@@ -1362,16 +1362,19 @@
           </property>
           <widget class="QWidget" name="UservoiceCommonPage" >
            <attribute name="label" >
-            <string>COMMON</string>
+            <string>Common</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
-             <widget class="qxgeditDial" name="UservoiceLevelDial" />
+             <widget class="QLineEdit" name="UservoiceNameEdit" />
             </item>
             <item row="0" column="1" >
-             <widget class="qxgeditDial" name="UservoiceElementDial" />
+             <widget class="qxgeditDial" name="UservoiceLevelDial" />
             </item>
             <item row="0" column="2" >
+             <widget class="qxgeditDial" name="UservoiceElementDial" />
+            </item>
+            <item row="0" column="3" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
@@ -1384,7 +1387,7 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="0" colspan="3" >
+            <item row="1" column="0" colspan="4" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -1401,7 +1404,7 @@
           </widget>
           <widget class="QWidget" name="UservoiceBasicPage" >
            <attribute name="label" >
-            <string>BASIC</string>
+            <string>Basic</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -1509,7 +1512,7 @@
           </widget>
           <widget class="QWidget" name="UservoicePitchPage" >
            <attribute name="label" >
-            <string>PITCH</string>
+            <string>Pitch</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -1596,7 +1599,7 @@
           </widget>
           <widget class="QWidget" name="UservoiceFilterPage" >
            <attribute name="label" >
-            <string>FILTER</string>
+            <string>Filter</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -1701,7 +1704,7 @@
           </widget>
           <widget class="QWidget" name="UservoiceLevelPage" >
            <attribute name="label" >
-            <string>LEVEL</string>
+            <string>Level</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -1767,7 +1770,7 @@
           </widget>
           <widget class="QWidget" name="UservoiceAmpEgPage" >
            <attribute name="label" >
-            <string>AMP EG</string>
+            <string>Amp EG</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >

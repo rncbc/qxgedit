@@ -145,12 +145,10 @@ QValidator::State qxgeditSpin::validate ( QString& sText, int& iPos ) const
 		return QValidator::Acceptable;
 
 	const QChar& ch = sText[iPos - 1];
-	if (ch == '.')
+	if (ch == '.' || ch == '-' || ch.isDigit())
 		return QValidator::Acceptable;
-	if (ch.isDigit())
-		return QValidator::Acceptable;
-
-	return QValidator::Invalid;
+	else
+		return QValidator::Invalid;
 }
 
 
@@ -201,17 +199,31 @@ QAbstractSpinBox::StepEnabled qxgeditSpin::stepEnabled (void) const
 // Value/text format converters.
 unsigned short qxgeditSpin::valueFromText ( const QString& sText ) const
 {
+	if (m_pParam == NULL)
+		return sText.toUShort();
+
+	const QString& sSpecialValueText = specialValueText();
+	if (!sSpecialValueText.isEmpty() && sText == sSpecialValueText)
+		return m_pParam->min();
+
 	float fValue = 0.0f;
 	if (sText.indexOf('k') >= 0)
 		fValue = QString(sText).remove('k').toFloat() * 1000.0f;
 	else
 		fValue = sText.toFloat();
-	return (m_pParam ? m_pParam->getu(fValue) : (unsigned short) (fValue));
+	return m_pParam->getu(fValue);
 }
 
 QString qxgeditSpin::textFromValue ( unsigned short iValue ) const
 {
-	float fValue = (m_pParam ? m_pParam->getv(iValue) : float(iValue));
+	if (m_pParam == NULL)
+		return QString::number(iValue);
+
+	const QString& sSpecialValueText = specialValueText();
+	if (!sSpecialValueText.isEmpty() && iValue == m_pParam->min())
+		return sSpecialValueText;
+
+	float fValue = m_pParam->getv(iValue);
 	if (fValue >= 1000.0f) {
 		fValue /= 1000.0f;
 		return QString::number(fValue) + 'k';

@@ -99,6 +99,18 @@ QString qxgeditDial::text (void) const
 }
 
 
+// Special value text accessor.
+void qxgeditDial::setSpecialValueText ( const QString& sText )
+{
+	m_pSpin->setSpecialValueText(sText);
+}
+	
+QString qxgeditDial::specialValueText (void) const
+{
+	return m_pSpin->specialValueText();
+}
+
+
 // Nominal value accessors.
 void qxgeditDial::reset_value (void)
 {

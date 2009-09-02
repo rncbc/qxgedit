@@ -2481,7 +2481,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x05, 1,  0,    1, "Mono/Poly[ Mode]",        1, NULL,     NULL,     getsmmod, NULL     },
 	{ 0x06, 1,  0,    2, "Same [Note ]Key[ Assign]",1, NULL,     NULL,     getskeya, NULL     },
 	{ 0x07, 1,  0,    3, "[Mode ]Type",             0, NULL,     NULL,     getspmod, NULL     }, // other than part10, 2=part10
-	{ 0x08, 1, 40,   88, "[Note ]Shift",             64, getv0x40, getu0x40, NULL,     unit_sem },
+	{ 0x08, 1, 40,   88, "[Note ]Shift",           64, getv0x40, getu0x40, NULL,     unit_sem },
 	{ 0x09, 2,  0,  255, "Detune",                127, getv12_7, getu12_7, NULL,     unit_Hz  },
 	{ 0x0b, 1,  0,  127, "Volume",                 64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0c, 1,  0,  127, "[Velocity Sense ]Depth", 64, NULL,     NULL,     NULL,     NULL     },
@@ -2589,7 +2589,7 @@ XGParamItem DRUMSETUPParamTab[] =
 	{ 0x01, 1,  0,  127, "[Pitch ]Fine",           64, getv0x40, getu0x40, NULL,     unit_cen },
 	{ 0x02, 1,  0,  127, "Level",                   0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
 	{ 0x03, 1,  0,  127, "[Alternate ]Group",       0, NULL,     NULL,     NULL,     NULL     }, // depend on the note (0=OFF)
-	{ 0x04, 1,  0,  127, "Pan",                     0, getv0x40, getu0x40, NULL,     NULL     }, // depend on the note (0=random)
+	{ 0x04, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, NULL,     NULL     }, // depend on the note (0=random)
 	{ 0x05, 1,  0,  127, "Reverb[ Send]",           0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
 	{ 0x06, 1,  0,  127, "Chorus[ Send]",           0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
 	{ 0x07, 1,  0,  127, "Variation[ Send]",      127, NULL,     NULL,     NULL,     NULL     },
