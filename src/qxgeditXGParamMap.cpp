@@ -160,7 +160,7 @@ void qxgeditXGParamMap::reset_all (void)
 	ObserverMap::const_iterator iter = m_observers.constBegin();
 	for (; iter != m_observers.constEnd(); ++iter) {
 		XGParam *pParam = iter.key();
-		pParam->set_value(pParam->def(), iter.value());
+		pParam->reset(iter.value());
 	}
 }
 
@@ -177,7 +177,7 @@ void qxgeditXGParamMap::reset_part ( unsigned short iPart )
 	for (; iter != m_observers.constEnd(); ++iter) {
 		XGParam *pParam = iter.key();
 		if (pParam->high() == 0x08 && pParam->mid() == iPart)
-			pParam->set_value(pParam->def()/*, iter.value()*/);
+			pParam->reset(/* iter.value() */);
 	}
 #else
 	XGParamMap::const_iterator iter = MULTIPART.constBegin();
@@ -186,7 +186,7 @@ void qxgeditXGParamMap::reset_part ( unsigned short iPart )
 		if (pParamSet->contains(iPart)) {
 			XGParam *pParam = pParamSet->value(iPart);
 			if (pParam)
-				pParam->set_value(pParam->def());
+				pParam->reset();
 		}
 	}
 #endif
@@ -205,7 +205,7 @@ void qxgeditXGParamMap::reset_drums ( unsigned short iDrumSet )
 	for (; iter != m_observers.constEnd(); ++iter) {
 		XGParam *pParam = iter.key();
 		if (pParam->high() == iHigh)
-			pParam->set_value(pParam->def(), iter.value());
+			pParam->reset(iter.value());
 	}
 }
 
@@ -223,7 +223,7 @@ void qxgeditXGParamMap::reset_user ( unsigned short iUser )
 		if (pParamSet->contains(iUser)) {
 			XGParam *pParam = pParamSet->value(iUser);
 			if (pParam)
-				pParam->set_value(pParam->def());
+				pParam->reset();
 		}
 	}
 }

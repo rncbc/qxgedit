@@ -207,6 +207,9 @@ public:
 	void set_value(unsigned short u, XGParamObserver *sender = NULL);
 	unsigned short value() const;
 
+	// Virtual reset (to default).
+	virtual void reset(XGParamObserver *sender = NULL);
+
 	// Busy flag predicate.
 	bool busy() const;
 
@@ -296,8 +299,13 @@ public:
 	~XGDataParam();
 
 	// Data accessors.
-	void set_data(unsigned char *data);
+	void set_data(
+		unsigned char *data, unsigned short len,
+		XGParamObserver *sender = NULL);
 	unsigned char *data() const;
+
+	// Virtual reset (to default).
+	void reset(XGParamObserver *sender = NULL);
 
 private:
 

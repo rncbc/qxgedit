@@ -3200,6 +3200,13 @@ unsigned short XGParam::value (void) const
 }
 
 
+// Value reset (to default).
+void XGParam::reset ( XGParamObserver *sender )
+{
+	set_value(def(), sender);
+}
+
+
 // Busy flag predicate.
 bool XGParam::busy (void) const
 {
@@ -3398,7 +3405,7 @@ const char *XGEffectParam::unit (void) const
 XGDataParam::XGDataParam ( unsigned char high, unsigned char mid, unsigned char low )
 	: XGParam(high, mid, low)
 {
-	unsigned short n = size() + 1;
+	unsigned short n = size();
 	m_data = new unsigned char [n];
 	::memset(m_data, 0, n);
 }
@@ -3411,14 +3418,30 @@ XGDataParam::~XGDataParam (void)
 
 
 // Data accessors.
-void XGDataParam::set_data ( unsigned char *data )
+void XGDataParam::set_data (
+	unsigned char *data, unsigned short len, XGParamObserver *sender )
 {
-	::memcpy(m_data, data, size());
+	unsigned short n = size();
+	if (len > n)
+		len = n;
+	if (data && len > 0)
+		::memcpy(m_data, data, len);
+	if (len < n)
+		::memset(m_data + len, 0, n - len);
+
+	notify_update(sender);
 }
 
 unsigned char *XGDataParam::data() const
 {
 	return m_data;
+}
+
+
+// Data reset (to default).
+void XGDataParam::reset ( XGParamObserver *sender )
+{
+	set_data(NULL, 0, sender);
 }
 
 

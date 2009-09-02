@@ -59,6 +59,10 @@ qxgeditEdit::~qxgeditEdit (void)
 // Nominal value accessors.
 void qxgeditEdit::set_value ( unsigned short /*iValue*/ )
 {
+	if (m_pParam) {
+		m_pEdit->setText(
+			QByteArray((const char *) m_pParam->data(), m_pParam->size()));
+	}
 }
 
 unsigned short qxgeditEdit::value (void) const
@@ -75,8 +79,7 @@ void qxgeditEdit::set_param ( XGParam *pParam )
 	if (m_pParam) {
 		m_pLabel->setText(m_pParam->label());
 		m_pEdit->setMaxLength(m_pParam->size());
-		m_pEdit->setText(
-			QByteArray((const char *) m_pParam->data(), m_pParam->size()));
+		set_value(0);
 	}
 }
 
@@ -89,8 +92,12 @@ XGParam *qxgeditEdit::param (void) const
 // Internal widget slots.
 void qxgeditEdit::editChanged ( const QString& sText )
 {
-	if (m_pParam)
-		m_pParam->set_data((unsigned char *) sText.toAscii().data());
+	if (m_pParam) {
+		m_pParam->set_data(
+			(unsigned char *) sText.toAscii().data(),
+			sText.length(),
+			observer());
+	}
 }
 
 
