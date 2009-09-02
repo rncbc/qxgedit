@@ -26,6 +26,8 @@
 #include <QLineEdit>
 #include <QLabel>
 
+#include <QRegExpValidator>
+
 
 //-------------------------------------------------------------------------
 // qxgeditEdit - Custom edit-box widget.
@@ -37,6 +39,8 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 {
 	m_pLabel = new QLabel();
 	m_pEdit  = new QLineEdit();
+
+	m_pEdit->setValidator(new QRegExpValidator(QRegExp("[ 0-9A-Za-z]+"), this));
 
 	QVBoxLayout *pVBoxLayout = new QVBoxLayout();
 	pVBoxLayout->addWidget(m_pLabel);
@@ -60,8 +64,9 @@ qxgeditEdit::~qxgeditEdit (void)
 void qxgeditEdit::set_value ( unsigned short /*iValue*/ )
 {
 	if (m_pParam) {
-		m_pEdit->setText(
-			QByteArray((const char *) m_pParam->data(), m_pParam->size()));
+		m_pEdit->setText(QString(
+			QByteArray((const char *) m_pParam->data(), m_pParam->size()))
+			.simplified());
 	}
 }
 

@@ -48,6 +48,14 @@ void qxgeditXGParamMap::Observer::update (void)
 		return;
 
 	XGParam *pParam = param();
+
+	// HACK: Special USERVOICE stuff...
+	if (pParam->high() == 0x11) {
+		// TODO: Send complete USERVOICE bulk dump?
+		return;
+	}
+
+	// Regular XG Parameter change...
 	unsigned char aSysex[]  = { 0xf0, 0x43, 0x10, 0x4c,
 		0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7 };
 	unsigned short iSysex = 8 + pParam->size();

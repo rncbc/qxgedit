@@ -323,10 +323,6 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iPart = 0; iPart < 16; ++iPart)
 		m_ui.MultipartCombo->addItem(tr("Part %1").arg(iPart + 1));
 
-	QObject::connect(m_ui.MultipartCombo,
-		SIGNAL(activated(int)),
-		SLOT(multipartComboActivated(int)));
-
 	// Instrument model/view combo-box...
 	QTreeWidget *pMultipartVoiceListView = new QTreeWidget();
 	pMultipartVoiceListView->header()->hide();
@@ -364,6 +360,12 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	// Special values...
 	m_ui.MultipartPanDial->setSpecialValueText(tr("Random"));
 
+	QObject::connect(m_ui.MultipartResetButton,
+		SIGNAL(clicked()),
+		SLOT(multipartResetButtonClicked()));
+	QObject::connect(m_ui.MultipartCombo,
+		SIGNAL(activated(int)),
+		SLOT(multipartComboActivated(int)));
 	QObject::connect(m_ui.MultipartVoiceCombo,
 		SIGNAL(activated(int)),
 		SLOT(multipartVoiceComboActivated(int)));
@@ -380,10 +382,6 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_ui.MultipartPartModeDial,
 		SIGNAL(valueChanged(unsigned short)),
 		SLOT(multipartPartModeChanged(unsigned short)));
-
-	QObject::connect(m_ui.MultipartResetButton,
-		SIGNAL(clicked()),
-		SLOT(multipartResetButtonClicked()));
 
 	// AmpEg...
 	QObject::connect(
@@ -585,22 +583,19 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	// Special values...
 	m_ui.DrumsetupGroupDial->setSpecialValueText(tr("Off"));
 	m_ui.DrumsetupPanDial->setSpecialValueText(tr("Random"));
-	
-	QObject::connect(m_ui.DrumsetupCombo,
-		SIGNAL(activated(int)),
-		SLOT(drumsetupComboActivated(int)));
-
-	QObject::connect(m_ui.DrumsetupVoiceCombo,
-		SIGNAL(activated(int)),
-		SLOT(drumsetupVoiceComboActivated(int)));
-
-	QObject::connect(m_ui.DrumsetupNoteCombo,
-		SIGNAL(activated(int)),
-		SLOT(drumsetupNoteComboActivated(int)));
 
 	QObject::connect(m_ui.DrumsetupResetButton,
 		SIGNAL(clicked()),
 		SLOT(drumsetupResetButtonClicked()));
+	QObject::connect(m_ui.DrumsetupCombo,
+		SIGNAL(activated(int)),
+		SLOT(drumsetupComboActivated(int)));
+	QObject::connect(m_ui.DrumsetupVoiceCombo,
+		SIGNAL(activated(int)),
+		SLOT(drumsetupVoiceComboActivated(int)));
+	QObject::connect(m_ui.DrumsetupNoteCombo,
+		SIGNAL(activated(int)),
+		SLOT(drumsetupNoteComboActivated(int)));
 
 	// Filter...
 	QObject::connect(
@@ -662,16 +657,18 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iElem = 0; iElem < 2; ++iElem)
 		m_ui.UservoiceElementCombo->addItem(tr("Element %1").arg(iElem + 1));
 
+	QObject::connect(m_ui.UservoiceResetButton,
+		SIGNAL(clicked()),
+		SLOT(uservoiceResetButtonClicked()));
 	QObject::connect(m_ui.UservoiceCombo,
 		SIGNAL(activated(int)),
 		SLOT(uservoiceComboActivated(int)));
 	QObject::connect(m_ui.UservoiceElementCombo,
 		SIGNAL(activated(int)),
 		SLOT(uservoiceElementComboActivated(int)));
-
-	QObject::connect(m_ui.UservoiceResetButton,
+	QObject::connect(m_ui.UservoiceSendButton,
 		SIGNAL(clicked()),
-		SLOT(uservoiceResetButtonClicked()));
+		SLOT(uservoiceSendButtonClicked()));
 
   	m_ui.UservoiceNameEdit         -> set_param_map(USERVOICE, 0x00);
 	m_ui.UservoiceElementDial      -> set_param_map(USERVOICE, 0x0b);
@@ -1697,6 +1694,10 @@ void qxgeditMainForm::uservoiceResetButtonClicked (void)
 		m_pParamMap->reset_user(m_ui.UservoiceCombo->currentIndex());
 }
 
+
+void qxgeditMainForm::uservoiceSendButtonClicked (void)
+{
+}
 
 // Main dirty flag raiser.
 void qxgeditMainForm::contentsChanged (void)
