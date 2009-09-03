@@ -44,7 +44,7 @@ qxgeditCheck::~qxgeditCheck (void)
 
 
 // Nominal value accessors.
-void qxgeditCheck::set_value ( unsigned short iValue )
+void qxgeditCheck::set_value ( unsigned short iValue, Observer *pSender )
 {
 	if (m_pParam == NULL)
 		return;
@@ -56,7 +56,7 @@ void qxgeditCheck::set_value ( unsigned short iValue )
 
 	bool bValueChanged = (iValue != m_pParam->value());
 
-	m_pParam->set_value(iValue);
+	m_pParam->set_value(iValue, pSender);
 
 	QCheckBox::setChecked(iValue > 0);
 
@@ -83,7 +83,7 @@ unsigned short qxgeditCheck::value (void) const
 
 
 // Specialty parameter accessors.
-void qxgeditCheck::set_param ( XGParam *pParam )
+void qxgeditCheck::set_param ( XGParam *pParam, Observer */*pSender*/ )
 {
 	m_pParam = pParam;
 
@@ -105,7 +105,7 @@ XGParam *qxgeditCheck::param (void) const
 // Internal widget slots.
 void qxgeditCheck::checkToggled ( bool bCheck )
 {
-	set_value(bCheck ? 127 : 0);
+	set_value((bCheck ? 127 : 0), observer());
 	emit valueChanged(value());
 }
 

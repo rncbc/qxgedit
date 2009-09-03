@@ -67,7 +67,7 @@ void qxgeditSpin::showEvent ( QShowEvent */*pShowEvent*/ )
 
 
 // Nominal value accessors.
-void qxgeditSpin::setValue ( unsigned short iValue )
+void qxgeditSpin::setValue ( unsigned short iValue, XGParamObserver *pSender )
 {
 	if (m_pParam == NULL)
 		return;
@@ -81,7 +81,7 @@ void qxgeditSpin::setValue ( unsigned short iValue )
 
 	bool bValueChanged = (iValue != m_pParam->value());
 
-	m_pParam->set_value(iValue);
+	m_pParam->set_value(iValue, pSender);
 
 	QPalette pal;
 	if (QAbstractSpinBox::isEnabled()
@@ -117,14 +117,14 @@ unsigned short qxgeditSpin::value (void) const
 
 
 // Specialty functors setters.
-void qxgeditSpin::setParam ( XGParam *pParam )
+void qxgeditSpin::setParam ( XGParam *pParam, XGParamObserver *pSender )
 {
 	m_pParam = pParam;
 
 	QAbstractSpinBox::setPalette(QPalette());
 
 	if (m_pParam)
-		setValue(m_pParam->value());
+		setValue(m_pParam->value(), pSender);
 }
 
 XGParam *qxgeditSpin::param (void) const

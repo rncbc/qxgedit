@@ -26,6 +26,7 @@
 
 // Forward declarations.
 class XGParam;
+class XGParamObserver;
 
 
 //-------------------------------------------------------------------------
@@ -43,11 +44,11 @@ public:
 	~qxgeditDrop();
 
 	// Specialty parameter accessors.
-	void setParam(XGParam *pParam);
+	void setParam(XGParam *pParam, XGParamObserver *pSender = NULL);
 	XGParam *param() const;
 
 	// Value accessors.
-	void setValue(unsigned short iValue);
+	void setValue(unsigned short iValue, XGParamObserver *pSender = NULL);
 	unsigned short value() const;
 
 signals:

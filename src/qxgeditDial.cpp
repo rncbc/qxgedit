@@ -115,17 +115,17 @@ void qxgeditDial::set_value_update ( unsigned short iValue )
 }
 
 
-void qxgeditDial::set_value ( unsigned short iValue )
+void qxgeditDial::set_value ( unsigned short iValue, Observer *pSender )
 {
 	if (m_iBusy == 0) {
 		m_iBusy++;
 		if (m_pSpin->param()) {
-			m_pSpin->setValue(iValue);
+			m_pSpin->setValue(iValue, pSender);
 			m_pKnob->setValue(int(m_pSpin->value()));
 		}
 		else
 		if (m_pDrop->param()) {
-			m_pDrop->setValue(iValue);
+			m_pDrop->setValue(iValue, pSender);
 			m_pKnob->setValue(int(m_pDrop->value()));
 		}
 		m_iBusy--;
@@ -145,7 +145,7 @@ unsigned short qxgeditDial::value (void) const
 
 
 // Specialty parameter accessors.
-void qxgeditDial::set_param ( XGParam *pParam )
+void qxgeditDial::set_param ( XGParam *pParam, Observer *pSender )
 {
 	if (m_iBusy > 0)
 		return;
@@ -162,10 +162,10 @@ void qxgeditDial::set_param ( XGParam *pParam )
 		if (pParam->gets(pParam->min())) {
 			m_pSpin->setParam(NULL);
 			m_pSpin->hide();
-			m_pDrop->setParam(pParam);
+			m_pDrop->setParam(pParam, pSender);
 			m_pDrop->show();
 		} else {
-			m_pSpin->setParam(pParam);
+			m_pSpin->setParam(pParam, pSender);
 			m_pSpin->show();
 			m_pDrop->setParam(NULL);
 			m_pDrop->hide();
@@ -199,26 +199,26 @@ XGParam *qxgeditDial::param (void) const
 // Value settler public slot.
 void qxgeditDial::setValue ( unsigned short iValue )
 {
-	set_value(iValue);
+	set_value(iValue, observer());
 }
 
 
 // Internal widget slots.
 void qxgeditDial::knobValueChanged ( int iKnobValue )
 {
-	set_value(iKnobValue);
+	setValue(iKnobValue);
 	emit valueChanged(value());
 }
 
 void qxgeditDial::spinValueChanged ( unsigned short iSpinValue )
 {
-	set_value(iSpinValue);
+	setValue(iSpinValue);
 	emit valueChanged(value());
 }
 
 void qxgeditDial::dropValueChanged ( unsigned short iDropValue )
 {
-	set_value(iDropValue);
+	setValue(iDropValue);
 	emit valueChanged(value());
 }
 

@@ -48,13 +48,13 @@ public:
 	~qxgeditDial();
 
 	// Specialty parameter accessors.
-	void set_param(XGParam *pParam);
+	void set_param(XGParam *pParam, Observer *pSender);
 	XGParam *param() const;
 
 	// Value accessors.
 	void reset_value();
 	void set_value_update(unsigned short iValue);
-	void set_value(unsigned short iValue);
+	void set_value(unsigned short iValue, Observer *pSender);
 	unsigned short value() const;
 
 	// Special value text accessor.

@@ -42,11 +42,11 @@ public:
 	~qxgeditCheck();
 
 	// Specialty parameter accessors.
-	void set_param(XGParam *pParam);
+	void set_param(XGParam *pParam, Observer *pSender);
 	XGParam *param() const;
 
 	// Value accessors.
-	void set_value(unsigned short iValue);
+	void set_value(unsigned short iValue, Observer *pSender);
 	unsigned short value() const;
 
 signals:

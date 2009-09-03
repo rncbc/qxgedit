@@ -63,7 +63,7 @@ qxgeditEdit::~qxgeditEdit (void)
 
 
 // Nominal value accessors.
-void qxgeditEdit::set_value ( unsigned short /*iValue*/ )
+void qxgeditEdit::set_value ( unsigned short /*iValue*/, Observer */*pSender*/ )
 {
 	if (m_pParam) {
 		m_pEdit->setText(QString(
@@ -79,14 +79,14 @@ unsigned short qxgeditEdit::value (void) const
 
 
 // Specialty parameter accessors.
-void qxgeditEdit::set_param ( XGParam *pParam )
+void qxgeditEdit::set_param ( XGParam *pParam, Observer */*pSender*/ )
 {
 	m_pParam = static_cast<XGDataParam *> (pParam);
 
 	if (m_pParam) {
 		m_pLabel->setText(m_pParam->label());
 		m_pEdit->setMaxLength(m_pParam->size());
-		set_value(0);
+		set_value(0, observer());
 	}
 }
 

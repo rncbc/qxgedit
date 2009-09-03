@@ -131,9 +131,18 @@ public:
 
 	protected:
 		// Observer resetter.
-		void reset()  { m_widget->set_param(param()); }
+		void reset()
+		{
+			if (m_widget->param() != param())
+				m_widget->set_param(param(), this);
+		}
+
 		// Observer updater.
-		void update() { m_widget->set_value(value()); }
+		void update()
+		{
+			if (m_widget->param() == param())
+				m_widget->set_value(value(), this);
+		}
 
 	private:
 		// Members.
@@ -149,8 +158,11 @@ public:
 		{ clear_observers(); }
 
 	// Pure virtual methods.
-	virtual void set_param(XGParam *param) = 0;
-	virtual void set_value(unsigned short u) = 0;
+	virtual void set_param(XGParam *param, Observer *sender) = 0;
+	virtual XGParam *param() const = 0;
+
+	virtual void set_value(unsigned short u, Observer *sender) = 0;
+	virtual unsigned short value() const = 0;
 
 	// Setup.
 	void set_param_map(XGParamMap *map, unsigned short id)

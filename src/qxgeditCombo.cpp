@@ -47,7 +47,7 @@ qxgeditCombo::~qxgeditCombo (void)
 
 
 // Nominal value accessors.
-void qxgeditCombo::set_value ( unsigned short iValue )
+void qxgeditCombo::set_value ( unsigned short iValue, Observer *pSender )
 {
 	if (m_pParam == NULL)
 		return;
@@ -59,7 +59,7 @@ void qxgeditCombo::set_value ( unsigned short iValue )
 
 	bool bValueChanged = (iValue != m_pParam->value());
 
-	m_pParam->set_value(iValue);
+	m_pParam->set_value(iValue, pSender);
 
 	int iCombo = QComboBox::findData(iValue);
 	if (iCombo >= 0)
@@ -88,7 +88,7 @@ unsigned short qxgeditCombo::value (void) const
 
 
 // Specialty parameter accessors.
-void qxgeditCombo::set_param ( XGParam *pParam )
+void qxgeditCombo::set_param ( XGParam *pParam, Observer */*pSender*/ )
 {
 	m_pParam = pParam;
 
@@ -120,7 +120,7 @@ XGParam *qxgeditCombo::param (void) const
 // Internal widget slots.
 void qxgeditCombo::comboActivated ( int iCombo )
 {
-	set_value((unsigned short) QComboBox::itemData(iCombo).toUInt());
+	set_value((unsigned short) QComboBox::itemData(iCombo).toUInt(), observer());
 	emit valueChanged(value());
 }
 

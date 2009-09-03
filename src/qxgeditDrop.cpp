@@ -46,7 +46,7 @@ qxgeditDrop::~qxgeditDrop (void)
 
 
 // Nominal value accessors.
-void qxgeditDrop::setValue ( unsigned short iValue )
+void qxgeditDrop::setValue ( unsigned short iValue, XGParamObserver *pSender )
 {
 	if (m_pParam == NULL)
 		return;
@@ -58,7 +58,7 @@ void qxgeditDrop::setValue ( unsigned short iValue )
 
 	bool bValueChanged = (iValue != m_pParam->value());
 
-	m_pParam->set_value(iValue);
+	m_pParam->set_value(iValue, pSender);
 
 	int iCombo = QComboBox::findData(iValue);
 	if (iCombo >= 0)
@@ -87,7 +87,7 @@ unsigned short qxgeditDrop::value (void) const
 
 
 // Specialty parameter accessors.
-void qxgeditDrop::setParam ( XGParam *pParam )
+void qxgeditDrop::setParam ( XGParam *pParam, XGParamObserver *pSender )
 {
 	m_pParam = pParam;
 
@@ -101,7 +101,7 @@ void qxgeditDrop::setParam ( XGParam *pParam )
 			if (pszItem)
 				QComboBox::addItem(pszItem, iValue);
 		}
-		setValue(m_pParam->value());
+		setValue(m_pParam->value(), pSender);
 	}
 }
 
