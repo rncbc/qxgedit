@@ -1354,6 +1354,13 @@
            </spacer>
           </item>
           <item>
+           <widget class="QCheckBox" name="UservoiceAutoSendCheck" >
+            <property name="text" >
+             <string>Auto</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="UservoiceSendButton" >
             <property name="text" >
              <string>Send</string>

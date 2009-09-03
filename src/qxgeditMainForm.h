@@ -96,6 +96,7 @@ public slots:
 	void uservoiceComboActivated(int);
 	void uservoiceElementComboActivated(int);
 	void uservoiceSendButtonClicked();
+	void uservoiceAutoSendCheckToggled(bool);
 
 	void contentsChanged();
 

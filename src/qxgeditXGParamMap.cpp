@@ -50,13 +50,21 @@ void qxgeditXGParamMap::Observer::update (void)
 		return;
 
 	XGParam *pParam = param();
-
-	// Special USERVOICE stuff...
 	if (pParam->high() == 0x11) {
-		pParamMap->send_user(pParamMap->USERVOICE.current_key());
+		// Special USERVOICE bulk dump stuff...
+		unsigned short iUser = pParamMap->USERVOICE.current_key(); 
+		if (pParamMap->auto_send())
+			pParamMap->send_user(iUser);
+		pParamMap->set_user_dirty(iUser, true);
 	} else {
+		// regular XG Parameter change...
 		pParamMap->send_param(pParam);
 	}
+
+	// HACK: Flag dirty the main form...
+	qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
+	if (pMainForm)
+		pMainForm->contentsChanged();
 }
 
 
@@ -66,7 +74,7 @@ void qxgeditXGParamMap::Observer::update (void)
 
 // Constructor.
 qxgeditXGParamMap::qxgeditXGParamMap (void)
-	: XGParamMasterMap()
+	: XGParamMasterMap(), m_auto_send(false)
 {
 	// Setup local observers...
 	XGParamMasterMap::const_iterator iter
@@ -75,6 +83,8 @@ qxgeditXGParamMap::qxgeditXGParamMap (void)
 		XGParam *pParam = iter.value();
 		m_observers.insert(pParam, new Observer(pParam));
 	}
+
+	reset_user_dirty();
 }
 
 
@@ -138,6 +148,8 @@ void qxgeditXGParamMap::reset_all (void)
 		XGParam *pParam = iter.key();
 		pParam->reset(iter.value());
 	}
+
+	reset_user_dirty();
 }
 
 
@@ -202,6 +214,8 @@ void qxgeditXGParamMap::reset_user ( unsigned short iUser )
 				pParam->reset();
 		}
 	}
+
+	set_user_dirty(iUser, false);
 }
 
 
@@ -252,11 +266,6 @@ void qxgeditXGParamMap::send_param ( XGParam *pParam )
 			break;
 		}
 	}
-
-	// HACK: Flag dirty the main form...
-	qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
-	if (pMainForm)
-		pMainForm->contentsChanged();
 }
 
 
@@ -320,11 +329,41 @@ void qxgeditXGParamMap::send_user ( unsigned short iUser ) const
 	pMidiDevice->sendSysex(pSysex, iSysex);
 
 	delete [] pSysex;
+}
 
-	// HACK: Flag dirty the main form...
-	qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
-	if (pMainForm)
-		pMainForm->contentsChanged();
+
+// (QS300) USERVOICE dirty slot simple managing.
+void qxgeditXGParamMap::reset_user_dirty (void)
+{
+	for (unsigned short i = 0; i < 32; ++i)
+		m_user_dirty[i] = 0;
+}
+
+void qxgeditXGParamMap::set_user_dirty ( unsigned short iUser, bool bDirty )
+{
+	if (iUser < 32) {
+		if (bDirty)
+			m_user_dirty[iUser]++;
+		else
+			m_user_dirty[iUser] = 0;
+	}
+}
+
+bool qxgeditXGParamMap::user_dirty ( unsigned short iUser ) const
+{
+	return (iUser < 32 && m_user_dirty[iUser] > 0);
+}
+
+
+// (QS300) USERVOICE bulk dump auto-send feature.
+void qxgeditXGParamMap::set_auto_send ( bool bAuto )
+{
+	m_auto_send = bAuto;
+}
+
+bool qxgeditXGParamMap::auto_send (void) const
+{
+	return m_auto_send;
 }
 
 

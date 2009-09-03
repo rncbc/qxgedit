@@ -77,6 +77,11 @@ qxgeditOptions::qxgeditOptions (void)
 	sSessionDir = m_settings.value("/SessionDir").toString();
 	recentFiles = m_settings.value("/RecentFiles").toStringList();
 	m_settings.endGroup();
+
+	// (QS300) USER VOICE Specific options.
+	m_settings.beginGroup("/Uservoice");
+	bUservoiceAutoSend = m_settings.value("/AutoSend", false).toBool();
+	m_settings.endGroup();
 }
 
 
@@ -117,6 +122,11 @@ qxgeditOptions::~qxgeditOptions (void)
 	m_settings.beginGroup("/Default");
 	m_settings.setValue("/SessionDir", sSessionDir);
 	m_settings.setValue("/RecentFiles", recentFiles);
+	m_settings.endGroup();
+
+	// (QS300) USER VOICE Specific options.
+	m_settings.beginGroup("/Uservoice");
+	m_settings.setValue("/AutoSend", bUservoiceAutoSend);
 	m_settings.endGroup();
 
 	// Pseudo-singleton reference shut-down.

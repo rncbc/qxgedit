@@ -58,8 +58,17 @@ public:
 	// Send regular XG Parameter change SysEx message.
 	void send_param(XGParam *pParam);
 
-	// Send USER VOICE Bulk Dump SysEx message.
+	// Send (QS300) USERVOICE Bulk Dump SysEx message.
 	void send_user(unsigned short iUser) const;
+
+	// (QS300) USERVOICE dirty slot simple managers.
+	void reset_user_dirty();
+	void set_user_dirty(unsigned short iUser, bool bDirty);
+	bool user_dirty(unsigned short iUser) const;
+
+	// (QS300) USERVOICE bulk dump auto-send feature.
+	void set_auto_send(bool bAuto);
+	bool auto_send() const;
 
 private:
 
@@ -80,7 +89,14 @@ private:
 
 	// Instance variables.
 	ObserverMap m_observers;
+
+	// QS300 User Voice dirty flag array.
+	int m_user_dirty[32];
+
+	// QS300 User Voice auto-send feature.
+	bool m_auto_send;
 };
+
 
 #endif	// __qxgeditXGParamMap_h
 

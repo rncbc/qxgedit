@@ -72,6 +72,9 @@ public:
 	QStringList midiInputs;
 	QStringList midiOutputs;
 
+	// (QS300) USER VOICE Specific options.
+	bool bUservoiceAutoSend;
+
 	// Widget geometry persistence helper prototypes.
 	void saveWidgetGeometry(QWidget *pWidget);
 	void loadWidgetGeometry(QWidget *pWidget);

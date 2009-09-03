@@ -209,6 +209,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 
 	// XG master database...
 	m_pParamMap = new qxgeditXGParamMap();
+	m_pParamMap->set_auto_send(m_pOptions->bUservoiceAutoSend);
 
 	// Start proper devices...
 	m_pMidiDevice = new qxgeditMidiDevice(QXGEDIT_TITLE);
@@ -657,6 +658,8 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iElem = 0; iElem < 2; ++iElem)
 		m_ui.UservoiceElementCombo->addItem(tr("Element %1").arg(iElem + 1));
 
+	m_ui.UservoiceAutoSendCheck->setChecked(m_pParamMap->auto_send());
+
 	QObject::connect(m_ui.UservoiceResetButton,
 		SIGNAL(clicked()),
 		SLOT(uservoiceResetButtonClicked()));
@@ -669,6 +672,9 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_ui.UservoiceSendButton,
 		SIGNAL(clicked()),
 		SLOT(uservoiceSendButtonClicked()));
+	QObject::connect(m_ui.UservoiceAutoSendCheck,
+		SIGNAL(toggled(bool)),
+		SLOT(uservoiceAutoSendCheckToggled(bool)));
 
   	m_ui.UservoiceNameEdit         -> set_param_map(USERVOICE, 0x00);
 	m_ui.UservoiceElementDial      -> set_param_map(USERVOICE, 0x0b);
@@ -782,6 +788,9 @@ bool qxgeditMainForm::queryClose (void)
 			m_pOptions->bMenubar = m_ui.MenuBar->isVisible();
 			m_pOptions->bStatusbar = statusBar()->isVisible();
 			m_pOptions->bToolbar = m_ui.ToolBar->isVisible();
+			// Specific options...
+			if (m_pParamMap)
+				m_pOptions->bUservoiceAutoSend = m_pParamMap->auto_send();
 			// Save main windows state.
 			m_pOptions->saveWidgetGeometry(this);
 		}
@@ -1404,6 +1413,12 @@ void qxgeditMainForm::stabilizeForm (void)
 		m_statusItems[StatusMod]->setText(tr("MOD"));
 	else
 		m_statusItems[StatusMod]->clear();
+
+	// QS300 User Voice dirty flag array status.
+	if (m_pParamMap) {
+		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+		m_ui.UservoiceSendButton->setEnabled(m_pParamMap->user_dirty(iUser));
+	}
 }
 
 
@@ -1674,30 +1689,49 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 // Switch the current USERVOICE section...
 void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 {
-	if (m_pParamMap)
+	if (m_pParamMap) {
 		m_pParamMap->USERVOICE.set_current_key(iUser);
+		stabilizeForm();
+	}
 }
 
 
 void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 {
-	if (m_pParamMap)
+	if (m_pParamMap) {
 		m_pParamMap->USERVOICE.set_current_element(iElem);
+		stabilizeForm();
+	}
 }
 
 
 void qxgeditMainForm::uservoiceResetButtonClicked (void)
 {
-	if (m_pParamMap)
-		m_pParamMap->reset_user(m_ui.UservoiceCombo->currentIndex());
+	if (m_pParamMap) {
+		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+		m_pParamMap->reset_user(iUser);
+		stabilizeForm();
+	}
 }
 
 
 void qxgeditMainForm::uservoiceSendButtonClicked (void)
 {
-	if (m_pParamMap)
-		m_pParamMap->send_user(m_ui.UservoiceCombo->currentIndex());
+	if (m_pParamMap) {
+		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+		m_pParamMap->send_user(iUser);
+	//	m_pParamMap->set_user_dirty(iUser, false);
+		stabilizeForm();
+	}
 }
+
+
+void qxgeditMainForm::uservoiceAutoSendCheckToggled ( bool bAuto )
+{
+	if (m_pParamMap)
+		m_pParamMap->set_auto_send(bAuto);
+}
+
 
 // Main dirty flag raiser.
 void qxgeditMainForm::contentsChanged (void)
