@@ -121,12 +121,6 @@ protected:
 
 	// SYSEX Event handler.
 	bool sysexEvent(qxgeditMidiSysexEvent *pSysexEvent);
-	bool sysexData(unsigned char *data, unsigned short len);
-
-	// XG Parameter state handler.
-	unsigned short sysexXGParam(
-		unsigned char high, unsigned char mid, unsigned char low,
-		unsigned char *data);
 
 private:
 

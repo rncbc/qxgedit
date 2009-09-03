@@ -27,6 +27,8 @@
 #include "qxgeditXGParamMap.h"
 #include "qxgeditMidiDevice.h"
 
+#include "XGParamSysex.h"
+
 #include "qxgeditDial.h"
 #include "qxgeditCombo.h"
 
@@ -858,64 +860,10 @@ void qxgeditMainForm::customEvent ( QEvent *pEvent )
 // SYSEX Event handler.
 bool qxgeditMainForm::sysexEvent ( qxgeditMidiSysexEvent *pSysexEvent )
 {
-	return sysexData(pSysexEvent->data(), pSysexEvent->len());
-}
+	if (m_pParamMap == NULL)
+		return false;
 
-bool qxgeditMainForm::sysexData ( unsigned char *data, unsigned short len )
-{
-	bool ret = false;
-	unsigned short i;
-
-	if (data[0] == 0xf0 && data[len - 1] == 0xf7) {
-		 // SysEx (actually)...
-		if (data[1] == 0x43) {
-			// Yamaha ID...
-			unsigned char mode  = (data[2] & 0x70);
-		//	unsigned char devno = (data[2] & 0x0f);
-			if (data[3] == 0x4c || data[3] == 0x4b) {
-				// XG/QS300 Model ID...
-				if (mode == 0x00) {
-					// Native Bulk Dump...
-					unsigned short size = (data[4] << 7) + data[5];
-					unsigned char cksum = 0;
-					for (i = 0; i < size + 5; ++i) {
-						cksum += data[4 + i];
-						cksum &= 0x7f;
-					}
-					if (data[9 + size] == 0x80 - cksum) {
-						unsigned char high = data[6];
-						unsigned char mid  = data[7];
-						unsigned char low  = data[8];
-						for (i = 0; i < size; ++i) {
-							// Parameter Change...
-							unsigned short n
-								= sysexXGParam(high, mid, low + i, &data[9 + i]);
-							if (n > 1)
-								i += (n - 1);
-						}
-						ret = (i == (size - 6));
-					}
-				}
-				else
-				if (mode == 0x10) {
-					// Parameter Change...
-					unsigned char high = data[4];
-					unsigned char mid  = data[5];
-					unsigned char low  = data[6];
-					ret = (sysexXGParam(high, mid, low, &data[7]) > 0);
-				}
-			}
-		}
-	}
-	
-	return ret;
-}
-
-unsigned short qxgeditMainForm::sysexXGParam (
-	unsigned char high, unsigned char mid, unsigned char low,
-	unsigned char *data )
-{
-	return m_pParamMap->set_param_data(high, mid, low, data);
+	return m_pParamMap->set_sysex_data(pSysexEvent->data(), pSysexEvent->len());
 }
 
 
@@ -1141,7 +1089,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 		unsigned short iRead = file.read((char *) pBuff + i, iBuff - i) + i;
 		while (i < iRead) {
 			if (pBuff[i++] == 0xf7) {
-				sysexData(pBuff, i);
+				m_pParamMap->set_sysex_data(pBuff, i);
 				if (i < iRead) {
 					::memmove(pBuff, pBuff + i, iRead -= i);
 					i = 0;
@@ -1184,20 +1132,22 @@ bool qxgeditMainForm::saveSessionFile (	const QString& sFilename )
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+	// XG Parameter changes...
 	XGParamMasterMap::const_iterator iter = m_pParamMap->constBegin();
 	for (; iter != m_pParamMap->constEnd(); ++iter) {
 		XGParam *pParam = iter.value();
-		if (pParam->value() == pParam->def())
+		if (pParam->high() == 0x11 || pParam->value() == pParam->def())
 			continue;
-		unsigned char aSysex[]  = { 0xf0, 0x43, 0x10, 0x4c,
-			0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7, 0xf7 };
-		unsigned short iSysex = 8 + pParam->size();
-		aSysex[4] = pParam->high();
-		aSysex[5] = pParam->mid();
-		aSysex[6] = pParam->low();
-		pParam->set_data_value(&aSysex[7], pParam->value());
-		aSysex[iSysex - 1] = 0xf7;
-		file.write((const char *) aSysex, iSysex);
+		XGParamSysex sysex(pParam);
+		file.write((const char *) sysex.data(), sysex.size());
+	}
+
+	// (QS300) USER VOICE Bulk Dumps, whether dirty...
+	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
+		if (m_pParamMap->user_dirty(iUser)) {
+			XGUserVoiceSysex sysex(iUser);
+			file.write((const char *) sysex.data(), sysex.size());
+		}
 	}
 
 	file.close();

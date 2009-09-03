@@ -26,6 +26,8 @@
 
 #include "qxgeditMainForm.h"
 
+#include "XGParamSysex.h"
+
 
 //----------------------------------------------------------------------------
 // qxgeditXGParamMap::Observer -- XGParam master map observer.
@@ -100,6 +102,61 @@ qxgeditXGParamMap::~qxgeditXGParamMap (void)
 }
 
 
+// Direct SysEx data receiver.
+bool qxgeditXGParamMap::set_sysex_data (
+	unsigned char *data, unsigned short len )
+{
+	 // SysEx (actually)...
+	if (data[0] != 0xf0 || data[len - 1] != 0xf7)
+		return false;
+
+	// Yamaha ID...
+	if (data[1] != 0x43)
+		return false;
+
+	bool ret = false;
+	unsigned short i;
+
+	unsigned char mode  = (data[2] & 0x70);
+//	unsigned char devno = (data[2] & 0x0f);
+	if (data[3] == 0x4c || data[3] == 0x4b) {
+		// XG/QS300 Model ID...
+		if (mode == 0x00) {
+			// Native Bulk Dump...
+			unsigned short size = (data[4] << 7) + data[5];
+			unsigned char cksum = 0;
+			for (i = 0; i < size + 5; ++i) {
+				cksum += data[4 + i];
+				cksum &= 0x7f;
+			}
+			if (data[9 + size] == 0x80 - cksum) {
+				unsigned short high = data[6];
+				unsigned short mid  = data[7];
+				unsigned short low  = data[8];
+				for (i = 0; i < size; ++i) {
+					// Parameter Change...
+					unsigned short n
+						= set_param_data(high, mid, low + i, &data[9 + i]);
+					if (n > 1)
+						i += (n - 1);
+				}
+				ret = (i == (size - 6));
+			}
+		}
+		else
+		if (mode == 0x10) {
+			// Parameter Change...
+			unsigned short high = data[4];
+			unsigned short mid  = data[5];
+			unsigned short low  = data[6];
+			ret = (set_param_data(high, mid, low, &data[7]) > 0);
+		}
+	}
+	
+	return ret;
+}
+
+
 // Direct parameter data access.
 unsigned short qxgeditXGParamMap::set_param_data (
 	unsigned short high, unsigned short mid, unsigned short low,
@@ -112,7 +169,13 @@ unsigned short qxgeditXGParamMap::set_param_data (
 	if (!m_observers.contains(pParam))
 		return 0;
 
-	m_observers.value(pParam)->set_value(pParam->data_value(data));
+	Observer *pObserver = m_observers.value(pParam);
+	if (pParam->size() > 4) {
+		XGDataParam *pDataParam = static_cast<XGDataParam *> (pParam);
+		pDataParam->set_data(data, pDataParam->size(), pObserver);
+	} else {
+		pParam->set_value(pParam->data_value(data), pObserver);
+	}
 
 #ifdef CONFIG_DEBUG
 	fprintf(stderr, "< %02x %02x %02x",
@@ -230,29 +293,9 @@ void qxgeditXGParamMap::send_param ( XGParam *pParam )
 		return;
 
 	// Build the complete SysEx message...
-	unsigned short iSysex = 8 + pParam->size();
-	unsigned char *pSysex = new unsigned char [iSysex];
-
-	unsigned short i = 0;
-	pSysex[i++] = 0xf0;	// SysEx status (SOX)
-	pSysex[i++] = 0x43;	// Yamaha id.
-	pSysex[i++] = 0x10;	// Device no.
-	pSysex[i++] = 0x4c;	// XG Model id.
-
-	// Regular XG Parameter change...
-	pSysex[i++] = pParam->high();
-	pSysex[i++] = pParam->mid();
-	pSysex[i++] = pParam->low();
-	pParam->set_data_value(&pSysex[i], pParam->value());
-	i += pParam->size();
-
-	// Coda...
-	pSysex[i] = 0xf7;	// SysEx status (EOX)
-
+	XGParamSysex sysex(pParam);
 	// Send it out...
-	pMidiDevice->sendSysex(pSysex, iSysex);
-
-	delete [] pSysex;
+	pMidiDevice->sendSysex(sysex.data(), sysex.size());
 
 	// HACK: Special reset actions...
 	if (pParam->high() == 0x00 && pParam->mid() == 0x00) {
@@ -276,59 +319,10 @@ void qxgeditXGParamMap::send_user ( unsigned short iUser ) const
 	if (pMidiDevice == NULL)
 		return;
 
-	// USER VOICE (QS300) Bulk Dump...
-	unsigned short high = 0x11;
-	unsigned short mid  = iUser;
-	unsigned short low  = 0x00;
-
 	// Build the complete SysEx message...
-	unsigned short iSysex = 0x188;	// (= 11 + 0x17d);
-	unsigned char *pSysex = new unsigned char [iSysex];
-
-	unsigned short i = 0;
-	pSysex[i++] = 0xf0;	// SysEx status (SOX)
-	pSysex[i++] = 0x43;	// Yamaha id.
-	pSysex[i++] = 0x00;	// Device no.
-	pSysex[i++] = 0x4b;	// QS300 Model id.
-	pSysex[i++] = 0x02;	// Byte count MSB (= 0x17d >> 7).
-	pSysex[i++] = 0x7d;	// Byte count LSB (= 0x17d & 0x7f).
-
-	pSysex[i++] = high;
-	pSysex[i++] = mid;
-	pSysex[i++] = low;
-
-	unsigned short i0 = i;
-	while (i < iSysex - 2) {
-		low = i - i0;
-		XGParam *pParam = find_param(high, mid, low);
-		if (pParam) {
-			if (pParam->size() > 4) {
-				XGDataParam *pDataParam	= static_cast<XGDataParam *> (pParam);
-				::memcpy(&pSysex[i], pDataParam->data(), pDataParam->size());
-			} else {
-				pParam->set_data_value(&pSysex[i], pParam->value());
-			}
-			i += pParam->size();
-		} else {
-			pSysex[i++] = 0x00;
-		}
-	}
-
-	// Compute checksum...
-	unsigned char cksum = 0;
-	for (unsigned short j = 4; j < i; ++j) {
-		cksum += pSysex[j];
-		cksum &= 0x7f;
-	}
-	pSysex[i++] = 0x80 - cksum;
-
-	// Coda...
-	pSysex[i] = 0xf7;	// SysEx status (EOX)
-
+	XGUserVoiceSysex sysex(iUser);
 	// Send it out...
-	pMidiDevice->sendSysex(pSysex, iSysex);
-
-	delete [] pSysex;
+	pMidiDevice->sendSysex(sysex.data(), sysex.size());
 }
 
 

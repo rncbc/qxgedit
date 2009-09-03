@@ -38,6 +38,9 @@ public:
 	// Destructor.
 	~qxgeditXGParamMap();
 
+	// Direct SysEx data receiver.
+	bool set_sysex_data(unsigned char *data, unsigned short len);
+
 	// Direct parameter data access.
 	unsigned short set_param_data(
 		unsigned short high, unsigned short mid, unsigned short low,
