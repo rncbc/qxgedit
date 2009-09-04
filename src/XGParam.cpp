@@ -2677,7 +2677,7 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x5d, 1,  0,  127, "[PEG ]Level 4",           0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x5e, 1,  0,   63, "[Filter ]Resonance",      0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x5f, 1,  0,    7, "Velocity[ Sensitivity]",  0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x60, 1,  0,  127, "[Cutoff Frequency",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x60, 1,  0,  127, "Cutoff[ Frequency]",      0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x61, 1,  0,  127, "[Cutoff Sc ]Break 1",     0, NULL,     NULL,     getsnote, NULL     },
 	{ 0x62, 1,  0,  127, "[Cutoff Sc ]Break 2",     0, NULL,     NULL,     getsnote, NULL     },
 	{ 0x63, 1,  0,  127, "[Cutoff Sc ]Break 3",     0, NULL,     NULL,     getsnote, NULL     },
