@@ -676,7 +676,7 @@ const char *getsnote ( unsigned short c )
 	const char *tabnote[] =
 		{ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 	static char note[5];
-	snprintf(note, sizeof(note), "%s%d", tabnote[c % 12], (c / 12) - 2);
+	snprintf(note, sizeof(note), "%-2s%2d", tabnote[c % 12], (c / 12) - 2);
 	return note;
 }
 
@@ -2678,10 +2678,10 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x5e, 1,  0,   63, "[Filter ]Resonance",      0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x5f, 1,  0,    7, "Velocity[ Sensitivity]",  0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x60, 1,  0,  127, "[Cutoff Frequency",       0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x61, 1,  0,  127, "[Cutoff Sc ]Break 1",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x62, 1,  0,  127, "[Cutoff Sc ]Break 2",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x63, 1,  0,  127, "[Cutoff Sc ]Break 3",     0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x64, 1,  0,  127, "[Cutoff Sc ]Break 4",     0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x61, 1,  0,  127, "[Cutoff Sc ]Break 1",     0, NULL,     NULL,     getsnote, NULL     },
+	{ 0x62, 1,  0,  127, "[Cutoff Sc ]Break 2",     0, NULL,     NULL,     getsnote, NULL     },
+	{ 0x63, 1,  0,  127, "[Cutoff Sc ]Break 3",     0, NULL,     NULL,     getsnote, NULL     },
+	{ 0x64, 1,  0,  127, "[Cutoff Sc ]Break 4",     0, NULL,     NULL,     getsnote, NULL     },
 	{ 0x65, 1,  0,  127, "[Cutoff Sc ]Offset 1",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x66, 1,  0,  127, "[Cutoff Sc ]Offset 2",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x67, 1,  0,  127, "[Cutoff Sc ]Offset 3",    0, NULL,     NULL,     NULL,     NULL     },
@@ -2700,10 +2700,10 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x74, 1,  0,  127, "[FEG ]Level 3",           0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x75, 1,  0,  127, "[FEG ]Level 4",           0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x76, 1,  0,  127, "[Element ]Level",       127, NULL,     NULL,     NULL,     NULL     },
-	{ 0x77, 1,  0,  127, "[Level Sc ]Break 1",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x78, 1,  0,  127, "[Level Sc ]Break 2",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x79, 1,  0,  127, "[Level Sc ]Break 3",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x7a, 1,  0,  127, "[Level Sc ]Break 4",      0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x77, 1,  0,  127, "[Level Sc ]Break 1",      0, NULL,     NULL,     getsnote, NULL     },
+	{ 0x78, 1,  0,  127, "[Level Sc ]Break 2",      0, NULL,     NULL,     getsnote, NULL     },
+	{ 0x79, 1,  0,  127, "[Level Sc ]Break 3",      0, NULL,     NULL,     getsnote, NULL     },
+	{ 0x7a, 1,  0,  127, "[Level Sc ]Break 4",      0, NULL,     NULL,     getsnote, NULL     },
 	{ 0x7b, 1,  0,  127, "[Level Sc ]Offset 1",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x7c, 1,  0,  127, "[Level Sc ]Offset 2",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x7d, 1,  0,  127, "[Level Sc ]Offset 3",     0, NULL,     NULL,     NULL,     NULL     },
