@@ -28,6 +28,10 @@
 #include <QMap> // Needed to get XGParamMap::Keys sorted.
 
 
+// Helper prototypes.
+const char *getsnote(unsigned short c);
+
+
 //-------------------------------------------------------------------------
 // Forward declarations (XGParam internals)
 //

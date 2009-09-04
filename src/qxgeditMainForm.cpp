@@ -1583,10 +1583,6 @@ void qxgeditMainForm::drumsetupComboActivated ( int iDrumset )
 // Switch the current DRUMSETUP Drum Kit Voice...
 void qxgeditMainForm::drumsetupVoiceComboActivated ( int iDrumKit )
 {
-	// Diatonic note map...
-	static const char *notes[] =
-		{ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
-
 	XGDrumKit drumkit(iDrumKit);
 	if (drumkit.item()) {
 		XGDrumKit stdkit(0); // Standard Kit (default)
@@ -1603,7 +1599,7 @@ void qxgeditMainForm::drumsetupVoiceComboActivated ( int iDrumKit )
 			}
 			if (!sName.isEmpty())
 				sName += ' ';
-			sName += QString("(%1%2)").arg(notes[k % 12]).arg((k / 12) - 2);
+			sName += QString("(%1)").arg(getsnote(k));
 			m_ui.DrumsetupNoteCombo->addItem(sName, k);
 		}
 		int iNote = m_ui.DrumsetupNoteCombo->findData(

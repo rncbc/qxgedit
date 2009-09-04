@@ -655,6 +655,31 @@ const char *getsvelc ( unsigned short c )
 	return tabvelc[c];
 }
 
+static
+const char *getsvpan ( unsigned short c )
+{
+	if (c < 15) {
+		static char vpan[3];
+		snprintf(vpan, sizeof(vpan), "%2d", int(c) - 7);
+		return vpan;
+	}
+	else if (c == 15)
+		return "Scale";
+
+	return NULL;
+}
+
+// static
+const char *getsnote ( unsigned short c )
+{
+	static
+	const char *tabnote[] =
+		{ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+	static char note[5];
+	snprintf(note, sizeof(note), "%s%d", tabnote[c % 12], (c / 12) - 2);
+	return note;
+}
+
 
 //-------------------------------------------------------------------------
 //
@@ -2487,8 +2512,8 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x0c, 1,  0,  127, "[Velocity Sense ]Depth", 64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0d, 1,  0,  127, "[Velocity Sense ]Offset",64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0e, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, NULL,     NULL     }, // 0=random
-	{ 0x0f, 1,  0,  127, "[Note Limit ]Low",        0, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
-	{ 0x10, 1,  0,  127, "[Note Limit ]High",     127, NULL,     NULL,     NULL,     NULL     }, // C-2..G8
+	{ 0x0f, 1,  0,  127, "[Note Limit ]Low",        0, NULL,     NULL,     getsnote, NULL     }, // C-2..G8
+	{ 0x10, 1,  0,  127, "[Note Limit ]High",     127, NULL,     NULL,     getsnote, NULL     }, // C-2..G8
 	{ 0x11, 1,  0,  127, "Dry/Wet[ Level]",       127, NULL,     NULL,     NULL,     NULL     },
 	{ 0x12, 1,  0,  127, "Chorus[ Send]",           0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x13, 1,  0,  127, "Reverb[ Send]",          40, NULL,     NULL,     NULL,     NULL     },
@@ -2619,8 +2644,8 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x0c, 1,  0,  127, "[Voice ]Level",           0, NULL,     NULL,     NULL,     NULL     },
 	// [Element 1]
 	{ 0x3d, 2,  0,  526, "Wave[ Number]",           0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x3f, 1,  0,  127, "Note[ Limit] Low",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x40, 1,  0,  127, "Note[ Limit] High",     127, NULL,     NULL,     NULL,     NULL     },
+	{ 0x3f, 1,  0,  127, "Note[ Limit] Low",        0, NULL,     NULL,     getsnote, NULL     },
+	{ 0x40, 1,  0,  127, "Note[ Limit] High",     127, NULL,     NULL,     getsnote, NULL     },
 	{ 0x41, 1,  0,  127, "Vel[ocity Limit] Low",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x42, 1,  0,  127, "Vel[ocity Limit] High", 127, NULL,     NULL,     NULL,     NULL     },
 	{ 0x43, 1,  0,    1, "[FEG ]Vel Curve",         0, NULL,     NULL,     getsvelc, NULL     }, // 0=Linear, 1=Exp
@@ -2632,15 +2657,15 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x49, 1,  0,   63, "[LFO ]Pitch[ Depth]",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x4a, 1,  0,   15, "[LFO ]Cutoff[ Depth]",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x4b, 1,  0,   31, "[LFO ]Ampl[itude Depth]", 0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4c, 1, 32,   96, "[Note ]Shift",           64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x4d, 1, 14,  114, "Detune",                 64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4c, 1, 32,   96, "[Note ]Shift",           64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x4d, 1, 14,  114, "Detune",                 64, getv0x40, getu0x40, NULL,     unit_cen },
 	{ 0x4e, 1,  0,    5, "[Pitch ]Scaling",         0, NULL,     NULL,     getspscl, NULL     },
-	{ 0x4f, 1,  0,  127, "[Pitch ]Center[ Note]",  64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x4f, 1,  0,  127, "[Pitch ]Center[ Note]",  64, NULL,     NULL,     getsnote, NULL     },
 	{ 0x50, 1,  0,    3, "[PEG ]Depth",             0, NULL,     NULL,     getspdph, NULL     },
-	{ 0x51, 1, 57,   71, "[PEG ]Vel [Sense ]Level",64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x52, 1, 57,   71, "[PEG ]Vel [Sense ]Rate", 64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x53, 1, 57,   71, "[PEG ]Rate[ Scaling]",   64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x54, 1,  0,  127, "[PEG ]Center[ Note]",    64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x51, 1, 57,   71, "[PEG ]Vel [Sense ]Level",64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x52, 1, 57,   71, "[PEG ]Vel [Sense ]Rate", 64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x53, 1, 57,   71, "[PEG ]Rate[ Scaling]",   64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x54, 1,  0,  127, "[PEG ]Center[ Note]",    64, NULL,     NULL,     getsnote, NULL     },
 	{ 0x55, 1,  0,   63, "[PEG ]Rate 1",            0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x56, 1,  0,   63, "[PEG ]Rate 2",            0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x57, 1,  0,   63, "[PEG ]Rate 3",            0, NULL,     NULL,     NULL,     NULL     },
@@ -2661,10 +2686,10 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x66, 1,  0,  127, "[Cutoff Sc ]Offset 2",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x67, 1,  0,  127, "[Cutoff Sc ]Offset 3",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x68, 1,  0,  127, "[Cutoff Sc ]Offset 4",    0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x69, 1, 57,   71, "[FEG ]Vel [Sense ]Level",64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6a, 1, 57,   71, "[FEG ]Vel [Sense ]Rate", 64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6b, 1, 57,   71, "[FEG Rate ]Scaling",     64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x6c, 1,  0,  127, "[FEG ]Center[ Note]",    64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x69, 1, 57,   71, "[FEG ]Vel [Sense ]Level",64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6a, 1, 57,   71, "[FEG ]Vel [Sense ]Rate", 64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6b, 1, 57,   71, "[FEG Rate ]Scaling",     64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x6c, 1,  0,  127, "[FEG ]Center[ Note]",    64, NULL,     NULL,     getsnote, NULL     },
 	{ 0x6d, 1,  0,   63, "[FEG ]Rate 1",            0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x6e, 1,  0,   63, "[FEG ]Rate 2",            0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x6f, 1,  0,   63, "[FEG ]Rate 3",            0, NULL,     NULL,     NULL,     NULL     },
@@ -2684,9 +2709,9 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x7d, 1,  0,  127, "[Level Sc ]Offset 3",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x7e, 1,  0,  127, "[Level Sc ]Offset 4",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x7f, 1,  0,    6, "Vel[ocity] Curve",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x80, 1,  0,   15, "Pan",                     7, NULL,     NULL,     NULL,     NULL     }, // 0=Left..14=Right, 15=Scaling
-	{ 0x81, 1, 57,   71, "[AEG Rate ]Scaling",     64, NULL,     NULL,     NULL,     NULL     },
-	{ 0x82, 1,  0,  127, "[AEG ]Center[ Note]",    64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x80, 1,  0,   15, "Pan",                     7, NULL,     NULL,     getsvpan, NULL     }, // 0=Left..14=Right, 15=Scaling
+	{ 0x81, 1, 57,   71, "[AEG Rate ]Scaling",     64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x82, 1,  0,  127, "[AEG ]Center[ Note]",    64, NULL,     NULL,     getsnote, NULL     },
 	{ 0x83, 1,  0,   15, "[AEG Key On ]Delay",      0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x84, 1,  0,  127, "[AEG ]Attack[ Rate]",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x85, 1,  0,  127, "[AEG ]Decay 1[ Rate]",    0, NULL,     NULL,     NULL,     NULL     },
@@ -2695,7 +2720,7 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x88, 1,  0,  127, "[AEG Decay ]Level 1",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",     0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x8a, 2,  0,16383, "[Address ]Offset",        0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x8c, 1, 57,   71, "Resonance[ Sensitivity]",64, NULL,     NULL,     NULL,     NULL     }
+	{ 0x8c, 1, 57,   71, "Resonance[ Sensitivity]",64, getv0x40, getu0x40, NULL,     NULL     }
 	// [Element 2]
 	// ...
 };
