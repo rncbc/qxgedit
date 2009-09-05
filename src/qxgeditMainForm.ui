@@ -1688,6 +1688,9 @@
             <item row="2" column="7" >
              <widget class="qxgeditDial" name="UservoiceFEGLevel4Dial" />
             </item>
+            <item row="3" column="0" colspan="4" >
+             <widget class="qxgeditScale" name="UservoiceCutoffScale" />
+            </item>
             <item row="0" column="8" >
              <spacer>
               <property name="orientation" >
@@ -1701,7 +1704,7 @@
               </property>
              </spacer>
             </item>
-            <item row="3" column="0" colspan="9" >
+            <item row="4" column="0" colspan="9" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -1754,6 +1757,9 @@
             <item row="1" column="4" >
              <widget class="qxgeditDial" name="UservoicePanDial" />
             </item>
+            <item row="2" column="0" conspan="4" >
+             <widget class="qxgeditScale" name="UservoiceLevelScale" />
+            </item>
             <item row="0" column="6" >
              <spacer>
               <property name="orientation" >
@@ -1767,7 +1773,7 @@
               </property>
              </spacer>
             </item>
-            <item row="2" column="0" colspan="7" >
+            <item row="3" column="0" colspan="7" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
@@ -2174,6 +2180,12 @@
    <class>qxgeditEdit</class>
    <extends>QLineEdit</extends>
    <header>qxgeditEdit.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>qxgeditScale</class>
+   <extends>QFrame</extends>
+   <header>qxgeditScale.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

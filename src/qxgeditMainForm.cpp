@@ -678,6 +678,108 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(toggled(bool)),
 		SLOT(uservoiceAutoSendCheckToggled(bool)));
 
+	// Cutoff Scale...
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(break1Changed(unsigned short)),
+		m_ui.UservoiceCutoffBreak1Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffBreak1Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setBreak1(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(break2Changed(unsigned short)),
+		m_ui.UservoiceCutoffBreak2Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffBreak2Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setBreak2(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(break3Changed(unsigned short)),
+		m_ui.UservoiceCutoffBreak3Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffBreak3Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setBreak3(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(break4Changed(unsigned short)),
+		m_ui.UservoiceCutoffBreak4Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffBreak4Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setBreak4(unsigned short)));
+
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(offset1Changed(unsigned short)),
+		m_ui.UservoiceCutoffOffset1Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffOffset1Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setOffset1(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(offset2Changed(unsigned short)),
+		m_ui.UservoiceCutoffOffset2Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffOffset2Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setOffset2(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(offset3Changed(unsigned short)),
+		m_ui.UservoiceCutoffOffset3Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffOffset3Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setOffset3(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffScale, SIGNAL(offset4Changed(unsigned short)),
+		m_ui.UservoiceCutoffOffset4Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffOffset4Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceCutoffScale, SLOT(setOffset4(unsigned short)));
+
+	// Level Scale...
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(break1Changed(unsigned short)),
+		m_ui.UservoiceLevelBreak1Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelBreak1Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setBreak1(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(break2Changed(unsigned short)),
+		m_ui.UservoiceLevelBreak2Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelBreak2Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setBreak2(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(break3Changed(unsigned short)),
+		m_ui.UservoiceLevelBreak3Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelBreak3Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setBreak3(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(break4Changed(unsigned short)),
+		m_ui.UservoiceLevelBreak4Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelBreak4Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setBreak4(unsigned short)));
+
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(offset1Changed(unsigned short)),
+		m_ui.UservoiceLevelOffset1Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelOffset1Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setOffset1(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(offset2Changed(unsigned short)),
+		m_ui.UservoiceLevelOffset2Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelOffset2Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setOffset2(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(offset3Changed(unsigned short)),
+		m_ui.UservoiceLevelOffset3Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelOffset3Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setOffset3(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelScale, SIGNAL(offset4Changed(unsigned short)),
+		m_ui.UservoiceLevelOffset4Dial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceLevelOffset4Dial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceLevelScale, SLOT(setOffset4(unsigned short)));
+
   	m_ui.UservoiceNameEdit         -> set_param_map(USERVOICE, 0x00);
 	m_ui.UservoiceElementDial      -> set_param_map(USERVOICE, 0x0b);
 	m_ui.UservoiceLevelDial        -> set_param_map(USERVOICE, 0x0c);
@@ -761,6 +863,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.UservoiceAEGLevel2Dial    -> set_param_map(USERVOICE, 0x89);
 	m_ui.UservoiceAddrOffsetDial   -> set_param_map(USERVOICE, 0x8a);
 	m_ui.UservoiceResonanceDial    -> set_param_map(USERVOICE, 0x8c);
+
+	// Make sure there's nothing pending...
+	m_pParamMap->reset_user_dirty();
+	m_iDirtyCount = 0;
 
 	// Is any session pending to be loaded?
 	if (!m_pOptions->sSessionFile.isEmpty()) {

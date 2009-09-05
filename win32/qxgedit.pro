@@ -16,6 +16,7 @@ HEADERS += ../src/XGParam.h \
            ../src/qxgeditKnob.h \
            ../src/qxgeditPartEg.h \
            ../src/qxgeditPitch.h \
+           ../src/qxgeditScale.h \
            ../src/qxgeditSpin.h \
            ../src/qxgeditVibra.h \
            ../src/qxgeditMidiDevice.h \
@@ -38,6 +39,7 @@ SOURCES += ../src/XGParam.cpp \
            ../src/qxgeditKnob.cpp \
            ../src/qxgeditPartEg.cpp \
            ../src/qxgeditPitch.cpp \
+           ../src/qxgeditScale.cpp \
            ../src/qxgeditSpin.cpp \
            ../src/qxgeditVibra.cpp \
            ../src/qxgeditMidiDevice.cpp \
