@@ -53,9 +53,6 @@ qxgeditPartEg::~qxgeditPartEg (void)
 // Parameter accessors.
 void qxgeditPartEg::setAttack ( unsigned short iAttack )
 {
-	if (m_iDragNode >= 0)
-		return;
-
 	if (m_iAttack != iAttack) {
 		m_iAttack  = iAttack;
 		update();
@@ -88,9 +85,6 @@ unsigned short qxgeditPartEg::decay (void) const
 
 void qxgeditPartEg::setRelease ( unsigned short iRelease )
 {
-	if (m_iDragNode >= 0)
-		return;
-
 	if (m_iRelease != iRelease) {
 		m_iRelease  = iRelease;
 		update();
@@ -145,13 +139,13 @@ void qxgeditPartEg::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.setBrush(grad);
 	painter.drawPath(path);
 
+	painter.setBrush(pal.mid().color());
+	painter.drawRect(nodeRect(1));
+	painter.drawRect(nodeRect(4));
 	painter.setBrush(rgbLite); // pal.midlight().color()
 	painter.drawRect(nodeRect(2));
 	painter.drawRect(nodeRect(3));
 	painter.drawRect(nodeRect(5));
-	painter.setBrush(pal.mid().color());
-	painter.drawRect(nodeRect(1));
-	painter.drawRect(nodeRect(4));
 
 #ifdef CONFIG_DEBUG_0
 	painter.drawText(QFrame::rect(),
@@ -178,14 +172,14 @@ QRect qxgeditPartEg::nodeRect ( int iNode ) const
 
 int qxgeditPartEg::nodeIndex ( const QPoint& pos ) const
 {
-	if (nodeRect(2).contains(pos))
-		return 2; // Attack
+	if (nodeRect(5).contains(pos))
+		return 5; // Release
 
 	if (nodeRect(3).contains(pos))
 		return 3; // Decay
 
-	if (nodeRect(5).contains(pos))
-		return 5; // Release
+	if (nodeRect(2).contains(pos))
+		return 2; // Attack
 
 	return -1;
 }
@@ -213,18 +207,16 @@ void qxgeditPartEg::dragNode ( const QPoint& pos )
 		else
 		if (iValue > 127) iValue = 127;
 		if (*piValue != (unsigned short) iValue) {
-			*piValue  = (unsigned short) iValue;
 			m_posDrag = pos;
-			update();
 			switch (m_iDragNode) {
 			case 2: // Attack
-				emit attackChanged(attack());
+				setAttack(iValue);
 				break;
 			case 3: // Decay
-				emit decayChanged(decay());
+				setDecay(iValue);
 				break;
 			case 5: // Release
-				emit releaseChanged(release());
+				setRelease(iValue);
 				break;
 			}
 		}

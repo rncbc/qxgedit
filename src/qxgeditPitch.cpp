@@ -54,9 +54,6 @@ qxgeditPitch::~qxgeditPitch (void)
 // Parameter accessors.
 void qxgeditPitch::setAttackTime ( unsigned short iAttackTime )
 {
-	if (m_iDragNode >= 0)
-		return;
-
 	if (m_iAttackTime != iAttackTime) {
 		m_iAttackTime  = iAttackTime;
 		update();
@@ -72,9 +69,6 @@ unsigned short qxgeditPitch::attackTime (void) const
 
 void qxgeditPitch::setAttackLevel ( unsigned short iAttackLevel )
 {
-	if (m_iDragNode >= 0)
-		return;
-
 	if (m_iAttackLevel != iAttackLevel) {
 		m_iAttackLevel  = iAttackLevel;
 		update();
@@ -90,9 +84,6 @@ unsigned short qxgeditPitch::attackLevel (void) const
 
 void qxgeditPitch::setReleaseTime ( unsigned short iReleaseTime )
 {
-	if (m_iDragNode >= 0)
-		return;
-
 	if (m_iReleaseTime != iReleaseTime) {
 		m_iReleaseTime  = iReleaseTime;
 		update();
@@ -108,9 +99,6 @@ unsigned short qxgeditPitch::releaseTime (void) const
 
 void qxgeditPitch::setReleaseLevel ( unsigned short iReleaseLevel )
 {
-	if (m_iDragNode >= 0)
-		return;
-
 	if (m_iReleaseLevel != iReleaseLevel) {
 		m_iReleaseLevel  = iReleaseLevel;
 		update();
@@ -139,9 +127,9 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 	int x3 = x2 << 1;
 
 	int x1 = x2 - int((m_iAttackTime * w4) >> 7);
-	int y1 = h2 - ((int(m_iAttackLevel) - 64) * (h - 12)) / 128;
+	int y1 = h2 - ((int(m_iAttackLevel) - 64) * (h - 12) >> 7);
 	int x4 = x3 + int((m_iReleaseTime * w4) >> 7);
-	int y2 = h2 - ((int(m_iReleaseLevel) - 64) * (h - 12)) / 128;
+	int y2 = h2 - ((int(m_iReleaseLevel) - 64) * (h - 12) >> 7);
 
 	m_poly.putPoints(0, 4,
 		x1, y1,
@@ -156,12 +144,12 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 	painter.drawPolyline(m_poly);
 
-	painter.setBrush(rgbLite); // pal.midlight().color()
-	painter.drawRect(nodeRect(0));
-	painter.drawRect(nodeRect(3));
 	painter.setBrush(pal.mid().color());
 	painter.drawRect(nodeRect(1));
 	painter.drawRect(nodeRect(2));
+	painter.setBrush(rgbLite); // pal.midlight().color()
+	painter.drawRect(nodeRect(0));
+	painter.drawRect(nodeRect(3));
 
 #ifdef CONFIG_DEBUG_0
 	painter.drawText(QFrame::rect(),
@@ -189,11 +177,11 @@ QRect qxgeditPitch::nodeRect ( int iNode ) const
 
 int qxgeditPitch::nodeIndex ( const QPoint& pos ) const
 {
-	if (nodeRect(0).contains(pos))
-		return 0; // Attack
-
 	if (nodeRect(3).contains(pos))
 		return 3; // Release
+
+	if (nodeRect(0).contains(pos))
+		return 0; // Attack
 
 	return -1;
 }
@@ -228,18 +216,15 @@ void qxgeditPitch::dragNode ( const QPoint& pos )
 		if (iLevel > 127) iLevel = 127;
 		if (*piTime  != (unsigned short) iTime ||
 			*piLevel != (unsigned short) iLevel) {
-			*piTime   = iTime;
-			*piLevel  = iLevel;
 			m_posDrag = pos;
-			update();
 			switch (m_iDragNode) {
 			case 0: // Attack
-				emit attackTimeChanged(attackTime());
-				emit attackLevelChanged(attackLevel());
+				setAttackTime(iTime);
+				setAttackLevel(iLevel);
 				break;
 			case 3: // Release
-				emit releaseTimeChanged(releaseTime());
-				emit releaseLevelChanged(releaseLevel());
+				setReleaseTime(iTime);
+				setReleaseLevel(iLevel);
 				break;
 			}
 		}

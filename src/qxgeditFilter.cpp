@@ -52,9 +52,6 @@ qxgeditFilter::~qxgeditFilter (void)
 // Parameter accessors.
 void qxgeditFilter::setCutoff ( unsigned short iCutoff )
 {
-	if (m_bDragging)
-		return;
-
 	if (m_iCutoff != iCutoff) {
 		m_iCutoff  = iCutoff;
 		update();
@@ -156,19 +153,12 @@ void qxgeditFilter::dragCurve ( const QPoint& pos )
 	else
 	if (iResonance > 127) iResonance = 127;
 
-	if (m_iCutoff == (unsigned short) iCutoff &&
-		m_iResonance == (unsigned short) iResonance)
-		return;
-
-	m_iCutoff = (unsigned short) iCutoff;
-	m_iResonance = (unsigned short) iResonance;
-
-	m_posDrag = pos;
-
-	update();
-
-	emit cutoffChanged(cutoff());
-	emit resonanceChanged(resonance());
+	if (m_iCutoff    != (unsigned short) iCutoff ||
+		m_iResonance != (unsigned short) iResonance) {
+		m_posDrag = pos;
+		setCutoff(iCutoff);
+		setResonance(iResonance);
+	}
 }
 
 

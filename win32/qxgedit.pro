@@ -6,6 +6,7 @@ HEADERS += ../src/XGParam.h \
            ../src/XGParamSysex.h \
            ../src/qxgeditXGParamMap.h \
            ../src/qxgeditAbout.h \
+           ../src/qxgeditAmpEg.h \
            ../src/qxgeditCheck.h \
            ../src/qxgeditCombo.h \
            ../src/qxgeditDial.h \
@@ -18,6 +19,7 @@ HEADERS += ../src/XGParam.h \
            ../src/qxgeditPitch.h \
            ../src/qxgeditScale.h \
            ../src/qxgeditSpin.h \
+           ../src/qxgeditUserEg.h \
            ../src/qxgeditVibra.h \
            ../src/qxgeditMidiDevice.h \
            ../src/qxgeditOptions.h \
@@ -29,6 +31,7 @@ SOURCES += ../src/XGParam.cpp \
            ../src/XGParamWidget.cpp \
            ../src/XGParamSysex.cpp \
            ../src/qxgeditXGParamMap.cpp \
+           ../src/qxgeditAmpEg.cpp \
            ../src/qxgeditCheck.cpp \
            ../src/qxgeditCombo.cpp \
            ../src/qxgeditDial.cpp \
@@ -41,6 +44,7 @@ SOURCES += ../src/XGParam.cpp \
            ../src/qxgeditPitch.cpp \
            ../src/qxgeditScale.cpp \
            ../src/qxgeditSpin.cpp \
+           ../src/qxgeditUserEg.cpp \
            ../src/qxgeditVibra.cpp \
            ../src/qxgeditMidiDevice.cpp \
            ../src/qxgeditOptions.cpp \

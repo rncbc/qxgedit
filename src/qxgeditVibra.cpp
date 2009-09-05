@@ -197,12 +197,9 @@ void qxgeditVibra::dragNode ( const QPoint& pos )
 		if (iDepth > 127) iDepth = 127;
 		if (m_iRate  != (unsigned short) iRate ||
 			m_iDepth != (unsigned short) iDepth) {
-			m_iRate   = (unsigned short) iRate;
-			m_iDepth  = (unsigned short) iDepth;
 			m_posDrag = pos;
-			update();
-			emit rateChanged(rate());
-			emit depthChanged(depth());
+			setRate(iRate);
+			setDepth(iDepth);
 		}
 	}
 	else
@@ -220,12 +217,9 @@ void qxgeditVibra::dragNode ( const QPoint& pos )
 		if (iDepth > 127) iDepth = 127;
 		if (m_iDelay != (unsigned short) iDelay ||
 			m_iDepth != (unsigned short) iDepth) {
-			m_iDelay  = (unsigned short) iDelay;
-			m_iDepth  = (unsigned short) iDepth;
 			m_posDrag = pos;
-			update();
-			emit delayChanged(delay());
-			emit depthChanged(depth());
+			setDelay(iDelay);
+			setDepth(iDepth);
 		}
 	}
 	else
