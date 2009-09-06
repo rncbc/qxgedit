@@ -68,9 +68,6 @@ unsigned short qxgeditPartEg::attack (void) const
 
 void qxgeditPartEg::setDecay ( unsigned short iDecay )
 {
-	if (m_iDragNode >= 0)
-		return;
-
 	if (m_iDecay != iDecay) {
 		m_iDecay  = iDecay;
 		update();

@@ -170,9 +170,9 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 void qxgeditFilter::dragCurve ( const QPoint& pos )
 {
 	int iCutoff = int(m_iCutoff)
-		+ ((pos.x() - m_posDrag.x()) << 7) / width();
+		+ ((pos.x() - m_posDrag.x()) * (m_iMaxCutoff + 1) * 3) / (width() << 1);
 	int iResonance = int(m_iResonance)
-		+ ((m_posDrag.y() - pos.y()) << 7) / height();
+		+ ((m_posDrag.y() - pos.y()) * (m_iMaxResonance + 1)) / (height() >> 1);
 
 	if (iCutoff < 0) iCutoff = 0;
 	else

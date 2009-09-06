@@ -312,7 +312,7 @@ void qxgeditAmpEg::mousePressEvent ( QMouseEvent *pMouseEvent )
 		const QPoint& pos = pMouseEvent->pos();
 		int iDragNode = nodeIndex(pos);
 		if (iDragNode >= 0) {
-			setCursor(iDragNode == 2 || iDragNode == 3
+			setCursor(iDragNode == 3 || iDragNode == 4
 				? Qt::SizeAllCursor
 				: Qt::SizeHorCursor);
 			m_iDragNode = iDragNode;
