@@ -34,6 +34,7 @@ qxgeditFilter::qxgeditFilter (
 	QWidget *pParent, Qt::WindowFlags wflags )
 	: QFrame(pParent, wflags),
 		m_iCutoff(0), m_iResonance(0),
+		m_iMaxCutoff(127), m_iMaxResonance(127),
 		m_bDragging(false)
 {
 	setMinimumSize(QSize(160, 80));
@@ -52,6 +53,9 @@ qxgeditFilter::~qxgeditFilter (void)
 // Parameter accessors.
 void qxgeditFilter::setCutoff ( unsigned short iCutoff )
 {
+	if (iCutoff > m_iMaxCutoff)
+		iCutoff = m_iMaxCutoff;
+
 	if (m_iCutoff != iCutoff) {
 		m_iCutoff  = iCutoff;
 		update();
@@ -66,6 +70,9 @@ unsigned short qxgeditFilter::cutoff (void) const
 
 void qxgeditFilter::setResonance ( unsigned short iResonance )
 {
+	if (iResonance > m_iMaxResonance)
+		iResonance = m_iMaxResonance;
+
 	if (m_iResonance != iResonance) {
 		m_iResonance  = iResonance;
 		update();
@@ -76,6 +83,28 @@ void qxgeditFilter::setResonance ( unsigned short iResonance )
 unsigned short qxgeditFilter::resonance (void) const
 {
 	return m_iResonance;
+}
+
+
+// Parameter range modifiers.
+void qxgeditFilter::setMaxCutoff ( unsigned short iMaxCutoff )
+{
+	m_iMaxCutoff = iMaxCutoff;
+}
+
+unsigned short qxgeditFilter::maxCutoff (void) const
+{
+	return m_iMaxCutoff;
+}
+
+void qxgeditFilter::setMaxResonance ( unsigned short iMaxResonance )
+{
+	m_iMaxResonance = iMaxResonance;
+}
+
+unsigned short qxgeditFilter::maxResonance (void) const
+{
+	return m_iMaxResonance;
 }
 
 
@@ -92,8 +121,8 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	int w4 = w >> 2;
 	int w8 = w >> 3;
 
-	int x = w8 + int((m_iCutoff * (w - w4)) >> 7);
-	int y = h2 - int((m_iResonance * (h + h4)) >> 7);
+	int x = w8 + int((m_iCutoff * (w - w4)) / (m_iMaxCutoff + 1));
+	int y = h2 - int((m_iResonance * (h + h4)) / (m_iMaxResonance + 1));
 
 	QPolygon poly(6);
 	poly.putPoints(0, 6,
@@ -127,8 +156,8 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	painter.drawText(QFrame::rect(),
 		Qt::AlignTop|Qt::AlignHCenter,
 		tr("Cutoff (%1) Resonance (%2)")
-		.arg(int(cutoff()) - 64)
-		.arg(int(resonance()) - 64));
+		.arg(int(cutoff()))
+		.arg(int(resonance())));
 #endif
 
 	painter.end();
@@ -147,11 +176,11 @@ void qxgeditFilter::dragCurve ( const QPoint& pos )
 
 	if (iCutoff < 0) iCutoff = 0;
 	else
-	if (iCutoff > 127) iCutoff = 127;
+	if (iCutoff > m_iMaxCutoff) iCutoff = m_iMaxCutoff;
 
 	if (iResonance < 0) iResonance = 0;
 	else
-	if (iResonance > 127) iResonance = 127;
+	if (iResonance > m_iMaxResonance) iResonance = m_iMaxResonance;
 
 	if (m_iCutoff    != (unsigned short) iCutoff ||
 		m_iResonance != (unsigned short) iResonance) {

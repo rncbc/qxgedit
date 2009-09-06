@@ -43,6 +43,13 @@ public:
 	unsigned short cutoff() const;
 	unsigned short resonance() const;
 
+	// Parameter range modifiers.
+	void setMaxCutoff(unsigned short iMaxCutoff);
+	unsigned short maxCutoff() const;
+
+	void setMaxResonance(unsigned short iMaxResonance);
+	unsigned short maxResonance() const;
+
 public slots:
 
 	// Parameter setters.
@@ -73,6 +80,9 @@ private:
 	// Instance state.
 	unsigned short m_iCutoff;
 	unsigned short m_iResonance;
+
+	unsigned short m_iMaxCutoff;
+	unsigned short m_iMaxResonance;
 
 	// Drag state.
 	bool   m_bDragging;

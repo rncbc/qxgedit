@@ -244,11 +244,12 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(clicked()),
 		SLOT(masterResetButtonClicked()));
 
+	// SYSTEM widget mapping...
 	m_ui.MasterTuneDial            -> set_param_map(SYSTEM, 0x00);
 	m_ui.MasterVolumeDial          -> set_param_map(SYSTEM, 0x04);
 	m_ui.MasterTransposeDial       -> set_param_map(SYSTEM, 0x06);
 
-	// REVERB...
+	// REVERB widget mapping...
 	m_ui.ReverbTypeCombo           -> set_param_map(REVERB, 0x00);
 	m_ui.ReverbParam1Dial          -> set_param_map(REVERB, 0x02);
 	m_ui.ReverbParam2Dial          -> set_param_map(REVERB, 0x03);
@@ -269,7 +270,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.ReverbParam15Dial         -> set_param_map(REVERB, 0x14);
 	m_ui.ReverbParam16Dial         -> set_param_map(REVERB, 0x15);
 
-	// CHORUS...
+	// CHORUS widget mapping...
 	m_ui.ChorusTypeCombo           -> set_param_map(CHORUS, 0x20);
 	m_ui.ChorusParam1Dial          -> set_param_map(CHORUS, 0x22);
 	m_ui.ChorusParam2Dial          -> set_param_map(CHORUS, 0x23);
@@ -291,7 +292,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.ChorusParam15Dial         -> set_param_map(CHORUS, 0x34);
 	m_ui.ChorusParam16Dial         -> set_param_map(CHORUS, 0x35);
 
-	// VARIATION...
+	// VARIATION widget mapping...
 	m_ui.VariationTypeCombo        -> set_param_map(VARIATION, 0x40);
 	m_ui.VariationParam1Dial       -> set_param_map(VARIATION, 0x42);
 	m_ui.VariationParam2Dial       -> set_param_map(VARIATION, 0x44);
@@ -326,7 +327,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iPart = 0; iPart < 16; ++iPart)
 		m_ui.MultipartCombo->addItem(tr("Part %1").arg(iPart + 1));
 
-	// Instrument model/view combo-box...
+	// MULTIPART Instrument model/view combo-box...
 	QTreeWidget *pMultipartVoiceListView = new QTreeWidget();
 	pMultipartVoiceListView->header()->hide();
 	pMultipartVoiceListView->setRootIsDecorated(true);
@@ -360,7 +361,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	}
 	pMultipartVoiceListView->addTopLevelItems(items);
 
-	// Special values...
+	// MULTIPART Special values...
 	m_ui.MultipartPanDial->setSpecialValueText(tr("Random"));
 
 	QObject::connect(m_ui.MultipartResetButton,
@@ -386,7 +387,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(valueChanged(unsigned short)),
 		SLOT(multipartPartModeChanged(unsigned short)));
 
-	// AmpEg...
+	// MULTIPART AmpEg...
 	QObject::connect(
 		m_ui.MultipartAmpEg, SIGNAL(attackChanged(unsigned short)),
 		m_ui.MultipartAttackDial, SLOT(setValue(unsigned short)));
@@ -406,7 +407,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.MultipartReleaseDial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.MultipartAmpEg, SLOT(setRelease(unsigned short)));
 
-	// Filter...
+	// MULTIPART Filter...
 	QObject::connect(
 		m_ui.MultipartFilter, SIGNAL(cutoffChanged(unsigned short)),
 		m_ui.MultipartCutoffDial, SLOT(setValue(unsigned short)));
@@ -420,7 +421,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.MultipartResonanceDial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.MultipartFilter, SLOT(setResonance(unsigned short)));
 
-	// Pitch...
+	// MULTIPART Pitch...
 	QObject::connect(
 		m_ui.MultipartPitch, SIGNAL(attackTimeChanged(unsigned short)),
 		m_ui.MultipartAttackTimeDial, SLOT(setValue(unsigned short)));
@@ -446,7 +447,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.MultipartReleaseLevelDial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.MultipartPitch, SLOT(setReleaseLevel(unsigned short)));
 
-	// Vibrato...
+	// MULTIPART Vibrato...
 	QObject::connect(
 		m_ui.MultipartVibra, SIGNAL(delayChanged(unsigned short)),
 		m_ui.MultipartDelayDial, SLOT(setValue(unsigned short)));
@@ -466,6 +467,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.MultipartDepthDial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.MultipartVibra, SLOT(setDepth(unsigned short)));
 
+	// MULTIPART widget mapping...
 	m_ui.MultipartElementDial      -> set_param_map(MULTIPART, 0x00);
 	m_ui.MultipartBankMSBDial      -> set_param_map(MULTIPART, 0x01);
 	m_ui.MultipartBankLSBDial      -> set_param_map(MULTIPART, 0x02);
@@ -583,7 +585,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 
 	drumsetupVoiceComboActivated(0);
 
-	// Special values...
+	// DRUMSETUP Special values...
 	m_ui.DrumsetupGroupDial->setSpecialValueText(tr("Off"));
 	m_ui.DrumsetupPanDial->setSpecialValueText(tr("Random"));
 
@@ -600,7 +602,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(activated(int)),
 		SLOT(drumsetupNoteComboActivated(int)));
 
-	// Filter...
+	// DRUMSETUP Filter...
 	QObject::connect(
 		m_ui.DrumsetupFilter, SIGNAL(cutoffChanged(unsigned short)),
 		m_ui.DrumsetupCutoffDial, SLOT(setValue(unsigned short)));
@@ -614,7 +616,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.DrumsetupResonanceDial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.DrumsetupFilter, SLOT(setResonance(unsigned short)));
 
-	// AmpEg...
+	// DRUMSETUP AmpEg...
 	QObject::connect(
 		m_ui.DrumsetupAmpEg, SIGNAL(attackChanged(unsigned short)),
 		m_ui.DrumsetupAttackDial, SLOT(setValue(unsigned short)));
@@ -634,6 +636,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.DrumsetupDecay2Dial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.DrumsetupAmpEg, SLOT(setDecay2(unsigned short)));
 
+	// DRUMSETUP widget mapping...
 	m_ui.DrumsetupCoarseDial       -> set_param_map(DRUMSETUP, 0x00);
 	m_ui.DrumsetupFineDial         -> set_param_map(DRUMSETUP, 0x01);
 	m_ui.DrumsetupLevelDial        -> set_param_map(DRUMSETUP, 0x02);
@@ -678,7 +681,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(toggled(bool)),
 		SLOT(uservoiceAutoSendCheckToggled(bool)));
 
-	// Pitch EG...
+	// USERVOICE Pitch EG...
 	QObject::connect(
 		m_ui.UservoicePitchEg, SIGNAL(level0Changed(unsigned short)),
 		m_ui.UservoicePEGLevel0Dial, SLOT(setValue(unsigned short)));
@@ -735,7 +738,22 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.UservoicePEGRate4Dial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.UservoicePitchEg, SLOT(setRate4(unsigned short)));
 
-	// Cutoff Scale...
+	// USERVOICE Filter...
+	m_ui.UservoiceFilter->setMaxResonance(63);
+	QObject::connect(
+		m_ui.UservoiceFilter, SIGNAL(cutoffChanged(unsigned short)),
+		m_ui.UservoiceCutoffDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceCutoffDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceFilter, SLOT(setCutoff(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceFilter, SIGNAL(resonanceChanged(unsigned short)),
+		m_ui.UservoiceResonanceDial, SLOT(setValue(unsigned short)));
+	QObject::connect(
+		m_ui.UservoiceResonanceDial, SIGNAL(valueChanged(unsigned short)),
+		m_ui.UservoiceFilter, SLOT(setResonance(unsigned short)));
+
+	// USERVOICE Cutoff Scale...
 	QObject::connect(
 		m_ui.UservoiceCutoffScale, SIGNAL(break1Changed(unsigned short)),
 		m_ui.UservoiceCutoffBreak1Dial, SLOT(setValue(unsigned short)));
@@ -786,7 +804,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.UservoiceCutoffOffset4Dial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.UservoiceCutoffScale, SLOT(setOffset4(unsigned short)));
 
-	// Filter EG...
+	// USERVOICE Filter EG...
 	QObject::connect(
 		m_ui.UservoiceFilterEg, SIGNAL(level0Changed(unsigned short)),
 		m_ui.UservoiceFEGLevel0Dial, SLOT(setValue(unsigned short)));
@@ -843,7 +861,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.UservoiceFEGRate4Dial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.UservoiceFilterEg, SLOT(setRate4(unsigned short)));
 
-	// Level Scale...
+	// USERVOICE Level Scale...
 	QObject::connect(
 		m_ui.UservoiceLevelScale, SIGNAL(break1Changed(unsigned short)),
 		m_ui.UservoiceLevelBreak1Dial, SLOT(setValue(unsigned short)));
@@ -894,7 +912,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		m_ui.UservoiceLevelOffset4Dial, SIGNAL(valueChanged(unsigned short)),
 		m_ui.UservoiceLevelScale, SLOT(setOffset4(unsigned short)));
 
-	// Amp EG...
+	// USERVOICE Amp EG...
 	QObject::connect(
 		m_ui.UservoiceAmpEg, SIGNAL(attackChanged(unsigned short)),
 		m_ui.UservoiceAEGAttackDial, SLOT(setValue(unsigned short)));
@@ -969,9 +987,9 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.UservoicePEGLevel2Dial    -> set_param_map(USERVOICE, 0x5b);
 	m_ui.UservoicePEGLevel3Dial    -> set_param_map(USERVOICE, 0x5c);
 	m_ui.UservoicePEGLevel4Dial    -> set_param_map(USERVOICE, 0x5d);
-	m_ui.UservoiceFilterResoDial   -> set_param_map(USERVOICE, 0x5e);
+	m_ui.UservoiceResonanceDial    -> set_param_map(USERVOICE, 0x5e);
 	m_ui.UservoiceVelocityDial     -> set_param_map(USERVOICE, 0x5f);
-	m_ui.UservoiceCutoffFreqDial   -> set_param_map(USERVOICE, 0x60);
+	m_ui.UservoiceCutoffDial       -> set_param_map(USERVOICE, 0x60);
 	m_ui.UservoiceCutoffBreak1Dial -> set_param_map(USERVOICE, 0x61);
 	m_ui.UservoiceCutoffBreak2Dial -> set_param_map(USERVOICE, 0x62);
 	m_ui.UservoiceCutoffBreak3Dial -> set_param_map(USERVOICE, 0x63);
@@ -1013,8 +1031,8 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.UservoiceAEGReleaseDial   -> set_param_map(USERVOICE, 0x87);
 	m_ui.UservoiceAEGLevel1Dial    -> set_param_map(USERVOICE, 0x88);
 	m_ui.UservoiceAEGLevel2Dial    -> set_param_map(USERVOICE, 0x89);
-	m_ui.UservoiceAddrOffsetDial   -> set_param_map(USERVOICE, 0x8a);
-	m_ui.UservoiceResonanceDial    -> set_param_map(USERVOICE, 0x8c);
+	m_ui.UservoiceAEGOffsetDial    -> set_param_map(USERVOICE, 0x8a);
+	m_ui.UservoiceAEGResonanceDial -> set_param_map(USERVOICE, 0x8c);
 
 	// Make sure there's nothing pending...
 	m_pParamMap->reset_user_dirty();
