@@ -72,6 +72,9 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	QObject::connect(m_ui.BaseFontSizeComboBox,
 		SIGNAL(editTextChanged(const QString&)),
 		SLOT(changed()));
+	QObject::connect(m_ui.ConfirmResetCheckBox,
+		SIGNAL(stateChanged(int)),
+		SLOT(changed()));
 	QObject::connect(m_ui.OkPushButton,
 		SIGNAL(clicked()),
 		SLOT(accept()));
@@ -128,6 +131,7 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 		m_ui.BaseFontSizeComboBox->setEditText(QString::number(m_pOptions->iBaseFontSize));
 	else
 		m_ui.BaseFontSizeComboBox->setCurrentIndex(0);
+	m_ui.ConfirmResetCheckBox->setChecked(m_pOptions->bConfirmReset);
 
 	// Done. Restart clean.
 	m_iDirtyCount = 0;
@@ -176,6 +180,7 @@ void qxgeditOptionsForm::accept (void)
 		m_pOptions->bCompletePath   = m_ui.CompletePathCheckBox->isChecked();
 		m_pOptions->iMaxRecentFiles = m_ui.MaxRecentFilesSpinBox->value();
 		m_pOptions->iBaseFontSize   = m_ui.BaseFontSizeComboBox->currentText().toInt();
+		m_pOptions->bConfirmReset   = m_ui.ConfirmResetCheckBox->isChecked();
 		// Reset dirty flag.
 		m_iDirtyCount = 0;
 	}

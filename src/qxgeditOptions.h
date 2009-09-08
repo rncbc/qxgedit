@@ -55,6 +55,7 @@ public:
 	// Display options...
 	bool    bCompletePath;
 	int     iBaseFontSize;
+	bool    bConfirmReset;
 
 	// View options...
 	bool    bMenubar;

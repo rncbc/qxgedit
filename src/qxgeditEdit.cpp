@@ -22,7 +22,7 @@
 #include "qxgeditAbout.h"
 #include "qxgeditEdit.h"
 
-#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLineEdit>
 #include <QLabel>
 
@@ -41,14 +41,15 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	m_pEdit  = new QLineEdit();
 
 	m_pEdit->setValidator(new QRegExpValidator(QRegExp("[ 0-9A-Za-z]+"), this));
+	m_pEdit->setMaximumWidth(120);
 
-	QVBoxLayout *pVBoxLayout = new QVBoxLayout();
-	pVBoxLayout->addWidget(m_pLabel);
-	pVBoxLayout->addWidget(m_pEdit);
-	pVBoxLayout->addSpacing(20);
-	QWidget::setLayout(pVBoxLayout);
-
-	QWidget::setMaximumWidth(120);
+	QHBoxLayout *pHBoxLayout = new QHBoxLayout();
+	pHBoxLayout->setMargin(2);
+	pHBoxLayout->setSpacing(4);
+	pHBoxLayout->addWidget(m_pLabel);
+	pHBoxLayout->addWidget(m_pEdit);
+//	pHBoxLayout->addSpacing(20);
+	QWidget::setLayout(pHBoxLayout);
 
 	QObject::connect(m_pEdit,
 		SIGNAL(textChanged(const QString&)),
@@ -84,8 +85,9 @@ void qxgeditEdit::set_param ( XGParam *pParam, Observer */*pSender*/ )
 	m_pParam = static_cast<XGDataParam *> (pParam);
 
 	if (m_pParam) {
-		m_pLabel->setText(m_pParam->label());
+		m_pLabel->setText(m_pParam->label() + ':');
 		m_pEdit->setMaxLength(m_pParam->size());
+		QWidget::setToolTip(m_pParam->text());
 		set_value(0, observer());
 	}
 }

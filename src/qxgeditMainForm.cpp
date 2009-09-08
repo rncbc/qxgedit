@@ -359,6 +359,13 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		QTreeWidgetItem *pVoiceItem = new QTreeWidgetItem(pInstrumentItem);
 		pVoiceItem->setText(0, drumkit.name());
 	}
+	pInstrumentItem = new QTreeWidgetItem(pMultipartVoiceListView);
+	pInstrumentItem->setFlags(Qt::ItemIsEnabled);
+	pInstrumentItem->setText(0, "QS300 User");
+	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
+		QTreeWidgetItem *pVoiceItem = new QTreeWidgetItem(pInstrumentItem);
+		pVoiceItem->setText(0, QString("QS300 User %1").arg(iUser + 1));
+	}
 	pMultipartVoiceListView->addTopLevelItems(items);
 
 	// MULTIPART Special values...
@@ -657,7 +664,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	// USERVOICE...
 	m_ui.UservoiceCombo->clear();
 	for (int iUser = 0; iUser < 32; ++iUser)
-		m_ui.UservoiceCombo->addItem(tr("User %1").arg(iUser + 1));
+		m_ui.UservoiceCombo->addItem(tr("QS300 User %1").arg(iUser + 1));
 
 	m_ui.UservoiceElementCombo->clear();
 	for (int iElem = 0; iElem < 2; ++iElem)
@@ -1693,11 +1700,23 @@ void qxgeditMainForm::updateRecentFilesMenu (void)
 // XG System Reset...
 void qxgeditMainForm::masterResetButtonClicked (void)
 {
-	if (m_pParamMap) {
-		XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7e);
-		if (pParam)
-			pParam->set_value_update(0);
+	if (m_pParamMap == NULL)
+		return;
+
+	if (m_pOptions && m_pOptions->bConfirmReset) {
+		if (QMessageBox::warning(this,
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to reset all parameters to default:\n\n"
+			"XG System.\n\n"
+			"Are you sure?"),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel)
+			return;
 	}
+
+	XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7e);
+	if (pParam)
+		pParam->set_value_update(0);
 }
 
 
@@ -1720,6 +1739,7 @@ void qxgeditMainForm::multipartVoiceComboActivated ( int iVoice )
 	const QModelIndex& parent
 		= m_ui.MultipartVoiceCombo->view()->currentIndex().parent();
 
+	// Check for a normal voice first...
 	XGInstrument instr(parent.row());
 	if (instr.group()) {
 		XGNormalVoice voice(&instr, iVoice);
@@ -1733,7 +1753,10 @@ void qxgeditMainForm::multipartVoiceComboActivated ( int iVoice )
 		m_ui.MultipartBankMSBDial->set_value_update(voice.bank() >> 7);
 		m_ui.MultipartBankLSBDial->set_value_update(voice.bank() & 0x7f);
 		m_ui.MultipartProgramDial->set_value_update(voice.prog());
-	} else {
+	}
+	else
+	if (parent.row() == XGInstrument::count()) {
+		// May it be a Drums voice...
 		XGDrumKit drumkit(iVoice);
 		if (drumkit.item()) {
 		#ifdef CONFIG_DEBUG
@@ -1747,6 +1770,23 @@ void qxgeditMainForm::multipartVoiceComboActivated ( int iVoice )
 			m_ui.MultipartBankLSBDial->set_value_update(drumkit.bank() & 0x7f);
 			m_ui.MultipartProgramDial->set_value_update(drumkit.prog());
 		}
+	}
+	else
+	if (parent.row() == XGInstrument::count() + 1) {
+	#ifdef CONFIG_DEBUG
+		qDebug("qxgeditMainForm::multipartVoiceComboActivated(%d)"
+			" parent=(%d) [QS300 User %d]",
+			iVoice, parent.row(),
+			iVoice + 1);
+	#endif
+		// Can only be a QS300 User voice...
+		m_ui.MultipartPartModeDial->reset_value();
+		m_ui.MultipartBankMSBDial->set_value_update(63);
+		m_ui.MultipartBankLSBDial->set_value_update(0);
+		m_ui.MultipartProgramDial->set_value_update(iVoice);
+		// QS300 USser voice immediate conviniency...
+		m_ui.UservoiceCombo->setCurrentIndex(iVoice);
+		uservoiceComboActivated(iVoice);
 	}
 
 	m_iMultipartVoiceUpdate--;
@@ -1766,6 +1806,7 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 
 	unsigned short i = 0;
 
+	// Normal regular voice lookup...
 	for (; i < XGInstrument::count(); ++i) {
 		XGInstrument instr(i);
 		int j = instr.find_voice(iBank, iProg);
@@ -1792,8 +1833,10 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 		}
 	}
 
+	// Drums voice lookup...
 	if (i >= XGInstrument::count()) {
-		for (unsigned short k = 0; k < XGDrumKit::count(); ++k) {
+		unsigned short k = 0;
+		for (; k < XGDrumKit::count(); ++k) {
 			XGDrumKit drumkit(k);
 			if (drumkit.bank() == iBank && drumkit.prog() == iProg) {
 			//	m_ui.MultipartVoiceCombo->showPopup();
@@ -1815,6 +1858,29 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 			//	m_ui.MultipartPartModeDial->set_value_update(1); // DRUMS
 				break;
 			}
+		}
+		// QS300 voice lookup...
+		if (k >= XGDrumKit::count() && iBank == (63 << 7)) {
+		//	m_ui.MultipartVoiceCombo->showPopup();
+			const QModelIndex& parent
+				= m_ui.MultipartVoiceCombo->model()->index(++i, 0);
+			const QModelIndex& index
+				= m_ui.MultipartVoiceCombo->model()->index(iProg, 0, parent);
+		#ifdef CONFIG_DEBUG
+			qDebug("qxgeditMainForm::multipartVoiceChanged(%d)"
+				" parent=%d bank=%u prog=%u [QS300 User %d]",
+				index.row(), parent.row(),
+				iBank, iProg, iProg + 1);
+		#endif
+		//	m_ui.MultipartVoiceCombo->view()->setCurrentIndex(index);
+			QModelIndex oldroot = m_ui.MultipartVoiceCombo->rootModelIndex();
+			m_ui.MultipartVoiceCombo->setRootModelIndex(parent);
+			m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
+			m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
+		//	m_ui.MultipartPartModeDial->reset_value();
+			// QS300 USser voice immediate conviniency...
+			m_ui.UservoiceCombo->setCurrentIndex(iProg);
+			uservoiceComboActivated(iProg);
 		}
 	}
 
@@ -1838,9 +1904,24 @@ void qxgeditMainForm::multipartPartModeChanged ( unsigned short iPartMode )
 
 void qxgeditMainForm::multipartResetButtonClicked (void)
 {
-	if (m_pParamMap)
-		m_pParamMap->reset_part(m_ui.MultipartCombo->currentIndex());
+	if (m_pParamMap == NULL)
+		return;
 
+	int iPart = m_ui.MultipartCombo->currentIndex();
+
+	if (m_pOptions && m_pOptions->bConfirmReset) {
+		if (QMessageBox::warning(this,
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to reset all parameters to default:\n\n"
+			"Part %1.\n\n"
+			"Are you sure?")
+			.arg(iPart + 1),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel)
+			return;
+	}
+
+	m_pParamMap->reset_part(iPart);
 	multipartVoiceChanged();
 }
 
@@ -1899,12 +1980,26 @@ void qxgeditMainForm::drumsetupNoteComboActivated ( int iNote )
 
 void qxgeditMainForm::drumsetupResetButtonClicked (void)
 {
-	if (m_pParamMap) {
-		int iDrumset = m_ui.DrumsetupCombo->currentIndex();
-		XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7d);
-		if (pParam)
-			pParam->set_value_update(iDrumset);
+	if (m_pParamMap == NULL)
+		return;
+
+	int iDrumset = m_ui.DrumsetupCombo->currentIndex();
+
+	if (m_pOptions && m_pOptions->bConfirmReset) {
+		if (QMessageBox::warning(this,
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to reset all parameters to default:\n\n"
+			"Drums %1.\n\n"
+			"Are you sure?")
+			.arg(iDrumset + 1),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel)
+			return;
 	}
+
+	XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7d);
+	if (pParam)
+		pParam->set_value_update(iDrumset);
 }
 
 
@@ -1929,11 +2024,25 @@ void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 
 void qxgeditMainForm::uservoiceResetButtonClicked (void)
 {
-	if (m_pParamMap) {
-		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
-		m_pParamMap->reset_user(iUser);
-		stabilizeForm();
+	if (m_pParamMap == NULL)
+		return;
+
+	int iUser = m_ui.UservoiceCombo->currentIndex();
+
+	if (m_pOptions && m_pOptions->bConfirmReset) {
+		if (QMessageBox::warning(this,
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to reset all parameters to default:\n\n"
+			"QS300 User %1.\n\n"
+			"Are you sure?")
+			.arg(iUser + 1),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel)
+			return;
 	}
+
+	m_pParamMap->reset_user(iUser);
+	stabilizeForm();
 }
 
 
