@@ -504,7 +504,7 @@
           </property>
           <widget class="QWidget" name="MultipartMainPage" >
            <attribute name="label" >
-            <string>MAIN</string>
+            <string>Main</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" colspan="2" >
@@ -668,7 +668,7 @@
           </widget>
           <widget class="QWidget" name="MultipartTonePage" >
            <attribute name="label" >
-            <string>TONE</string>
+            <string>Tone</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -824,7 +824,7 @@
           </widget>
           <widget class="QWidget" name="MultipartControlPage" >
            <attribute name="label" >
-            <string>CONTROL</string>
+            <string>Control</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -997,7 +997,7 @@
           </widget>
           <widget class="QWidget" name="MultipartOptionsPage" >
            <attribute name="label" >
-            <string>OPTIONS</string>
+            <string>Options</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" >
@@ -1503,84 +1503,63 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="UservoicePitchPage" >
+          <widget class="QWidget" name="UservoiceLevelPage" >
            <attribute name="label" >
-            <string>Pitch</string>
+            <string>Level</string>
            </attribute>
            <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="5" >
-             <widget class="QGroupBox" name="UservoicePitchEgBox" >
+            <item row="0" column="0" colspan="4" >
+             <widget class="QGroupBox" name="UservoiceLevelScaleBox" >
               <property name="title" >
-               <string>EG</string>
+               <string>Scale</string>
               </property>
               <layout class="QGridLayout" >
-               <item row="0" column="0" colspan="5" >
-                <widget class="qxgeditUserEg" name="UservoicePitchEg" />
+               <item row="0" column="0" colspan="4" >
+                <widget class="qxgeditScale" name="UservoiceLevelScale" />
                </item>
                <item row="1" column="0" >
-                <widget class="qxgeditDial" name="UservoicePEGLevel0Dial" />
+                <widget class="qxgeditDial" name="UservoiceLevelBreak1Dial" />
                </item>
                <item row="1" column="1" >
-                <widget class="qxgeditDial" name="UservoicePEGLevel1Dial" />
+                <widget class="qxgeditDial" name="UservoiceLevelBreak2Dial" />
                </item>
                <item row="1" column="2" >
-                <widget class="qxgeditDial" name="UservoicePEGLevel2Dial" />
+                <widget class="qxgeditDial" name="UservoiceLevelBreak3Dial" />
                </item>
                <item row="1" column="3" >
-                <widget class="qxgeditDial" name="UservoicePEGLevel3Dial" />
-               </item>
-               <item row="1" column="4" >
-                <widget class="qxgeditDial" name="UservoicePEGLevel4Dial" />
+                <widget class="qxgeditDial" name="UservoiceLevelBreak4Dial" />
                </item>
                <item row="2" column="0" >
-                <widget class="qxgeditDial" name="UservoicePEGCenterDial" />
+                <widget class="qxgeditDial" name="UservoiceLevelOffset1Dial" />
                </item>
                <item row="2" column="1" >
-                <widget class="qxgeditDial" name="UservoicePEGRate1Dial" />
+                <widget class="qxgeditDial" name="UservoiceLevelOffset2Dial" />
                </item>
                <item row="2" column="2" >
-                <widget class="qxgeditDial" name="UservoicePEGRate2Dial" />
+                <widget class="qxgeditDial" name="UservoiceLevelOffset3Dial" />
                </item>
                <item row="2" column="3" >
-                <widget class="qxgeditDial" name="UservoicePEGRate3Dial" />
-               </item>
-               <item row="2" column="4" >
-                <widget class="qxgeditDial" name="UservoicePEGRate4Dial" />
+                <widget class="qxgeditDial" name="UservoiceLevelOffset4Dial" />
                </item>
               </layout>
              </widget>
             </item>
-            <item row="0" column="5" colspan="4" >
-             <widget class="QGroupBox" name="UservoicePitchParamBox" >
+            <item row="0" column="4" colspan="5" >
+             <widget class="QGroupBox" name="UservoiceLevelParamBox" >
               <property name="title" >
                <string>Parameters</string>
               </property>
               <layout class="QGridLayout" >
                <item row="0" column="0" >
-                <widget class="qxgeditDial" name="UservoiceNoteShiftDial" />
+                <widget class="qxgeditDial" name="UservoiceElementLevelDial" />
                </item>
                <item row="0" column="1" >
-                <widget class="qxgeditDial" name="UservoiceDetuneDial" />
+                <widget class="qxgeditDial" name="UservoiceVelCurveDial" />
                </item>
                <item row="0" column="2" >
-                <widget class="qxgeditDial" name="UservoicePitchScalingDial" />
+                <widget class="qxgeditDial" name="UservoicePanDial" />
                </item>
-               <item row="0" column="3" >
-                <widget class="qxgeditDial" name="UservoicePitchCenterDial" />
-               </item>
-               <item row="1" column="0" >
-                <widget class="qxgeditDial" name="UservoicePEGDepthDial" />
-               </item>
-               <item row="1" column="1" >
-                <widget class="qxgeditDial" name="UservoicePEGVelLevelDial" />
-               </item>
-               <item row="1" column="2" >
-                <widget class="qxgeditDial" name="UservoicePEGVelRateDial" />
-               </item>
-               <item row="1" column="3" >
-                <widget class="qxgeditDial" name="UservoicePEGScalingDial" />
-               </item>
-               <item row="2" column="0" colspan="4" >
+               <item row="1" column="0" colspan="3" >
                 <spacer>
                  <property name="orientation" >
                   <enum>Qt::Vertical</enum>
@@ -1611,13 +1590,13 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="UservoiceFilterCutoffPage" >
+          <widget class="QWidget" name="UservoiceCutoffPage" >
            <attribute name="label" >
-            <string>Filter Cutoff</string>
+            <string>Cutoff</string>
            </attribute>
            <layout class="QGridLayout" >
             <item row="0" column="0" colspan="4" >
-             <widget class="QGroupBox" name="UservoiceFilterScaleBox" >
+             <widget class="QGroupBox" name="UservoiceCutoffScaleBox" >
               <property name="title" >
                <string>Scale</string>
               </property>
@@ -1807,63 +1786,84 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="UservoiceLevelPage" >
+          <widget class="QWidget" name="UservoicePitchEgPage" >
            <attribute name="label" >
-            <string>Level</string>
+            <string>Pitch EG</string>
            </attribute>
            <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="4" >
-             <widget class="QGroupBox" name="UservoiceLevelScaleBox" >
+            <item row="0" column="0" colspan="5" >
+             <widget class="QGroupBox" name="UservoicePitchEgBox" >
               <property name="title" >
-               <string>Scale</string>
+               <string>EG</string>
               </property>
               <layout class="QGridLayout" >
-               <item row="0" column="0" colspan="4" >
-                <widget class="qxgeditScale" name="UservoiceLevelScale" />
+               <item row="0" column="0" colspan="5" >
+                <widget class="qxgeditUserEg" name="UservoicePitchEg" />
                </item>
                <item row="1" column="0" >
-                <widget class="qxgeditDial" name="UservoiceLevelBreak1Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGLevel0Dial" />
                </item>
                <item row="1" column="1" >
-                <widget class="qxgeditDial" name="UservoiceLevelBreak2Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGLevel1Dial" />
                </item>
                <item row="1" column="2" >
-                <widget class="qxgeditDial" name="UservoiceLevelBreak3Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGLevel2Dial" />
                </item>
                <item row="1" column="3" >
-                <widget class="qxgeditDial" name="UservoiceLevelBreak4Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGLevel3Dial" />
+               </item>
+               <item row="1" column="4" >
+                <widget class="qxgeditDial" name="UservoicePEGLevel4Dial" />
                </item>
                <item row="2" column="0" >
-                <widget class="qxgeditDial" name="UservoiceLevelOffset1Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGCenterDial" />
                </item>
                <item row="2" column="1" >
-                <widget class="qxgeditDial" name="UservoiceLevelOffset2Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGRate1Dial" />
                </item>
                <item row="2" column="2" >
-                <widget class="qxgeditDial" name="UservoiceLevelOffset3Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGRate2Dial" />
                </item>
                <item row="2" column="3" >
-                <widget class="qxgeditDial" name="UservoiceLevelOffset4Dial" />
+                <widget class="qxgeditDial" name="UservoicePEGRate3Dial" />
+               </item>
+               <item row="2" column="4" >
+                <widget class="qxgeditDial" name="UservoicePEGRate4Dial" />
                </item>
               </layout>
              </widget>
             </item>
-            <item row="0" column="4" colspan="5" >
-             <widget class="QGroupBox" name="UservoiceLevelParamBox" >
+            <item row="0" column="5" colspan="4" >
+             <widget class="QGroupBox" name="UservoicePitchParamBox" >
               <property name="title" >
                <string>Parameters</string>
               </property>
               <layout class="QGridLayout" >
                <item row="0" column="0" >
-                <widget class="qxgeditDial" name="UservoiceElementLevelDial" />
+                <widget class="qxgeditDial" name="UservoiceNoteShiftDial" />
                </item>
                <item row="0" column="1" >
-                <widget class="qxgeditDial" name="UservoiceVelCurveDial" />
+                <widget class="qxgeditDial" name="UservoiceDetuneDial" />
                </item>
                <item row="0" column="2" >
-                <widget class="qxgeditDial" name="UservoicePanDial" />
+                <widget class="qxgeditDial" name="UservoicePitchScalingDial" />
                </item>
-               <item row="1" column="0" colspan="3" >
+               <item row="0" column="3" >
+                <widget class="qxgeditDial" name="UservoicePitchCenterDial" />
+               </item>
+               <item row="1" column="0" >
+                <widget class="qxgeditDial" name="UservoicePEGDepthDial" />
+               </item>
+               <item row="1" column="1" >
+                <widget class="qxgeditDial" name="UservoicePEGVelLevelDial" />
+               </item>
+               <item row="1" column="2" >
+                <widget class="qxgeditDial" name="UservoicePEGVelRateDial" />
+               </item>
+               <item row="1" column="3" >
+                <widget class="qxgeditDial" name="UservoicePEGScalingDial" />
+               </item>
+               <item row="2" column="0" colspan="4" >
                 <spacer>
                  <property name="orientation" >
                   <enum>Qt::Vertical</enum>

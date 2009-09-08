@@ -58,10 +58,10 @@ qxgeditOptions::qxgeditOptions (void)
 
 	// Load display options...
 	m_settings.beginGroup("/Display");
+	bConfirmReset   = m_settings.value("/ConfirmReset", true).toBool();
 	bCompletePath   = m_settings.value("/CompletePath", true).toBool();
 	iMaxRecentFiles = m_settings.value("/MaxRecentFiles", 5).toInt();
 	iBaseFontSize   = m_settings.value("/BaseFontSize", 0).toInt();
-	bConfirmReset   = m_settings.value("/ConfirmReset", true).toBool();
 	m_settings.endGroup();
 
 	// And go into view options group.
@@ -105,10 +105,10 @@ qxgeditOptions::~qxgeditOptions (void)
 
 	// Save display options.
 	m_settings.beginGroup("/Display");
+	m_settings.setValue("/ConfirmReset", bConfirmReset);
 	m_settings.setValue("/CompletePath", bCompletePath);
 	m_settings.setValue("/MaxRecentFiles", iMaxRecentFiles);
 	m_settings.setValue("/BaseFontSize", iBaseFontSize);
-	m_settings.setValue("/ConfirmReset", bConfirmReset);
 	m_settings.endGroup();
 
 	// View options group.

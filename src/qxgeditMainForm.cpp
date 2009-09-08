@@ -323,6 +323,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.VariationParam16Dial      -> set_param_map(VARIATION, 0x75);
 
 	// MULTIPART...
+	m_ui.MultipartCombo->setMaxVisibleItems(16);
 	m_ui.MultipartCombo->clear();
 	for (int iPart = 0; iPart < 16; ++iPart)
 		m_ui.MultipartCombo->addItem(tr("Part %1").arg(iPart + 1));
@@ -335,6 +336,8 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	pMultipartVoiceListView->setUniformRowHeights(true);
 	m_ui.MultipartVoiceCombo->setModel(pMultipartVoiceListView->model());
 	m_ui.MultipartVoiceCombo->setView(pMultipartVoiceListView);
+	m_ui.MultipartVoiceCombo->setMaxVisibleItems(16);
+	m_ui.MultipartVoiceCombo->setMinimumContentsLength(24);
 	m_ui.MultipartVoiceCombo->clear();
 
 	QList<QTreeWidgetItem *> items;
@@ -584,12 +587,15 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iDrumset = 0; iDrumset < 2; ++iDrumset)
 		m_ui.DrumsetupCombo->addItem(tr("Drums %1").arg(iDrumset + 1));
 
+	m_ui.DrumsetupVoiceCombo->setMaxVisibleItems(16);
 	m_ui.DrumsetupVoiceCombo->clear();
 	for (unsigned short k = 0; k < XGDrumKit::count(); ++k) {
 		XGDrumKit drumkit(k);
 		m_ui.DrumsetupVoiceCombo->addItem(drumkit.name());
 	}
 
+	m_ui.DrumsetupNoteCombo->setMaxVisibleItems(16);
+	m_ui.DrumsetupNoteCombo->setMinimumContentsLength(24);
 	drumsetupVoiceComboActivated(0);
 
 	// DRUMSETUP Special values...
@@ -662,6 +668,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.DrumsetupDecay2Dial       -> set_param_map(DRUMSETUP, 0x0f);
 
 	// USERVOICE...
+	m_ui.UservoiceCombo->setMaxVisibleItems(16);
 	m_ui.UservoiceCombo->clear();
 	for (int iUser = 0; iUser < 32; ++iUser)
 		m_ui.UservoiceCombo->addItem(tr("QS300 User %1").arg(iUser + 1));

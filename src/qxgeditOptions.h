@@ -53,9 +53,9 @@ public:
 	QString sSessionFile;
 
 	// Display options...
+	bool    bConfirmReset;
 	bool    bCompletePath;
 	int     iBaseFontSize;
-	bool    bConfirmReset;
 
 	// View options...
 	bool    bMenubar;
