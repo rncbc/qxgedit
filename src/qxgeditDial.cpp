@@ -117,19 +117,22 @@ void qxgeditDial::set_value_update ( unsigned short iValue )
 
 void qxgeditDial::set_value ( unsigned short iValue, Observer *pSender )
 {
-	if (m_iBusy == 0) {
-		m_iBusy++;
-		if (m_pSpin->param()) {
-			m_pSpin->setValue(iValue, pSender);
-			m_pKnob->setValue(int(m_pSpin->value()));
-		}
-		else
-		if (m_pDrop->param()) {
-			m_pDrop->setValue(iValue, pSender);
-			m_pKnob->setValue(int(m_pDrop->value()));
-		}
-		m_iBusy--;
+	if (m_iBusy > 0)
+		return;
+
+	m_iBusy++;
+
+	if (m_pSpin->param()) {
+		m_pSpin->setValue(iValue, pSender);
+		m_pKnob->setValue(int(m_pSpin->value()));
 	}
+	else
+	if (m_pDrop->param()) {
+		m_pDrop->setValue(iValue, pSender);
+		m_pKnob->setValue(int(m_pDrop->value()));
+	}
+
+	m_iBusy--;
 }
 
 unsigned short qxgeditDial::value (void) const
@@ -206,18 +209,27 @@ void qxgeditDial::setValue ( unsigned short iValue )
 // Internal widget slots.
 void qxgeditDial::knobValueChanged ( int iKnobValue )
 {
+	if (m_iBusy > 0)
+		return;
+
 	setValue(iKnobValue);
 	emit valueChanged(value());
 }
 
 void qxgeditDial::spinValueChanged ( unsigned short iSpinValue )
 {
+	if (m_iBusy > 0)
+		return;
+
 	setValue(iSpinValue);
 	emit valueChanged(value());
 }
 
 void qxgeditDial::dropValueChanged ( unsigned short iDropValue )
 {
+	if (m_iBusy > 0)
+		return;
+
 	setValue(iDropValue);
 	emit valueChanged(value());
 }

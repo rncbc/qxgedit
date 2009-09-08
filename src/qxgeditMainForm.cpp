@@ -1379,7 +1379,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 		unsigned short iRead = file.read((char *) pBuff + i, iBuff - i) + i;
 		while (i < iRead) {
 			if (pBuff[i++] == 0xf7) {
-				m_pParamMap->set_sysex_data(pBuff, i);
+				m_pParamMap->set_sysex_data(pBuff, i, true); // Feedback!
 				if (i < iRead) {
 					::memmove(pBuff, pBuff + i, iRead -= i);
 					i = 0;

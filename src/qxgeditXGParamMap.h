@@ -39,12 +39,13 @@ public:
 	~qxgeditXGParamMap();
 
 	// Direct SysEx data receiver.
-	bool set_sysex_data(unsigned char *data, unsigned short len);
+	bool set_sysex_data(
+		unsigned char *data, unsigned short len, bool bNotify = false);
 
 	// Direct parameter data access.
 	unsigned short set_param_data(
 		unsigned short high, unsigned short mid, unsigned short low,
-		unsigned char *data);
+		unsigned char *data, bool bNotify = false);
 
 	// All parameter reset (to default)
 	void reset_all();

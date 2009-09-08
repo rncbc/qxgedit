@@ -104,7 +104,7 @@ qxgeditXGParamMap::~qxgeditXGParamMap (void)
 
 // Direct SysEx data receiver.
 bool qxgeditXGParamMap::set_sysex_data (
-	unsigned char *data, unsigned short len )
+	unsigned char *data, unsigned short len, bool bNotify )
 {
 	 // SysEx (actually)...
 	if (data[0] != 0xf0 || data[len - 1] != 0xf7)
@@ -135,12 +135,16 @@ bool qxgeditXGParamMap::set_sysex_data (
 				unsigned short low  = data[8];
 				for (i = 0; i < size; ++i) {
 					// Parameter Change...
-					unsigned short n
-						= set_param_data(high, mid, low + i, &data[9 + i]);
+					unsigned short n = set_param_data(
+						high, mid, low + i, &data[9 + i],
+							(bNotify && high != 0x11));
 					if (n > 1)
 						i += (n - 1);
 				}
 				ret = (i == (size - 6));
+				// Deferred QS300 Bulk Dump feedback...
+				if (bNotify && high == 0x11)
+					send_user(mid);
 			}
 		}
 		else
@@ -149,7 +153,7 @@ bool qxgeditXGParamMap::set_sysex_data (
 			unsigned short high = data[4];
 			unsigned short mid  = data[5];
 			unsigned short low  = data[6];
-			ret = (set_param_data(high, mid, low, &data[7]) > 0);
+			ret = (set_param_data(high, mid, low, &data[7], bNotify) > 0);
 		}
 	}
 	
@@ -160,7 +164,7 @@ bool qxgeditXGParamMap::set_sysex_data (
 // Direct parameter data access.
 unsigned short qxgeditXGParamMap::set_param_data (
 	unsigned short high, unsigned short mid, unsigned short low,
-	unsigned char *data )
+	unsigned char *data, bool bNotify )
 {
 	XGParam *pParam = find_param(high, mid, low);
 	if (pParam == NULL)
@@ -169,13 +173,16 @@ unsigned short qxgeditXGParamMap::set_param_data (
 	if (!m_observers.contains(pParam))
 		return 0;
 
-	Observer *pObserver = m_observers.value(pParam);
+	Observer *pObserver = (bNotify ? NULL : m_observers.value(pParam));
 	if (pParam->size() > 4) {
 		XGDataParam *pDataParam = static_cast<XGDataParam *> (pParam);
 		pDataParam->set_data(data, pDataParam->size(), pObserver);
 	} else {
 		pParam->set_value(pParam->data_value(data), pObserver);
 	}
+
+	if (high == 0x11)
+		set_user_dirty(mid, true);
 
 #ifdef CONFIG_DEBUG
 	fprintf(stderr, "< %02x %02x %02x",
