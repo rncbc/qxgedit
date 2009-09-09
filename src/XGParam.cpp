@@ -2887,9 +2887,9 @@ XGParamItem USERVOICEParamTab[] =
 	// [Common]
 	{ 0x00, 8, 32,  127, "[Voice ]Name",            0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0b, 1,  1,    3, "Element[ Switch]",        1, NULL,     NULL,     getselem, NULL     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
-	{ 0x0c, 1,  0,  127, "[Voice ]Level",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0c, 1,  0,  127, "[Voice ]Level",          64, NULL,     NULL,     NULL,     NULL     },
 	// [Element 1]
-	{ 0x3d, 2,  1,  245, "Wave Form",               0, NULL,     NULL,     getswave, NULL     },
+	{ 0x3d, 2,  1,  245, "Wave Form",              37, NULL,     NULL,     getswave, NULL     },
 	{ 0x3f, 1,  0,  127, "Note[ Limit] Low",        0, NULL,     NULL,     getsnote, NULL     },
 	{ 0x40, 1,  0,  127, "Note[ Limit] High",     127, NULL,     NULL,     getsnote, NULL     },
 	{ 0x41, 1,  0,  127, "Vel[ocity Limit] Low",    0, NULL,     NULL,     NULL,     NULL     },
