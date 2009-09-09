@@ -323,7 +323,7 @@ void qxgeditUserEg::dragNode ( const QPoint& pos )
 		int iLevel = int(*piLevel)
 			+ ((m_posDrag.y() - pos.y()) << 7) / height();
 		int iRate = int(*piRate)
-			- ((pos.x() - m_posDrag.x()) << 7) / (width() >> 2);
+			- ((pos.x() - m_posDrag.x()) << 6) / (width() >> 2);
 		if (iLevel < 0) iLevel = 0;
 		else
 		if (iLevel > 127) iLevel = 127;

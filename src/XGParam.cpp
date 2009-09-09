@@ -2959,12 +2959,12 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x81, 1, 57,   71, "[AEG Rate ]Scaling",     64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x82, 1,  0,  127, "[AEG ]Center[ Note]",    64, getv0x40, getu0x40, getsnote, NULL     },
 	{ 0x83, 1,  0,   15, "[AEG Key On ]Delay",      0, NULL,     NULL,     NULL,     NULL     },
-	{ 0x84, 1,  0,  127, "[AEG ]Attack[ Rate]",    64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x85, 1,  0,  127, "[AEG ]Decay 1[ Rate]",   64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x86, 1,  0,  127, "[AEG ]Decay 2[ Rate]",   64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x87, 1,  0,  127, "[AEG ]Release[ Rate]",   64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x88, 1,  0,  127, "[AEG Decay ]Level 1",    64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",    64, getv0x40, getu0x40, NULL,     NULL     },
+	{ 0x84, 1,  0,   63, "[AEG ]Attack[ Rate]",    32, NULL,     NULL,     NULL,     NULL     },
+	{ 0x85, 1,  0,   63, "[AEG ]Decay 1[ Rate]",   32, NULL,     NULL,     NULL,     NULL     },
+	{ 0x86, 1,  0,   63, "[AEG ]Decay 2[ Rate]",   32, NULL,     NULL,     NULL,     NULL     },
+	{ 0x87, 1,  0,   63, "[AEG ]Release[ Rate]",   32, NULL,     NULL,     NULL,     NULL     },
+	{ 0x88, 1,  0,  127, "[AEG Decay ]Level 1",    64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",    64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x8a, 2,  0,16383, "[Address ]Offset",        0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x8c, 1, 57,   71, "Resonance[ Sensitivity]",64, getv0x40, getu0x40, NULL,     NULL     }
 	// [Element 2]

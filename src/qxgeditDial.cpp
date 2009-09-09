@@ -125,11 +125,13 @@ void qxgeditDial::set_value ( unsigned short iValue, Observer *pSender )
 	if (m_pSpin->param()) {
 		m_pSpin->setValue(iValue, pSender);
 		m_pKnob->setValue(int(m_pSpin->value()));
+		emit valueChanged(m_pSpin->value());
 	}
 	else
 	if (m_pDrop->param()) {
 		m_pDrop->setValue(iValue, pSender);
 		m_pKnob->setValue(int(m_pDrop->value()));
+		emit valueChanged(m_pDrop->value());
 	}
 
 	m_iBusy--;

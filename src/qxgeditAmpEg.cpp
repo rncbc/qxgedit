@@ -117,7 +117,10 @@ void qxgeditAmpEg::setLevel1 ( unsigned short iLevel1 )
 {
 	if (m_iLevel1 != iLevel1) {
 		m_iLevel1  = iLevel1;
-		update();
+		if (m_iLevel2 > iLevel1)
+			setLevel2(iLevel1);
+		else
+			update();
 		emit level1Changed(level1());
 	}
 }
@@ -132,7 +135,10 @@ void qxgeditAmpEg::setLevel2 ( unsigned short iLevel2 )
 {
 	if (m_iLevel2 != iLevel2) {
 		m_iLevel2  = iLevel2;
-		update();
+		if (m_iLevel1 < iLevel2)
+			setLevel1(iLevel2);
+		else
+			update();
 		emit level2Changed(level2());
 	}
 }
@@ -153,10 +159,10 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 
 	int w5 = (w - 3) / 5;
 
-	int x1 = int((m_iAttack  * w5) >> 7) + 6;
-	int x2 = int((m_iDecay1  * w5) >> 7) + x1;
-	int x3 = int((m_iDecay2  * w5) >> 7) + x2;
-	int x4 = int((m_iRelease * w5) >> 7) + x3 + w5;
+	int x1 = int(((63 - m_iAttack)  * w5) >> 6) + 6;
+	int x2 = int(((63 - m_iDecay1)  * w5) >> 6) + x1;
+	int x3 = int(((63 - m_iDecay2)  * w5) >> 6) + x2;
+	int x4 = int(((63 - m_iRelease) * w5) >> 6) + x3 + w5;
 
 	int y2 = h - int(((m_iLevel1 + 1) * (h - 12)) >> 7) - 6;
 	int y3 = h - int(((m_iLevel2 + 1) * (h - 12)) >> 7) - 6;
@@ -268,7 +274,7 @@ void qxgeditAmpEg::dragNode ( const QPoint& pos )
 
 	if (piRate && piLevel) {
 		int iRate = int(*piRate)
-			+ ((pos.x() - m_posDrag.x()) << 7) / (width() >> 2);
+			- ((pos.x() - m_posDrag.x()) << 6) / (width() >> 2);
 		int iLevel = int(*piLevel)
 			+ ((m_posDrag.y() - pos.y()) << 7) / height();
 		if (iLevel < 0) iLevel = 0;
@@ -276,7 +282,7 @@ void qxgeditAmpEg::dragNode ( const QPoint& pos )
 		if (iLevel > 127) iLevel = 127;
 		if (iRate < 0) iRate = 0;
 		else
-		if (iRate > 127) iRate = 127;
+		if (iRate > 63) iRate = 63;
 		if (*piRate  != (unsigned short) iRate ||
 			*piLevel != (unsigned short) iLevel) {
 			m_posDrag = pos;
