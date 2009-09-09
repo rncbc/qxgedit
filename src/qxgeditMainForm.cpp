@@ -969,6 +969,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.UservoiceLevelDial        -> set_param_map(USERVOICE, 0x0c);
 
 	// Element 1
+	m_ui.UservoiceWaveDial         -> setMaximumWidth(86);
 	m_ui.UservoiceWaveDial         -> set_param_map(USERVOICE, 0x3d);
 	m_ui.UservoiceNoteLowDial      -> set_param_map(USERVOICE, 0x3f);
 	m_ui.UservoiceNoteHighDial     -> set_param_map(USERVOICE, 0x40);

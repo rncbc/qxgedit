@@ -602,11 +602,11 @@ const char *getsconn ( unsigned short c )
 }
 
 static
-const char *getswave ( unsigned short c )
+const char *getslfow ( unsigned short c )
 {
 	static
-	const char *tabwave[] = { "Saw", "Tri", "S&H" };
-	return tabwave[c];
+	const char *tablfow[] = { "Saw", "Tri", "S&H" };
+	return tablfow[c];
 }
 
 static
@@ -678,6 +678,252 @@ const char *getsnote ( unsigned short c )
 	static char note[5];
 	snprintf(note, sizeof(note), "%-2s%2d", tabnote[c % 12], (c / 12) - 2);
 	return note;
+}
+
+
+//---------------------------------------------------------------------
+// QS300 Wave List.
+//
+
+const char *getswave ( unsigned short c )
+{
+	static
+	struct _QS300WaveItem
+	{
+		unsigned short     id;
+		const char        *name;
+		unsigned short     no;
+
+	} wavetab[] = {
+
+		// [Piano & Keyboard]
+		{   0, "Grand",        37 }, // Ap
+		{   1, "Brite",        38 }, // Ap
+		{   2, "Honky",        39 }, // Ap
+		{   3, "Roads",        56 }, // Ep
+		{   4, "CP80",        172 }, // Ep
+		{   5, "DX7",          55 }, // Ep
+		{   6, "Accordion",    79 }, // Mk
+		{   7, "Bandoneon",   241 }, // Mk
+		{   8, "Celesta",      80 }, // Mk
+		{   9, "Clavi.",       81 }, // Mk
+		{  10, "Harpsichrd",   82 }, // Mk
+		// [Chromatic & Organ]
+		{  11, "Glocken",     105 }, // Cp
+		{  12, "Marimba",     106 }, // Cp
+		{  13, "SteelDrum",   107 }, // Cp
+		{  14, "Timpani",     108 }, // Cp
+		{  15, "TinkleBell",  109 }, // Cp
+		{  16, "TabularBell", 110 }, // Cp
+		{  17, "Vibes",       111 }, // Cp
+		{  18, "Xylophone",   112 }, // Cp
+		{  19, "Pipe",         86 }, // Ao
+		{  20, "Reed",         87 }, // Ao
+		{  21, "Drawbar 1",    83 }, // Eo
+		{  22, "Drawbar 2",   240 }, // Eo
+		{  23, "Percussive",   84 }, // Eo
+		{  24, "Rock 1",       85 }, // Eo
+		{  25, "Rock 2",      237 }, // Eo
+		// [Guitar & Bass]
+		{  26, "Nylon",        71 }, // Ag
+		{  27, "Steel",        72 }, // Ag
+		{  28, "12GtrUpper",  190 }, // Ag
+		{  29, "Jazz Gtr",     73 }, // Eg
+		{  30, "Clean",        74 }, // Eg
+		{  31, "Muted",        75 }, // Eg
+		{  32, "Overdrive",    76 }, // Eg
+		{  33, "OverdriveLp", 183 }, // Eg
+		{  34, "Distortion",   77 }, // Eg
+		{  35, "Harmonics1",   78 }, // Eg
+		{  36, "Harmonics2",  242 }, // Eg
+		{  37, "Upright",      46 }, // Ab
+		{  38, "Finger",       40 }, // Eb
+		{  39, "Fretless",     41 }, // Eb
+		{  40, "Picked",       42 }, // Eb
+		{  41, "Slap 1",       43 }, // Eb
+		{  42, "Slap 2",       44 }, // Eb
+		{  43, "Thump",        45 }, // Eb
+		{  44, "Bass 1",       97 }, // Mb
+		{  45, "Bass 2",       98 }, // Mb
+		// [Strings & Ensemble]
+		{  46, "Violin",       88 }, // Bw
+		{  47, "Viola",        89 }, // Bw
+		{  48, "Cello",        90 }, // Bw
+		{  49, "ContraBass",   91 }, // Bw
+		{  50, "SectionEns",   92 }, // Oe
+		{  51, "Pizzicato",    93 }, // Oe
+		{  52, "StrngEnsLp",  180 }, // Oe
+		{  53, "Ensemble",    231 }, // Oe
+		{  54, "Aah",          53 }, // Ch
+		{  55, "Ooh",          54 }, // Ch
+		// [Brass & Reed]
+		{  56, "Trumpet",      47 }, // Ar
+		{  57, "MutedTrp",     48 }, // Ar
+		{  58, "Trombone",     49 }, // Ar
+		{  59, "Tuba",         50 }, // Ar
+		{  60, "FrenchHorn",   51 }, // Ar
+		{  61, "TrumpetEns",   52 }, // Ar
+		{  62, "Brass",        99 }, // Sr
+		{  63, "Bassoon",     113 }, // Rd
+		{  64, "Clarinet",    114 }, // Rd
+		{  65, "EnglshHorn",  115 }, // Rd
+		{  66, "Oboe",        117 }, // Rd
+		{  67, "SopranoSax",  120 }, // Rd
+		{  68, "SprSaxAtk",   176 }, // Rd
+		{  69, "AltoSax",     121 }, // Rd
+		{  70, "AltoSaxAtk",  177 }, // Rd
+		{  71, "TenorSax",    184 }, // Rd
+		{  72, "BaritonSax",  123 }, // Rd
+		{  73, "BariSaxAtk",  179 }, // Rd
+		{  74, "BariSaxLp",   182 }, // Rd
+		{  75, "Flute",       116 }, // Rd
+		{  76, "Piccolo",     118 }, // Pi
+		{  77, "SprRecordr",  119 }, // Pi
+		// [Ethnic]
+		{  78, "Banjo",        57 }, // Et
+		{  79, "BagPipe",      58 }, // Et
+		{  80, "Dulcimer",     59 }, // Et
+		{  81, "Harmonica",    60 }, // Et
+		{  82, "Harp",         61 }, // Et
+		{  83, "Kalimba",      62 }, // Et
+		{  84, "Koto",         63 }, // Et
+		{  85, "Ocarina",      64 }, // Et
+		{  86, "Shakuhachi",   66 }, // Et
+		{  87, "Shamisen",     67 }, // Et
+		{  88, "Sho",          69 }, // Et
+		{  89, "Sitar",        70 }, // Et
+		{  90, "Shanai",      188 }, // Et
+		{  91, "PanFlute",    243 }, // Et
+		// [Percusssive]
+		{  92, "SideStick",     4 }, // Pc
+		{  93, "Snare 1",       5 }, // Pc
+		{  94, "Snare 2",       6 }, // Pc
+		{  95, "Snare 3",       7 }, // Pc
+		{  96, "Snare 4",       8 }, // Pc
+		{  97, "Snare 5",       9 }, // Pc
+		{  98, "Snare 6",      10 }, // Pc
+		{  99, "SnareBrush",   11 }, // Pc
+		{ 100, "Tom 1",        12 }, // Pc
+		{ 101, "Tom 2",        13 }, // Pc
+		{ 102, "Tom 3",        14 }, // Pc
+		{ 103, "Tom 4",        15 }, // Pc
+		{ 104, "Tom 5",        16 }, // Pc
+		{ 105, "Tom 6",        17 }, // Pc
+		{ 106, "Kick 1",       18 }, // Pc
+		{ 107, "Kick 2",       19 }, // Pc
+		{ 108, "Kick 3",       20 }, // Pc
+		{ 109, "Kick 4",       21 }, // Pc
+		{ 110, "GranCassa",    22 }, // Pc
+		{ 111, "Stick",        23 }, // Pc
+		{ 112, "Cymbal 1",     24 }, // Pc
+		{ 113, "Cymbal 2",     25 }, // Pc
+		{ 114, "Cymbal 3",     26 }, // Pc
+		{ 115, "Cymbal 4",     27 }, // Pc
+		{ 116, "LoopCymbal",   29 }, // Pc
+		{ 117, "Agogo",        32 }, // Pc
+		{ 118, "Castanet",     33 }, // Pc
+		{ 119, "WoodBlock",    34 }, // Pc
+		{ 120, "Taiko",        35 }, // Pc
+		{ 121, "Triangle",     36 }, // Pc
+		// [SFX]
+		{ 122, "BassSlap",    128 }, // Me
+		{ 123, "GtrStroke",   138 }, // Me
+		{ 124, "GtrFretNz",   139 }, // Me
+		{ 125, "KeyPad",      143 }, // Me
+		{ 126, "Metronome",   146 }, // Me
+		{ 127, "OrchHit",     148 }, // Me
+		{ 128, "WindChime",   163 }, // Me
+		{ 129, "TublrBell.p", 189 }, // Me
+		{ 130, "XylophonLp",  191 }, // Me
+		{ 131, "Scratch",     245 }, // Me
+		{ 132, "Applause",    124 }, // Ne
+		{ 133, "Bird 1",      125 }, // Ne
+		{ 134, "Bird 2",      126 }, // Ne
+		{ 135, "Breath",      127 }, // Ne
+		{ 136, "Bubble",      129 }, // Ne
+		{ 137, "CarPass",     130 }, // Ne
+		{ 138, "CarCrash",    131 }, // Ne
+		{ 139, "CarStart",    132 }, // Ne
+		{ 140, "Dog",         133 }, // Ne
+		{ 141, "DoorSlam",    134 }, // Ne
+		{ 142, "DoorSqueak",  135 }, // Ne
+		{ 142, "FootStep",    136 }, // Ne
+		{ 144, "Gallop",      137 }, // Ne
+		{ 145, "Gun",         140 }, // Ne
+		{ 146, "Helicopter",  141 }, // Ne
+		{ 147, "HeartBeat",   142 }, // Ne
+		{ 148, "Laughing",    144 }, // Ne
+		{ 149, "MachineGun",  145 }, // Ne
+		{ 150, "Punch",       149 }, // Ne
+		{ 151, "Rain",        150 }, // Ne
+		{ 152, "Scream",      151 }, // Ne
+		{ 153, "Stream",      152 }, // Ne
+		{ 154, "Surf",        153 }, // Ne
+		{ 155, "TelDial",     154 }, // Ne
+		{ 156, "TelRing 1",   155 }, // Ne
+		{ 157, "TelRing 2",   162 }, // Ne
+		{ 158, "Thunder",     156 }, // Ne
+		{ 159, "TireSkid",    157 }, // Ne
+		{ 160, "Train",       158 }, // Ne
+		{ 161, "Wind",        159 }, // Ne
+		// [One-cycle Wave]
+		{ 162, "Square",       94 }, // Ow
+		{ 163, "Saw",          95 }, // Ow
+		{ 164, "Sine",        195 }, // Ow
+		{ 165, "Digi 1",      196 }, // Ow
+		{ 166, "Digi 2",      197 }, // Ow
+		{ 167, "Digi 3",      198 }, // Ow
+		{ 168, "Digi 4",      199 }, // Ow
+		{ 169, "Digi 5",      200 }, // Ow
+		{ 170, "Digi 6",      201 }, // Ow
+		{ 171, "Digi 7",      202 }, // Ow
+		{ 172, "Digi 8",      203 }, // Ow
+		{ 173, "Digi 9",      204 }, // Ow
+		{ 174, "Digi 10",     205 }, // Ow
+		{ 175, "Digi 11",     206 }, // Ow
+		{ 176, "Digi 12",     207 }, // Ow
+		{ 177, "Digi 13",     208 }, // Ow
+		{ 178, "Digi 14",     209 }, // Ow
+		{ 179, "Digi 15",     210 }, // Ow
+		{ 180, "Digi 16",     211 }, // Ow
+		{ 181, "Digi 17",     212 }, // Ow
+		{ 182, "Digi 19",     213 }, // Ow
+		{ 183, "Digi 20",     214 }, // Ow
+		{ 184, "Digi 21",     215 }, // Ow
+		{ 185, "Digi 22",     216 }, // Ow
+		{ 186, "Digi 23",     217 }, // Ow
+		{ 187, "Digi 24",     218 }, // Ow
+		{ 188, "Digi 25",     219 }, // Ow
+		{ 189, "Digi 26",     220 }, // Ow
+		{ 190, "Digi 27",     221 }, // Ow
+		{ 191, "Digi 28",     222 }, // Ow
+		{ 192, "Digi 29",     223 }, // Ow
+		{ 193, "Digi 30",     224 }, // Ow
+		{ 194, "Digi 31",     225 }, // Ow
+		{ 195, "Digi 32",     226 }, // Ow
+		{ 196, "Pulse 10",    228 }, // Ow
+		{ 197, "Pulse 25",    229 }, // Ow
+		// [Loop & Misc]
+		{ 198, "Pad 1",       102 }, // Lw
+		{ 199, "Pad 2",       227 }, // Lw
+		{ 200, "Pad 3",       230 }, // Lw
+		{ 201, "Itopia",      236 }, // Lw
+		{ 202, "Mallet",      104 }, // Mw
+		{ 203, "Noise",       147 }, // Mw
+		{ 204, "Stndrd Kit",    1 }  // Dr
+	};
+
+	static QHash<unsigned short, const char *> waves;
+
+	if (waves.isEmpty()) {
+		for (unsigned short i = 0; i < TSIZE(wavetab); ++i)
+			waves.insert(wavetab[i].no, wavetab[i].name);
+	}
+
+	if (waves.contains(c))
+		return waves.value(c);
+
+	return NULL;
 }
 
 
@@ -2643,13 +2889,13 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x0b, 1,  1,    3, "Element[ Switch]",        1, NULL,     NULL,     getselem, NULL     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
 	{ 0x0c, 1,  0,  127, "[Voice ]Level",           0, NULL,     NULL,     NULL,     NULL     },
 	// [Element 1]
-	{ 0x3d, 2,  0,  526, "Wave[ Number]",           0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x3d, 2,  1,  245, "Wave Form",               0, NULL,     NULL,     getswave, NULL     },
 	{ 0x3f, 1,  0,  127, "Note[ Limit] Low",        0, NULL,     NULL,     getsnote, NULL     },
 	{ 0x40, 1,  0,  127, "Note[ Limit] High",     127, NULL,     NULL,     getsnote, NULL     },
 	{ 0x41, 1,  0,  127, "Vel[ocity Limit] Low",    0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x42, 1,  0,  127, "Vel[ocity Limit] High", 127, NULL,     NULL,     NULL,     NULL     },
 	{ 0x43, 1,  0,    1, "[FEG ]Vel Curve",         0, NULL,     NULL,     getsvelc, NULL     }, // 0=Linear, 1=Exp
-	{ 0x44, 1,  0,    2, "[LFO ]Wave[ Select]",     0, NULL,     NULL,     getswave, NULL     },
+	{ 0x44, 1,  0,    2, "[LFO ]Wave[ Select]",     0, NULL,     NULL,     getslfow, NULL     },
 	{ 0x45, 1,  0,    1, "[LFO ]Phase[ Initialize]",0, NULL,     NULL,     getsonff, NULL     },
 	{ 0x46, 1,  0,   63, "[LFO ]Speed",            32, NULL,     NULL,     NULL,     NULL     },
 	{ 0x47, 1,  0,  127, "[LFO ]Delay",             0, NULL,     NULL,     NULL,     NULL     },
