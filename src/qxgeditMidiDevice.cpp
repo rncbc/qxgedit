@@ -238,11 +238,6 @@ void qxgeditMidiDevice::capture ( snd_seq_event_t *pEv )
 void qxgeditMidiDevice::sendSysex (
 	unsigned char *pSysex, unsigned short iSysex ) const
 {
-	// Don't do anything else if engine
-	// has not been activated...
-	if (m_pAlsaSeq == NULL)
-		return;
-
 #ifdef CONFIG_DEBUG
 	fprintf(stderr, "qxgeditMidiDevice::sendSysex(%p, %u)", pSysex, iSysex);
 	fprintf(stderr, " sysex {");
@@ -250,6 +245,11 @@ void qxgeditMidiDevice::sendSysex (
 		fprintf(stderr, " %02x", pSysex[i]);
 	fprintf(stderr, " }\n");
 #endif
+
+	// Don't do anything else if engine
+	// has not been activated...
+	if (m_pAlsaSeq == NULL)
+		return;
 
 	// Initialize sequencer event...
 	snd_seq_event_t ev;

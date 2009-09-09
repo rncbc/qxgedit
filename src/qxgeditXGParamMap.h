@@ -62,8 +62,16 @@ public:
 	// Send regular XG Parameter change SysEx message.
 	void send_param(XGParam *pParam);
 
+	// Send Multi Part Bank Select/Program Number SysEx messages.
+	void send_part(unsigned short iPart) const;
+
 	// Send (QS300) USERVOICE Bulk Dump SysEx message.
 	void send_user(unsigned short iUser) const;
+
+	// MULTPART dirty slot simple managers.
+	void reset_part_dirty();
+	void set_part_dirty(unsigned short iPart, bool bDirty);
+	bool part_dirty(unsigned short iPart) const;
 
 	// (QS300) USERVOICE dirty slot simple managers.
 	void reset_user_dirty();
@@ -93,6 +101,9 @@ private:
 
 	// Instance variables.
 	ObserverMap m_observers;
+
+	// Mult Part dirty flag array.
+	int m_part_dirty[16];
 
 	// QS300 User Voice dirty flag array.
 	int m_user_dirty[32];

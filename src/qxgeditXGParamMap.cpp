@@ -52,6 +52,13 @@ void qxgeditXGParamMap::Observer::update (void)
 		return;
 
 	XGParam *pParam = param();
+
+#ifdef CONFIG_DEBUG//_0
+	qDebug("qxgeditXGParamMap::Observer[%p]::update() [%02x %02x %02x %s %u]",
+		this, pParam->high(), pParam->mid(), pParam->low(),
+		pParam->text().toUtf8().constData(), pParam->value());
+#endif
+
 	if (pParam->high() == 0x11) {
 		// Special USERVOICE bulk dump stuff...
 		unsigned short iUser = pParamMap->USERVOICE.current_key(); 
@@ -59,7 +66,7 @@ void qxgeditXGParamMap::Observer::update (void)
 			pParamMap->send_user(iUser);
 		pParamMap->set_user_dirty(iUser, true);
 	} else {
-		// regular XG Parameter change...
+		// Regular XG Parameter change...
 		pParamMap->send_param(pParam);
 	}
 
@@ -86,6 +93,7 @@ qxgeditXGParamMap::qxgeditXGParamMap (void)
 		m_observers.insert(pParam, new Observer(pParam));
 	}
 
+	reset_part_dirty();
 	reset_user_dirty();
 }
 
@@ -136,15 +144,11 @@ bool qxgeditXGParamMap::set_sysex_data (
 				for (i = 0; i < size; ++i) {
 					// Parameter Change...
 					unsigned short n = set_param_data(
-						high, mid, low + i, &data[9 + i],
-							(bNotify && high != 0x11));
+						high, mid, low + i, &data[9 + i], bNotify);
 					if (n > 1)
 						i += (n - 1);
 				}
 				ret = (i == (size - 6));
-				// Deferred QS300 Bulk Dump feedback...
-				if (bNotify && high == 0x11)
-					send_user(mid);
 			}
 		}
 		else
@@ -173,6 +177,16 @@ unsigned short qxgeditXGParamMap::set_param_data (
 	if (!m_observers.contains(pParam))
 		return 0;
 
+	if (high == 0x08 && low >= 0x01 && 0x03 >= low) {
+		set_part_dirty(mid, true);
+		bNotify = false;
+	}
+	else
+	if (high == 0x11) {
+		set_user_dirty(mid, true);
+		bNotify = false;
+	}
+
 	Observer *pObserver = (bNotify ? NULL : m_observers.value(pParam));
 	if (pParam->size() > 4) {
 		XGDataParam *pDataParam = static_cast<XGDataParam *> (pParam);
@@ -180,9 +194,6 @@ unsigned short qxgeditXGParamMap::set_param_data (
 	} else {
 		pParam->set_value(pParam->data_value(data), pObserver);
 	}
-
-	if (high == 0x11)
-		set_user_dirty(mid, true);
 
 #ifdef CONFIG_DEBUG
 	fprintf(stderr, "< %02x %02x %02x",
@@ -219,6 +230,7 @@ void qxgeditXGParamMap::reset_all (void)
 		pParam->reset(iter.value());
 	}
 
+	reset_part_dirty();
 	reset_user_dirty();
 }
 
@@ -230,14 +242,6 @@ void qxgeditXGParamMap::reset_part ( unsigned short iPart )
 	qDebug("qxgeditXGParamMap::reset_part(%u)", iPart);
 #endif
 
-#if 0
-	ObserverMap::const_iterator iter = m_observers.constBegin();
-	for (; iter != m_observers.constEnd(); ++iter) {
-		XGParam *pParam = iter.key();
-		if (pParam->high() == 0x08 && pParam->mid() == iPart)
-			pParam->reset(/* iter.value() */);
-	}
-#else
 	XGParamMap::const_iterator iter = MULTIPART.constBegin();
 	for (; iter != MULTIPART.constEnd(); ++iter) {
 		XGParamSet *pParamSet = iter.value();
@@ -247,7 +251,11 @@ void qxgeditXGParamMap::reset_part ( unsigned short iPart )
 				pParam->reset();
 		}
 	}
-#endif
+
+	if (part_dirty(iPart)) {
+		send_part(iPart);
+		set_part_dirty(iPart, false);
+	}
 }
 
 
@@ -258,11 +266,11 @@ void qxgeditXGParamMap::reset_drums ( unsigned short iDrumSet )
 	qDebug("qxgeditXGParamMap::reset_drums(%u)", iDrumSet);
 #endif
 
-	unsigned short iHigh = 0x30 + iDrumSet;
+	unsigned short high = 0x30 + iDrumSet;
 	ObserverMap::const_iterator iter = m_observers.constBegin();
 	for (; iter != m_observers.constEnd(); ++iter) {
 		XGParam *pParam = iter.key();
-		if (pParam->high() == iHigh)
+		if (pParam->high() == high)
 			pParam->reset(iter.value());
 	}
 }
@@ -275,6 +283,10 @@ void qxgeditXGParamMap::reset_user ( unsigned short iUser )
 	qDebug("qxgeditXGParamMap::reset_user(%u)", iUser);
 #endif
 
+	// Suspend auto-send temporarily...
+	bool bAuto = auto_send();
+	set_auto_send(false);
+
 	XGParamMap::const_iterator iter = USERVOICE.constBegin();
 	for (; iter != USERVOICE.constEnd(); ++iter) {
 		XGParamSet *pParamSet = iter.value();
@@ -285,7 +297,13 @@ void qxgeditXGParamMap::reset_user ( unsigned short iUser )
 		}
 	}
 
-	set_user_dirty(iUser, false);
+	if (user_dirty(iUser)) {
+		send_user(iUser);
+		set_user_dirty(iUser, false);
+	}
+
+	// Restore auto-send.
+	set_auto_send(bAuto);
 }
 
 
@@ -319,6 +337,28 @@ void qxgeditXGParamMap::send_param ( XGParam *pParam )
 }
 
 
+// Send Multi Part Bank Select/Program Number SysEx messages.
+void qxgeditXGParamMap::send_part ( unsigned short iPart ) const
+{
+	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
+	if (pMidiDevice == NULL)
+		return;
+
+	unsigned short high = 0x08;
+	unsigned short mid  = iPart;
+
+	for (unsigned short low = 0x01; low < 0x04; ++low) {
+		XGParam *pParam = find_param(high, mid, low);
+		if (pParam) {
+			// Build the complete SysEx message...
+			XGParamSysex sysex(pParam);
+			// Send it out...
+			pMidiDevice->sendSysex(sysex.data(), sysex.size());
+		}
+	}
+}
+
+
 // Send USER VOICE Bulk Dump SysEx message.
 void qxgeditXGParamMap::send_user ( unsigned short iUser ) const
 {
@@ -330,6 +370,29 @@ void qxgeditXGParamMap::send_user ( unsigned short iUser ) const
 	XGUserVoiceSysex sysex(iUser);
 	// Send it out...
 	pMidiDevice->sendSysex(sysex.data(), sysex.size());
+}
+
+
+// MULTIPART dirty slot simple managing.
+void qxgeditXGParamMap::reset_part_dirty (void)
+{
+	for (unsigned short i = 0; i < 32; ++i)
+		m_part_dirty[i] = 0;
+}
+
+void qxgeditXGParamMap::set_part_dirty ( unsigned short iPart, bool bDirty )
+{
+	if (iPart < 16) {
+		if (bDirty)
+			m_part_dirty[iPart]++;
+		else
+			m_part_dirty[iPart] = 0;
+	}
+}
+
+bool qxgeditXGParamMap::part_dirty ( unsigned short iPart ) const
+{
+	return (iPart < 16 && m_part_dirty[iPart] > 0);
 }
 
 

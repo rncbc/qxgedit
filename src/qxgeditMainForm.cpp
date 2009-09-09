@@ -1049,6 +1049,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.UservoiceAEGResonanceDial -> set_param_map(USERVOICE, 0x8c);
 
 	// Make sure there's nothing pending...
+	m_pParamMap->reset_part_dirty();
 	m_pParamMap->reset_user_dirty();
 	m_iDirtyCount = 0;
 
@@ -1379,7 +1380,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 		unsigned short iRead = file.read((char *) pBuff + i, iBuff - i) + i;
 		while (i < iRead) {
 			if (pBuff[i++] == 0xf7) {
-				m_pParamMap->set_sysex_data(pBuff, i, true); // Feedback!
+				m_pParamMap->set_sysex_data(pBuff, i, true); // Notify!
 				if (i < iRead) {
 					::memmove(pBuff, pBuff + i, iRead -= i);
 					i = 0;
@@ -1392,6 +1393,20 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 	if (pBuff)
 		delete [] pBuff;	
 	file.close();
+
+	// Deferred QS300 Bulk Dump feedback...
+	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
+		if (m_pParamMap->user_dirty(iUser))
+			m_pParamMap->send_user(iUser);
+	}
+
+	// Deferred XG Multi Part feedback...
+	for (unsigned short iPart = 0; iPart < 16; ++iPart) {
+		if (m_pParamMap->part_dirty(iPart)) {
+			m_pParamMap->send_part(iPart);
+			m_pParamMap->set_part_dirty(iPart, false);
+		}
+	}
 
 	// We're formerly done.
 	QApplication::restoreOverrideCursor();
