@@ -1182,9 +1182,8 @@ bool qxgeditMainForm::newSession (void)
 	if (!closeSession())
 		return false;
 
-	// Reset it all.
-	if (m_pParamMap)
-		m_pParamMap->reset_all();
+	// Reset it all...
+	masterReset();
 
 	// Ok, increment untitled count.
 	m_iUntitled++;
@@ -1341,7 +1340,7 @@ bool qxgeditMainForm::closeSession (void)
 	// If we may close it, dot it.
 	if (bClose) {
 		// TODO: Actually close session...
-		// We're now clean, for sure.
+		// we're now clean, for sure.
 		m_iDirtyCount = 0;
 	}
 
@@ -1359,6 +1358,9 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	// Reset it all...
+	masterReset();
 
 	int iSysex = 0;
 	unsigned short iBuff = 0;
@@ -1719,8 +1721,14 @@ void qxgeditMainForm::updateRecentFilesMenu (void)
 	}
 }
 
-
 // XG System Reset...
+void qxgeditMainForm::masterReset (void)
+{
+	XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7e);
+	if (pParam)
+		pParam->set_value_update(0);
+}
+
 void qxgeditMainForm::masterResetButtonClicked (void)
 {
 	if (m_pParamMap == NULL)
@@ -1737,9 +1745,7 @@ void qxgeditMainForm::masterResetButtonClicked (void)
 			return;
 	}
 
-	XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7e);
-	if (pParam)
-		pParam->set_value_update(0);
+	masterReset();
 }
 
 

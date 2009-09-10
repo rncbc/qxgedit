@@ -119,8 +119,9 @@ protected:
 
 	void updateRecentFiles(const QString& sFilename);
 
-	// SYSEX Event handler.
 	bool sysexEvent(qxgeditMidiSysexEvent *pSysexEvent);
+
+	void masterReset();
 
 private:
 
