@@ -53,7 +53,7 @@ void qxgeditXGParamMap::Observer::update (void)
 
 	XGParam *pParam = param();
 
-#ifdef CONFIG_DEBUG//_0
+#ifdef CONFIG_DEBUG_0
 	qDebug("qxgeditXGParamMap::Observer[%p]::update() [%02x %02x %02x %s %u]",
 		this, pParam->high(), pParam->mid(), pParam->low(),
 		pParam->text().toUtf8().constData(), pParam->value());
