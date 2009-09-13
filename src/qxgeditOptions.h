@@ -54,6 +54,7 @@ public:
 
 	// Display options...
 	bool    bConfirmReset;
+	bool    bConfirmRemove;
 	bool    bCompletePath;
 	int     iBaseFontSize;
 
@@ -64,6 +65,7 @@ public:
 
 	// Default options...
 	QString sSessionDir;
+	QString sPresetDir;
 
 	// Recent file list.
 	int iMaxRecentFiles;

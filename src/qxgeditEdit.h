@@ -27,8 +27,8 @@
 #include <QWidget>
 
 // Forward declarations.
-class QLabel;
-class QLineEdit;
+class QComboBox;
+class QToolButton;
 
 
 //-------------------------------------------------------------------------
@@ -53,10 +53,25 @@ public:
 	void set_value(unsigned short iValue, Observer *pSender);
 	unsigned short value() const;
 
+signals:
+
+	void loadPresetFile(const QString&);
+	void savePresetFile(const QString&);
+
+
 protected slots:
 
 	// Internal widget slots.
-	void editChanged(const QString&);
+	void changePreset(const QString&);
+	void loadPreset(const QString&);
+	void openPreset();
+	void savePreset();
+	void removePreset();
+
+protected:
+
+	void refreshPreset();
+	void stabilizePreset();
 
 private:
 
@@ -64,8 +79,14 @@ private:
 	XGDataParam *m_pParam;
 
 	// Widget members.
-	QLabel    *m_pLabel;
-	QLineEdit *m_pEdit;
+	QComboBox   *m_pComboBox;
+	QToolButton *m_pOpenButton;
+	QToolButton *m_pSaveButton;
+	QToolButton *m_pRemoveButton;
+
+	// Widget internal state.
+	int m_iUpdatePreset;
+	int m_iDirtyPreset;
 };
 
 

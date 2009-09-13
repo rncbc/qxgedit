@@ -66,6 +66,9 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	QObject::connect(m_ui.ConfirmResetCheckBox,
 		SIGNAL(stateChanged(int)),
 		SLOT(changed()));
+	QObject::connect(m_ui.ConfirmRemoveCheckBox,
+		SIGNAL(stateChanged(int)),
+		SLOT(changed()));
 	QObject::connect(m_ui.CompletePathCheckBox,
 		SIGNAL(stateChanged(int)),
 		SLOT(changed()));
@@ -126,6 +129,7 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 
 	// Other options finally.
 	m_ui.ConfirmResetCheckBox->setChecked(m_pOptions->bConfirmReset);
+	m_ui.ConfirmRemoveCheckBox->setChecked(m_pOptions->bConfirmRemove);
 	m_ui.CompletePathCheckBox->setChecked(m_pOptions->bCompletePath);
 	m_ui.MaxRecentFilesSpinBox->setValue(m_pOptions->iMaxRecentFiles);
 	if (m_pOptions->iBaseFontSize > 0)
@@ -178,6 +182,7 @@ void qxgeditOptionsForm::accept (void)
 	if (m_iDirtyCount > 0) {
 		// Display options...
 		m_pOptions->bConfirmReset   = m_ui.ConfirmResetCheckBox->isChecked();
+		m_pOptions->bConfirmRemove  = m_ui.ConfirmRemoveCheckBox->isChecked();
 		m_pOptions->bCompletePath   = m_ui.CompletePathCheckBox->isChecked();
 		m_pOptions->iMaxRecentFiles = m_ui.MaxRecentFilesSpinBox->value();
 		m_pOptions->iBaseFontSize   = m_ui.BaseFontSizeComboBox->currentText().toInt();

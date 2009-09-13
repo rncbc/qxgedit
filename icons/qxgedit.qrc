@@ -5,6 +5,9 @@
 		<file>fileOpen.png</file>
 		<file>fileSave.png</file>
 		<file>formAccept.png</file>
+		<file>formOpen.png</file>
 		<file>formReject.png</file>
+		<file>formRemove.png</file>
+		<file>formSave.png</file>
 	</qresource>
 </RCC>

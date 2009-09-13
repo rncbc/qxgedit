@@ -100,6 +100,9 @@ public slots:
 
 	void contentsChanged();
 
+	void uservoiceLoadPresetFile(const QString&);
+	void uservoiceSavePresetFile(const QString&);
+
 protected:
 
 	void closeEvent(QCloseEvent *pCloseEvent);

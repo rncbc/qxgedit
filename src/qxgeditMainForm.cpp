@@ -695,6 +695,14 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 		SIGNAL(toggled(bool)),
 		SLOT(uservoiceAutoSendCheckToggled(bool)));
 
+	// USERVOICE Presets...
+	QObject::connect(m_ui.UservoiceNameEdit,
+		SIGNAL(loadPresetFile(const QString&)),
+		SLOT(uservoiceLoadPresetFile(const QString&)));
+	QObject::connect(m_ui.UservoiceNameEdit,
+		SIGNAL(savePresetFile(const QString&)),
+		SLOT(uservoiceSavePresetFile(const QString&)));
+
 	// USERVOICE Pitch EG...
 	QObject::connect(
 		m_ui.UservoicePitchEg, SIGNAL(level0Changed(unsigned short)),
@@ -1351,7 +1359,7 @@ bool qxgeditMainForm::closeSession (void)
 // Load a session from specific file path.
 bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 {
-	// open the source file...
+	// Open the source file...
 	QFile file(sFilename);
 	if (!file.open(QIODevice::ReadOnly))
 		return false;
@@ -1430,7 +1438,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 
 
 // Save current session to specific file path.
-bool qxgeditMainForm::saveSessionFile (	const QString& sFilename )
+bool qxgeditMainForm::saveSessionFile ( const QString& sFilename )
 {
 	// Open the target file...
 	QFile file(sFilename);
@@ -2098,6 +2106,66 @@ void qxgeditMainForm::contentsChanged (void)
 {
 	m_iDirtyCount++;
 	stabilizeForm();
+}
+
+
+//-------------------------------------------------------------------------
+// qxgeditMainForm -- Uservoice preset slot handlers.
+
+void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
+{
+	// Open the source file...
+	QFile file(sFilename);
+	if (!file.open(QIODevice::ReadOnly))
+		return;
+
+	// Tell the world we'll take some time...
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+
+	unsigned short len = 0x188;
+	unsigned char  data[len];
+
+	if (file.read((char *) data, len)) {
+		data[7] = iUser; // HACK! Correct checksum...
+		unsigned char cksum = 0;
+		for (unsigned short i = 4; i < len - 2; ++i) {
+			cksum += data[i];
+			cksum &= 0x7f;
+		}
+		data[len - 2] = 0x80 - cksum;
+		m_pParamMap->set_sysex_data(data, len);
+	}
+	file.close();
+
+	// Deferred QS300 Bulk Dump feedback...
+	m_pParamMap->send_user(iUser);
+
+	// We're formerly done.
+	QApplication::restoreOverrideCursor();
+}
+
+
+void qxgeditMainForm::uservoiceSavePresetFile ( const QString& sFilename )
+{
+	// Open the target file...
+	QFile file(sFilename);
+	if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
+		return;
+
+	// Tell the world we'll take some time...
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+
+	// (QS300) USER VOICE Bulk Dumps, whether dirty...
+	XGUserVoiceSysex sysex(iUser);
+	file.write((const char *) sysex.data(), sysex.size());
+	file.close();
+
+	// We're formerly done.
+	QApplication::restoreOverrideCursor();
 }
 
 

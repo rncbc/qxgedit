@@ -59,6 +59,7 @@ qxgeditOptions::qxgeditOptions (void)
 	// Load display options...
 	m_settings.beginGroup("/Display");
 	bConfirmReset   = m_settings.value("/ConfirmReset", true).toBool();
+	bConfirmRemove  = m_settings.value("/ConfirmRemove", true).toBool();
 	bCompletePath   = m_settings.value("/CompletePath", true).toBool();
 	iMaxRecentFiles = m_settings.value("/MaxRecentFiles", 5).toInt();
 	iBaseFontSize   = m_settings.value("/BaseFontSize", 0).toInt();
@@ -76,6 +77,7 @@ qxgeditOptions::qxgeditOptions (void)
 	// Last but not least, get the defaults.
 	m_settings.beginGroup("/Default");
 	sSessionDir = m_settings.value("/SessionDir").toString();
+	sPresetDir  = m_settings.value("/PresetDir").toString();
 	recentFiles = m_settings.value("/RecentFiles").toStringList();
 	m_settings.endGroup();
 
@@ -106,6 +108,7 @@ qxgeditOptions::~qxgeditOptions (void)
 	// Save display options.
 	m_settings.beginGroup("/Display");
 	m_settings.setValue("/ConfirmReset", bConfirmReset);
+	m_settings.setValue("/ConfirmRemove", bConfirmRemove);
 	m_settings.setValue("/CompletePath", bCompletePath);
 	m_settings.setValue("/MaxRecentFiles", iMaxRecentFiles);
 	m_settings.setValue("/BaseFontSize", iBaseFontSize);
@@ -123,6 +126,7 @@ qxgeditOptions::~qxgeditOptions (void)
 	// Default directories.
 	m_settings.beginGroup("/Default");
 	m_settings.setValue("/SessionDir", sSessionDir);
+	m_settings.setValue("/PresetDir", sPresetDir);
 	m_settings.setValue("/RecentFiles", recentFiles);
 	m_settings.endGroup();
 
