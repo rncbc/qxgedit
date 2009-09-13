@@ -54,7 +54,6 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	m_pComboBox->lineEdit()->setValidator(
 		new QRegExpValidator(QRegExp("[ 0-9A-Za-z]+"), this));
 	m_pComboBox->setInsertPolicy(QComboBox::NoInsert);
-	m_pComboBox->setMinimumWidth(120);
 
 	m_pOpenButton->setIcon(QIcon(":/icons/formOpen.png"));
 	m_pSaveButton->setIcon(QIcon(":/icons/formSave.png"));

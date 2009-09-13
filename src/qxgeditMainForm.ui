@@ -1397,10 +1397,10 @@
             <string>Main</string>
            </attribute>
            <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="2" >
+            <item row="0" column="0" colspan="3" >
              <widget class="qxgeditEdit" name="UservoiceNameEdit" />
             </item>
-            <item row="0" column="2" colspan="6" >
+            <item row="0" column="2" colspan="5" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
