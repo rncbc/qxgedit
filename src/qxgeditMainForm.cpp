@@ -2045,6 +2045,8 @@ void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 {
 	if (m_pParamMap) {
 		m_pParamMap->USERVOICE.set_current_key(iUser);
+		if (!m_pParamMap->user_dirty(iUser))
+			m_pParamMap->send_user(iUser);
 		stabilizeForm();
 	}
 }
