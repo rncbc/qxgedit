@@ -81,6 +81,12 @@ public:
 	void set_user_dirty(unsigned short iUser, bool bDirty);
 	bool user_dirty(unsigned short iUser) const;
 
+	void set_user_dirty_1(unsigned short iUser, bool bDirty);
+	bool user_dirty_1(unsigned short iUser) const;
+
+	void set_user_dirty_2(unsigned short iUser, bool bDirty);
+	bool user_dirty_2(unsigned short iUser) const;
+
 	// (QS300) USERVOICE bulk dump auto-send feature.
 	void set_auto_send(bool bAuto);
 	bool auto_send() const;

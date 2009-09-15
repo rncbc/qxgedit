@@ -60,9 +60,11 @@ void qxgeditXGMasterMap::Observer::update (void)
 	if (pParam->high() == 0x11) {
 		// Special USERVOICE bulk dump stuff...
 		unsigned short iUser = pMasterMap->USERVOICE.current_key(); 
-		if (pMasterMap->auto_send())
-			pMasterMap->send_user(iUser);
 		pMasterMap->set_user_dirty(iUser, true);
+		if (pMasterMap->auto_send()) {
+			pMasterMap->send_user(iUser);
+			pMasterMap->set_user_dirty_1(iUser, false);
+		}
 	} else {
 		// Regular XG Parameter change...
 		pMasterMap->send_param(pParam);
@@ -389,15 +391,15 @@ void qxgeditXGMasterMap::set_part_dirty ( unsigned short iPart, bool bDirty )
 {
 	if (iPart < 16) {
 		if (bDirty)
-			m_part_dirty[iPart]++;
+			m_part_dirty[iPart] |=  1;
 		else
-			m_part_dirty[iPart] = 0;
+			m_part_dirty[iPart] &= ~1;
 	}
 }
 
 bool qxgeditXGMasterMap::part_dirty ( unsigned short iPart ) const
 {
-	return (iPart < 16 && m_part_dirty[iPart] > 0);
+	return (iPart < 16) && (m_part_dirty[iPart] != 0);
 }
 
 
@@ -412,15 +414,47 @@ void qxgeditXGMasterMap::set_user_dirty ( unsigned short iUser, bool bDirty )
 {
 	if (iUser < 32) {
 		if (bDirty)
-			m_user_dirty[iUser]++;
+			m_user_dirty[iUser] |=  7;
 		else
-			m_user_dirty[iUser] = 0;
+			m_user_dirty[iUser] &= ~7;
 	}
 }
 
 bool qxgeditXGMasterMap::user_dirty ( unsigned short iUser ) const
 {
-	return (iUser < 32 && m_user_dirty[iUser] > 0);
+	return (iUser < 32) && (m_user_dirty[iUser] & 7);
+}
+
+
+void qxgeditXGMasterMap::set_user_dirty_1 ( unsigned short iUser, bool bDirty )
+{
+	if (iUser < 32) {
+		if (bDirty)
+			m_user_dirty[iUser] |=  1;
+		else
+			m_user_dirty[iUser] &= ~1;
+	}
+}
+
+bool qxgeditXGMasterMap::user_dirty_1 ( unsigned short iUser ) const
+{
+	return (iUser < 32) && (m_user_dirty[iUser] & 1);
+}
+
+
+void qxgeditXGMasterMap::set_user_dirty_2 ( unsigned short iUser, bool bDirty )
+{
+	if (iUser < 32) {
+		if (bDirty)
+			m_user_dirty[iUser] |=  2;
+		else
+			m_user_dirty[iUser] &= ~2;
+	}
+}
+
+bool qxgeditXGMasterMap::user_dirty_2 ( unsigned short iUser ) const
+{
+	return (iUser < 32) && (m_user_dirty[iUser] & 2);
 }
 
 

@@ -1409,8 +1409,10 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 
 	// Deferred QS300 Bulk Dump feedback...
 	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
-		if (m_pMasterMap->user_dirty(iUser))
+		if (m_pMasterMap->user_dirty(iUser)) {
 			m_pMasterMap->send_user(iUser);
+			m_pMasterMap->set_user_dirty_1(iUser, false);
+		}
 	}
 
 	// Deferred XG Multi Part feedback...
@@ -1685,7 +1687,8 @@ void qxgeditMainForm::stabilizeForm (void)
 	// QS300 User Voice dirty flag array status.
 	if (m_pMasterMap) {
 		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
-		m_ui.UservoiceSendButton->setEnabled(m_pMasterMap->user_dirty(iUser));
+		m_ui.UservoiceSendButton->setEnabled(m_pMasterMap->user_dirty_1(iUser));
+		m_ui.UservoiceNameEdit->stabilizePreset();
 	}
 }
 
@@ -2047,8 +2050,10 @@ void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 {
 	if (m_pMasterMap) {
 		m_pMasterMap->USERVOICE.set_current_key(iUser);
-		if (!m_pMasterMap->user_dirty(iUser))
+		if (!m_pMasterMap->user_dirty(iUser)) {
 			m_pMasterMap->send_user(iUser);
+			m_pMasterMap->set_user_dirty_1(iUser, false);
+		}
 		stabilizeForm();
 	}
 }
@@ -2092,7 +2097,7 @@ void qxgeditMainForm::uservoiceSendButtonClicked (void)
 	if (m_pMasterMap) {
 		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
 		m_pMasterMap->send_user(iUser);
-	//	m_pMasterMap->set_user_dirty(iUser, false);
+		m_pMasterMap->set_user_dirty_1(iUser, false);
 		stabilizeForm();
 	}
 }
@@ -2129,7 +2134,7 @@ void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
 	unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
 
 	bool bResult = false;
-	unsigned short len = 0x188;
+	unsigned short len = 0x188; // = 392 bytes
 	unsigned char  data[len];
 
 	if (file.read((char *) data, len)) {
@@ -2149,11 +2154,18 @@ void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
 	file.close();
 
 	// Deferred QS300 Bulk Dump feedback...
-	if (bResult)
-		m_pMasterMap->send_user(iUser);
+	if (bResult) {
+		m_pMasterMap->set_user_dirty_2(iUser, false);
+		if (m_pMasterMap->auto_send()) {
+			m_pMasterMap->send_user(iUser);
+			m_pMasterMap->set_user_dirty_1(iUser, false);
+		}
+	}
 
 	// We're formerly done.
 	QApplication::restoreOverrideCursor();
+	
+	stabilizeForm();
 
 	// Any late warning?
 	if (!bResult) {
@@ -2185,8 +2197,13 @@ void qxgeditMainForm::uservoiceSavePresetFile ( const QString& sFilename )
 	file.write((const char *) sysex.data(), sysex.size());
 	file.close();
 
+	// Just make the preset dirty...
+	m_pMasterMap->set_user_dirty_2(iUser, false);
+
 	// We're formerly done.
 	QApplication::restoreOverrideCursor();
+
+	stabilizeForm();
 }
 
 

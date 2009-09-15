@@ -142,15 +142,15 @@ XGParam *qxgeditEdit::param (void) const
 // Preset management slots...
 void qxgeditEdit::changePreset ( const QString& sPreset )
 {
+	if (m_iUpdatePreset > 0)
+		return;
+
 	if (m_pParam) {
 		m_pParam->set_data(
 			(unsigned char *) sPreset.toAscii().data(),
 			sPreset.length(),
 			observer());
 	}
-
-	if (m_iUpdatePreset > 0)
-		return;
 
 	if (!sPreset.isEmpty() && m_pComboBox->findText(sPreset) >= 0)
 		m_iDirtyPreset++;
@@ -383,7 +383,7 @@ void qxgeditEdit::stabilizePreset (void)
 	if (!bDirty) {
 		qxgeditXGMasterMap *pMasterMap = qxgeditXGMasterMap::getInstance();
 		if (pMasterMap)
-			bDirty = pMasterMap->user_dirty(pMasterMap->USERVOICE.current_key());
+			bDirty = pMasterMap->user_dirty_2(pMasterMap->USERVOICE.current_key());
 	}
 
 	m_pSaveButton->setEnabled(bEnabled && (!bExists || bDirty));

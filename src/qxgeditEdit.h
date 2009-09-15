@@ -58,6 +58,9 @@ signals:
 	void loadPresetFile(const QString&);
 	void savePresetFile(const QString&);
 
+public slots:
+
+	void stabilizePreset();
 
 protected slots:
 
@@ -71,7 +74,6 @@ protected slots:
 protected:
 
 	void refreshPreset();
-	void stabilizePreset();
 
 private:
 
