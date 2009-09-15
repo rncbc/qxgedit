@@ -1,4 +1,4 @@
-// qxgeditXGParamMap.cpp
+// qxgeditXGMasterMap.cpp
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -20,7 +20,7 @@
 *****************************************************************************/
 
 #include "qxgeditAbout.h"
-#include "qxgeditXGParamMap.h"
+#include "qxgeditXGMasterMap.h"
 
 #include "qxgeditMidiDevice.h"
 
@@ -30,44 +30,42 @@
 
 
 //----------------------------------------------------------------------------
-// qxgeditXGParamMap::Observer -- XGParam master map observer.
+// qxgeditXGMasterMap::Observer -- XGParam master map observer.
 
 // Constructor.
-qxgeditXGParamMap::Observer::Observer ( XGParam *pParam )
+qxgeditXGMasterMap::Observer::Observer ( XGParam *pParam )
 	: XGParamObserver(pParam)
 {
 }
 
 // View updater (observer callback).
-void qxgeditXGParamMap::Observer::reset (void)
+void qxgeditXGMasterMap::Observer::reset (void)
 {
 }
 
-void qxgeditXGParamMap::Observer::update (void)
+void qxgeditXGMasterMap::Observer::update (void)
 {
-	qxgeditXGParamMap *pParamMap
-		= static_cast<qxgeditXGParamMap *> (
-			XGParamMasterMap::getInstance());
-	if (pParamMap == NULL)
+	qxgeditXGMasterMap *pMasterMap = qxgeditXGMasterMap::getInstance();
+	if (pMasterMap == NULL)
 		return;
 
 	XGParam *pParam = param();
 
 #ifdef CONFIG_DEBUG_0
-	qDebug("qxgeditXGParamMap::Observer[%p]::update() [%02x %02x %02x %s %u]",
+	qDebug("qxgeditXGMasterMap::Observer[%p]::update() [%02x %02x %02x %s %u]",
 		this, pParam->high(), pParam->mid(), pParam->low(),
 		pParam->text().toUtf8().constData(), pParam->value());
 #endif
 
 	if (pParam->high() == 0x11) {
 		// Special USERVOICE bulk dump stuff...
-		unsigned short iUser = pParamMap->USERVOICE.current_key(); 
-		if (pParamMap->auto_send())
-			pParamMap->send_user(iUser);
-		pParamMap->set_user_dirty(iUser, true);
+		unsigned short iUser = pMasterMap->USERVOICE.current_key(); 
+		if (pMasterMap->auto_send())
+			pMasterMap->send_user(iUser);
+		pMasterMap->set_user_dirty(iUser, true);
 	} else {
 		// Regular XG Parameter change...
-		pParamMap->send_param(pParam);
+		pMasterMap->send_param(pParam);
 	}
 
 	// HACK: Flag dirty the main form...
@@ -78,11 +76,11 @@ void qxgeditXGParamMap::Observer::update (void)
 
 
 //----------------------------------------------------------------------------
-// qxgeditXGParamMap -- XGParam master map.
+// qxgeditXGMasterMap -- XGParam master map.
 //
 
 // Constructor.
-qxgeditXGParamMap::qxgeditXGParamMap (void)
+qxgeditXGMasterMap::qxgeditXGMasterMap (void)
 	: XGParamMasterMap(), m_auto_send(false)
 {
 	// Setup local observers...
@@ -99,7 +97,7 @@ qxgeditXGParamMap::qxgeditXGParamMap (void)
 
 
 // Destructor.
-qxgeditXGParamMap::~qxgeditXGParamMap (void)
+qxgeditXGMasterMap::~qxgeditXGMasterMap (void)
 {
 	// Cleanup local observers...
 	// qDeleteAll(m_observers);
@@ -110,8 +108,15 @@ qxgeditXGParamMap::~qxgeditXGParamMap (void)
 }
 
 
+// Singleton (re)cast.
+qxgeditXGMasterMap *qxgeditXGMasterMap::getInstance (void)
+{
+	return static_cast<qxgeditXGMasterMap *> (XGParamMasterMap::getInstance());
+}
+
+
 // Direct SysEx data receiver.
-bool qxgeditXGParamMap::set_sysex_data (
+bool qxgeditXGMasterMap::set_sysex_data (
 	unsigned char *data, unsigned short len, bool bNotify )
 {
 	 // SysEx (actually)...
@@ -148,7 +153,7 @@ bool qxgeditXGParamMap::set_sysex_data (
 					if (n > 1)
 						i += (n - 1);
 				}
-				ret = (i == (size - 6));
+				ret = (i == size);
 			}
 		}
 		else
@@ -166,7 +171,7 @@ bool qxgeditXGParamMap::set_sysex_data (
 
 
 // Direct parameter data access.
-unsigned short qxgeditXGParamMap::set_param_data (
+unsigned short qxgeditXGMasterMap::set_param_data (
 	unsigned short high, unsigned short mid, unsigned short low,
 	unsigned char *data, bool bNotify )
 {
@@ -218,10 +223,10 @@ unsigned short qxgeditXGParamMap::set_param_data (
 
 
 // All parameter reset (to default)
-void qxgeditXGParamMap::reset_all (void)
+void qxgeditXGMasterMap::reset_all (void)
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGParamMap::reset_all()");
+	qDebug("qxgeditXGMasterMap::reset_all()");
 #endif
 
 	ObserverMap::const_iterator iter = m_observers.constBegin();
@@ -236,10 +241,10 @@ void qxgeditXGParamMap::reset_all (void)
 
 
 // Part reset (to default)
-void qxgeditXGParamMap::reset_part ( unsigned short iPart )
+void qxgeditXGMasterMap::reset_part ( unsigned short iPart )
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGParamMap::reset_part(%u)", iPart);
+	qDebug("qxgeditXGMasterMap::reset_part(%u)", iPart);
 #endif
 
 	XGParamMap::const_iterator iter = MULTIPART.constBegin();
@@ -260,10 +265,10 @@ void qxgeditXGParamMap::reset_part ( unsigned short iPart )
 
 
 // Drums reset (to default)
-void qxgeditXGParamMap::reset_drums ( unsigned short iDrumSet )
+void qxgeditXGMasterMap::reset_drums ( unsigned short iDrumSet )
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGParamMap::reset_drums(%u)", iDrumSet);
+	qDebug("qxgeditXGMasterMap::reset_drums(%u)", iDrumSet);
 #endif
 
 	unsigned short high = 0x30 + iDrumSet;
@@ -277,10 +282,10 @@ void qxgeditXGParamMap::reset_drums ( unsigned short iDrumSet )
 
 
 // user voice reset (to default)
-void qxgeditXGParamMap::reset_user ( unsigned short iUser )
+void qxgeditXGMasterMap::reset_user ( unsigned short iUser )
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGParamMap::reset_user(%u)", iUser);
+	qDebug("qxgeditXGMasterMap::reset_user(%u)", iUser);
 #endif
 
 	// Suspend auto-send temporarily...
@@ -308,7 +313,7 @@ void qxgeditXGParamMap::reset_user ( unsigned short iUser )
 
 
 // Send regular XG Parameter change SysEx message.
-void qxgeditXGParamMap::send_param ( XGParam *pParam )
+void qxgeditXGMasterMap::send_param ( XGParam *pParam )
 {
 	if (pParam == NULL)
 		return;
@@ -338,7 +343,7 @@ void qxgeditXGParamMap::send_param ( XGParam *pParam )
 
 
 // Send Multi Part Bank Select/Program Number SysEx messages.
-void qxgeditXGParamMap::send_part ( unsigned short iPart ) const
+void qxgeditXGMasterMap::send_part ( unsigned short iPart ) const
 {
 	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
 	if (pMidiDevice == NULL)
@@ -360,7 +365,7 @@ void qxgeditXGParamMap::send_part ( unsigned short iPart ) const
 
 
 // Send USER VOICE Bulk Dump SysEx message.
-void qxgeditXGParamMap::send_user ( unsigned short iUser ) const
+void qxgeditXGMasterMap::send_user ( unsigned short iUser ) const
 {
 	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
 	if (pMidiDevice == NULL)
@@ -374,13 +379,13 @@ void qxgeditXGParamMap::send_user ( unsigned short iUser ) const
 
 
 // MULTIPART dirty slot simple managing.
-void qxgeditXGParamMap::reset_part_dirty (void)
+void qxgeditXGMasterMap::reset_part_dirty (void)
 {
 	for (unsigned short i = 0; i < 32; ++i)
 		m_part_dirty[i] = 0;
 }
 
-void qxgeditXGParamMap::set_part_dirty ( unsigned short iPart, bool bDirty )
+void qxgeditXGMasterMap::set_part_dirty ( unsigned short iPart, bool bDirty )
 {
 	if (iPart < 16) {
 		if (bDirty)
@@ -390,20 +395,20 @@ void qxgeditXGParamMap::set_part_dirty ( unsigned short iPart, bool bDirty )
 	}
 }
 
-bool qxgeditXGParamMap::part_dirty ( unsigned short iPart ) const
+bool qxgeditXGMasterMap::part_dirty ( unsigned short iPart ) const
 {
 	return (iPart < 16 && m_part_dirty[iPart] > 0);
 }
 
 
 // (QS300) USERVOICE dirty slot simple managing.
-void qxgeditXGParamMap::reset_user_dirty (void)
+void qxgeditXGMasterMap::reset_user_dirty (void)
 {
 	for (unsigned short i = 0; i < 32; ++i)
 		m_user_dirty[i] = 0;
 }
 
-void qxgeditXGParamMap::set_user_dirty ( unsigned short iUser, bool bDirty )
+void qxgeditXGMasterMap::set_user_dirty ( unsigned short iUser, bool bDirty )
 {
 	if (iUser < 32) {
 		if (bDirty)
@@ -413,22 +418,22 @@ void qxgeditXGParamMap::set_user_dirty ( unsigned short iUser, bool bDirty )
 	}
 }
 
-bool qxgeditXGParamMap::user_dirty ( unsigned short iUser ) const
+bool qxgeditXGMasterMap::user_dirty ( unsigned short iUser ) const
 {
 	return (iUser < 32 && m_user_dirty[iUser] > 0);
 }
 
 
 // (QS300) USERVOICE bulk dump auto-send feature.
-void qxgeditXGParamMap::set_auto_send ( bool bAuto )
+void qxgeditXGMasterMap::set_auto_send ( bool bAuto )
 {
 	m_auto_send = bAuto;
 }
 
-bool qxgeditXGParamMap::auto_send (void) const
+bool qxgeditXGMasterMap::auto_send (void) const
 {
 	return m_auto_send;
 }
 
 
-// end of qxgeditXGParamMap.cpp
+// end of qxgeditXGMasterMap.cpp

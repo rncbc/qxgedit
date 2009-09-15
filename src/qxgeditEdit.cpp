@@ -23,6 +23,7 @@
 #include "qxgeditEdit.h"
 
 #include "qxgeditOptions.h"
+#include "qxgeditXGMasterMap.h"
 
 #include <QHBoxLayout>
 #include <QComboBox>
@@ -52,7 +53,7 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 
 	m_pComboBox->setEditable(true);
 	m_pComboBox->lineEdit()->setValidator(
-		new QRegExpValidator(QRegExp("[ 0-9A-Za-z]+"), this));
+		new QRegExpValidator(QRegExp("[0-9A-Za-z]+"), this));
 	m_pComboBox->setInsertPolicy(QComboBox::NoInsert);
 
 	m_pOpenButton->setIcon(QIcon(":/icons/formOpen.png"));
@@ -377,8 +378,15 @@ void qxgeditEdit::stabilizePreset (void)
 	const QString& sPreset = m_pComboBox->currentText();
 	bool bEnabled = (!sPreset.isEmpty());
 	bool bExists  = (m_pComboBox->findText(sPreset) >= 0);
+	bool bDirty   = (m_iDirtyPreset > 0);
 
-	m_pSaveButton->setEnabled(bEnabled); // && (!bExists || m_iDirtyPreset > 0));
+	if (!bDirty) {
+		qxgeditXGMasterMap *pMasterMap = qxgeditXGMasterMap::getInstance();
+		if (pMasterMap)
+			bDirty = pMasterMap->user_dirty(pMasterMap->USERVOICE.current_key());
+	}
+
+	m_pSaveButton->setEnabled(bEnabled && (!bExists || bDirty));
 	m_pRemoveButton->setEnabled(bEnabled && bExists);
 }
 

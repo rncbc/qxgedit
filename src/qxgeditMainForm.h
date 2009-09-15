@@ -29,7 +29,7 @@
 class qxgeditOptions;
 class qxgeditMidiDevice;
 class qxgeditMidiSysexEvent;
-class qxgeditXGParamMap;
+class qxgeditXGMasterMap;
 
 class QTreeWidget;
 class QLabel;
@@ -132,9 +132,9 @@ private:
 	Ui::qxgeditMainForm m_ui;
 
 	// Instance variables...
-	qxgeditOptions    *m_pOptions;
-	qxgeditMidiDevice *m_pMidiDevice;
-	qxgeditXGParamMap *m_pParamMap;
+	qxgeditOptions     *m_pOptions;
+	qxgeditMidiDevice  *m_pMidiDevice;
+	qxgeditXGMasterMap *m_pMasterMap;
 
 	QString m_sFilename;
 	int m_iUntitled;

@@ -24,7 +24,7 @@
 #include "qxgeditAbout.h"
 #include "qxgeditOptions.h"
 
-#include "qxgeditXGParamMap.h"
+#include "qxgeditXGMasterMap.h"
 #include "qxgeditMidiDevice.h"
 
 #include "XGParamSysex.h"
@@ -81,7 +81,7 @@ qxgeditMainForm::qxgeditMainForm (
 	// Initialize some pointer references.
 	m_pOptions = NULL;
 	m_pMidiDevice = NULL;
-	m_pParamMap = NULL;
+	m_pMasterMap = NULL;
 
 	// We'll start clean.
 	m_iUntitled   = 0;
@@ -172,8 +172,8 @@ qxgeditMainForm::~qxgeditMainForm (void)
 	// Free designated devices.
 	if (m_pMidiDevice)
 		delete m_pMidiDevice;
-	if (m_pParamMap)
-		delete m_pParamMap;
+	if (m_pMasterMap)
+		delete m_pMasterMap;
 
 	// Pseudo-singleton reference shut-down.
 	g_pMainForm = NULL;
@@ -210,8 +210,8 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	updateRecentFilesMenu();
 
 	// XG master database...
-	m_pParamMap = new qxgeditXGParamMap();
-	m_pParamMap->set_auto_send(m_pOptions->bUservoiceAutoSend);
+	m_pMasterMap = new qxgeditXGMasterMap();
+	m_pMasterMap->set_auto_send(m_pOptions->bUservoiceAutoSend);
 
 	// Start proper devices...
 	m_pMidiDevice = new qxgeditMidiDevice(QXGEDIT_TITLE);
@@ -231,13 +231,13 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	const QFont& font = pCentralWidget->font();
 	pCentralWidget->setFont(QFont(font.family(), font.pointSize() - 2));
 
-	XGParamMap *SYSTEM    = &(m_pParamMap->SYSTEM);
-	XGParamMap *REVERB    = &(m_pParamMap->REVERB);
-	XGParamMap *CHORUS    = &(m_pParamMap->CHORUS);
-	XGParamMap *VARIATION = &(m_pParamMap->VARIATION);
-	XGParamMap *MULTIPART = &(m_pParamMap->MULTIPART);
-	XGParamMap *DRUMSETUP = &(m_pParamMap->DRUMSETUP);
-	XGParamMap *USERVOICE = &(m_pParamMap->USERVOICE);
+	XGParamMap *SYSTEM    = &(m_pMasterMap->SYSTEM);
+	XGParamMap *REVERB    = &(m_pMasterMap->REVERB);
+	XGParamMap *CHORUS    = &(m_pMasterMap->CHORUS);
+	XGParamMap *VARIATION = &(m_pMasterMap->VARIATION);
+	XGParamMap *MULTIPART = &(m_pMasterMap->MULTIPART);
+	XGParamMap *DRUMSETUP = &(m_pMasterMap->DRUMSETUP);
+	XGParamMap *USERVOICE = &(m_pMasterMap->USERVOICE);
 
 	// SYSTEM...
 	QObject::connect(m_ui.MasterResetButton,
@@ -673,11 +673,13 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	for (int iUser = 0; iUser < 32; ++iUser)
 		m_ui.UservoiceCombo->addItem(tr("QS300 User %1").arg(iUser + 1));
 
+  	m_ui.UservoiceNameEdit->setMinimumWidth(200);
+
 	m_ui.UservoiceElementCombo->clear();
 	for (int iElem = 0; iElem < 2; ++iElem)
 		m_ui.UservoiceElementCombo->addItem(tr("Element %1").arg(iElem + 1));
 
-	m_ui.UservoiceAutoSendCheck->setChecked(m_pParamMap->auto_send());
+	m_ui.UservoiceAutoSendCheck->setChecked(m_pMasterMap->auto_send());
 
 	QObject::connect(m_ui.UservoiceResetButton,
 		SIGNAL(clicked()),
@@ -1058,8 +1060,8 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.UservoiceAEGResonanceDial -> set_param_map(USERVOICE, 0x8c);
 
 	// Make sure there's nothing pending...
-	m_pParamMap->reset_part_dirty();
-	m_pParamMap->reset_user_dirty();
+	m_pMasterMap->reset_part_dirty();
+	m_pMasterMap->reset_user_dirty();
 	m_iDirtyCount = 0;
 
 	// Is any session pending to be loaded?
@@ -1091,8 +1093,8 @@ bool qxgeditMainForm::queryClose (void)
 			m_pOptions->bStatusbar = statusBar()->isVisible();
 			m_pOptions->bToolbar = m_ui.ToolBar->isVisible();
 			// Specific options...
-			if (m_pParamMap)
-				m_pOptions->bUservoiceAutoSend = m_pParamMap->auto_send();
+			if (m_pMasterMap)
+				m_pOptions->bUservoiceAutoSend = m_pMasterMap->auto_send();
 			// Save main windows state.
 			m_pOptions->saveWidgetGeometry(this);
 		}
@@ -1160,10 +1162,10 @@ void qxgeditMainForm::customEvent ( QEvent *pEvent )
 // SYSEX Event handler.
 bool qxgeditMainForm::sysexEvent ( qxgeditMidiSysexEvent *pSysexEvent )
 {
-	if (m_pParamMap == NULL)
+	if (m_pMasterMap == NULL)
 		return false;
 
-	return m_pParamMap->set_sysex_data(pSysexEvent->data(), pSysexEvent->len());
+	return m_pMasterMap->set_sysex_data(pSysexEvent->data(), pSysexEvent->len());
 }
 
 
@@ -1391,7 +1393,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 		unsigned short iRead = file.read((char *) pBuff + i, iBuff - i) + i;
 		while (i < iRead) {
 			if (pBuff[i++] == 0xf7) {
-				m_pParamMap->set_sysex_data(pBuff, i, true); // Notify!
+				m_pMasterMap->set_sysex_data(pBuff, i, true); // Notify!
 				if (i < iRead) {
 					::memmove(pBuff, pBuff + i, iRead -= i);
 					i = 0;
@@ -1407,15 +1409,15 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 
 	// Deferred QS300 Bulk Dump feedback...
 	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
-		if (m_pParamMap->user_dirty(iUser))
-			m_pParamMap->send_user(iUser);
+		if (m_pMasterMap->user_dirty(iUser))
+			m_pMasterMap->send_user(iUser);
 	}
 
 	// Deferred XG Multi Part feedback...
 	for (unsigned short iPart = 0; iPart < 16; ++iPart) {
-		if (m_pParamMap->part_dirty(iPart)) {
-			m_pParamMap->send_part(iPart);
-			m_pParamMap->set_part_dirty(iPart, false);
+		if (m_pMasterMap->part_dirty(iPart)) {
+			m_pMasterMap->send_part(iPart);
+			m_pMasterMap->set_part_dirty(iPart, false);
 		}
 	}
 
@@ -1449,8 +1451,8 @@ bool qxgeditMainForm::saveSessionFile ( const QString& sFilename )
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
 	// XG Parameter changes...
-	XGParamMasterMap::const_iterator iter = m_pParamMap->constBegin();
-	for (; iter != m_pParamMap->constEnd(); ++iter) {
+	XGParamMasterMap::const_iterator iter = m_pMasterMap->constBegin();
+	for (; iter != m_pMasterMap->constEnd(); ++iter) {
 		XGParam *pParam = iter.value();
 		if (pParam->high() == 0x11 || pParam->value() == pParam->def())
 			continue;
@@ -1460,7 +1462,7 @@ bool qxgeditMainForm::saveSessionFile ( const QString& sFilename )
 
 	// (QS300) USER VOICE Bulk Dumps, whether dirty...
 	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
-		if (m_pParamMap->user_dirty(iUser)) {
+		if (m_pMasterMap->user_dirty(iUser)) {
 			XGUserVoiceSysex sysex(iUser);
 			file.write((const char *) sysex.data(), sysex.size());
 		}
@@ -1681,9 +1683,9 @@ void qxgeditMainForm::stabilizeForm (void)
 		m_statusItems[StatusMod]->clear();
 
 	// QS300 User Voice dirty flag array status.
-	if (m_pParamMap) {
+	if (m_pMasterMap) {
 		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
-		m_ui.UservoiceSendButton->setEnabled(m_pParamMap->user_dirty(iUser));
+		m_ui.UservoiceSendButton->setEnabled(m_pMasterMap->user_dirty(iUser));
 	}
 }
 
@@ -1732,14 +1734,14 @@ void qxgeditMainForm::updateRecentFilesMenu (void)
 // XG System Reset...
 void qxgeditMainForm::masterReset (void)
 {
-	XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7e);
+	XGParam *pParam = m_pMasterMap->find_param(0x00, 0x00, 0x7e);
 	if (pParam)
 		pParam->set_value_update(0);
 }
 
 void qxgeditMainForm::masterResetButtonClicked (void)
 {
-	if (m_pParamMap == NULL)
+	if (m_pMasterMap == NULL)
 		return;
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
@@ -1760,8 +1762,8 @@ void qxgeditMainForm::masterResetButtonClicked (void)
 // Switch the current MULTIPART section...
 void qxgeditMainForm::multipartComboActivated ( int iPart )
 {
-	if (m_pParamMap)
-		m_pParamMap->MULTIPART.set_current_key(iPart);
+	if (m_pMasterMap)
+		m_pMasterMap->MULTIPART.set_current_key(iPart);
 }
 
 
@@ -1941,7 +1943,7 @@ void qxgeditMainForm::multipartPartModeChanged ( unsigned short iPartMode )
 
 void qxgeditMainForm::multipartResetButtonClicked (void)
 {
-	if (m_pParamMap == NULL)
+	if (m_pMasterMap == NULL)
 		return;
 
 	int iPart = m_ui.MultipartCombo->currentIndex();
@@ -1958,7 +1960,7 @@ void qxgeditMainForm::multipartResetButtonClicked (void)
 			return;
 	}
 
-	m_pParamMap->reset_part(iPart);
+	m_pMasterMap->reset_part(iPart);
 	multipartVoiceChanged();
 }
 
@@ -1966,11 +1968,11 @@ void qxgeditMainForm::multipartResetButtonClicked (void)
 // Switch the current DRUMSETUP section...
 void qxgeditMainForm::drumsetupComboActivated ( int iDrumset )
 {
-	if (m_pParamMap) {
+	if (m_pMasterMap) {
 		int iNote = m_ui.DrumsetupNoteCombo->currentIndex();
 		unsigned short key = (unsigned short) (iDrumset << 7)
 			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
-		m_pParamMap->DRUMSETUP.set_current_key(key);
+		m_pMasterMap->DRUMSETUP.set_current_key(key);
 	}
 }
 
@@ -1997,7 +1999,7 @@ void qxgeditMainForm::drumsetupVoiceComboActivated ( int iDrumKit )
 			m_ui.DrumsetupNoteCombo->addItem(sName, k);
 		}
 		int iNote = m_ui.DrumsetupNoteCombo->findData(
-			m_pParamMap->DRUMSETUP.current_key());
+			m_pMasterMap->DRUMSETUP.current_key());
 		if (iNote >= 0)
 			m_ui.DrumsetupNoteCombo->setCurrentIndex(iNote);
 	}
@@ -2006,18 +2008,18 @@ void qxgeditMainForm::drumsetupVoiceComboActivated ( int iDrumKit )
 
 void qxgeditMainForm::drumsetupNoteComboActivated ( int iNote )
 {
-	if (m_pParamMap) {
+	if (m_pMasterMap) {
 		int iDrumset = m_ui.DrumsetupCombo->currentIndex();
 		unsigned short key = (unsigned short) (iDrumset << 7)
 			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
-		m_pParamMap->DRUMSETUP.set_current_key(key);
+		m_pMasterMap->DRUMSETUP.set_current_key(key);
 	}
 }
 
 
 void qxgeditMainForm::drumsetupResetButtonClicked (void)
 {
-	if (m_pParamMap == NULL)
+	if (m_pMasterMap == NULL)
 		return;
 
 	int iDrumset = m_ui.DrumsetupCombo->currentIndex();
@@ -2034,7 +2036,7 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 			return;
 	}
 
-	XGParam *pParam = m_pParamMap->find_param(0x00, 0x00, 0x7d);
+	XGParam *pParam = m_pMasterMap->find_param(0x00, 0x00, 0x7d);
 	if (pParam)
 		pParam->set_value_update(iDrumset);
 }
@@ -2043,10 +2045,10 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 // Switch the current USERVOICE section...
 void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 {
-	if (m_pParamMap) {
-		m_pParamMap->USERVOICE.set_current_key(iUser);
-		if (!m_pParamMap->user_dirty(iUser))
-			m_pParamMap->send_user(iUser);
+	if (m_pMasterMap) {
+		m_pMasterMap->USERVOICE.set_current_key(iUser);
+		if (!m_pMasterMap->user_dirty(iUser))
+			m_pMasterMap->send_user(iUser);
 		stabilizeForm();
 	}
 }
@@ -2054,8 +2056,8 @@ void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 
 void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 {
-	if (m_pParamMap) {
-		m_pParamMap->USERVOICE.set_current_element(iElem);
+	if (m_pMasterMap) {
+		m_pMasterMap->USERVOICE.set_current_element(iElem);
 		stabilizeForm();
 	}
 }
@@ -2063,7 +2065,7 @@ void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 
 void qxgeditMainForm::uservoiceResetButtonClicked (void)
 {
-	if (m_pParamMap == NULL)
+	if (m_pMasterMap == NULL)
 		return;
 
 	int iUser = m_ui.UservoiceCombo->currentIndex();
@@ -2080,17 +2082,17 @@ void qxgeditMainForm::uservoiceResetButtonClicked (void)
 			return;
 	}
 
-	m_pParamMap->reset_user(iUser);
+	m_pMasterMap->reset_user(iUser);
 	stabilizeForm();
 }
 
 
 void qxgeditMainForm::uservoiceSendButtonClicked (void)
 {
-	if (m_pParamMap) {
+	if (m_pMasterMap) {
 		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
-		m_pParamMap->send_user(iUser);
-	//	m_pParamMap->set_user_dirty(iUser, false);
+		m_pMasterMap->send_user(iUser);
+	//	m_pMasterMap->set_user_dirty(iUser, false);
 		stabilizeForm();
 	}
 }
@@ -2098,8 +2100,8 @@ void qxgeditMainForm::uservoiceSendButtonClicked (void)
 
 void qxgeditMainForm::uservoiceAutoSendCheckToggled ( bool bAuto )
 {
-	if (m_pParamMap)
-		m_pParamMap->set_auto_send(bAuto);
+	if (m_pMasterMap)
+		m_pMasterMap->set_auto_send(bAuto);
 }
 
 
@@ -2126,26 +2128,43 @@ void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
 
 	unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
 
+	bool bResult = false;
 	unsigned short len = 0x188;
 	unsigned char  data[len];
 
 	if (file.read((char *) data, len)) {
-		data[7] = iUser; // HACK! Correct checksum...
-		unsigned char cksum = 0;
-		for (unsigned short i = 4; i < len - 2; ++i) {
-			cksum += data[i];
-			cksum &= 0x7f;
+		// Make sure it's a QS300 SysEx bulk dump...
+		if (data[1] == 0x43 && data[3] == 0x4b && data[6] == 0x11) {
+			 // HACK! Correct checksum...
+			data[7] = iUser;
+			unsigned char cksum = 0;
+			for (unsigned short i = 4; i < len - 2; ++i) {
+				cksum += data[i];
+				cksum &= 0x7f;
+			}
+			data[len - 2] = 0x80 - cksum;
+			bResult = m_pMasterMap->set_sysex_data(data, len);
 		}
-		data[len - 2] = 0x80 - cksum;
-		m_pParamMap->set_sysex_data(data, len);
 	}
 	file.close();
 
 	// Deferred QS300 Bulk Dump feedback...
-	m_pParamMap->send_user(iUser);
+	if (bResult)
+		m_pMasterMap->send_user(iUser);
 
 	// We're formerly done.
 	QApplication::restoreOverrideCursor();
+
+	// Any late warning?
+	if (!bResult) {
+		// Failure (maybe wrong preset)...
+		QMessageBox::critical(this,
+			tr("Error") + " - " QXGEDIT_TITLE,
+			tr("Preset could not be loaded:\n\n"
+			"\"%1\".\n\n"
+			"Sorry.").arg(sFilename),
+			QMessageBox::Cancel);		
+	}
 }
 
 

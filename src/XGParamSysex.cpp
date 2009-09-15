@@ -88,8 +88,8 @@ XGParamSysex::XGParamSysex ( XGParam *param )
 XGUserVoiceSysex::XGUserVoiceSysex ( unsigned short id )
 	: XGSysex(0x188) // (size = 0x188 = 11 + 0x17d)
 {
-	XGParamMasterMap *pParamMap = XGParamMasterMap::getInstance();
-	if (pParamMap == NULL) {
+	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
+	if (pMasterMap == NULL) {
 		::memset(m_data, 0, m_size);
 		return;
 	}
@@ -114,7 +114,7 @@ XGUserVoiceSysex::XGUserVoiceSysex ( unsigned short id )
 	unsigned short i0 = i;
 	while (i < m_size - 2) {
 		low = i - i0;
-		XGParam *param = pParamMap->find_param(high, mid, low);
+		XGParam *param = pMasterMap->find_param(high, mid, low);
 		if (param) {
 			if (param->size() > 4) {
 				XGDataParam *dataparam = static_cast<XGDataParam *> (param);

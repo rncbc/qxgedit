@@ -1,4 +1,4 @@
-// qxgeditXGParamMap.h
+// qxgeditXGMasterMap.h
 //
 /****************************************************************************
    Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
@@ -19,24 +19,27 @@
 
 *****************************************************************************/
 
-#ifndef __qxgeditXGParamMap_h
-#define __qxgeditXGParamMap_h
+#ifndef __qxgeditXGMasterMap_h
+#define __qxgeditXGMasterMap_h
 
 #include "XGParam.h"
 
 
 //----------------------------------------------------------------------------
-// qxgeditXGParamMap -- XGParam master map.
+// qxgeditXGMasterMap -- XGParam master map.
 //
-class qxgeditXGParamMap : public XGParamMasterMap
+class qxgeditXGMasterMap : public XGParamMasterMap
 {
 public:
 
 	// Constructor.
-	qxgeditXGParamMap();
+	qxgeditXGMasterMap();
 
 	// Destructor.
-	~qxgeditXGParamMap();
+	~qxgeditXGMasterMap();
+
+	// Singleton (re)cast.
+	static qxgeditXGMasterMap *getInstance();
 
 	// Direct SysEx data receiver.
 	bool set_sysex_data(
@@ -113,7 +116,7 @@ private:
 };
 
 
-#endif	// __qxgeditXGParamMap_h
+#endif	// __qxgeditXGMasterMap_h
 
-// end of qxgeditXGParamMap.h
+// end of qxgeditXGMasterMap.h
 

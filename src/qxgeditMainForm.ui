@@ -1350,6 +1350,9 @@
            <widget class="QComboBox" name="UservoiceCombo" />
           </item>
           <item>
+           <widget class="qxgeditEdit" name="UservoiceNameEdit" />
+          </item>
+          <item>
            <widget class="QComboBox" name="UservoiceElementCombo" />
           </item>
           <item>
@@ -1397,23 +1400,7 @@
             <string>Main</string>
            </attribute>
            <layout class="QGridLayout" >
-            <item row="0" column="0" colspan="3" >
-             <widget class="qxgeditEdit" name="UservoiceNameEdit" />
-            </item>
-            <item row="0" column="2" colspan="5" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0" colspan="2" >
+            <item row="0" column="0" colspan="2" >
              <widget class="QGroupBox" name="UservoiceCommonBox" >
               <property name="title" >
                <string>Common</string>
@@ -1428,7 +1415,7 @@
               </layout>
              </widget>
             </item>
-            <item row="1" column="2" colspan="6" >
+            <item row="0" column="2" colspan="6" >
              <widget class="QGroupBox" name="UservoiceElementBox" >
               <property name="title" >
                <string>Element</string>
@@ -1455,7 +1442,7 @@
               </layout>
              </widget>
             </item>
-            <item row="2" column="0" colspan="8" >
+            <item row="1" column="0" colspan="8" >
              <widget class="QGroupBox" name="UservoiceLFOBox" >
               <property name="title" >
                <string>LFO</string>
@@ -1488,7 +1475,7 @@
               </layout>
              </widget>
             </item>
-            <item row="3" column="0" colspan="8" >
+            <item row="2" column="0" colspan="8" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>

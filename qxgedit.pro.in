@@ -4,7 +4,7 @@ HEADERS += src/XGParam.h \
            src/XGParamObserver.h \
            src/XGParamWidget.h \
            src/XGParamSysex.h \
-           src/qxgeditXGParamMap.h \
+           src/qxgeditXGMasterMap.h \
            src/qxgeditAbout.h \
            src/qxgeditAmpEg.h \
            src/qxgeditCheck.h \
@@ -30,7 +30,7 @@ SOURCES += src/XGParam.cpp \
            src/XGParamObserver.cpp \
            src/XGParamWidget.cpp \
            src/XGParamSysex.cpp \
-           src/qxgeditXGParamMap.cpp \
+           src/qxgeditXGMasterMap.cpp \
            src/qxgeditAmpEg.cpp \
            src/qxgeditCheck.cpp \
            src/qxgeditCombo.cpp \
