@@ -62,13 +62,37 @@ forms = \
 	src/qxgeditOptionsForm.ui \
 	src/qxgeditMainForm.ui
 
-all:	$(name)
+
+style_name = skulpture/skulpture
+
+style_target = styles/libskulpturestyle.so
+
+style_headers = \
+	skulpture/sk_effects.h \
+	skulpture/sk_factory.h \
+	skulpture/skulpture_p.h \
+	skulpture/skulpture.h
+
+style_sources = \
+	skulpture/skulpture.cpp
+
+
+all:	$(name) $(style_target)
+
 
 $(name).mak:	$(name).pro
 	@$(qmake) -o $(name).mak $(name).pro
 
 $(name):	$(name).mak ${forms} $(sources) $(headers)
 	@make -f $(name).mak
+
+
+${style_name).mak:	$(style_name).pro
+	@$(qmake) -o $(style_name).mak $(style_name).pro
+
+$(style_target):	$(style_name).mak $(style_sources) $(style_headers)
+	@make -f $(style_name).mak
+
 
 install:	$(name) icons/$(name).png
 	@install -d -v -m 0755 $(DESTDIR)$(prefix)/bin
@@ -77,13 +101,18 @@ install:	$(name) icons/$(name).png
 	@install -v -m 0755 $(name) $(DESTDIR)$(prefix)/bin/$(name)
 	@install -v -m 0644 icons/$(name).png $(DESTDIR)$(prefix)/share/pixmaps/$(name).png
 	@install -v -m 0644 $(name).desktop $(DESTDIR)$(prefix)/share/applications/$(name).desktop
+	@install -d -v -m 0755 $(DESTDIR)$(prefix)/bin/styles
+	@install -v -m 0755 $(style_target) $(DESTDIR)$(prefix)/bin/$(style_target)
 
 uninstall:	$(DESTDIR)$(prefix)/bin/$(name)
 	@rm -vf $(DESTDIR)$(prefix)/bin/$(name)
 	@rm -vf $(DESTDIR)$(prefix)/share/pixmaps/$(name).png
 	@rm -vf $(DESTDIR)$(prefix)/share/applications/$(name).desktop
+	@rm -vf $(DESTDIR)$(prefix)/bin/$(style_target)
 
 clean:	$(name).mak
 	@make -f $(name).mak clean
 	@rm -f $(name) $(name).mak
 	@rm -rf *.cache *.log *.status
+	@make -f $(style_name).mak clean
+	@rm -f $(style_target) $(style_name).mak

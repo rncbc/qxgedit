@@ -1,6 +1,6 @@
 %define name    @PACKAGE_TARNAME@
 %define version @PACKAGE_VERSION@
-%define release 0
+%define release 1
 %define prefix  @ac_prefix@
 
 Summary:	Qt XG Editor
@@ -43,7 +43,10 @@ for XG devices (eg. Yamaha DB50XG).
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
+%{_bindir}/styles/libskulpturestyle.so
 
 %changelog
+* Thu Sep 17 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
+- Added skulpture theme/style plugin.
 * Mon Jul 20 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
 - Created initial qxgedit.spec
