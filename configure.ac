@@ -196,6 +196,7 @@ echo
 echo "  Build target . . . . . . . . . . . . . . . . . . .: $ac_debug"
 echo
 echo "  ALSA MIDI Sequencer support  . . . . . . . . . . .: $ac_libasound"
+echo
 echo "  Debugger stack-trace (gdb) . . . . . . . . . . . .: $ac_stacktrace"
 echo
 echo "  Install prefix . . . . . . . . . . . . . . . . . .: $ac_prefix"

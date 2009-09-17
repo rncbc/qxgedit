@@ -87,11 +87,11 @@ $(name):	$(name).mak ${forms} $(sources) $(headers)
 	@make -f $(name).mak
 
 
-${style_name).mak:	$(style_name).pro
+$(style_name).mak:	$(style_name).pro
 	@$(qmake) -o $(style_name).mak $(style_name).pro
 
 $(style_target):	$(style_name).mak $(style_sources) $(style_headers)
-	@make -f $(style_name).mak
+	@cd skulpture && make -f ../$(style_name).mak
 
 
 install:	$(name) icons/$(name).png
@@ -114,5 +114,5 @@ clean:	$(name).mak
 	@make -f $(name).mak clean
 	@rm -f $(name) $(name).mak
 	@rm -rf *.cache *.log *.status
-	@make -f $(style_name).mak clean
+	@cd skulpture && make -f ../$(style_name).mak clean
 	@rm -f $(style_target) $(style_name).mak
