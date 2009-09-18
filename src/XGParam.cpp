@@ -2885,7 +2885,7 @@ static
 XGParamItem USERVOICEParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
 	// [Common]
-	{ 0x00, 8, 32,  127, "[Voice ]Name",            0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x00,10, 32,  127, "[Voice ]Name",            0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0b, 1,  1,    3, "Element[ Switch]",        1, NULL,     NULL,     getselem, NULL     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
 	{ 0x0c, 1,  0,  127, "[Voice ]Level",          64, NULL,     NULL,     NULL,     NULL     },
 	// [Element 1]
