@@ -23,7 +23,7 @@ configure-stamp:
 	dh_testdir
 
 	# Add here commands to configure the package.
-	-$(MAKE) -f Makefile.cvs
+	-$(MAKE) -f Makefile.svn
 
 	./configure --prefix=/usr
 	touch configure-stamp
@@ -37,7 +37,7 @@ build-stamp: configure-stamp
 	# Add here commands to compile the package.
 	$(MAKE)
 
-	#docbook-to-man debian/qtractor.sgml > qtractor.1
+	#docbook-to-man debian/qxgedit.sgml > qxgedit.1
 
 	touch $@
 
@@ -47,7 +47,7 @@ clean:
 	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
-	-$(MAKE) -f Makefile.cvs clean
+	-$(MAKE) -f Makefile.svn clean
 
 	dh_clean 
 
@@ -57,8 +57,8 @@ install: build
 	dh_clean -k 
 	dh_installdirs
 
-	# Add here commands to install the package into debian/qtractor.
-	$(MAKE) DESTDIR=$(CURDIR)/debian/qtractor install
+	# Add here commands to install the package into debian/qxgedit.
+	$(MAKE) DESTDIR=$(CURDIR)/debian/qxgedit install
 
 
 # Build architecture-independent files here.
