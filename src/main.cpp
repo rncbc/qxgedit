@@ -46,7 +46,7 @@
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 
-#define QTRACTOR_XUNIQUE "qxgeditApplication"
+#define QXGEDIT_XUNIQUE "qxgeditApplication"
 
 #endif
 
@@ -100,7 +100,7 @@ public:
 		}
 	#if defined(Q_WS_X11)
 		m_pDisplay = QX11Info::display();
-		m_aUnique  = XInternAtom(m_pDisplay, QTRACTOR_XUNIQUE, false);
+		m_aUnique  = XInternAtom(m_pDisplay, QXGEDIT_XUNIQUE, false);
 		XGrabServer(m_pDisplay);
 		m_wOwner = XGetSelectionOwner(m_pDisplay, m_aUnique);
 		XUngrabServer(m_pDisplay);
@@ -157,7 +157,7 @@ public:
 			XRaiseWindow(m_pDisplay, m_wOwner);
 			// And then, let it get caught on destination
 			// by QApplication::x11EventFilter...
-			QByteArray value = QTRACTOR_XUNIQUE;
+			QByteArray value = QXGEDIT_XUNIQUE;
 			XChangeProperty(
 				m_pDisplay,
 				m_wOwner,
