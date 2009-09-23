@@ -172,7 +172,7 @@ void qxgeditEdit::loadPreset ( const QString& sPreset )
 	m_iUpdatePreset++;
 
 	QSettings& settings = pOptions->settings();
-	settings.beginGroup("/Uservoice/Presets/");
+	settings.beginGroup(presetGroup());
 	emit loadPresetFile(settings.value(sPreset).toString());
 	settings.endGroup();
 
@@ -253,7 +253,7 @@ void qxgeditEdit::savePreset (void)
 	// The current state preset is about to be saved...
 	// this is where we'll make it...
 	QSettings& settings = pOptions->settings();
-	settings.beginGroup("/Uservoice/Presets/");
+	settings.beginGroup(presetGroup());
 	// Sure, we'll have something complex enough
 	// to make it save into an external file...
 	const QString sExt("syx");
@@ -331,7 +331,7 @@ void qxgeditEdit::removePreset (void)
 	// A preset entry is about to be removed;
 	// prompt user if he/she's sure about this...
 	if (pOptions->bConfirmRemove) {
-		if (QMessageBox::warning(this,
+		if (QMessageBox::warning(parentWidget(),
 			tr("Warning") + " - " QXGEDIT_TITLE,
 			tr("About to remove preset:\n\n"
 			"\"%1\"\n\n"
@@ -346,7 +346,7 @@ void qxgeditEdit::removePreset (void)
 	m_iUpdatePreset++;
 
 	QSettings& settings = pOptions->settings();
-	settings.beginGroup("/Uservoice/Presets/");
+	settings.beginGroup(presetGroup());
 	const QString& sFilename = settings.value(sPreset).toString();
 	if (QFileInfo(sFilename).exists())
 		QFile(sFilename).remove();
@@ -372,7 +372,7 @@ void qxgeditEdit::refreshPreset (void)
 	m_pComboBox->clear();
 	qxgeditOptions *pOptions = qxgeditOptions::getInstance();
 	if (pOptions) {
-		pOptions->settings().beginGroup("/Uservoice/Presets/");
+		pOptions->settings().beginGroup(presetGroup());
 		m_pComboBox->insertItems(0, pOptions->settings().childKeys());
 		pOptions->settings().endGroup();
 	}
@@ -399,6 +399,13 @@ void qxgeditEdit::stabilizePreset (void)
 
 	m_pSaveButton->setEnabled(bEnabled && (!bExists || bDirty));
 	m_pRemoveButton->setEnabled(bEnabled && bExists);
+}
+
+
+// Preset group path name.
+QString qxgeditEdit::presetGroup (void)
+{
+	return "/Uservoice/Presets/";
 }
 
 

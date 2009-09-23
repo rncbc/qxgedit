@@ -75,6 +75,8 @@ protected:
 
 	void refreshPreset();
 
+	static QString presetGroup();
+
 private:
 
 	// Instance variables.
