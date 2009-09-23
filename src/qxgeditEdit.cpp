@@ -284,6 +284,17 @@ void qxgeditEdit::savePreset (void)
 		if (fileDialog.exec())
 			sFilename = fileDialog.selectedFiles().first();
 	#endif
+	} else if (pOptions->bConfirmRemove) {
+		if (QMessageBox::warning(parentWidget(),
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to replace preset:\n\n"
+			"\"%1\"\n\n"
+			"Are you sure?")
+			.arg(sPreset),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel) {
+			sFilename.clear();
+		}
 	}
 	// We've a filename to save the preset
 	if (!sFilename.isEmpty()) {
