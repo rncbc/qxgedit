@@ -245,6 +245,8 @@ void qxgeditScale::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
+
 	QPen oldpen(painter.pen());
 	QPen dotpen(oldpen);
 	dotpen.setStyle(Qt::DotLine);

@@ -127,6 +127,8 @@ void qxgeditPartEg::paintEvent ( QPaintEvent *pPaintEvent )
 	const QColor& rgbLite = (bDark ? Qt::darkYellow : Qt::yellow);
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
+
+	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
 //	painter.drawPolyline(m_poly);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);

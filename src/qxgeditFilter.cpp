@@ -145,6 +145,8 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
+
 	QLinearGradient grad(0, 0, w << 1, h << 1);
 	grad.setColorAt(0.0f, rgbLite);
 	grad.setColorAt(1.0f, Qt::black);

@@ -80,9 +80,6 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	QObject::connect(m_pComboBox,
 		SIGNAL(editTextChanged(const QString&)),
 		SLOT(changePreset(const QString&)));
-	QObject::connect(m_pComboBox,
-		SIGNAL(activated(const QString&)),
-		SLOT(loadPreset(const QString&)));
 	QObject::connect(m_pOpenButton,
 		SIGNAL(clicked()),
 		SLOT(openPreset()));

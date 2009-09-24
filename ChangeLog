@@ -5,6 +5,9 @@ ChangeLog
 
 SVN TRUNK
 
+- All graphics lines are now slightly gray colored, instead of plain
+  black or white, or whatever the current theme text color.
+
 - Added user confirmation for QS300 user voice preset replacement.
 
 
