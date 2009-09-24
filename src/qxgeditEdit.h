@@ -66,12 +66,18 @@ protected slots:
 
 	// Internal widget slots.
 	void changePreset(const QString&);
-	void loadPreset(const QString&);
 	void openPreset();
 	void savePreset();
 	void removePreset();
 
 protected:
+
+	QString presetName() const;
+
+	bool queryPreset(); 
+
+	void loadPreset(const QString&);
+	void savePreset(const QString&);
 
 	void refreshPreset();
 

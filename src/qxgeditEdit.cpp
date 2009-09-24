@@ -30,8 +30,6 @@
 #include <QToolButton>
 #include <QLineEdit>
 
-/* #include <QRegExpValidator> */
-
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -52,8 +50,9 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	m_pRemoveButton = new QToolButton();
 
 	m_pComboBox->setEditable(true);
-/*	m_pComboBox->lineEdit()->setValidator(
-		new QRegExpValidator(QRegExp("[0-9A-Za-z]+"), this)); */
+#if QT_VERSION >= 0x040200
+	m_pComboBox->setCompleter(NULL);
+#endif
 	m_pComboBox->setInsertPolicy(QComboBox::NoInsert);
 
 	m_pOpenButton->setIcon(QIcon(":/icons/formOpen.png"));
@@ -82,7 +81,7 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 		SIGNAL(editTextChanged(const QString&)),
 		SLOT(changePreset(const QString&)));
 	QObject::connect(m_pComboBox,
-		SIGNAL(activated(const QString &)),
+		SIGNAL(activated(const QString&)),
 		SLOT(loadPreset(const QString&)));
 	QObject::connect(m_pOpenButton,
 		SIGNAL(clicked()),
@@ -105,11 +104,7 @@ qxgeditEdit::~qxgeditEdit (void)
 // Nominal value accessors.
 void qxgeditEdit::set_value ( unsigned short /*iValue*/, Observer */*pSender*/ )
 {
-	if (m_pParam) {
-		m_pComboBox->setEditText(QString(
-			QByteArray((const char *) m_pParam->data(), m_pParam->size()))
-			.simplified());
-	}
+	m_pComboBox->setEditText(presetName());
 
 	refreshPreset();
 	stabilizePreset();
@@ -139,10 +134,68 @@ XGParam *qxgeditEdit::param (void) const
 }
 
 
+// Retrieve current preset name (voice name)
+QString qxgeditEdit::presetName() const
+{
+	QString sPreset;
+
+	if (m_pParam) {
+		sPreset = QString(
+			QByteArray((const char *) m_pParam->data(), m_pParam->size()))
+			.simplified();
+	}
+
+	return sPreset;
+}
+
+
+// Check whether current preset may be reset.
+bool qxgeditEdit::queryPreset (void) 
+{
+	if (m_pParam == NULL)
+		return false;
+
+	qxgeditOptions *pOptions = qxgeditOptions::getInstance();
+	if (pOptions && pOptions->bConfirmReset) {
+		qxgeditXGMasterMap *pMasterMap = qxgeditXGMasterMap::getInstance();
+		if (pMasterMap &&
+			pMasterMap->user_dirty_2(pMasterMap->USERVOICE.current_key())) {
+			const QString& sPreset = presetName();
+			switch (QMessageBox::warning(this,
+				tr("Warning") + " - " QXGEDIT_TITLE,
+				tr("Some settings have been changed:\n\n"
+				"\"%1\"\n\nDo you want to save the changes?")
+				.arg(sPreset),
+				QMessageBox::Save |
+				QMessageBox::Discard |
+				QMessageBox::Cancel)) {
+			case QMessageBox::Save:
+				savePreset(sPreset);
+				// Fall thru...
+			case QMessageBox::Discard:
+				break;
+			default: // Cancel...
+				m_iUpdatePreset++;
+				m_pComboBox->setEditText(sPreset);
+				m_iUpdatePreset--;
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+
 // Preset management slots...
 void qxgeditEdit::changePreset ( const QString& sPreset )
 {
 	if (m_iUpdatePreset > 0)
+		return;
+
+	bool bLoadPreset = (!sPreset.isEmpty()
+		&& m_pComboBox->findText(sPreset) >= 0);
+	if (bLoadPreset && !queryPreset())
 		return;
 
 	if (m_pParam) {
@@ -150,12 +203,13 @@ void qxgeditEdit::changePreset ( const QString& sPreset )
 			(unsigned char *) sPreset.toAscii().data(),
 			sPreset.length(),
 			observer());
+		m_iDirtyPreset++;
 	}
 
-	if (!sPreset.isEmpty() && m_pComboBox->findText(sPreset) >= 0)
-		m_iDirtyPreset++;
-
-	stabilizePreset();
+	if (bLoadPreset)
+		loadPreset(sPreset);
+	else
+		stabilizePreset();
 }
 
 
@@ -224,13 +278,13 @@ void qxgeditEdit::openPreset (void)
 	// Have we a filename to load a preset from?
 	if (!sFilename.isEmpty()) {
 		QFileInfo fi(sFilename);
-		if (fi.exists()) {
+		if (fi.exists() && queryPreset()) {
 			// Get it loaded alright...
 			m_iUpdatePreset++;
 			emit loadPresetFile(sFilename);
 			m_pComboBox->setEditText(fi.baseName());
-			m_iUpdatePreset--;
 			pOptions->sPresetDir = fi.absolutePath();
+			m_iUpdatePreset--;
 		}
 	}
 
@@ -241,7 +295,11 @@ void qxgeditEdit::openPreset (void)
 
 void qxgeditEdit::savePreset (void)
 {
-	const QString& sPreset = m_pComboBox->currentText();
+	savePreset(m_pComboBox->currentText());
+}
+
+void qxgeditEdit::savePreset ( const QString& sPreset )
+{
 	if (sPreset.isEmpty())
 		return;
 
@@ -304,8 +362,8 @@ void qxgeditEdit::savePreset (void)
 		m_iUpdatePreset++;
 		emit savePresetFile(sFilename);
 		settings.setValue(sPreset, sFilename);
-		m_iUpdatePreset--;
 		pOptions->sPresetDir = QFileInfo(sFilename).absolutePath();
+		m_iUpdatePreset--;
 	}
 	settings.endGroup();
 
