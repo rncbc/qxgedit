@@ -470,4 +470,76 @@ bool qxgeditXGMasterMap::auto_send (void) const
 }
 
 
+// Part randomize (from value/def)
+void qxgeditXGMasterMap::randomize_part ( unsigned short iPart, int p )
+{
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditXGMasterMap::randomize_part(%u, %d)", iPart, p);
+#endif
+
+	XGParamMap::const_iterator iter = MULTIPART.constBegin();
+	for (; iter != MULTIPART.constEnd(); ++iter) {
+		XGParamSet *pParamSet = iter.value();
+		if (pParamSet->contains(iPart)) {
+			XGParam *pParam = pParamSet->value(iPart);
+			if (pParam && (pParam->low() < 0x01 || pParam->low() > 0x03))
+				pParam->randomize_value(p);
+		}
+	}
+
+	if (part_dirty(iPart)) {
+		send_part(iPart);
+		set_part_dirty(iPart, false);
+	}
+}
+
+
+// Drums randomize (from value/def)
+void qxgeditXGMasterMap::randomize_drums ( unsigned short iDrumSet, int p )
+{
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditXGMasterMap::randomize_drums(%u, %d)", iDrumSet, p);
+#endif
+
+	unsigned short high = 0x30 + iDrumSet;
+	ObserverMap::const_iterator iter = m_observers.constBegin();
+	for (; iter != m_observers.constEnd(); ++iter) {
+		XGParam *pParam = iter.key();
+		if (pParam->high() == high)
+			pParam->randomize_value(p);
+	}
+}
+
+
+// User voice randomize (from value/def)
+void qxgeditXGMasterMap::randomize_user ( unsigned short iUser, int p )
+{
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditXGMasterMap::randomize_user(%u, %d)", iUser, p);
+#endif
+
+	// Suspend auto-send temporarily...
+	bool bAuto = auto_send();
+	set_auto_send(false);
+
+	XGParamMap::const_iterator iter = USERVOICE.constBegin();
+	for (; iter != USERVOICE.constEnd(); ++iter) {
+		XGParamSet *pParamSet = iter.value();
+		if (pParamSet->contains(iUser)) {
+			XGParam *pParam = pParamSet->value(iUser);
+			if (pParam)
+				pParam->randomize_value(p);
+		}
+	}
+
+	if (user_dirty(iUser)) {
+		send_user(iUser);
+		set_user_dirty(iUser, false);
+	}
+
+	// Restore auto-send.
+	set_auto_send(bAuto);
+}
+
+
 // end of qxgeditXGMasterMap.cpp

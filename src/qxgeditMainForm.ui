@@ -1989,6 +1989,8 @@
    <addaction name="fileNewAction" />
    <addaction name="fileOpenAction" />
    <addaction name="fileSaveAction" />
+   <addaction name="separator" />
+   <addaction name="viewRandomizeAction" />
   </widget>
   <widget class="QMenuBar" name="MenuBar" >
    <property name="geometry" >
@@ -2025,6 +2027,8 @@
     <addaction name="viewMenubarAction" />
     <addaction name="viewStatusbarAction" />
     <addaction name="viewToolbarAction" />
+    <addaction name="separator" />
+    <addaction name="viewRandomizeAction" />
     <addaction name="separator" />
     <addaction name="viewOptionsAction" />
    </widget>
@@ -2189,6 +2193,26 @@
    </property>
    <property name="statusTip" >
     <string>Show/hide main program window file toolbar</string>
+   </property>
+  </action>
+  <action name="viewRandomizeAction" >
+   <property name="icon" >
+    <iconset resource="../icons/qxgedit.qrc" >:/icons/formCreate.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Randomize</string>
+   </property>
+   <property name="iconText" >
+    <string>Randomize</string>
+   </property>
+   <property name="toolTip" >
+    <string>Randomize</string>
+   </property>
+   <property name="statusTip" >
+    <string>Randomize parameters</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+R</string>
    </property>
   </action>
   <action name="viewOptionsAction" >

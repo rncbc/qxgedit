@@ -56,6 +56,7 @@ public:
 	bool    bConfirmReset;
 	bool    bConfirmRemove;
 	bool    bCompletePath;
+	int     iRandomizePerct;
 	int     iBaseFontSize;
 
 	// View options...

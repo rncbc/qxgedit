@@ -59,7 +59,7 @@ public:
 	// Drums reset (to default)
 	void reset_drums(unsigned short iDrumSet);
 
-	// user voice reset (to default)
+	// User voice reset (to default)
 	void reset_user(unsigned short iUser);
 
 	// Send regular XG Parameter change SysEx message.
@@ -90,6 +90,15 @@ public:
 	// (QS300) USERVOICE bulk dump auto-send feature.
 	void set_auto_send(bool bAuto);
 	bool auto_send() const;
+
+	// Part randomize (from value/def)
+	void randomize_part(unsigned short iPart, int p = 100);
+
+	// Drums randomize (from value/def)
+	void randomize_drums(unsigned short iDrumSet, int p = 100);
+
+	// User voice randomize (from value/def)
+	void randomize_user(unsigned short iUser, int p = 100);
 
 private:
 

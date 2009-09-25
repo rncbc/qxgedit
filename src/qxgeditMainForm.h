@@ -70,6 +70,7 @@ public slots:
 	void viewMenubar(bool bOn);
 	void viewStatusbar(bool bOn);
 	void viewToolbar(bool bOn);
+	void viewRandomize();
 	void viewOptions();
 
 	void helpAbout();
@@ -125,6 +126,8 @@ protected:
 	bool sysexEvent(qxgeditMidiSysexEvent *pSysexEvent);
 
 	void masterReset();
+
+	bool isRandomizable() const;
 
 private:
 

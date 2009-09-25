@@ -5,6 +5,10 @@ ChangeLog
 
 SVN TRUNK
 
+- Randomization of all current vparameter values is now available,
+  allowing for great experimentation and exploration of brand new
+  sound settings (just try View/Randomize).
+
 - All graphics lines are now slightly gray colored, instead of plain
   black or white, or whatever the current theme text color.
 

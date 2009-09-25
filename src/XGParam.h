@@ -233,7 +233,14 @@ public:
 	QString label() const;
 	QString text() const;
 
+	// Randomizers (p = percent from value/def).
+	void randomize_value(int p = 100);
+	void randomize_def(int p = 100);
+
 protected:
+
+	// Value randomizer (p = percent from v).
+	void randomize(int u, int p);
 
 	// Parameter descriptor.
 	const XGParamItem *m_param;
@@ -417,6 +424,10 @@ public:
 	// Element key value accessors.
 	void set_current_element(unsigned short element);
 	unsigned short current_element () const;
+
+	// All parameter randomizer (p = percent from value/def).
+	void randomize_value(int p = 100);
+	void randomize_def(int p = 100);
 
 protected:
 

@@ -75,6 +75,9 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	QObject::connect(m_ui.MaxRecentFilesSpinBox,
 		SIGNAL(valueChanged(int)),
 		SLOT(changed()));
+	QObject::connect(m_ui.RandomizePerctSpinBox,
+		SIGNAL(valueChanged(int)),
+		SLOT(changed()));
 	QObject::connect(m_ui.BaseFontSizeComboBox,
 		SIGNAL(editTextChanged(const QString&)),
 		SLOT(changed()));
@@ -132,6 +135,7 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 	m_ui.ConfirmRemoveCheckBox->setChecked(m_pOptions->bConfirmRemove);
 	m_ui.CompletePathCheckBox->setChecked(m_pOptions->bCompletePath);
 	m_ui.MaxRecentFilesSpinBox->setValue(m_pOptions->iMaxRecentFiles);
+	m_ui.RandomizePerctSpinBox->setValue(m_pOptions->iRandomizePerct);
 	if (m_pOptions->iBaseFontSize > 0)
 		m_ui.BaseFontSizeComboBox->setEditText(QString::number(m_pOptions->iBaseFontSize));
 	else
@@ -185,6 +189,7 @@ void qxgeditOptionsForm::accept (void)
 		m_pOptions->bConfirmRemove  = m_ui.ConfirmRemoveCheckBox->isChecked();
 		m_pOptions->bCompletePath   = m_ui.CompletePathCheckBox->isChecked();
 		m_pOptions->iMaxRecentFiles = m_ui.MaxRecentFilesSpinBox->value();
+		m_pOptions->iRandomizePerct = m_ui.RandomizePerctSpinBox->value();
 		m_pOptions->iBaseFontSize   = m_ui.BaseFontSizeComboBox->currentText().toInt();
 		// Reset dirty flag.
 		m_iDirtyCount = 0;

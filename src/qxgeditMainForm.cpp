@@ -149,6 +149,9 @@ qxgeditMainForm::qxgeditMainForm (
 	QObject::connect(m_ui.viewToolbarAction,
 		SIGNAL(triggered(bool)),
 		SLOT(viewToolbar(bool)));
+	QObject::connect(m_ui.viewRandomizeAction,
+		SIGNAL(triggered(bool)),
+		SLOT(viewRandomize()));
 	QObject::connect(m_ui.viewOptionsAction,
 		SIGNAL(triggered(bool)),
 		SLOT(viewOptions()));
@@ -163,6 +166,13 @@ qxgeditMainForm::qxgeditMainForm (
 	QObject::connect(m_ui.fileMenu,
 		SIGNAL(aboutToShow()),
 		SLOT(updateRecentFilesMenu()));
+
+	QObject::connect(m_ui.MainTabWidget,
+		SIGNAL(currentChanged(int)),
+		SLOT(stabilizeForm()));
+	QObject::connect(m_ui.SystemEffectToolBox,
+		SIGNAL(currentChanged(int)),
+		SLOT(stabilizeForm()));
 }
 
 
@@ -1574,6 +1584,61 @@ void qxgeditMainForm::viewToolbar ( bool bOn )
 }
 
 
+// Randomize current parameter page view.
+void qxgeditMainForm::viewRandomize (void)
+{
+	if (m_pMasterMap == NULL)
+		return;
+
+	int p = 100;
+
+	if (m_pOptions) {
+		p = m_pOptions->iRandomizePerct;
+		if (m_pOptions->bConfirmReset) {
+			if (QMessageBox::warning(this,
+				tr("Warning") + " - " QXGEDIT_TITLE,
+				tr("About to randomize current view\n"
+				"parameter values (%1 %).\n\n"
+				"Are you sure?").arg(p),
+				QMessageBox::Ok | QMessageBox::Cancel)
+				== QMessageBox::Cancel)
+				return;
+		}
+	}
+
+	switch (m_ui.MainTabWidget->currentIndex()) {
+	case 0: // SYSTEM / EFFECT page...
+		switch (m_ui.SystemEffectToolBox->currentIndex()) {
+		case 1: // REVERB section...
+			m_pMasterMap->REVERB.randomize_value(p);
+			break;
+		case 2: // CHORUS section...
+			m_pMasterMap->CHORUS.randomize_value(p);
+			break;
+		case 3: // VARIATION section...
+			m_pMasterMap->VARIATION.randomize_value(p);
+			break;
+		default:
+			break;
+		}
+		break;
+	case 1: // MULTI PART page...
+		m_pMasterMap->randomize_part(m_ui.MultipartCombo->currentIndex(), p);
+		break;
+	case 2: // DRUM SETUP page...
+		m_pMasterMap->randomize_drums(m_ui.DrumsetupCombo->currentIndex(), p);
+		break;
+	case 3: // USER VOICE page...
+		m_pMasterMap->randomize_user(m_ui.UservoiceCombo->currentIndex(), p);
+		break;
+	default:
+		break;
+	}
+
+	stabilizeForm();
+}
+
+
 // Show options dialog.
 void qxgeditMainForm::viewOptions (void)
 {
@@ -1673,6 +1738,9 @@ void qxgeditMainForm::stabilizeForm (void)
 
 	// Update the main menu state...
 	m_ui.fileSaveAction->setEnabled(m_iDirtyCount > 0);
+
+	// Randomize view menu.
+	m_ui.viewRandomizeAction->setEnabled(isRandomizable());
 
 	// Recent files menu.
 	m_ui.fileOpenRecentMenu->setEnabled(m_pOptions->recentFiles.count() > 0);
@@ -2115,6 +2183,35 @@ void qxgeditMainForm::contentsChanged (void)
 {
 	m_iDirtyCount++;
 	stabilizeForm();
+}
+
+
+// Check whether randomize current parameter page view is possible.
+bool qxgeditMainForm::isRandomizable (void) const
+{
+	if (m_pMasterMap == NULL)
+		return false;
+
+	switch (m_ui.MainTabWidget->currentIndex()) {
+	case 0: // SYSTEM / EFFECT page...
+		switch (m_ui.SystemEffectToolBox->currentIndex()) {
+		case 1: // REVERB section...
+		case 2: // CHORUS section...
+		case 3: // VARIATION section...
+			return true;
+		default:
+			break;
+		}
+		break;
+	case 1: // MULTI PART page...
+	case 2: // DRUM SETUP page...
+	case 3: // USER VOICE page...
+		return true;
+	default:
+		break;
+	}
+
+	return false;
 }
 
 

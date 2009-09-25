@@ -3580,6 +3580,27 @@ QString XGParam::text (void) const
 }
 
 
+// Value randomizer (p = percent deviation from v).
+void XGParam::randomize ( int v, int p )
+{
+	int q = max() - min() + 1;
+	if (q > 1) {
+		int r = min() + (::rand() % q);
+		set_value(v + ((p * (r - v)) / 100));
+	}
+}
+
+void XGParam::randomize_value ( int p )
+{
+	randomize(value(), p);
+}
+
+void XGParam::randomize_def ( int p )
+{
+	randomize(def(), p);
+}
+
+
 //-------------------------------------------------------------------------
 // class XGEffectParam - XG Effect parameter descriptor.
 
@@ -3886,6 +3907,36 @@ unsigned short XGParamMap::current_element (void) const
 }
 
 
+// All parameter randomizer (p = percent from value/def).
+void XGParamMap::randomize_value ( int p )
+{
+	unsigned short key = current_key();
+	XGParamMap::const_iterator iter = XGParamMap::constBegin();
+	for (; iter != XGParamMap::constEnd(); ++iter) {
+		XGParamSet *paramset = iter.value();
+		if (paramset->contains(key)) {
+			XGParam *param = paramset->value(key);
+			if (param)
+				param->randomize_value(p);
+		}
+	}
+}
+
+void XGParamMap::randomize_def ( int p )
+{
+	unsigned short key = current_key();
+	XGParamMap::const_iterator iter = XGParamMap::constBegin();
+	for (; iter != XGParamMap::constEnd(); ++iter) {
+		XGParamSet *paramset = iter.value();
+		if (paramset->contains(key)) {
+			XGParam *param = paramset->value(key);
+			if (param)
+				param->randomize_def(p);
+		}
+	}
+}
+
+
 //-------------------------------------------------------------------------
 // class XGParamMasterMap - XG Parameter master state database.
 //
@@ -3903,6 +3954,9 @@ XGParamMasterMap *XGParamMasterMap::getInstance (void)
 XGParamMasterMap::XGParamMasterMap (void)
 {
 	unsigned short i, j, k;
+
+	// Initialize the randomizer seed...
+	::srand(::time(NULL));
 
 	// XG SYSTEM...
 	for (i = 0; i < TSIZE(SYSTEMParamTab); ++i) {
