@@ -95,7 +95,8 @@ public:
 	void randomize_part(unsigned short iPart, int p = 100);
 
 	// Drums randomize (from value/def)
-	void randomize_drums(unsigned short iDrumSet, int p = 100);
+	void randomize_drums(
+		unsigned short iDrumSet, unsigned short iDrumKey, int p = 100);
 
 	// User voice randomize (from value/def)
 	void randomize_user(unsigned short iUser, int p = 100);

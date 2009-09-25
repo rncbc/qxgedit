@@ -495,18 +495,22 @@ void qxgeditXGMasterMap::randomize_part ( unsigned short iPart, int p )
 
 
 // Drums randomize (from value/def)
-void qxgeditXGMasterMap::randomize_drums ( unsigned short iDrumSet, int p )
+void qxgeditXGMasterMap::randomize_drums (
+	unsigned short iDrumSet, unsigned short iDrumKey, int p )
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGMasterMap::randomize_drums(%u, %d)", iDrumSet, p);
+	qDebug("qxgeditXGMasterMap::randomize_drums(%u, %u, %d)", iDrumSet, iDrumKey, p);
 #endif
 
-	unsigned short high = 0x30 + iDrumSet;
-	ObserverMap::const_iterator iter = m_observers.constBegin();
-	for (; iter != m_observers.constEnd(); ++iter) {
-		XGParam *pParam = iter.key();
-		if (pParam->high() == high)
-			pParam->randomize_value(p);
+	unsigned short key = (unsigned short) (iDrumSet << 7) + iDrumKey;
+	XGParamMap::const_iterator iter = DRUMSETUP.constBegin();
+	for (; iter != DRUMSETUP.constEnd(); ++iter) {
+		XGParamSet *pParamSet = iter.value();
+		if (pParamSet->contains(key)) {
+			XGParam *pParam = pParamSet->value(key);
+			if (pParam)
+				pParam->randomize_value(p);
+		}
 	}
 }
 
@@ -522,8 +526,14 @@ void qxgeditXGMasterMap::randomize_user ( unsigned short iUser, int p )
 	bool bAuto = auto_send();
 	set_auto_send(false);
 
+	unsigned short id0 = 0x3d + (USERVOICE.current_element() * 0x50);
 	XGParamMap::const_iterator iter = USERVOICE.constBegin();
 	for (; iter != USERVOICE.constEnd(); ++iter) {
+		unsigned short id = iter.key();
+		if (id < 0x3d)
+			continue;
+		if (USERVOICE.elements() > 0 && (id < id0 || id >= id0 + 0x50))
+			continue;
 		XGParamSet *pParamSet = iter.value();
 		if (pParamSet->contains(iUser)) {
 			XGParam *pParam = pParamSet->value(iUser);
@@ -534,7 +544,7 @@ void qxgeditXGMasterMap::randomize_user ( unsigned short iUser, int p )
 
 	if (user_dirty(iUser)) {
 		send_user(iUser);
-		set_user_dirty(iUser, false);
+		set_user_dirty_1(iUser, false);
 	}
 
 	// Restore auto-send.

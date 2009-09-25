@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.0.1.6, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.0.1.7, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgeditMainForm.ui)
 AC_CONFIG_HEADERS(config.h)

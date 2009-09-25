@@ -2858,7 +2858,7 @@ XGParamItem DRUMSETUPParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
 	{ 0x00, 1,  0,  127, "[Pitch ]Coarse",         64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x01, 1,  0,  127, "[Pitch ]Fine",           64, getv0x40, getu0x40, NULL,     unit_cen },
-	{ 0x02, 1,  0,  127, "Level",                   0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
+	{ 0x02, 1,  0,  127, "Level",                 127, NULL,     NULL,     NULL,     NULL     }, // depend on the note
 	{ 0x03, 1,  0,  127, "[Alternate ]Group",       0, NULL,     NULL,     NULL,     NULL     }, // depend on the note (0=OFF)
 	{ 0x04, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, NULL,     NULL     }, // depend on the note (0=random)
 	{ 0x05, 1,  0,  127, "Reverb[ Send]",           0, NULL,     NULL,     NULL,     NULL     }, // depend on the note
@@ -3930,8 +3930,12 @@ void XGParamMap::reset ( XGParamObserver *sender )
 void XGParamMap::randomize_value ( int p )
 {
 	unsigned short key = current_key();
+	unsigned short id0 = 0x3d + (m_element * 0x50);
 	XGParamMap::const_iterator iter = XGParamMap::constBegin();
 	for (; iter != XGParamMap::constEnd(); ++iter) {
+		unsigned short id = iter.key();
+		if (m_elements > 0 && id >= 0x3d && (id < id0 || id >= id0 + 0x50))
+			continue;
 		XGParamSet *paramset = iter.value();
 		if (paramset->contains(key)) {
 			XGParam *param = paramset->value(key);
@@ -3944,8 +3948,12 @@ void XGParamMap::randomize_value ( int p )
 void XGParamMap::randomize_def ( int p )
 {
 	unsigned short key = current_key();
+	unsigned short id0 = 0x3d + (m_element * 0x50);
 	XGParamMap::const_iterator iter = XGParamMap::constBegin();
 	for (; iter != XGParamMap::constEnd(); ++iter) {
+		unsigned short id = iter.key();
+		if (m_elements > 0 && id >= 0x3d && (id < id0 || id >= id0 + 0x50))
+			continue;
 		XGParamSet *paramset = iter.value();
 		if (paramset->contains(key)) {
 			XGParam *param = paramset->value(key);

@@ -1641,7 +1641,10 @@ void qxgeditMainForm::viewRandomize (void)
 		m_pMasterMap->randomize_part(m_ui.MultipartCombo->currentIndex(), p);
 		break;
 	case 2: // DRUM SETUP page...
-		m_pMasterMap->randomize_drums(m_ui.DrumsetupCombo->currentIndex(), p);
+		m_pMasterMap->randomize_drums(
+			m_ui.DrumsetupCombo->currentIndex(),
+			m_ui.DrumsetupNoteCombo->itemData(
+				m_ui.DrumsetupNoteCombo->currentIndex()).toUInt(), p);
 		break;
 	case 3: // USER VOICE page...
 		m_pMasterMap->randomize_user(m_ui.UservoiceCombo->currentIndex(), p);
