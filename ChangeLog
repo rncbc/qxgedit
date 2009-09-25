@@ -5,6 +5,8 @@ ChangeLog
 
 SVN TRUNK
 
+- New reset button for reverb, chorus and variation parameters.
+
 - Randomization of all current vparameter values is now available,
   allowing for great experimentation and exploration of brand new
   sound settings (just try View/Randomize).

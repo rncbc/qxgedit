@@ -425,6 +425,9 @@ public:
 	void set_current_element(unsigned short element);
 	unsigned short current_element () const;
 
+	// All parameter reset (to default)
+	void reset(XGParamObserver *sender = NULL);
+
 	// All parameter randomizer (p = percent from value/def).
 	void randomize_value(int p = 100);
 	void randomize_def(int p = 100);

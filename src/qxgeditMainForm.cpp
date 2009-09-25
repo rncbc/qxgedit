@@ -259,6 +259,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.MasterVolumeDial          -> set_param_map(SYSTEM, 0x04);
 	m_ui.MasterTransposeDial       -> set_param_map(SYSTEM, 0x06);
 
+	// REVERB...
+	QObject::connect(m_ui.ReverbResetButton,
+		SIGNAL(clicked()),
+		SLOT(reverbResetButtonClicked()));
+
 	// REVERB widget mapping...
 	m_ui.ReverbTypeCombo           -> set_param_map(REVERB, 0x00);
 	m_ui.ReverbParam1Dial          -> set_param_map(REVERB, 0x02);
@@ -279,6 +284,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.ReverbParam14Dial         -> set_param_map(REVERB, 0x13);
 	m_ui.ReverbParam15Dial         -> set_param_map(REVERB, 0x14);
 	m_ui.ReverbParam16Dial         -> set_param_map(REVERB, 0x15);
+
+	// CHORUS...
+	QObject::connect(m_ui.ChorusResetButton,
+		SIGNAL(clicked()),
+		SLOT(chorusResetButtonClicked()));
 
 	// CHORUS widget mapping...
 	m_ui.ChorusTypeCombo           -> set_param_map(CHORUS, 0x20);
@@ -301,6 +311,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_ui.ChorusParam14Dial         -> set_param_map(CHORUS, 0x33);
 	m_ui.ChorusParam15Dial         -> set_param_map(CHORUS, 0x34);
 	m_ui.ChorusParam16Dial         -> set_param_map(CHORUS, 0x35);
+
+	// VARIATION...
+	QObject::connect(m_ui.VariationResetButton,
+		SIGNAL(clicked()),
+		SLOT(variationResetButtonClicked()));
 
 	// VARIATION widget mapping...
 	m_ui.VariationTypeCombo        -> set_param_map(VARIATION, 0x40);
@@ -1827,6 +1842,66 @@ void qxgeditMainForm::masterResetButtonClicked (void)
 	}
 
 	masterReset();
+}
+
+
+void qxgeditMainForm::reverbResetButtonClicked (void)
+{
+	if (m_pMasterMap == NULL)
+		return;
+
+	if (m_pOptions && m_pOptions->bConfirmReset) {
+		if (QMessageBox::warning(this,
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to reset all parameters to default:\n\n"
+			"REVERB / %1.\n\n"
+			"Are you sure?").arg(m_ui.ReverbTypeCombo->currentText()),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel)
+			return;
+	}
+
+	m_pMasterMap->REVERB.reset();
+}
+
+
+void qxgeditMainForm::chorusResetButtonClicked (void)
+{
+	if (m_pMasterMap == NULL)
+		return;
+
+	if (m_pOptions && m_pOptions->bConfirmReset) {
+		if (QMessageBox::warning(this,
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to reset all parameters to default:\n\n"
+			"CHORUS / %1.\n\n"
+			"Are you sure?").arg(m_ui.ChorusTypeCombo->currentText()),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel)
+			return;
+	}
+
+	m_pMasterMap->CHORUS.reset();
+}
+
+
+void qxgeditMainForm::variationResetButtonClicked (void)
+{
+	if (m_pMasterMap == NULL)
+		return;
+
+	if (m_pOptions && m_pOptions->bConfirmReset) {
+		if (QMessageBox::warning(this,
+			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("About to reset all parameters to default:\n\n"
+			"VARIATION / %1.\n\n"
+			"Are you sure?").arg(m_ui.VariationTypeCombo->currentText()),
+			QMessageBox::Ok | QMessageBox::Cancel)
+			== QMessageBox::Cancel)
+			return;
+	}
+
+	m_pMasterMap->VARIATION.reset();
 }
 
 

@@ -3910,6 +3910,22 @@ unsigned short XGParamMap::current_element (void) const
 }
 
 
+// All parameter reset (to default)
+void XGParamMap::reset ( XGParamObserver *sender )
+{
+	unsigned short key = current_key();
+	XGParamMap::const_iterator iter = XGParamMap::constBegin();
+	for (; iter != XGParamMap::constEnd(); ++iter) {
+		XGParamSet *paramset = iter.value();
+		if (paramset->contains(key)) {
+			XGParam *param = paramset->value(key);
+			if (param)
+				param->reset(sender);
+		}
+	}
+}
+
+
 // All parameter randomizer (p = percent from value/def).
 void XGParamMap::randomize_value ( int p )
 {

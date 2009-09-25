@@ -82,6 +82,10 @@ public slots:
 
 	void masterResetButtonClicked();
 
+	void reverbResetButtonClicked();
+	void chorusResetButtonClicked();
+	void variationResetButtonClicked();
+
 	void multipartResetButtonClicked();
 	void multipartComboActivated(int);
 	void multipartVoiceComboActivated(int);
