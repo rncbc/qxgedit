@@ -23,7 +23,7 @@
 
 #include <QRegExp>
 
-#include <cstdio>
+#include <cstdlib>
 
 
 // Table (2D-array) size in elements.
