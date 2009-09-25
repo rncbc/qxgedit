@@ -1597,7 +1597,7 @@ void qxgeditMainForm::viewRandomize (void)
 		if (m_pOptions->bConfirmReset) {
 			if (QMessageBox::warning(this,
 				tr("Warning") + " - " QXGEDIT_TITLE,
-				tr("About to randomize current view\n"
+				tr("About to randomize current\n"
 				"parameter values (%1 %).\n\n"
 				"Are you sure?").arg(p),
 				QMessageBox::Ok | QMessageBox::Cancel)

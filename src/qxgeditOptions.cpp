@@ -62,7 +62,7 @@ qxgeditOptions::qxgeditOptions (void)
 	bConfirmRemove  = m_settings.value("/ConfirmRemove", true).toBool();
 	bCompletePath   = m_settings.value("/CompletePath", true).toBool();
 	iMaxRecentFiles = m_settings.value("/MaxRecentFiles", 5).toInt();
-	iRandomizePerct = m_settings.value("/RandomizePerct", 100).toInt();
+	iRandomizePerct = m_settings.value("/RandomizePerct", 20).toInt();
 	iBaseFontSize   = m_settings.value("/BaseFontSize", 0).toInt();
 	m_settings.endGroup();
 

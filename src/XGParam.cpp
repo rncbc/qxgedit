@@ -3583,8 +3583,11 @@ QString XGParam::text (void) const
 // Value randomizer (p = percent deviation from v).
 void XGParam::randomize ( int v, int p )
 {
+	if (gets(v))
+		return;
+
 	int q = max() - min() + 1;
-	if (q > 1) {
+	if (q > 2) {
 		int r = min() + (::rand() % q);
 		set_value(v + ((p * (r - v)) / 100));
 	}

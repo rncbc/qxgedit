@@ -152,30 +152,32 @@ bool qxgeditEdit::queryPreset (void)
 	if (m_pParam == NULL)
 		return false;
 
-	qxgeditOptions *pOptions = qxgeditOptions::getInstance();
-	if (pOptions && pOptions->bConfirmReset) {
-		qxgeditXGMasterMap *pMasterMap = qxgeditXGMasterMap::getInstance();
-		if (pMasterMap &&
-			pMasterMap->user_dirty_2(pMasterMap->USERVOICE.current_key())) {
-			const QString& sPreset = presetName();
-			switch (QMessageBox::warning(this,
-				tr("Warning") + " - " QXGEDIT_TITLE,
-				tr("Some settings have been changed:\n\n"
-				"\"%1\"\n\nDo you want to save the changes?")
-				.arg(sPreset),
-				QMessageBox::Save |
-				QMessageBox::Discard |
-				QMessageBox::Cancel)) {
-			case QMessageBox::Save:
-				savePreset(sPreset);
-				// Fall thru...
-			case QMessageBox::Discard:
-				break;
-			default: // Cancel...
-				m_iUpdatePreset++;
-				m_pComboBox->setEditText(sPreset);
-				m_iUpdatePreset--;
-				return false;
+	const QString& sPreset = presetName();
+	if (!sPreset.isEmpty()) {
+		qxgeditOptions *pOptions = qxgeditOptions::getInstance();
+		if (pOptions && pOptions->bConfirmReset) {
+			qxgeditXGMasterMap *pMasterMap = qxgeditXGMasterMap::getInstance();
+			if (pMasterMap &&
+				pMasterMap->user_dirty_2(pMasterMap->USERVOICE.current_key())) {
+				switch (QMessageBox::warning(this,
+					tr("Warning") + " - " QXGEDIT_TITLE,
+					tr("Some settings have been changed:\n\n"
+					"\"%1\"\n\nDo you want to save the changes?")
+					.arg(sPreset),
+					QMessageBox::Save |
+					QMessageBox::Discard |
+					QMessageBox::Cancel)) {
+				case QMessageBox::Save:
+					savePreset(sPreset);
+					// Fall thru...
+				case QMessageBox::Discard:
+					break;
+				default: // Cancel...
+					m_iUpdatePreset++;
+					m_pComboBox->setEditText(sPreset);
+					m_iUpdatePreset--;
+					return false;
+				}
 			}
 		}
 	}

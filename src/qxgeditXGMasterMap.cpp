@@ -482,7 +482,7 @@ void qxgeditXGMasterMap::randomize_part ( unsigned short iPart, int p )
 		XGParamSet *pParamSet = iter.value();
 		if (pParamSet->contains(iPart)) {
 			XGParam *pParam = pParamSet->value(iPart);
-			if (pParam && (pParam->low() < 0x01 || pParam->low() > 0x03))
+			if (pParam && pParam->low() > 0x04)
 				pParam->randomize_value(p);
 		}
 	}
