@@ -101,7 +101,9 @@ qxgeditEdit::~qxgeditEdit (void)
 // Nominal value accessors.
 void qxgeditEdit::set_value ( unsigned short /*iValue*/, Observer */*pSender*/ )
 {
+	m_iUpdatePreset++;
 	m_pComboBox->setEditText(presetName());
+	m_iUpdatePreset--;
 
 	refreshPreset();
 	stabilizePreset();
@@ -161,8 +163,8 @@ bool qxgeditEdit::queryPreset (void)
 				pMasterMap->user_dirty_2(pMasterMap->USERVOICE.current_key())) {
 				switch (QMessageBox::warning(this,
 					tr("Warning") + " - " QXGEDIT_TITLE,
-					tr("Some settings have been changed:\n\n"
-					"\"%1\"\n\nDo you want to save the changes?")
+					tr("Some parameters have been changed:\n\n"
+					"\"%1\".\n\nDo you want to save the changes?")
 					.arg(sPreset),
 					QMessageBox::Save |
 					QMessageBox::Discard |

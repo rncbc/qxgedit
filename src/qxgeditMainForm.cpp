@@ -1436,7 +1436,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
 		if (m_pMasterMap->user_dirty(iUser)) {
 			m_pMasterMap->send_user(iUser);
-			m_pMasterMap->set_user_dirty_1(iUser, false);
+			m_pMasterMap->set_user_dirty(iUser, false);
 		}
 	}
 
