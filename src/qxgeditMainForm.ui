@@ -735,26 +735,13 @@
               </layout>
              </widget>
             </item>
-            <item row="0" column="2" rowspan="2" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
             <item row="0" column="1" >
              <widget class="QGroupBox" name="MultipartFilterBox" >
               <property name="title" >
                <string>Filter</string>
               </property>
               <layout class="QGridLayout" >
-               <item row="0" column="0" colspan="4" >
+               <item row="0" column="0" colspan="5" >
                 <widget class="qxgeditFilter" name="MultipartFilter" />
                </item>
                <item row="1" column="0" >
@@ -763,7 +750,7 @@
                <item row="1" column="1" >
                 <widget class="qxgeditDial" name="MultipartResonanceDial" />
                </item>
-               <item row="1" column="2" colspan="2" >
+               <item row="1" column="2" colspan="3" >
                 <spacer>
                  <property name="orientation" >
                   <enum>Qt::Horizontal</enum>
@@ -819,7 +806,7 @@
                <string>Pitch EG</string>
               </property>
               <layout class="QGridLayout" >
-               <item row="0" column="0" colspan="4" >
+               <item row="0" column="0" colspan="5" >
                 <widget class="qxgeditPitch" name="MultipartPitch" />
                </item>
                <item row="1" column="0" >
@@ -834,10 +821,23 @@
                <item row="1" column="3" >
                 <widget class="qxgeditDial" name="MultipartReleaseTimeDial" />
                </item>
+               <item row="1" column="4" >
+                <spacer>
+                 <property name="orientation" >
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" >
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
               </layout>
              </widget>
             </item>
-            <item row="2" column="0" colspan="3" >
+            <item row="2" column="0" colspan="2" >
              <spacer>
               <property name="orientation" >
                <enum>Qt::Vertical</enum>

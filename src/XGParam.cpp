@@ -2723,7 +2723,7 @@ XGParamItem EFFECTParamTab[] =
 	{ 0x58, 1,  0,  127, "[Variation ]Reverb[ Send]",0,NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
 	{ 0x59, 1,  0,  127, "[Variation ]Chorus[ Send]",0,NULL,     NULL,     NULL,     NULL     }, // -infdB..0dB..+6dB (0..64..127)
 	{ 0x5a, 1,  0,    1, "[Variation ]Connection",  0, NULL,     NULL,     getsconn, NULL     },
-	{ 0x5b, 1,  0,  127, "[Variation ]Part",      127, NULL,     NULL,     NULL,     NULL     }, // part=0..15, 127=OFF
+	{ 0x5b, 1,  0,  127, "[Variation ]Part",      127, NULL,     NULL,     getschan, NULL     }, // part=0..15, 127=OFF
 	{ 0x5c, 1,  0,  127, "[Variation ]Wheel[ Depth]",64,getv0x40,getu0x40, NULL,     NULL     },
 	{ 0x5d, 1,  0,  127, "[Variation ]Bend[ Depth]",64,getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x5e, 1,  0,  127, "[Variation ]CAT[ Depth]",64, getv0x40, getu0x40, NULL,     NULL     },

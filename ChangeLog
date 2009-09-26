@@ -5,6 +5,8 @@ ChangeLog
 
 SVN TRUNK
 
+- Variation part parameter is now a drop-down combo-box.
+
 - New reset button for reverb, chorus and variation parameters.
 
 - Randomization of all current vparameter values is now available,
