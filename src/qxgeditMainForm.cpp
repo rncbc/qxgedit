@@ -2103,7 +2103,7 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 			m_ui.MultipartVoiceCombo->setCurrentIndex(index.row());
 			m_ui.MultipartVoiceCombo->setRootModelIndex(oldroot);
 		//	m_ui.MultipartPartModeDial->reset_value();
-			// QS300 USser voice immediate conviniency...
+			// QS300 User voice immediate conveniency...
 			m_ui.UservoiceCombo->setCurrentIndex(iProg);
 			uservoiceComboActivated(iProg);
 		}
@@ -2231,7 +2231,7 @@ void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 {
 	if (m_pMasterMap) {
 		m_pMasterMap->USERVOICE.set_current_key(iUser);
-		if (!m_pMasterMap->user_dirty(iUser)) {
+		if (m_pMasterMap->user_dirty_1(iUser)) {
 			m_pMasterMap->send_user(iUser);
 			m_pMasterMap->set_user_dirty_1(iUser, false);
 		}
