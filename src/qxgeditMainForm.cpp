@@ -1610,11 +1610,48 @@ void qxgeditMainForm::viewRandomize (void)
 	if (m_pOptions) {
 		p = m_pOptions->iRandomizePerct;
 		if (m_pOptions->bConfirmReset) {
+			QString sText;
+			switch (m_ui.MainTabWidget->currentIndex()) {
+			case 0: // SYSTEM / EFFECT page...
+				switch (m_ui.SystemEffectToolBox->currentIndex()) {
+				case 1: // REVERB section...
+					sText = tr("REVERB / %1")
+					.arg(m_ui.ReverbTypeCombo->currentText());
+					break;
+				case 2: // CHORUS section...
+					sText = tr("CHORUS / %1")
+					.arg(m_ui.ChorusTypeCombo->currentText());
+					break;
+				case 3: // VARIATION section...
+					sText = tr("VARIATION / %1")
+					.arg(m_ui.VariationTypeCombo->currentText());
+					break;
+				default:
+					break;
+				}
+				break;
+			case 1: // MULTI PART page...
+				sText = tr("MULTI PART / %1")
+				.arg(m_ui.MultipartCombo->currentText());
+				break;
+			case 2: // DRUM SETUP page...
+				sText = tr("DRUM SETUP / %1 - %2")
+				.arg(m_ui.DrumsetupCombo->currentText())
+				.arg(m_ui.DrumsetupNoteCombo->currentText());
+				break;
+			case 3: // USER VOICE page...
+				sText = tr("USER VOICE / %1 - %2")
+				.arg(m_ui.UservoiceCombo->currentText())
+				.arg(m_ui.UservoiceElementCombo->currentText());
+				break;
+			default:
+				break;
+			}
 			if (QMessageBox::warning(this,
 				tr("Warning") + " - " QXGEDIT_TITLE,
-				tr("About to randomize current\n"
-				"parameter values (%1 %).\n\n"
-				"Are you sure?").arg(p),
+				tr("About to randomize current parameter values:\n\n"
+				"%1.\n\n"
+				"Are you sure?").arg(sText),
 				QMessageBox::Ok | QMessageBox::Cancel)
 				== QMessageBox::Cancel)
 				return;
@@ -2101,9 +2138,8 @@ void qxgeditMainForm::multipartResetButtonClicked (void)
 		if (QMessageBox::warning(this,
 			tr("Warning") + " - " QXGEDIT_TITLE,
 			tr("About to reset all parameters to default:\n\n"
-			"Part %1.\n\n"
-			"Are you sure?")
-			.arg(iPart + 1),
+			"MULTI PART / %1.\n\n"
+			"Are you sure?").arg(m_ui.MultipartCombo->currentText()),
 			QMessageBox::Ok | QMessageBox::Cancel)
 			== QMessageBox::Cancel)
 			return;
@@ -2177,9 +2213,8 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 		if (QMessageBox::warning(this,
 			tr("Warning") + " - " QXGEDIT_TITLE,
 			tr("About to reset all parameters to default:\n\n"
-			"Drums %1.\n\n"
-			"Are you sure?")
-			.arg(iDrumset + 1),
+			"DRUM SETUP / %1.\n\n"
+			"Are you sure?").arg(m_ui.DrumsetupCombo->currentText()),
 			QMessageBox::Ok | QMessageBox::Cancel)
 			== QMessageBox::Cancel)
 			return;
@@ -2225,9 +2260,8 @@ void qxgeditMainForm::uservoiceResetButtonClicked (void)
 		if (QMessageBox::warning(this,
 			tr("Warning") + " - " QXGEDIT_TITLE,
 			tr("About to reset all parameters to default:\n\n"
-			"QS300 User %1.\n\n"
-			"Are you sure?")
-			.arg(iUser + 1),
+			"USER VOICE / %1.\n\n"
+			"Are you sure?").arg(m_ui.UservoiceCombo->currentText()),
 			QMessageBox::Ok | QMessageBox::Cancel)
 			== QMessageBox::Cancel)
 			return;
