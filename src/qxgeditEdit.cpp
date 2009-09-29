@@ -406,9 +406,11 @@ void qxgeditEdit::removePreset (void)
 
 	QSettings& settings = pOptions->settings();
 	settings.beginGroup(presetGroup());
+#ifdef QXGEDIT_REMOVE_PRESET_FILES
 	const QString& sFilename = settings.value(sPreset).toString();
 	if (QFileInfo(sFilename).exists())
 		QFile(sFilename).remove();
+#endif
 	settings.remove(sPreset);
 	settings.endGroup();
 
