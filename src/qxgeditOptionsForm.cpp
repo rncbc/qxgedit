@@ -195,6 +195,9 @@ void qxgeditOptionsForm::accept (void)
 		m_iDirtyCount = 0;
 	}
 
+	// Save/commit to disk.
+	m_pOptions->saveOptions();
+
 	// Just go with dialog acceptance
 	QDialog::accept();
 }

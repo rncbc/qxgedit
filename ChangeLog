@@ -5,6 +5,9 @@ ChangeLog
 
 SVN TRUNK
 
+- Global configuration state is now explicitly saved/committed to
+  disk when Options dialog changes are accepted and applied.
+
 - Variation part parameter is now a drop-down combo-box.
 
 - New reset button for reverb, chorus and variation parameters.

@@ -47,6 +47,23 @@ qxgeditOptions::qxgeditOptions (void)
 	// Pseudo-singleton reference setup.
 	g_pOptions = this;
 
+	loadOptions();
+}
+
+
+// Default Destructor.
+qxgeditOptions::~qxgeditOptions (void)
+{
+	saveOptions();
+
+	// Pseudo-singleton reference shut-down.
+	g_pOptions = NULL;
+}
+
+
+// Explicit load method.
+void qxgeditOptions::loadOptions (void)
+{
 	// And go into general options group.
 	m_settings.beginGroup("/Options");
 
@@ -89,8 +106,8 @@ qxgeditOptions::qxgeditOptions (void)
 }
 
 
-// Default Destructor.
-qxgeditOptions::~qxgeditOptions (void)
+// Explicit save method.
+void qxgeditOptions::saveOptions (void)
 {
 	// Make program version available in the future.
 	m_settings.beginGroup("/Program");
@@ -137,8 +154,8 @@ qxgeditOptions::~qxgeditOptions (void)
 	m_settings.setValue("/AutoSend", bUservoiceAutoSend);
 	m_settings.endGroup();
 
-	// Pseudo-singleton reference shut-down.
-	g_pOptions = NULL;
+	// Save/commit to disk.
+	m_settings.sync();
 }
 
 
