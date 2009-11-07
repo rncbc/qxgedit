@@ -23,6 +23,7 @@
 
 #include <QRegExp>
 
+#include <cstdio>
 #include <cstdlib>
 
 
