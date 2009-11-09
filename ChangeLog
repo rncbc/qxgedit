@@ -5,6 +5,12 @@ ChangeLog
 
 SVN TRUNK
 
+- Uservoice (QS300) AmpEG Attack and Decay Level 1 parameters have
+  now a bit more cleaner, clearer out-of-the-box default values.
+  
+- Uservoice (QS300) preset combo-box drop-down list now gets its
+  current item selection set alright.
+
 - Global configuration state is now explicitly saved/committed to
   disk when Options dialog changes are accepted and applied.
 

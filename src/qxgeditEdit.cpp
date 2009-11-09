@@ -437,7 +437,12 @@ void qxgeditEdit::refreshPreset (void)
 		m_pComboBox->insertItems(0, pOptions->settings().childKeys());
 		pOptions->settings().endGroup();
 	}
-	m_pComboBox->setEditText(sOldPreset);
+	
+	int iIndex = m_pComboBox->findText(sOldPreset);
+	if (iIndex >= 0)
+		m_pComboBox->setCurrentIndex(iIndex);
+	else
+		m_pComboBox->setEditText(sOldPreset);
 
 	m_iDirtyPreset = 0;
 	m_iUpdatePreset--;
