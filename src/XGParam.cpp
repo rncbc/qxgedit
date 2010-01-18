@@ -1,7 +1,7 @@
 // XGParam.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -2965,7 +2965,7 @@ XGParamItem USERVOICEParamTab[] =
 	{ 0x86, 1,  0,   63, "[AEG ]Decay 2[ Rate]",   32, NULL,     NULL,     NULL,     NULL     },
 	{ 0x87, 1,  0,   63, "[AEG ]Release[ Rate]",   32, NULL,     NULL,     NULL,     NULL     },
 	{ 0x88, 1,  0,  127, "[AEG Decay ]Level 1",   127, NULL,     NULL,     NULL,     NULL     },
-	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",    64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",   127, NULL,     NULL,     NULL,     NULL     },
 	{ 0x8a, 2,  0,16383, "[Address ]Offset",        0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x8c, 1, 57,   71, "Resonance[ Sensitivity]",64, getv0x40, getu0x40, NULL,     NULL     }
 	// [Element 2]

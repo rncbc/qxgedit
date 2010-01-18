@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -59,7 +59,19 @@
 #endif
 
 // Specialties for thread-callback comunication.
-#define QXGEDIT_SYSEX_EVENT QEvent::Type(QEvent::User + 1)
+#define QXGEDIT_SYSEX_EVENT	QEvent::Type(QEvent::User + 1)
+#define QXGEDIT_SAVE_EVENT	QEvent::Type(QEvent::User + 2)
+
+
+//-------------------------------------------------------------------------
+// LADISH Level 1 support stuff.
+
+void qxgedit_on_sigusr1 ( int /*signo*/ )
+{
+	QApplication::postEvent(
+		qxgeditMainForm::getInstance(),
+		new QEvent(QXGEDIT_SAVE_EVENT));
+}
 
 
 //----------------------------------------------------------------------------
@@ -93,6 +105,8 @@ qxgeditMainForm::qxgeditMainForm (
 #ifdef HAVE_SIGNAL_H
 	// Set to ignore any fatal "Broken pipe" signals.
 	::signal(SIGPIPE, SIG_IGN);
+	// LADISH Level 1 suport.
+	::signal(SIGUSR1, qxgedit_on_sigusr1);
 #endif
 
 	// Create some statusbar labels...
@@ -1177,6 +1191,9 @@ void qxgeditMainForm::customEvent ( QEvent *pEvent )
 	switch (pEvent->type()) {
 	case QXGEDIT_SYSEX_EVENT:
 		sysexEvent(static_cast<qxgeditMidiSysexEvent *> (pEvent));
+		break;
+	case QXGEDIT_SAVE_EVENT:
+		saveSession(false);
 		// Fall thru...
 	default:
 		break;

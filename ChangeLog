@@ -5,9 +5,12 @@ ChangeLog
 
 SVN TRUNK
 
-- Uservoice (QS300) AmpEG Attack and Decay Level 1 parameters have
-  now a bit more cleaner, clearer out-of-the-box default values.
-  
+- LADISH Level 1 support has been added: SIGUSR1 signal trap
+  just makes it a shortcut to File/Save.
+
+- Uservoice (QS300) AmpEG Attack, Decay Level 1 and 2 parameters
+  now have a bit cleaner, clearer out-of-the-box default values.
+
 - Uservoice (QS300) preset combo-box drop-down list now gets its
   current item selection set alright.
 
