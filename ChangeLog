@@ -5,6 +5,9 @@ ChangeLog
 
 SVN TRUNK
 
+- Make build compilation work for gcc >= 4.4.0, by adding some
+  missing standard C99 includes.
+
 - LADISH Level 1 support has been added: SIGUSR1 signal trap
   just makes it a shortcut to File/Save.
 

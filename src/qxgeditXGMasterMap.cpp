@@ -28,6 +28,8 @@
 
 #include "XGParamSysex.h"
 
+#include <cstdio>
+
 
 //----------------------------------------------------------------------------
 // qxgeditXGMasterMap::Observer -- XGParam master map observer.

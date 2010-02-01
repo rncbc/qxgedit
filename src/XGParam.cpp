@@ -26,6 +26,7 @@
 #include <cstdio>
 #include <cstdlib>
 
+#include <ctime>
 
 // Table (2D-array) size in elements.
 #define TSIZE(tab)	(sizeof(tab) / sizeof(tab[0]))
