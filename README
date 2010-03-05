@@ -17,7 +17,7 @@ Weblog:
   http://www.rncbc.org
 
 QXGEdit is free, open-source software, distributed under the terms of
-the GNU General Public License (GPL) [15] version 2 or later.
+the GNU General Public License (GPL) [3] version 2 or later.
 
 
 Requirements
@@ -29,7 +29,7 @@ The software requirements for build and runtime are listed as follows:
 
   [1] Qt4 (core, gui), C++ class library and tools for
         crossplatform development and internationalization
-        http://www.qtsoftware.com/qt/
+        http://qt.nokia.com/products/
 
   [2] ALSA, Advanced Linux Sound Architecture
         http://www.alsa-project.org/
@@ -58,8 +58,8 @@ Just launch ${prefix}/bin/qxgedit and you're off (hopefully).
 
 Note that the default installation path ${prefix} is /usr/local.
 
-If you're checking out from SVN, you'll have to prepare the configure
-script just before you proceed with the above instructions:
+If you're checking out from Subversion (SVN), you'll have to prepare the
+configure script just before you proceed with the above instructions:
 
    make -f Makefile.svn
 
@@ -96,10 +96,13 @@ References
 
 [1] Qt4 (core, gui), C++ class library and tools
      for crossplatform development and internationalization
-     http://www.qtsoftware.com/qt/
+     http://qt.nokia.com/products/
 
 [2] ALSA, Advanced Linux Sound Architecture
      http://www.alsa-project.org/
+
+[3] GNU General Public License
+     http://www.gnu.org/copyleft/gpl.html
 
 
 Enjoy.
