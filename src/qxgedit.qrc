@@ -1,0 +1,14 @@
+<RCC version="1.0">
+	<qresource>
+		<file>images/qxgedit.png</file>
+		<file>images/fileNew.png</file>
+		<file>images/fileOpen.png</file>
+		<file>images/fileSave.png</file>
+		<file>images/formAccept.png</file>
+		<file>images/formCreate.png</file>
+		<file>images/formOpen.png</file>
+		<file>images/formReject.png</file>
+		<file>images/formRemove.png</file>
+		<file>images/formSave.png</file>
+	</qresource>
+</RCC>

@@ -1,7 +1,7 @@
 // qxgeditEdit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -55,9 +55,9 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 #endif
 	m_pComboBox->setInsertPolicy(QComboBox::NoInsert);
 
-	m_pOpenButton->setIcon(QIcon(":/icons/formOpen.png"));
-	m_pSaveButton->setIcon(QIcon(":/icons/formSave.png"));
-	m_pRemoveButton->setIcon(QIcon(":/icons/formRemove.png"));
+	m_pOpenButton->setIcon(QIcon(":/images/formOpen.png"));
+	m_pSaveButton->setIcon(QIcon(":/images/formSave.png"));
+	m_pRemoveButton->setIcon(QIcon(":/images/formRemove.png"));
 
 	m_pOpenButton->setToolTip(tr("Open Preset"));
 	m_pSaveButton->setToolTip(tr("Save Preset"));

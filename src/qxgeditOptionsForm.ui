@@ -3,7 +3,7 @@
  <author>rncbc aka Rui Nuno Capela</author>
  <comment>qxgedit - Qt XG Editor.
 
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -34,7 +34,7 @@
    <string>Options - QXGEdit</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../icons/qxgedit.qrc">:/icons/qxgedit.png</iconset>
+   <iconset resource="qxgedit.qrc">:/images/qxgedit.png</iconset>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>
@@ -435,7 +435,7 @@
         <string>OK</string>
        </property>
        <property name="icon">
-        <iconset resource="../icons/qxgedit.qrc">:/icons/formAccept.png</iconset>
+        <iconset resource="qxgedit.qrc">:/images/formAccept.png</iconset>
        </property>
       </widget>
      </item>
@@ -445,7 +445,7 @@
         <string>Cancel</string>
        </property>
        <property name="icon">
-        <iconset resource="../icons/qxgedit.qrc">:/icons/formReject.png</iconset>
+        <iconset resource="qxgedit.qrc">:/images/formReject.png</iconset>
        </property>
       </widget>
      </item>
@@ -466,7 +466,7 @@
   <tabstop>CancelPushButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../icons/qxgedit.qrc"/>
+  <include location="qxgedit.qrc"/>
  </resources>
  <connections/>
 </ui>

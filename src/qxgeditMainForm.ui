@@ -42,7 +42,7 @@
    <string>QXGEdit</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../icons/qxgedit.qrc" >:/icons/qxgedit.png</iconset>
+   <iconset resource="qxgedit.qrc" >:/images/qxgedit.png</iconset>
   </property>
   <widget class="QWidget" name="MainCentralWidget" >
    <layout class="QVBoxLayout" >
@@ -72,7 +72,7 @@
                <string>Reset</string>
               </property>
               <property name="icon" >
-               <iconset resource="../icons/qxgedit.qrc" >:/icons/qxgedit.png</iconset>
+               <iconset resource="qxgedit.qrc" >:/images/qxgedit.png</iconset>
               </property>
               <property name="toolTip">
                <string>Reset XG System</string>
@@ -2076,7 +2076,7 @@
   </widget>
   <action name="fileNewAction" >
    <property name="icon" >
-    <iconset resource="../icons/qxgedit.qrc" >:/icons/fileNew.png</iconset>
+    <iconset resource="qxgedit.qrc" >:/images/fileNew.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;New</string>
@@ -2096,7 +2096,7 @@
   </action>
   <action name="fileOpenAction" >
    <property name="icon" >
-    <iconset resource="../icons/qxgedit.qrc" >:/icons/fileOpen.png</iconset>
+    <iconset resource="qxgedit.qrc" >:/images/fileOpen.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Open...</string>
@@ -2116,7 +2116,7 @@
   </action>
   <action name="fileSaveAction" >
    <property name="icon" >
-    <iconset resource="../icons/qxgedit.qrc" >:/icons/fileSave.png</iconset>
+    <iconset resource="qxgedit.qrc" >:/images/fileSave.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Save</string>
@@ -2227,7 +2227,7 @@
   </action>
   <action name="viewRandomizeAction" >
    <property name="icon" >
-    <iconset resource="../icons/qxgedit.qrc" >:/icons/formCreate.png</iconset>
+    <iconset resource="qxgedit.qrc" >:/images/formCreate.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Randomize</string>
@@ -2370,7 +2370,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../icons/qxgedit.qrc" />
+  <include location="qxgedit.qrc" />
  </resources>
  <connections/>
 </ui>
