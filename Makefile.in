@@ -6,7 +6,7 @@ name    = qxgedit
 target  = src/$(name)
 
 headers = \
-	src/config.h
+	src/config.h \
 	src/XGParam.h \
 	src/XGParamObserver.h \
 	src/XGParamWidget.h \
@@ -98,11 +98,14 @@ $(style_name).mak:	$(style_name).pro
 	@$(qmake) -o $(style_name).mak $(style_name).pro
 
 
-install:	$(target)
+install:	$(target) $(style_target)
 	@make -f $(name).mak install
+	@install -d -v -m 0755 $(DESTDIR)$(prefix)/bin/styles
+	@install -v -m 0755 $(style_target) $(DESTDIR)$(prefix)/bin/$(style_target)
 
 uninstall:	$(DESTDIR)$(prefix)/bin/$(name)
 	@make -f $(name).mak uninstall
+	@rm -vf $(DESTDIR)$(prefix)/bin/$(style_target)
 
 
 clean:	$(name).mak
