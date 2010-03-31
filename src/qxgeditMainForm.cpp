@@ -228,7 +228,7 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	viewToolbar(m_pOptions->bToolbar);
 
 	// Try to restore old window positioning.
-	m_pOptions->loadWidgetGeometry(this);
+	m_pOptions->loadWidgetGeometry(this, true);
 
 	// Primary startup stabilization...
 	updateRecentFilesMenu();
@@ -1135,7 +1135,7 @@ bool qxgeditMainForm::queryClose (void)
 			if (m_pMasterMap)
 				m_pOptions->bUservoiceAutoSend = m_pMasterMap->auto_send();
 			// Save main windows state.
-			m_pOptions->saveWidgetGeometry(this);
+			m_pOptions->saveWidgetGeometry(this, true);
 		}
 	}
 
