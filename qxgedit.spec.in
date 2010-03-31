@@ -1,6 +1,6 @@
 %define name    @PACKAGE_TARNAME@
 %define version @PACKAGE_VERSION@
-%define release 3
+%define release 4
 %define prefix  @ac_prefix@
 
 Summary:	Qt XG Editor
@@ -16,7 +16,7 @@ Packager:	rncbc.org
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
-BuildRequires:	libqt4-devel >= 4.4
+BuildRequires:	libqt4-devel >= 4.1
 BuildRequires:	alsa-devel
 
 %description
