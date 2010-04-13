@@ -1,5 +1,6 @@
 [Desktop Entry]
-Name=QXGEdit
+Name=@PACKAGE_NAME@
+Version=@PACKAGE_VERSION@
 GenericName=XG Editor
 Comment=QXGEdit is a Qt GUI XG editor application
 Exec=@ac_prefix@/bin/qxgedit
