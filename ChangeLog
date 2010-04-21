@@ -1,9 +1,7 @@
 QXGEdit - Qt XG Editor
 ----------------------
 
-ChangeLog
-
-SVN TRUNK
+0.1.0  2010-04-21  Second public release.
 
 - Initial widget geometry and visibility persistence logic has
   been slightly revised as much to avoid crash failures due to

@@ -46,6 +46,8 @@ for XG devices (eg. Yamaha DB50XG).
 %{_bindir}/styles/libskulpturestyle.so
 
 %changelog
+* Wed Apr 21 2010 Rui Nuno Capela <rncbc@users.sourceforge.net>
+- Second public release.
 * Thu Sep 17 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
 - Added skulpture theme/style plugin.
 * Mon Jul 20 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
