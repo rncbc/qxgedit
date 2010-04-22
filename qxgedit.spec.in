@@ -43,6 +43,7 @@ for XG devices (eg. Yamaha DB50XG).
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
+%dir %{_bindir}/styles
 %{_bindir}/styles/libskulpturestyle.so
 
 %changelog
