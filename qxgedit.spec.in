@@ -1,13 +1,13 @@
 %define name    @PACKAGE_TARNAME@
 %define version @PACKAGE_VERSION@
-%define release 4
-%define prefix  @ac_prefix@
+%define release 5
+
+%define _prefix	@ac_prefix@
 
 Summary:	Qt XG Editor
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Prefix:		%{prefix}
 License:	GPL
 Group:		Productivity/Multimedia/Sound/Midi
 Source0:	%{name}-%{version}.tar.gz
@@ -32,10 +32,10 @@ for XG devices (eg. Yamaha DB50XG).
 %__make
 
 %install
-%makeinstall
+%__make DESTDIR=%{buildroot} install
 
 %clean
-[ -d %{buildroot} -a "%{buildroot}" != "" ] && %__rm -rf  %{buildroot}
+[ -d %{buildroot} -a "%{buildroot}" != "" ] && %__rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
