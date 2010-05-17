@@ -41,12 +41,18 @@ for XG devices (eg. Yamaha DB50XG).
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog README TODO
 %{_bindir}/%{name}
+%dir %{_datadir}/applications
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
+%dir %{_datadir}/icons/hicolor
+%dir %{_datadir}/icons/hicolor/32x32
+%dir %{_datadir}/icons/hicolor/32x32/apps
+%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %dir %{_bindir}/styles
 %{_bindir}/styles/libskulpturestyle.so
 
 %changelog
+* Mon May 17 2010 Rui Nuno Capela <rncbc@users.sourceforge.net>
+- Standard desktop icon fixing. 
 * Wed Apr 21 2010 Rui Nuno Capela <rncbc@users.sourceforge.net>
 - Second public release.
 * Thu Sep 17 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
