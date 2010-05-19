@@ -1,6 +1,6 @@
 %define name    @PACKAGE_TARNAME@
 %define version @PACKAGE_VERSION@
-%define release 5
+%define release 6
 
 %define _prefix	@ac_prefix@
 
@@ -40,13 +40,14 @@ for XG devices (eg. Yamaha DB50XG).
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog README TODO
-%{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
+#dir %{_datadir}/applications
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/32x32
 %dir %{_datadir}/icons/hicolor/32x32/apps
-%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %dir %{_bindir}/styles
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_bindir}/styles/libskulpturestyle.so
 
 %changelog
