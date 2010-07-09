@@ -27,6 +27,7 @@
 #include "qxgeditMidiDevice.h"
 
 #include <QMessageBox>
+#include <QPushButton>
 #include <QValidator>
 
 
@@ -81,11 +82,11 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	QObject::connect(m_ui.BaseFontSizeComboBox,
 		SIGNAL(editTextChanged(const QString&)),
 		SLOT(changed()));
-	QObject::connect(m_ui.OkPushButton,
-		SIGNAL(clicked()),
+	QObject::connect(m_ui.DialogButtonBox,
+		SIGNAL(accepted()),
 		SLOT(accept()));
-	QObject::connect(m_ui.CancelPushButton,
-		SIGNAL(clicked()),
+	QObject::connect(m_ui.DialogButtonBox,
+		SIGNAL(rejected()),
 		SLOT(reject()));
 }
 
@@ -257,7 +258,7 @@ void qxgeditOptionsForm::stabilizeForm (void)
 {
 	bool bValid = (m_iDirtyCount > 0);
 
-	m_ui.OkPushButton->setEnabled(bValid);
+	m_ui.DialogButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bValid);
 }
 
 

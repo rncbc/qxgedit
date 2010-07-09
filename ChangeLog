@@ -1,6 +1,11 @@
 QXGEdit - Qt XG Editor
 ----------------------
 
+SVN TRUNK
+
+- General standard dialog buttons layout is now in place.
+
+
 0.1.0  2010-04-21  Second public release.
 
 - Initial widget geometry and visibility persistence logic has
