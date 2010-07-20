@@ -1188,7 +1188,7 @@ void qxgeditMainForm::dropEvent ( QDropEvent* pDropEvent )
 // Custom event handler.
 void qxgeditMainForm::customEvent ( QEvent *pEvent )
 {
-	switch (pEvent->type()) {
+	switch (int(pEvent->type())) {
 	case QXGEDIT_SYSEX_EVENT:
 		sysexEvent(static_cast<qxgeditMidiSysexEvent *> (pEvent));
 		break;
