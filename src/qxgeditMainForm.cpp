@@ -54,6 +54,9 @@
 #undef HAVE_SIGNAL_H
 #endif
 
+//-------------------------------------------------------------------------
+// LADISH Level 1 support stuff.
+
 #ifdef HAVE_SIGNAL_H
 
 #include <QSocketNotifier>
@@ -76,7 +79,7 @@ static void qxgedit_sigusr1_handler ( int /* signo */ )
 #endif
 
 
-//----------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 // qxgeditMainForm -- UI wrapper form.
 //
 qxgeditMainForm *qxgeditMainForm::g_pMainForm = NULL;
@@ -1217,7 +1220,7 @@ void qxgeditMainForm::dropEvent ( QDropEvent* pDropEvent )
 }
 
 
-// Custom event handler.
+// LADISH Level 1 -- SIGUSR1 signal handler.
 void qxgeditMainForm::handle_sigusr1 (void)
 {
 	char c;
