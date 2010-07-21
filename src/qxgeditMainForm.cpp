@@ -55,22 +55,25 @@
 #endif
 
 #ifdef HAVE_SIGNAL_H
+
+#include <QSocketNotifier>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+
 #include <signal.h>
-#endif
 
-// Specialties for thread-callback comunication.
-#define QXGEDIT_SAVE_EVENT	QEvent::Type(QEvent::User + 2)
+// File descriptor for SIGUSR1 notifier.
+static int g_fdUsr1[2];
 
-
-//-------------------------------------------------------------------------
-// LADISH Level 1 support stuff.
-
-void qxgedit_on_sigusr1 ( int /*signo*/ )
+// Unix SIGUSR1 signal handler.
+static void qxgedit_sigusr1_handler ( int /* signo */ )
 {
-	QApplication::postEvent(
-		qxgeditMainForm::getInstance(),
-		new QEvent(QXGEDIT_SAVE_EVENT));
+	char c = 1;
+	::write(g_fdUsr1[0], &c, sizeof(c));
 }
+
+#endif
 
 
 //----------------------------------------------------------------------------
@@ -102,11 +105,34 @@ qxgeditMainForm::qxgeditMainForm (
 	m_iMultipartVoiceUpdate = 0;
 
 #ifdef HAVE_SIGNAL_H
+
 	// Set to ignore any fatal "Broken pipe" signals.
 	::signal(SIGPIPE, SIG_IGN);
+
 	// LADISH Level 1 suport.
-	::signal(SIGUSR1, qxgedit_on_sigusr1);
-#endif
+	
+	// Initialize file descriptors for SIGUSR1 socket notifier.
+	::socketpair(AF_UNIX, SOCK_STREAM, 0, g_fdUsr1);
+	m_pUsr1Notifier
+		= new QSocketNotifier(g_fdUsr1[1], QSocketNotifier::Read, this);
+
+	QObject::connect(m_pUsr1Notifier,
+		SIGNAL(activated(int)),
+		SLOT(handle_sigusr1()));
+
+	// Install SIGUSR1 signal handler.
+    struct sigaction usr1;
+    usr1.sa_handler = qxgedit_sigusr1_handler;
+    ::sigemptyset(&usr1.sa_mask);
+    usr1.sa_flags = 0;
+    usr1.sa_flags |= SA_RESTART;
+    ::sigaction(SIGUSR1, &usr1, NULL);
+
+#else	// HAVE_SIGNAL_H
+
+	m_pSocketNotifier = NULL;
+	
+#endif	// !HAVE_SIGNAL_H
 
 	// Create some statusbar labels...
 	const QSize pad(4, 0);
@@ -192,6 +218,11 @@ qxgeditMainForm::qxgeditMainForm (
 // Destructor.
 qxgeditMainForm::~qxgeditMainForm (void)
 {
+#ifdef HAVE_SIGNAL_H
+	if (m_pUsr1Notifier)
+		delete m_pUsr1Notifier;
+#endif
+
 	// Free designated devices.
 	if (m_pMidiDevice)
 		delete m_pMidiDevice;
@@ -1187,10 +1218,16 @@ void qxgeditMainForm::dropEvent ( QDropEvent* pDropEvent )
 
 
 // Custom event handler.
-void qxgeditMainForm::customEvent ( QEvent *pEvent )
+void qxgeditMainForm::handle_sigusr1 (void)
 {
-	if (pEvent->type() == QXGEDIT_SAVE_EVENT)
-		saveSession(false);
+	char c;
+	::read(g_fdUsr1[1], &c, sizeof(c));
+
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditMainForm::handle_sigusr1()");
+#endif
+
+	saveSession(false);
 }
 
 

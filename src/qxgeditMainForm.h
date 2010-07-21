@@ -30,6 +30,7 @@ class qxgeditOptions;
 class qxgeditMidiDevice;
 class qxgeditXGMasterMap;
 
+class QSocketNotifier;
 class QTreeWidget;
 class QLabel;
 
@@ -109,12 +110,13 @@ public slots:
 
 	void sysexReceived(const QByteArray& sysex);
 
+	void handle_sigusr1();
+
 protected:
 
 	void closeEvent(QCloseEvent *pCloseEvent);
 	void dragEnterEvent(QDragEnterEvent *pDragEnterEvent);
 	void dropEvent(QDropEvent *pDropEvent);
-	void customEvent(QEvent *pEvent);
 
 	bool queryClose();
 
@@ -142,6 +144,8 @@ private:
 	qxgeditMidiDevice  *m_pMidiDevice;
 	qxgeditXGMasterMap *m_pMasterMap;
 
+	QSocketNotifier *m_pUsr1Notifier;
+	
 	QString m_sFilename;
 	int m_iUntitled;
 	int m_iDirtyCount;
