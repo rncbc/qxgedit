@@ -56,17 +56,11 @@ public:
 	int alsaClient() const;
 	int alsaPort() const;
 
-	// Event notifier widget settings.
-	void setNotifyObject(QObject *pNotifyObject);
-	QObject *notifyObject() const;
-
-	void setNotifySysexType(QEvent::Type eNotifySysexType);
-	QEvent::Type notifySysexType() const;
-
 	// MIDI event capture method.
 	void capture(snd_seq_event_t *pEv);
 
 	// MIDI SysEx sender.
+	void sendSysex(const QByteArray& sysex) const;
 	void sendSysex(unsigned char *pSysex, unsigned short iSysex) const;
 
 	// MIDI Input(readable) / Output(writable) device list
@@ -80,6 +74,11 @@ public:
 		{ return connectDeviceList(true, inputs); }
 	bool connectOutputs(const QStringList& outputs) const
 		{ return connectDeviceList(false, outputs); }
+
+signals:
+
+	// Received data signal.
+	void receiveSysex(const QByteArray& sysex);
 
 protected:
 
@@ -96,41 +95,11 @@ private:
 	int        m_iAlsaClient;
 	int        m_iAlsaPort;
 
-	// The event notifier widget.
-	QObject     *m_pNotifyObject;
-	QEvent::Type m_eNotifySysexType;
-
 	// Name says it all.
 	qxgeditMidiInputThread *m_pInputThread;
 
 	// Pseudo-singleton reference.
 	static qxgeditMidiDevice *g_pMidiDevice;
-};
-
-
-//----------------------------------------------------------------------
-// qxgeditMidiSysexEvent - MIDI SysEx custom event.
-//
-
-class qxgeditMidiSysexEvent : public QEvent
-{
-public:
-
-	// Contructor.
-	qxgeditMidiSysexEvent(QEvent::Type eType,
-		unsigned char *pSysex, unsigned short iSysex)
-		: QEvent(eType), m_data((const char *) pSysex, (int) iSysex) {}
-
-	// Accessors.
-	unsigned char *data() const
-		{ return (unsigned char *) m_data.constData(); }
-	unsigned short len() const
-		{ return (unsigned short) m_data.length(); }
-
-private:
-
-	// Instance variables.
-	QByteArray m_data;
 };
 
 

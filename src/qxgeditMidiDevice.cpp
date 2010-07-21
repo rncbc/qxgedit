@@ -181,28 +181,6 @@ int qxgeditMidiDevice::alsaPort (void) const
 }
 
 
-// Event notifier widget settings.
-void qxgeditMidiDevice::setNotifyObject ( QObject *pNotifyObject )
-{
-	m_pNotifyObject = pNotifyObject;
-}
-
-QObject *qxgeditMidiDevice::notifyObject (void) const
-{
-	return m_pNotifyObject;
-}
-
-void qxgeditMidiDevice::setNotifySysexType ( QEvent::Type eNotifySysexType )
-{
-	m_eNotifySysexType = eNotifySysexType;
-}
-
-QEvent::Type qxgeditMidiDevice::notifySysexType (void) const
-{
-	return m_eNotifySysexType;
-}
-
-
 // MIDI event capture method.
 void qxgeditMidiDevice::capture ( snd_seq_event_t *pEv )
 {
@@ -227,13 +205,19 @@ void qxgeditMidiDevice::capture ( snd_seq_event_t *pEv )
 #endif
 
 	// Post SysEx event...
-	if (pEv->type == SND_SEQ_EVENT_SYSEX && m_pNotifyObject) {
+	if (pEv->type == SND_SEQ_EVENT_SYSEX) {
 		// Post the stuffed event...
-		QApplication::postEvent(m_pNotifyObject,
-			new qxgeditMidiSysexEvent(m_eNotifySysexType,
-				(unsigned char *) pEv->data.ext.ptr,
-				(unsigned short)  pEv->data.ext.len));
+		emit receiveSysex(
+			QByteArray(
+				(const char *) pEv->data.ext.ptr,
+				(int) pEv->data.ext.len));
 	}
+}
+
+
+void qxgeditMidiDevice::sendSysex ( const QByteArray& sysex ) const
+{
+	sendSysex((unsigned char *) sysex.data(), (unsigned short) sysex.length());
 }
 
 

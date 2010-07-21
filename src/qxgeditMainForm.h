@@ -28,7 +28,6 @@
 // Forward declarations...
 class qxgeditOptions;
 class qxgeditMidiDevice;
-class qxgeditMidiSysexEvent;
 class qxgeditXGMasterMap;
 
 class QTreeWidget;
@@ -108,6 +107,8 @@ public slots:
 	void uservoiceLoadPresetFile(const QString&);
 	void uservoiceSavePresetFile(const QString&);
 
+	void sysexReceived(const QByteArray& sysex);
+
 protected:
 
 	void closeEvent(QCloseEvent *pCloseEvent);
@@ -126,8 +127,6 @@ protected:
 	bool saveSessionFile(const QString& sFilename);
 
 	void updateRecentFiles(const QString& sFilename);
-
-	bool sysexEvent(qxgeditMidiSysexEvent *pSysexEvent);
 
 	void masterReset();
 

@@ -59,7 +59,6 @@
 #endif
 
 // Specialties for thread-callback comunication.
-#define QXGEDIT_SYSEX_EVENT	QEvent::Type(QEvent::User + 1)
 #define QXGEDIT_SAVE_EVENT	QEvent::Type(QEvent::User + 2)
 
 
@@ -239,8 +238,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 
 	// Start proper devices...
 	m_pMidiDevice = new qxgeditMidiDevice(QXGEDIT_TITLE);
-    m_pMidiDevice->setNotifyObject(this);
-    m_pMidiDevice->setNotifySysexType(QXGEDIT_SYSEX_EVENT);
+
+	QObject::connect(m_pMidiDevice,
+		SIGNAL(receiveSysex(const QByteArray&)),
+		SLOT(sysexReceived(const QByteArray&)));
 
 	// And respective connections...
 	m_pMidiDevice->connectInputs(m_pOptions->midiInputs);
@@ -1188,26 +1189,18 @@ void qxgeditMainForm::dropEvent ( QDropEvent* pDropEvent )
 // Custom event handler.
 void qxgeditMainForm::customEvent ( QEvent *pEvent )
 {
-	switch (int(pEvent->type())) {
-	case QXGEDIT_SYSEX_EVENT:
-		sysexEvent(static_cast<qxgeditMidiSysexEvent *> (pEvent));
-		break;
-	case QXGEDIT_SAVE_EVENT:
+	if (pEvent->type() == QXGEDIT_SAVE_EVENT)
 		saveSession(false);
-		// Fall thru...
-	default:
-		break;
-	}
 }
 
 
 // SYSEX Event handler.
-bool qxgeditMainForm::sysexEvent ( qxgeditMidiSysexEvent *pSysexEvent )
+void qxgeditMainForm::sysexReceived ( const QByteArray& sysex )
 {
-	if (m_pMasterMap == NULL)
-		return false;
-
-	return m_pMasterMap->set_sysex_data(pSysexEvent->data(), pSysexEvent->len());
+	if (m_pMasterMap)
+		m_pMasterMap->set_sysex_data(
+			(unsigned char *) sysex.data(),
+			(unsigned short) sysex.length());
 }
 
 

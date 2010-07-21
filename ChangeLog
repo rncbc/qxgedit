@@ -3,6 +3,9 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Moving from old deprecated Qt3'ish custom event post handling
+  into regular asynchronous signal/slot strategy. (EXPERIMENTAL)
+
 - General standard dialog buttons layout is now in place.
 
 
