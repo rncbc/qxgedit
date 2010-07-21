@@ -73,7 +73,8 @@ static int g_fdUsr1[2];
 static void qxgedit_sigusr1_handler ( int /* signo */ )
 {
 	char c = 1;
-	::write(g_fdUsr1[0], &c, sizeof(c));
+
+	(::write(g_fdUsr1[0], &c, sizeof(c)) > 0);
 }
 
 #endif
@@ -1224,13 +1225,9 @@ void qxgeditMainForm::dropEvent ( QDropEvent* pDropEvent )
 void qxgeditMainForm::handle_sigusr1 (void)
 {
 	char c;
-	::read(g_fdUsr1[1], &c, sizeof(c));
 
-#ifdef CONFIG_DEBUG
-	qDebug("qxgeditMainForm::handle_sigusr1()");
-#endif
-
-	saveSession(false);
+	if (::read(g_fdUsr1[1], &c, sizeof(c)) > 0)
+		saveSession(false);
 }
 
 
