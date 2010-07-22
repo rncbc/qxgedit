@@ -134,7 +134,7 @@ qxgeditMainForm::qxgeditMainForm (
 
 #else	// HAVE_SIGNAL_H
 
-	m_pSocketNotifier = NULL;
+	m_pUsr1Notifier = NULL;
 	
 #endif	// !HAVE_SIGNAL_H
 
@@ -1224,10 +1224,14 @@ void qxgeditMainForm::dropEvent ( QDropEvent* pDropEvent )
 // LADISH Level 1 -- SIGUSR1 signal handler.
 void qxgeditMainForm::handle_sigusr1 (void)
 {
+#ifdef HAVE_SIGNAL_H
+
 	char c;
 
 	if (::read(g_fdUsr1[1], &c, sizeof(c)) > 0)
 		saveSession(false);
+
+#endif
 }
 
 
