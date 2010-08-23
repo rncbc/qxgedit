@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.1.0.6, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.1.0.7, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -154,6 +154,9 @@ if test "x$ac_libasound" = "xno"; then
 else
    ac_libs="$ac_libs -lasound"
 fi
+
+# Some recent distros (eg. fedora, debian) require this.
+ac_libs="$ac_libs -lX11"
 
 AC_SUBST(ac_libs)
 
