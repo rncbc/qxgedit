@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2011, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -107,6 +107,9 @@ qxgeditMainForm::qxgeditMainForm (
 
 	// Instrument/Normal Voice combo-box view soft-mutex.
 	m_iMultipartVoiceUpdate = 0;
+
+	// Uservoice element combo-box soft-mutex.
+	m_iUservoiceElementUpdate = 0;
 
 #ifdef HAVE_SIGNAL_H
 
@@ -779,6 +782,11 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_ui.UservoiceNameEdit,
 		SIGNAL(savePresetFile(const QString&)),
 		SLOT(uservoiceSavePresetFile(const QString&)));
+
+	// USERVOICE Elements...
+	QObject::connect(m_ui.UservoiceElementDial,
+		SIGNAL(valueChanged(unsigned short)),
+		SLOT(uservoiceElementChanged(unsigned short)));
 
 	// USERVOICE Pitch EG...
 	QObject::connect(
@@ -2010,7 +2018,7 @@ void qxgeditMainForm::multipartVoiceComboActivated ( int iVoice )
 	if (m_iMultipartVoiceUpdate > 0)
 		return;
 
-	m_iMultipartVoiceUpdate++;
+	++m_iMultipartVoiceUpdate;
 
 	const QModelIndex& parent
 		= m_ui.MultipartVoiceCombo->view()->currentIndex().parent();
@@ -2065,7 +2073,7 @@ void qxgeditMainForm::multipartVoiceComboActivated ( int iVoice )
 		uservoiceComboActivated(iVoice);
 	}
 
-	m_iMultipartVoiceUpdate--;
+	--m_iMultipartVoiceUpdate;
 }
 
 void qxgeditMainForm::multipartVoiceChanged (void)
@@ -2073,7 +2081,7 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 	if (m_iMultipartVoiceUpdate > 0)
 		return;
 
-	m_iMultipartVoiceUpdate++;
+	++m_iMultipartVoiceUpdate;
 
 	unsigned short iBank
 		= (m_ui.MultipartBankMSBDial->value() << 7)
@@ -2160,7 +2168,7 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 		}
 	}
 
-	m_iMultipartVoiceUpdate--;
+	--m_iMultipartVoiceUpdate;
 }
 
 
@@ -2293,10 +2301,22 @@ void qxgeditMainForm::uservoiceComboActivated ( int iUser )
 
 void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 {
+	if (m_iUservoiceElementUpdate > 0)
+		return;
+
+	++m_iUservoiceElementUpdate;
+
 	if (m_pMasterMap) {
-		m_pMasterMap->USERVOICE.set_current_element(iElem);
+		int iCurrentElem = m_pMasterMap->USERVOICE.current_element();
+		if (m_ui.UservoiceElementDial->value() & (iElem + 1)) {
+			m_pMasterMap->USERVOICE.set_current_element(iElem);
+		} else {
+			m_ui.UservoiceElementCombo->setCurrentIndex(iCurrentElem);
+		}
 		stabilizeForm();
 	}
+
+	--m_iUservoiceElementUpdate;
 }
 
 
@@ -2338,6 +2358,24 @@ void qxgeditMainForm::uservoiceAutoSendCheckToggled ( bool bAuto )
 {
 	if (m_pMasterMap)
 		m_pMasterMap->set_auto_send(bAuto);
+}
+
+
+void qxgeditMainForm::uservoiceElementChanged ( unsigned short iElems )
+{
+#ifdef CONFIG_DEBUG
+	qDebug("qxgeditMainForm::uservoiceElementChanged(%u)", iElems);
+#endif
+
+	if (m_pMasterMap) {
+		int iCurrentElem = m_pMasterMap->USERVOICE.current_element();
+		if ((iElems & (iCurrentElem + 1)) == 0) {
+			iCurrentElem = iElems - 1;
+			m_ui.UservoiceElementCombo->setCurrentIndex(iCurrentElem);
+			m_pMasterMap->USERVOICE.set_current_element(iCurrentElem);
+			stabilizeForm();
+		}
+	}
 }
 
 

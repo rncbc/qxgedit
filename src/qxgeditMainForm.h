@@ -1,7 +1,7 @@
 // qxgeditMainForm.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2011, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -60,6 +60,10 @@ public:
 
 public slots:
 
+	void contentsChanged();
+
+protected slots:
+
 	void fileNew();
 	void fileOpen();
 	void fileOpenRecent();
@@ -102,8 +106,7 @@ public slots:
 	void uservoiceElementComboActivated(int);
 	void uservoiceSendButtonClicked();
 	void uservoiceAutoSendCheckToggled(bool);
-
-	void contentsChanged();
+	void uservoiceElementChanged(unsigned short);
 
 	void uservoiceLoadPresetFile(const QString&);
 	void uservoiceSavePresetFile(const QString&);
@@ -161,6 +164,9 @@ private:
 
 	// Instrument/Normal Voice combo-box view soft-mutex.
 	int m_iMultipartVoiceUpdate;
+
+	// Uservoice element combo-box soft-mutex.
+	int m_iUservoiceElementUpdate;
 
 	// Kind-of singleton reference.
 	static qxgeditMainForm *g_pMainForm;

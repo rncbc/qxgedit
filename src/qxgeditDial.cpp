@@ -1,7 +1,7 @@
 // qxgeditDial.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2011, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -120,7 +120,7 @@ void qxgeditDial::set_value ( unsigned short iValue, Observer *pSender )
 	if (m_iBusy > 0)
 		return;
 
-	m_iBusy++;
+	++m_iBusy;
 
 	if (m_pSpin->param()) {
 		m_pSpin->setValue(iValue, pSender);
@@ -134,7 +134,7 @@ void qxgeditDial::set_value ( unsigned short iValue, Observer *pSender )
 		emit valueChanged(m_pDrop->value());
 	}
 
-	m_iBusy--;
+	--m_iBusy;
 }
 
 unsigned short qxgeditDial::value (void) const
@@ -155,7 +155,7 @@ void qxgeditDial::set_param ( XGParam *pParam, Observer *pSender )
 	if (m_iBusy > 0)
 		return;
 
-	m_iBusy++;
+	++m_iBusy;
 
 	if (pParam && pParam->name()) {
 		QWidget::setEnabled(true);
@@ -176,7 +176,7 @@ void qxgeditDial::set_param ( XGParam *pParam, Observer *pSender )
 			m_pDrop->hide();
 		}
 		QWidget::setToolTip(pParam->text());
-		emit valueChanged(pParam->value());
+	//	emit valueChanged(pParam->value());
 	} else {
 		QWidget::setEnabled(false);
 		m_pLabel->clear();
@@ -186,7 +186,7 @@ void qxgeditDial::set_param ( XGParam *pParam, Observer *pSender )
 		m_pDrop->hide();
 	}
 
-	m_iBusy--;
+	--m_iBusy;
 }
 
 XGParam *qxgeditDial::param (void) const
@@ -211,29 +211,17 @@ void qxgeditDial::setValue ( unsigned short iValue )
 // Internal widget slots.
 void qxgeditDial::knobValueChanged ( int iKnobValue )
 {
-	if (m_iBusy > 0)
-		return;
-
 	setValue(iKnobValue);
-	emit valueChanged(value());
 }
 
 void qxgeditDial::spinValueChanged ( unsigned short iSpinValue )
 {
-	if (m_iBusy > 0)
-		return;
-
 	setValue(iSpinValue);
-	emit valueChanged(value());
 }
 
 void qxgeditDial::dropValueChanged ( unsigned short iDropValue )
 {
-	if (m_iBusy > 0)
-		return;
-
 	setValue(iDropValue);
-	emit valueChanged(value());
 }
 
 

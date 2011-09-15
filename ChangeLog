@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Make sure USERVOICE elements are selected only when available.
+
 - Debugging stacktrace now applies to all working threads.
 
 - libX11 is now being added explicitly to the build link phase,
