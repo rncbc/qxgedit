@@ -176,7 +176,7 @@ void qxgeditDial::set_param ( XGParam *pParam, Observer *pSender )
 			m_pDrop->hide();
 		}
 		QWidget::setToolTip(pParam->text());
-	//	emit valueChanged(pParam->value());
+		emit valueChanged(pParam->value());
 	} else {
 		QWidget::setEnabled(false);
 		m_pLabel->clear();
