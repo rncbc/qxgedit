@@ -1,9 +1,9 @@
 QXGEdit - Qt XG Editor
 ----------------------
 
-SVN TRUNK
+0.1.1  2011-09-17  Third public release.
 
-- Make sure USERVOICE elements are selected only when available.
+- Make sure Uservoice elements are selected only when available.
 
 - Debugging stacktrace now applies to all working threads.
 
@@ -12,7 +12,7 @@ SVN TRUNK
   Debian 6.
 
 - Moving from old deprecated Qt3'ish custom event post handling
-  into regular asynchronous signal/slot strategy. (EXPERIMENTAL)
+  into regular asynchronous signal/slot strategy.
 
 - General standard dialog buttons layout is now in place.
 

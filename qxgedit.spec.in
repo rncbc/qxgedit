@@ -1,6 +1,6 @@
 %define name    @PACKAGE_TARNAME@
 %define version @PACKAGE_VERSION@
-%define release 6
+%define release 3
 
 %define _prefix	@ac_prefix@
 
@@ -51,11 +51,14 @@ for XG devices (eg. Yamaha DB50XG).
 %{_bindir}/styles/libskulpturestyle.so
 
 %changelog
+* Sat Sep 17 2011 Rui Nuno Capela <rncbc@users.sourceforge.net> 0.1.1
+- Third public release. 
 * Mon May 17 2010 Rui Nuno Capela <rncbc@users.sourceforge.net>
 - Standard desktop icon fixing. 
-* Wed Apr 21 2010 Rui Nuno Capela <rncbc@users.sourceforge.net>
+* Wed Apr 21 2010 Rui Nuno Capela <rncbc@users.sourceforge.net> 0.1.1
 - Second public release.
-* Thu Sep 17 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
+* Thu Sep 19 2009 Rui Nuno Capela <rncbc@users.sourceforge.net> 0.0.1
+- First public release.
 - Added skulpture theme/style plugin.
 * Mon Jul 20 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
 - Created initial qxgedit.spec
