@@ -81,13 +81,6 @@ style_sources = \
 	skulpture/skulpture.cpp
 
 
-exec_prefix = @exec_prefix@
-datarootdir = @datarootdir@
-
-export bindir = @bindir@
-export datadir = @datadir@
-
-
 all:	$(target) $(style_target)
 
 
@@ -107,12 +100,12 @@ $(style_name).mak:	$(style_name).pro
 
 install:	$(target) $(style_target)
 	@make INSTALL_ROOT=$(DESTDIR) -f $(name).mak install
-	@install -d -v -m 0755 $(DESTDIR)$(bindir)/styles
-	@install -v -m 0755 $(style_target) $(DESTDIR)$(bindir)/$(style_target)
+	@install -d -v -m 0755 $(DESTDIR)$(prefix)/bin/styles
+	@install -v -m 0755 $(style_target) $(DESTDIR)$(prefix)/bin/$(style_target)
 
-uninstall:	$(DESTDIR)$(bindir)/$(name)
+uninstall:	$(DESTDIR)$(prefix)/bin/$(name)
 	@make INSTALL_ROOT=$(DESTDIR) -f $(name).mak uninstall
-	@rm -vf $(DESTDIR)$(bindir)/$(style_target)
+	@rm -vf $(DESTDIR)$(prefix)/bin/$(style_target)
 
 
 clean:	$(name).mak
