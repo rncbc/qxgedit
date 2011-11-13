@@ -72,7 +72,7 @@ RESOURCES += qxgedit.qrc
 
 unix {
 
-	#VARIABLES
+	# variables
 	OBJECTS_DIR = .obj
 	MOC_DIR     = .moc
 	UI_DIR      = .ui
@@ -81,12 +81,13 @@ unix {
 		PREFIX = /usr/local
 	}
 
-	BINDIR = $$PREFIX/bin
-	DATADIR = $$PREFIX/share
+	BINDIR = $(bindir)
+	DATADIR = $(datadir)
 
-	DEFINES += DATADIR=\"$$DATADIR\" PKGDATADIR=\"$$PKGDATADIR\"
+	DEFINES += BINDIR=\"$$BINDIR\"
+	DEFINES += DATADIR=\"$$DATADIR\"
 
-	#MAKE INSTALL
+	# make install
 	INSTALLS += target desktop icon
 
 	target.path = $$BINDIR

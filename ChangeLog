@@ -1,6 +1,12 @@
 QXGEdit - Qt XG Editor
 ----------------------
 
+SVN TRUNK
+
+- Fixed Makefile.in handling of installation directories to
+  the configure script eg. --bindir, --datadir.
+
+
 0.1.1  2011-09-17  Third public release.
 
 - Make sure Uservoice elements are selected only when available.
