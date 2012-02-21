@@ -1,7 +1,7 @@
 /*
  * Skulpture - Classical Three-Dimensional Artwork for Qt 4
  *
- * Copyright (c) 2007-2009 Christoph Feck <christoph@maxiom.de>
+ * Copyright (c) 2007-2010 Christoph Feck <christoph@maxiom.de>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -286,6 +286,7 @@ void SkulptureStyle::polish(QWidget *widget)
         }
         if (qobject_cast<QScrollBar *>(widget)) {
                 widget->installEventFilter(d);
+                widget->setAttribute(Qt::WA_OpaquePaintEvent, false);
         }
         if (QFrame *frame = qobject_cast<QFrame *>(widget)) {
 		switch (frame->frameShape()) {
@@ -327,7 +328,9 @@ void SkulptureStyle::polish(QWidget *widget)
 		//	palette.setColor(QPalette::Window, palette.color(QPalette::Base));
 		//	((QAbstractScrollArea *) widget)->viewport()->setPalette(palette);
 		//	printf("frame style is 0x%08x\n", ((QFrame *) widget)->frameStyle());
-			((QFrame *) widget)->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+                        if (d->expensiveShadows) {
+                            ((QFrame *) widget)->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+                        }
 		}
 #endif
 #if 1
@@ -350,6 +353,7 @@ void SkulptureStyle::polish(QWidget *widget)
 #endif
 #if 1
 		if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget)) {
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
 			if (!qstrcmp(widget->metaObject()->className(), "SampleEdit")) {
 				QWidget *bg = new QWidget(widget);
 				bg->lower();
@@ -357,7 +361,9 @@ void SkulptureStyle::polish(QWidget *widget)
 				bg->setGeometry(2, 2, widget->width() - 4, widget->height() - 4);
 				bg->setAutoFillBackground(true);
 				bg->show();
-			} else {
+			} else
+#endif
+                        {
 				d->mapper.setMapping(edit, edit);
 				connect(edit, SIGNAL(textChanged()), &d->mapper, SLOT(map()));
 				connect(&d->mapper, SIGNAL(mapped(QWidget *)), d, SLOT(textEditSourceChanged(QWidget *)));
@@ -366,7 +372,11 @@ void SkulptureStyle::polish(QWidget *widget)
 			edit->viewport()->installEventFilter(d);
                         edit->installEventFilter(d);
                         widget->setAttribute(Qt::WA_Hover, true);
-			edit->setTabChangesFocus(true);
+			if (qstrcmp(widget->metaObject()->className(), "IRCInput")) {
+                            if (!d->allowTabulations) {
+                                edit->setTabChangesFocus(true);
+                            }
+                        }
 #if 0
 			if (QTextBrowser *browser = qobject_cast<QTextBrowser *>(widget)) {
 				connect(browser, SIGNAL(sourceChanged()), &d->mapper, SLOT(map()));
@@ -537,14 +547,14 @@ void SkulptureStyle::polish(QWidget *widget)
 			d->installFrameShadow(area);
 		}
 	}
-#if 1
-	if (widget->inherits("Konsole::TerminalDisplay")
-	 || widget->inherits("KTextEditor::View")
-	 || widget->inherits("KHTMLView")) {
-	//	((QFrame *) widget)->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-		d->installFrameShadow(widget);
-	}
-#endif
+        if (d->expensiveShadows) {
+            if (widget->inherits("Konsole::TerminalDisplay")
+             || widget->inherits("KTextEditor::View")
+             || widget->inherits("KHTMLView")) {
+            //	((QFrame *) widget)->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+                    d->installFrameShadow(widget);
+            }
+        }
 #if 0
 	if (widget->inherits("KTextEditor::View")) {
 		QWidget *parent = widget->parentWidget();
@@ -724,14 +734,14 @@ void SkulptureStyle::unpolish(QWidget *widget)
 	*/
 		d->removeFrameShadow(area);
 	}
-#if 1
-	if (widget->inherits("Konsole::TerminalDisplay")
-	 || widget->inherits("KTextEditor::View")
-	 || widget->inherits("KHTMLView")) {
-		widget->removeEventFilter(d);
-		d->removeFrameShadow(widget);
-	}
-#endif
+        if (d->expensiveShadows) {
+            if (widget->inherits("Konsole::TerminalDisplay")
+             || widget->inherits("KTextEditor::View")
+             || widget->inherits("KHTMLView")) {
+                    widget->removeEventFilter(d);
+                    d->removeFrameShadow(widget);
+            }
+        }
 	if (widget->inherits("Q3ScrollView")) {
 		widget->removeEventFilter(d);
 		d->removeFrameShadow(widget);
@@ -750,8 +760,10 @@ void SkulptureStyle::unpolish(QWidget *widget)
 #endif
         if (qobject_cast<QScrollBar *>(widget)) {
             widget->removeEventFilter(d);
+            widget->setAttribute(Qt::WA_OpaquePaintEvent, true);
         }
 	if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget)) {
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
 		if (!qstrcmp(widget->metaObject()->className(), "SampleEdit")) {
 			QList<QObject *> children = widget->children();
 			Q_FOREACH (QObject *child, children) {
@@ -760,7 +772,9 @@ void SkulptureStyle::unpolish(QWidget *widget)
 					child->deleteLater();
 				}
 			}
-		} else {
+		} else
+#endif
+                {
 			d->mapper.removeMappings(edit);
 		}
 		edit->viewport()->removeEventFilter(d);
@@ -899,9 +913,13 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
             qDebug() << "handling" << event->type() << "for object" << widget->objectName() << "which is a" << widget->metaObject()->className() << " which is a" << widget->metaObject()->superClass()->className();
         }
 #endif
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
         if (QMenu *menu = qobject_cast<QMenu *>(widget)) {
-            return menuEventFilter(menu, event);
+            if (runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0)) {
+                return menuEventFilter(menu, event);
+            }
         }
+#endif
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 	if (qobject_cast<QMdiSubWindow *>(widget)) {
 		WidgetShadow *shadow = findShadow(widget);
@@ -918,7 +936,8 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 				}
 				break;
 			case QEvent::Hide:
-				if (shadow) {
+            case QEvent::Destroy:
+                if (shadow) {
 					shadow->setParent(0);
 					shadow->hide();
 					shadow->deleteLater();
@@ -964,6 +983,7 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 #if 1 // highlight current line in QTextEdit / QPlainTextEdit
 			if (widget->objectName() == QLatin1String("qt_scrollarea_viewport")) {
 				if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget->parent())) {
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
 					if (!qstrcmp(edit->metaObject()->className(), "SampleEdit")) {
 						QList<QObject *> children = edit->children();
 						Q_FOREACH (QObject *child, children) {
@@ -977,6 +997,7 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 							}
 						}
 					}
+#endif
 				//	updateTextEditMargins(edit);
 					paintCursorLine(edit);
 				}
@@ -1001,10 +1022,12 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
                                     painter.fillRect(widget->rect(), QColor(0, 200, 255, 200));
                                 }
                             }
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
                             if (!widget->styleSheet().isEmpty()) {
                                 QPainter painter(widget);
                                 painter.fillRect(widget->rect(), QColor(255, 0, 255, 100));
                             }
+#endif
                             if (QLayout *layout = widget->layout()) {
                                 if (!(qobject_cast<QToolBar *>(widget))) {
                                     // explicitely check public layout classes, QMainWindowLayout doesn't work here
@@ -1109,6 +1132,7 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 		case QEvent::Move:
 		case QEvent::Resize:
 			if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget)) {
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
 				if (!qstrcmp(widget->metaObject()->className(), "SampleEdit")) {
 					QList<QObject *> children = widget->children();
 					Q_FOREACH (QObject *child, children) {
@@ -1119,7 +1143,9 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 							}
 						}
 					}
-				} else {
+				} else
+#endif
+                                {
 					textEditSourceChanged(edit);
 				}
 			}
@@ -2887,11 +2913,17 @@ void paintDial(QPainter *painter, const QStyleOptionSlider *option, const QWidge
         opt.rect.setWidth(opt.rect.width() & ~1);
         opt.rect.setHeight(opt.rect.height() & ~1);
         ((QCommonStyle *) style)->QCommonStyle::drawComplexControl(QStyle::CC_Dial, &opt, painter, widget);
-        if (qstrcmp(qVersion(), "4.6") >= 0) {
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 6, 0))
+        opt.rect.setWidth((opt.rect.width() & ~1) - 1);
+        opt.rect.setHeight((opt.rect.height() & ~1) - 1);
+        opt.rect.translate(1, 1);
+#else
+        if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 0)) {
             opt.rect.setWidth((opt.rect.width() & ~1) - 1);
             opt.rect.setHeight((opt.rect.height() & ~1) - 1);
             opt.rect.translate(1, 1);
         }
+#endif
 
 	// focus rectangle
 	if (option->state & QStyle::State_HasFocus) {
@@ -3079,118 +3111,6 @@ QRect subElementRectDockWidget(QStyle::SubElement element, const QStyleOptionDoc
     }
 }
 #endif
-
-/*
- * skulpture_effects.cpp
- *
- */
-
-#include "sk_effects.h"
-
-
-/*-----------------------------------------------------------------------*/
-/**
- * Image blurring and sharpening functions
- *
- * Currently, these are only used to blur disabled text, but may be
- * used for other things in the future.
- *
- */
-
-
-/*-----------------------------------------------------------------------*/
-
-#define V_SHIFT 10
-#define V_PREC 8
-
-#define V_MIN	0
-#define V_MAX ((1 << V_PREC) - 1)
-#define V_ROUND (1 << (V_SHIFT - V_PREC - 1))
-
-
-/*-----------------------------------------------------------------------*/
-
-static inline int clampValue(int v)
-{
-	v = (v + V_ROUND) >> V_SHIFT;
-	return (v < V_MIN ? V_MIN : (v > V_MAX ? V_MAX : v));
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-static void sharpenRgbSpan(int count, QRgb *rgb, int offset, int f)
-{
-	unsigned char *ptr = (unsigned char *) rgb;
-	int v0, v1, v2, v3;
-
-	v0 = ptr[0] << V_SHIFT;
-	v1 = ptr[1] << V_SHIFT;
-	v2 = ptr[2] << V_SHIFT;
-	v3 = ptr[3] << V_SHIFT;
-	do {
-		ptr += offset;
-		v0 += (((ptr[0] << V_SHIFT) - v0) * f) >> F_SHIFT; ptr[0] = clampValue(v0);
-		v1 += (((ptr[1] << V_SHIFT) - v1) * f) >> F_SHIFT; ptr[1] = clampValue(v1);
-		v2 += (((ptr[2] << V_SHIFT) - v2) * f) >> F_SHIFT; ptr[2] = clampValue(v2);
-		v3 += (((ptr[3] << V_SHIFT) - v3) * f) >> F_SHIFT; ptr[3] = clampValue(v3);
-	} while (--count >= 0);
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-static void blurRgbSpan(int count, QRgb *rgb, int offset, int f)
-{
-	unsigned char *ptr = (unsigned char *) rgb;
-	int v0, v1, v2, v3;
-
-	v0 = ptr[0] << V_SHIFT;
-	v1 = ptr[1] << V_SHIFT;
-	v2 = ptr[2] << V_SHIFT;
-	v3 = ptr[3] << V_SHIFT;
-	do {
-		ptr += offset;
-		v0 += (((ptr[0] << V_SHIFT) - v0) * f) >> F_SHIFT; ptr[0] = (v0 + V_ROUND) >> V_SHIFT;
-		v1 += (((ptr[1] << V_SHIFT) - v1) * f) >> F_SHIFT; ptr[1] = (v1 + V_ROUND) >> V_SHIFT;
-		v2 += (((ptr[2] << V_SHIFT) - v2) * f) >> F_SHIFT; ptr[2] = (v2 + V_ROUND) >> V_SHIFT;
-		v3 += (((ptr[3] << V_SHIFT) - v3) * f) >> F_SHIFT; ptr[3] = (v3 + V_ROUND) >> V_SHIFT;
-	} while (--count >= 0);
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-void filterRgbPixels(QRgb *rgb, int w, int h, int stride, int f) {
-	if (f < (1 << F_SHIFT)) {
-		if (w >= 2) {
-			int i = h; while (--i >= 0) {
-				blurRgbSpan(w - 2, rgb + i * stride, 4, f);
-				blurRgbSpan(w - 2, rgb + i * stride + w - 1, -4, f);
-			}
-		}
-		if (h >= 2) {
-			int i = w; while (--i >= 0) {
-				blurRgbSpan(h - 2, rgb + i, 4 * stride, f);
-				blurRgbSpan(h - 2, rgb + i + (h - 1) * w, -4 * stride, f);
-			}
-		}
-	} else if (f > (1 << F_SHIFT)) {
-		if (w >= 2) {
-			int i = h; while (--i >= 0) {
-				sharpenRgbSpan(w - 2, rgb + i * stride, 4, f);
-				sharpenRgbSpan(w - 2, rgb + i * stride + w - 1, -4, f);
-			}
-		}
-		if (h >= 2) {
-			int i = w; while (--i >= 0) {
-				sharpenRgbSpan(h - 2, rgb + i, 4 * stride, f);
-				sharpenRgbSpan(h - 2, rgb + i + (h - 1) * w, -4 * stride, f);
-			}
-		}
-	}
-}
-
 
 /*
  * skulpture_factory.cpp
@@ -4236,7 +4156,6 @@ void paintHeaderSortIndicator(QPainter *painter, const QStyleOptionHeader *optio
 #include <QtGui/QDockWidget>
 #include <QtGui/QFrame>
 #include <QtGui/QPainter>
-#include "sk_effects.h"
 #include <cstdlib>
 
 
@@ -4527,17 +4446,14 @@ void SkulptureStyle::drawItemPixmap(QPainter *painter, const QRect &rectangle, i
 #include <QtGui/QCheckBox>
 #endif
 
-
 /*-----------------------------------------------------------------------*/
 
 int SkulptureStyle::Private::verticalTextShift(const QFontMetrics &fontMetrics)
 {
-    if (fontMetrics == qApp->fontMetrics()) {
-        return textShift;
-    }
-    QFont boldFont;
-    boldFont.setBold(true);
-    if (fontMetrics == QFontMetrics(boldFont)) {
+    if (fontMetrics.xHeight() == qApp->fontMetrics().xHeight()
+        && fontMetrics.ascent() == qApp->fontMetrics().ascent()
+        && fontMetrics.descent() == qApp->fontMetrics().descent()
+        && fontMetrics.leading() == qApp->fontMetrics().leading()) {
         return textShift;
     }
     return 0;
@@ -4680,17 +4596,17 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_MenuVMargin: return 1;
         case PM_MenuPanelWidth: return 1;
 #else
-        case PM_MenuHMargin: return 0; // ### anything other than 0 messes Qt's menu positioning code ...
-        case PM_MenuVMargin: return 0;
-        case PM_MenuPanelWidth: return 2;
+        case PM_MenuHMargin: return runtimeQtVersion() < QT_VERSION_CHECK(4, 4, 0) ? 0 : 1; // ### anything other than 0 messes Qt's menu positioning code ...
+        case PM_MenuVMargin: return runtimeQtVersion() < QT_VERSION_CHECK(4, 4, 0) ? 0 : 1;
+        case PM_MenuPanelWidth: return runtimeQtVersion() < QT_VERSION_CHECK(4, 4, 0) ? 2 : 1;
 #endif
         case PM_MenuTearoffHeight: return (fontHeight(option, widget) >> 1) + 2;
         case PM_MenuDesktopFrameWidth: return 0;
 
         case PM_MenuBarPanelWidth: return 0;
         case PM_MenuBarItemSpacing: return 0;
-        case PM_MenuBarVMargin: return 1;
-        case PM_MenuBarHMargin: return 1;
+        case PM_MenuBarVMargin: return 0;
+        case PM_MenuBarHMargin: return 0;
 
         case PM_IndicatorWidth:
         case PM_IndicatorHeight:
@@ -4749,7 +4665,11 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
             return ((fontHeight(option, widget) * 3) >> 3);
         }
 
-        case PM_ToolBarIconSize: return pixelMetric(PM_SmallIconSize, option, widget);
+        case PM_ToolBarIconSize:
+            if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 0)) {
+                break;
+            }
+            return pixelMetric(PM_SmallIconSize, option, widget);
         case PM_ListViewIconSize: return pixelMetric(PM_SmallIconSize, option, widget);
         case PM_IconViewIconSize: return pixelMetric(PM_LargeIconSize, option, widget);
         case PM_SmallIconSize: {
@@ -5030,8 +4950,8 @@ QSize SkulptureStyle::sizeFromContents(ContentsType type, const QStyleOption *op
             }
             break;
         case CT_MenuBarItem: {
-            int h = 2 * (d->menuBarSize >= 0 ? d->menuBarSize : 2) + d->textLineHeight(option, widget);
-            return QSize(contentsSize.width() + (((fontHeight(option, widget) * 7) >> 3) & ~1), h).expandedTo(qApp->globalStrut());
+            int h = 2 * (d->menuBarSize >= 0 ? d->menuBarSize : 3) + d->textLineHeight(option, widget);
+            return QSize(contentsSize.width() + 2 + (((fontHeight(option, widget) * 7) >> 3) & ~1), h).expandedTo(qApp->globalStrut());
         }
         case CT_MenuBar: return contentsSize;
         case CT_Menu: return contentsSize;
@@ -5120,10 +5040,20 @@ static inline QRect subElementRectLineEditContents(const QStyleOptionFrame *opti
     Q_UNUSED(widget); Q_UNUSED(style);
 
     int fw = option->lineWidth;
+    int adjust = 0;
+    /// TODO replace with runtime version check
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 6, 1))
+    if (textShift & 1) {
+        adjust = -1;
+        textShift &= ~1;
+    }
+#else
+    // ### can the 4.6.1 code be used on < 4.6.1 ???
     if (textShift & 1 && !(option->rect.height() & 1)) {
         textShift += 1;
     }
-    return option->rect.adjusted(fw + 2, fw + ((-textShift) >> 1), -fw - 2, -fw + ((-textShift) >> 1));
+#endif
+    return option->rect.adjusted(fw + 2, fw + ((-textShift) >> 1), -fw - 2, -fw + ((-textShift) >> 1) + adjust);
 }
 #endif
 
@@ -5315,10 +5245,12 @@ void SkulptureStyle::Private::polishFormLayout(QFormLayout *layout)
             continue;
         }
         int fieldHeight = fieldItem->sizeHint().height();
-        // work around KIntNumInput::sizeHint() bug
-        if (fieldItem->widget() && fieldItem->widget()->inherits("KIntNumInput")) {
-            fieldHeight -= 2;
-            fieldItem->widget()->setMaximumHeight(fieldHeight);
+        if (runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0)) {
+            // work around KIntNumInput::sizeHint() bug
+            if (fieldItem->widget() && fieldItem->widget()->inherits("KIntNumInput")) {
+                fieldHeight -= 2;
+                fieldItem->widget()->setMaximumHeight(fieldHeight);
+            }
         }
         /* for large fields, we don't center */
         if (fieldHeight <= 2 * fontHeight(0, label) + addedHeight) {
@@ -5333,8 +5265,16 @@ void SkulptureStyle::Private::polishFormLayout(QFormLayout *layout)
         if (qobject_cast<QCheckBox *>(label)) {
             label->setMinimumHeight(labelHeight);
         } else {
-            // QFormLayout determines label size as height * 5 / 4, so revert that
-            label->setMinimumHeight((labelHeight * 4 + 4) / 5);
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 2))
+            if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 2)) {
+                label->setMinimumHeight((labelHeight * 4 + 6) / 7);
+            } else {
+                // QFormLayout determines label size as height * 5 / 4, so revert that
+                label->setMinimumHeight((labelHeight * 4 + 4) / 5);
+            }
+#else
+            label->setMinimumHeight((labelHeight * 4 + 6) / 7);
+#endif
         }
     }
 }
@@ -5604,7 +5544,11 @@ void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const 
 		if (qobject_cast<const QMdiSubWindow *>(widget)) {
 			QFont font = painter->font();
 			font.setBold(true);
-			labelRect = option->rect.adjusted(option->fontMetrics.height() + 10, -1, -2, -3);
+                        if (option->direction == Qt::LeftToRight) {
+                            labelRect = option->rect.adjusted(option->fontMetrics.height() + 10, -1, -2, -3);
+                        } else {
+                            labelRect = option->rect.adjusted(1, -1, -option->fontMetrics.height() - 11, -3);
+                        }
 		//	font.setPointSizeF(10);
 			painter->setFont(font);
 		} else
@@ -5708,10 +5652,12 @@ void paintMenuBarItem(QPainter *painter, const QStyleOptionMenuItem *option, con
 
         button.QStyleOption::operator=(*option);
         button.features = QStyleOptionButton::None;
-        button.rect.adjust(-1, -1, 1, 1);
         button.state |= QStyle::State_MouseOver;
+        painter->save();
+        painter->setClipRect(button.rect.adjusted(1, 1, -1, -1));
         // call without widget to get QPalette::Button background
         paintCommandButtonPanel(painter, &button, 0);
+        painter->restore();
     } else {
         opt.palette.setColor(QPalette::ButtonText, opt.palette.color(QPalette::WindowText));
     }
@@ -5853,8 +5799,12 @@ void paintMenuItem(QPainter *painter, const QStyleOptionMenuItem *option, const 
     const int checkColumnWidth = checkSize + 2 * checkMargin;
     // FIXME qMax(checkSize, iconSize) for useIconColum
     const int iconColumnWidth = iconColumnMode == HideIconColumn ? 0 : option->maxIconWidth ? option->maxIconWidth - 4 + 2 * iconMargin : iconSize + 2 * iconMargin;
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
     // Qt 4.x has a bug where the option->rect is one pixel too wide
-    const QRect itemRect = option->rect.adjusted(0, 0, -1, 0);
+    const QRect itemRect = runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0) ? option->rect.adjusted(0, 0, -1, 0) : option->rect;
+#else
+    const QRect itemRect = option->rect;
+#endif
     QRect iconRect = horizontalVisualRect(itemRect, option, iconColumnWidth);
     QRect textRect = remainingHorizontalVisualRect(itemRect, option, iconColumnWidth);
 
@@ -6057,8 +6007,12 @@ void paintMenuTitle(QPainter *painter, const QStyleOptionToolButton *option, con
     QColor bgcolor = option->palette.color(bgrole);
     QStyleOptionToolButton opt = *option;
     opt.state &= ~(QStyle::State_Sunken | QStyle::State_On | QStyle::State_Selected | QStyle::State_HasFocus);
-    // Qt 4.x has a bug where the option->rect is one pixel too wide
-    opt.rect.adjust(0, 0, -1, 0);
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
+    if (runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0)) {
+        // Qt 4.x has a bug where the option->rect is one pixel too wide
+        opt.rect.adjust(0, 0, -1, 0);
+    }
+#endif
     opt.palette.setColor(QPalette::ButtonText, option->palette.color(QPalette::WindowText));
     paintThinFrame(painter, opt.rect, option->palette, -10, -20);
     paintThinFrame(painter, opt.rect.adjusted(1, 1, -1, -1), opt.palette, -30, 80, bgrole);
@@ -6074,7 +6028,7 @@ void paintMenuTitle(QPainter *painter, const QStyleOptionToolButton *option, con
 
 
 /*-----------------------------------------------------------------------*/
-
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
 bool SkulptureStyle::Private::menuEventFilter(QMenu *menu, QEvent *event)
 {
     QHash<QMenu *, MenuInfo>::iterator i = menuHash.begin();
@@ -6088,7 +6042,7 @@ bool SkulptureStyle::Private::menuEventFilter(QMenu *menu, QEvent *event)
     i = menuHash.find(menu);
     MenuInfo *menuInfo = i != menuHash.end() ? &(*i) : 0;
 
-    if (event->type() == QEvent::Hide) {
+    if (event->type() == QEvent::Hide || event->type() == QEvent::Destroy) {
         if (menuInfo) {
             menuHash.erase(i);
         }
@@ -6172,7 +6126,7 @@ bool SkulptureStyle::Private::menuEventFilter(QMenu *menu, QEvent *event)
     }
     return false;
 }
-
+#endif
 
 /*
  * skulpture_misc.cpp
@@ -6550,7 +6504,7 @@ int getRubberBandMask(QStyleHintReturnMask *mask, const QStyleOption *option, co
 #include <QtGui/QPainter>
 #include <QtGui/QProgressBar>
 #include <QtCore/QTime>
-#include "sk_effects.h"
+#include <cmath>
 
 #if 0
 #define FG_ROLE_PROGRESS QPalette::WindowText
@@ -6564,30 +6518,6 @@ int getRubberBandMask(QStyleHintReturnMask *mask, const QStyleOption *option, co
 #endif
 #define FG_ROLE_CHUNK QPalette::HighlightedText
 #define BG_ROLE_CHUNK QPalette::Highlight
-
-/*-----------------------------------------------------------------------*/
-
-static void paintRotatedText(QPainter *painter, const QRect &rect, int alignment, const QString &text, int angle)
-{
-    QMatrix matrix;
-    QPointF center = QRectF(rect).center();
-    matrix.translate(center.x(), center.y());
-    matrix.rotate(-angle);
-    matrix.translate(-center.x(), -center.y());
-    QRect r = matrix.mapRect(rect);
-    QRect textRect = painter->fontMetrics().boundingRect(r, alignment, text);
-    QPixmap pixmap(textRect.size() + QSize(4, 4));
-    pixmap.fill(Qt::transparent);
-    QPainter p(&pixmap);
-    p.setPen(painter->pen());
-    p.setFont(painter->font());
-    p.drawText(QRect(2, 2, pixmap.width() - 2, pixmap.height() - 2), alignment, text);
-    painter->save();
-    painter->setMatrix(matrix, true);
-    painter->drawPixmap(r.x() + ((r.width() - pixmap.width()) >> 1), r.y() + ((r.height() - pixmap.height()) >> 1), pixmap);
-    painter->restore();
-}
-
 
 /*-----------------------------------------------------------------------*/
 
@@ -6682,7 +6612,7 @@ void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *op
 
 void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style)
 {
-    if (!option->textVisible) {
+    if (!option->textVisible || option->text.isEmpty()) {
         return;
     }
     const bool vertical = option->version >= 2 && option->orientation == Qt::Vertical;
@@ -6706,63 +6636,28 @@ void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *o
         alignment &= ~(Qt::AlignTop | Qt::AlignBottom);
         alignment |= Qt::AlignCenter;
     }
-    QRect r = option->rect.adjusted(6, 0, -6, 0);
-    QRect labelRect = option->fontMetrics.boundingRect(r, alignment, option->text);
-    if (!labelRect.isEmpty()) {
-        const bool contentsCentered = progressBarContentsCentered(option, widget);
-        const QRect contentsRect = progressBarContentsRect(option, contentsCentered);
-        if (contentsRect.intersects(labelRect)) {
-            painter->save();
-            if (vertical) {
-                QMatrix mat;
-                QPointF c = QRectF(r).center();
-                mat.translate(c.x(), c.y());
-                mat.rotate(option->bottomToTop ? -90 : 90);
-                mat.translate(-c.x(), -c.y());
-                r = mat.mapRect(r);
-                painter->setMatrix(mat, true);
-            }
-#if 0
-            QImage outlineBuffer(labelRect.size() + QSize(8, 8), QImage::Format_ARGB32_Premultiplied);
-            outlineBuffer.fill(0);
-            QPainter outlinePainter(&outlineBuffer);
-            outlinePainter.setPen(option->palette.color(FG_ROLE_CHUNK).value() > 150 ? Qt::black : Qt::white);
-            style->drawItemText(&outlinePainter, QRect(0, 0, outlineBuffer.width(), outlineBuffer.height()), Qt::AlignCenter, option->palette, true, option->text, QPalette::NoRole);
-            outlinePainter.end();
-            blurImage(outlineBuffer, 4);
-            outlinePainter.begin(&outlineBuffer);
-            style->drawItemText(&outlinePainter, QRect(0, 0, outlineBuffer.width(), outlineBuffer.height()), Qt::AlignCenter, option->palette, true, option->text, FG_ROLE_CHUNK);
-            outlinePainter.end();
-#endif
-            if (vertical) {
-                QMatrix mat;
-                QPointF c = QRectF(r).center();
-                mat.translate(c.x(), c.y());
-                mat.rotate(option->bottomToTop ? 90 : -90);
-                mat.translate(-c.x(), -c.y());
-                painter->setClipRegion(mat.mapRect(contentsRect));
-            } else {
-                painter->setClipRegion(contentsRect);
-            }
-#if 0
-            painter->drawImage(QRect(labelRect.x() - 4, labelRect.y() - 4, labelRect.width() + 8, labelRect.height() + 8), outlineBuffer);
-#else
-            style->drawItemText(painter, r, alignment, option->palette, true, option->text, FG_ROLE_CHUNK);
-#endif
-            painter->restore();
-        }
-        painter->save();
-        QRegion region = option->rect;
-        region -= contentsRect;
-        painter->setClipRegion(region);
-        if (vertical) {
-            painter->setPen(option->palette.color(FG_ROLE_PROGRESS));
-            paintRotatedText(painter, r, alignment, option->text, option->bottomToTop ? 90 : -90);
-        } else {
-            style->drawItemText(painter, r, alignment, option->palette, option->state & QStyle::State_Enabled, option->text, FG_ROLE_PROGRESS);
-        }
-        painter->restore();
+    const bool contentsCentered = progressBarContentsCentered(option, widget);
+    const QRect contentsRect = progressBarContentsRect(option, contentsCentered);
+    QMatrix mat;
+    if (vertical) {
+        QPointF c = QRectF(option->rect).center();
+        mat.translate(c.x(), c.y());
+        mat.rotate(option->bottomToTop ? -90 : 90);
+        mat.translate(-c.x(), -c.y());
     }
+    QRect r = mat.mapRect(option->rect).adjusted(6, 2, -6, -2);
+    painter->save();
+    painter->setClipRegion(contentsRect);
+    painter->setMatrix(mat, true);
+    style->drawItemText(painter, r, alignment, option->palette, true, option->text, FG_ROLE_CHUNK);
+    painter->restore();
+    painter->save();
+    QRegion region = option->rect;
+    region -= contentsRect;
+    painter->setClipRegion(region);
+    painter->setMatrix(mat, true);
+    style->drawItemText(painter, r, alignment, option->palette, option->state & QStyle::State_Enabled, option->text, FG_ROLE_PROGRESS);
+    painter->restore();
 }
 
 
@@ -8741,7 +8636,7 @@ static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *
 {
     QRect rect = r;
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
-    if (option->version >= QStyleOptionTabBarBaseV2::Version) {
+    if (!isVertical(shape) && option->version >= QStyleOptionTabBarBaseV2::Version) {
         if (((const QStyleOptionTabBarBaseV2 *) option)->documentMode) {
             rect.adjust(-10, 0, 10, 0);
         }
@@ -8781,6 +8676,8 @@ void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *optio
             return;
         }
     }
+#else
+    Q_UNUSED(widget);
 #endif
 	// ### remove clipping
 	painter->save();
@@ -9388,8 +9285,14 @@ void SkulptureStyle::drawItemText(QPainter * painter, const QRect &rectangle, in
 
     if (!(alignment & (Qt::AlignTop | Qt::AlignBottom))) {
         textShift = d->verticalTextShift(painter->fontMetrics());
-        if (textShift & 1 && !(rectangle.height() & 1)) {
-            textShift += 1;
+        if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 1)) {
+            if (textShift & 1 && ((painter->fontMetrics().height() ^ rectangle.height()) & 1)) {
+                textShift -= 1;
+            }
+        } else {
+            if (textShift & 1 && !(rectangle.height() & 1)) {
+                textShift += 1;
+            }
         }
     }
     ParentStyle::drawItemText(painter, textShift == 0 || textShift == -1 ? rectangle : rectangle.adjusted(0, (-textShift) >> 1, 0, (-textShift) >> 1), alignment, palette, enabled, text, textRole);
@@ -9633,11 +9536,14 @@ void paintToolButton(QPainter *painter, const QStyleOptionToolButton *option, co
 				if (!(state & QStyle::State_AutoRaise) || (state & QStyle::State_MouseOver)) {
 					state |= QStyle::State_Raised;
 				}
-                                if (qstrcmp(qVersion(), "4.5") < 0) {
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+                                if (runtimeQtVersion() < QT_VERSION_CHECK(4, 5, 0)) {
                                     if (option->activeSubControls & QStyle::SC_ToolButtonMenu) {
                                         state |= QStyle::State_Sunken;
                                     }
-                                } else {
+                                } else
+#endif
+                                {
                                     if (option->state & QStyle::State_Sunken) {
                                         state |= QStyle::State_Sunken;
                                     } else {
@@ -10010,8 +9916,11 @@ int SkulptureStyle::styleHint(StyleHint hint, const QStyleOption *option, const 
                 return qobject_cast<const QSlider *>(widget) != 0;
             }
             case QStyle::SH_ItemView_ActivateItemOnSingleClick: {
-                // ### use KDE setting
-                return d->useSingleClickToActivateItems;
+                if (d->useSingleClickToActivateItems != -1) {
+                    return d->useSingleClickToActivateItems;
+                }
+                // use platform setting
+                break;
             }
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
             case QStyle::SH_DialogButtonBox_ButtonsHaveIcons: {
@@ -10361,7 +10270,9 @@ void SkulptureStyle::Private::readSettings(const QSettings &s)
     useIconColumnForCheckIndicators = false;
     useSelectionColorForCheckedIndicators = false;
     useSelectionColorForSelectedMenuItems = false;
-    useSingleClickToActivateItems = true;
+    useSingleClickToActivateItems = runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 0) ? -1 : 1;
+    expensiveShadows = true;
+    allowTabulations = false;
 
     dialogMargins = -1;
     horizontalSpacing = -1;
@@ -10449,7 +10360,12 @@ void SkulptureStyle::Private::readSettings(const QSettings &s)
     useIconColumnForCheckIndicators = s.value(QLatin1String("Menus/UseIconColumnForCheckIndicators"), useIconColumnForCheckIndicators).toBool();
     useSelectionColorForCheckedIndicators = s.value(QLatin1String("General/UseSelectionColorForCheckedIndicators"), useSelectionColorForCheckedIndicators).toBool();
     useSelectionColorForSelectedMenuItems = s.value(QLatin1String("Menus/UseSelectionColorForSelectedMenuItems"), useSelectionColorForSelectedMenuItems).toBool();
-    useSingleClickToActivateItems = s.value(QLatin1String("General/UseSingleClickToActivateItems"), useSingleClickToActivateItems).toBool();
+    if (s.contains(QLatin1String("General/UseSingleClickToActivateItems"))) {
+        bool singleClick = s.value(QLatin1String("General/UseSingleClickToActivateItems"), true).toBool();
+        useSingleClickToActivateItems = singleClick ? 1 : 0;
+    }
+    expensiveShadows = s.value(QLatin1String("General/ExpensiveShadows"), expensiveShadows).toBool();
+    allowTabulations = s.value(QLatin1String("General/AllowTabulations"), allowTabulations).toBool();
 
     dialogMargins = s.value(QLatin1String("Layout/DialogMargins"), dialogMargins).toInt();
     horizontalSpacing = s.value(QLatin1String("Layout/HorizontalSpacing"), horizontalSpacing).toInt();
@@ -10619,6 +10535,25 @@ SkulptureStyle::Private::~Private()
 {
 	delete shortcut_handler;
 	delete settings;
+}
+
+
+int runtimeQtVersion()
+{
+    const char *vs = qVersion();
+    int v = 0;
+    int vp = 0;
+    while (true) {
+        char c = *vs++;
+        if (c >= '0' && c <= '9') {
+            vp *= 10;
+            vp += c - '0';
+        } else if (c == '.') {
+            v = (v | vp) << 8;
+        } else {
+            return v | vp;
+        }
+    }
 }
 
 

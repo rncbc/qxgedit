@@ -127,7 +127,9 @@ class SkulptureStyle::Private : public QObject
                 bool useIconColumnForCheckIndicators;
                 bool useSelectionColorForCheckedIndicators;
                 bool useSelectionColorForSelectedMenuItems;
-                bool useSingleClickToActivateItems;
+                int useSingleClickToActivateItems;
+                bool expensiveShadows;
+                bool allowTabulations;
 
                 ArrowPlacementMode verticalArrowMode;
                 ArrowPlacementMode horizontalArrowMode;
@@ -354,6 +356,7 @@ enum RecessedFrame { RF_Small, RF_Large, RF_None };
 void paintRecessedFrame(QPainter *painter, const QRect &rect, const QPalette &palette, enum RecessedFrame rf, QPalette::ColorRole bgrole = QPalette::Window);
 void paintRecessedFrameShadow(QPainter *painter, const QRect &rect, enum RecessedFrame rf);
 
+int runtimeQtVersion();
 
 /*-----------------------------------------------------------------------*/
 // FIXME

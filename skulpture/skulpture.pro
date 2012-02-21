@@ -1,10 +1,9 @@
 TEMPLATE = lib
 LANGUAGE = C++
 
-CONFIG	+= plugin warn_on debug
+CONFIG	+= plugin warn_on release
 
 HEADERS	+= \
-	sk_effects.h \
 	sk_factory.h \
 	skulpture_p.h \
 	skulpture.h

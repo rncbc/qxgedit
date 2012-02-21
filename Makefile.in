@@ -72,7 +72,6 @@ style_name = skulpture/skulpture
 style_target = styles/libskulpturestyle.so
 
 style_headers = \
-	skulpture/sk_effects.h \
 	skulpture/sk_factory.h \
 	skulpture/skulpture_p.h \
 	skulpture/skulpture.h
