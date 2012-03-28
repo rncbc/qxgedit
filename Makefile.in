@@ -84,32 +84,32 @@ all:	$(target) $(style_target)
 
 
 $(target):	$(name).mak $(resources) ${forms} $(sources) $(headers)
-	@make -f $(name).mak
+	@$(MAKE) -f $(name).mak
 
 $(name).mak:	$(name).pro
 	@$(qmake) -o $(name).mak $(name).pro
 
 
 $(style_target):	$(style_name).mak $(style_sources) $(style_headers)
-	@cd skulpture && make -f ../$(style_name).mak
+	@cd skulpture && $(MAKE) -f ../$(style_name).mak
 
 $(style_name).mak:	$(style_name).pro
 	@$(qmake) -o $(style_name).mak $(style_name).pro
 
 
 install:	$(target) $(style_target)
-	@make INSTALL_ROOT=$(DESTDIR) -f $(name).mak install
+	@$(MAKE) INSTALL_ROOT=$(DESTDIR) -f $(name).mak install
 	@install -d -v -m 0755 $(DESTDIR)$(prefix)/bin/styles
 	@install -v -m 0755 $(style_target) $(DESTDIR)$(prefix)/bin/$(style_target)
 
 uninstall:	$(DESTDIR)$(prefix)/bin/$(name)
-	@make INSTALL_ROOT=$(DESTDIR) -f $(name).mak uninstall
+	@$(MAKE) INSTALL_ROOT=$(DESTDIR) -f $(name).mak uninstall
 	@rm -vf $(DESTDIR)$(prefix)/bin/$(style_target)
 
 
 clean:	$(name).mak
-	@make -f $(name).mak clean
+	@$(MAKE) -f $(name).mak clean
 	@rm -f $(target) $(target).mak $(name).mak
 	@rm -rf *.cache *.log *.status
-	@cd skulpture && make -f ../$(style_name).mak clean
+	@cd skulpture && $(MAKE) -f ../$(style_name).mak clean
 	@rm -f $(style_target) $(style_name).mak
