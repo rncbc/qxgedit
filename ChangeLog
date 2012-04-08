@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Added include <unistd.h> to shut up gcc 4.7 build failures.
+
 - Make(ing) -jN parallel builds now available for the masses.
 
 - Updated to latest Skulpture style version 2.4.0.
