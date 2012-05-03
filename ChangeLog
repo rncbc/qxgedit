@@ -3,6 +3,10 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- MIDI note names and their respective octave numbers are now
+  compliant with the ISO standard where middle C (60) is now C4
+  (was C3).
+
 - Added include <unistd.h> to shut up gcc 4.7 build failures.
 
 - Make(ing) -jN parallel builds now available for the masses.

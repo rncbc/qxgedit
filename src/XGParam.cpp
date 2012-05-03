@@ -678,7 +678,7 @@ const char *getsnote ( unsigned short c )
 	const char *tabnote[] =
 		{ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 	static char note[5];
-	snprintf(note, sizeof(note), "%-2s%2d", tabnote[c % 12], (c / 12) - 2);
+	snprintf(note, sizeof(note), "%-2s%2d", tabnote[c % 12], (c / 12) - 1);
 	return note;
 }
 
