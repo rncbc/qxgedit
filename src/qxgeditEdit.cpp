@@ -435,6 +435,7 @@ void qxgeditEdit::refreshPreset (void)
 	if (pOptions) {
 		pOptions->settings().beginGroup(presetGroup());
 		m_pComboBox->insertItems(0, pOptions->settings().childKeys());
+		m_pComboBox->model()->sort(0);
 		pOptions->settings().endGroup();
 	}
 	

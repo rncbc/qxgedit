@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Uservoice name preset drop-down list is now sorted.
+
 - MIDI note names and their respective octave numbers are now
   compliant with the ISO standard where middle C (60) is now C4
   (was C3).
