@@ -3,6 +3,9 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Skulpture style plugin is now deployed to a rather standard
+  location on install (default: PREFIX/qt4/plugins/styles).
+
 - Uservoice name preset drop-down list is now sorted.
 
 - MIDI note names and their respective octave numbers are now
@@ -13,7 +16,7 @@ SVN TRUNK
 
 - Make(ing) -jN parallel builds now available for the masses.
 
-- Updated to latest Skulpture style version 2.4.0.
+- Updated to recent Skulpture style version 2.4.0.
 
 - Fixed Makefile.in handling of installation directories to the
   configure script eg. --datadir.

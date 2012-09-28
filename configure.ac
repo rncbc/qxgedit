@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.1.1.7, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.1.1.8, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
-AC_CONFIG_FILES(Makefile qxgedit.spec src/src.pri src/qxgedit.desktop)
+AC_CONFIG_FILES(Makefile qxgedit.spec src/src.pri src/qxgedit.desktop skulpture/skulpture.pri)
 
 # Set default installation prefix.
 AC_PREFIX_DEFAULT(/usr/local)

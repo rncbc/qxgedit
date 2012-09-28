@@ -44,11 +44,13 @@ for XG devices (eg. Yamaha DB50XG).
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/32x32
 %dir %{_datadir}/icons/hicolor/32x32/apps
-%dir %{_bindir}/styles
+%dir %{_libdir}/qt4
+%dir %{_libdir}/qt4/plugins
+%dir %{_libdir}/qt4/plugins/styles
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
-%{_bindir}/styles/libskulpturestyle.so
+%{_libdir}/qt4/plugins/styles/libskulpturestyle.so
 
 %changelog
 * Sat Sep 17 2011 Rui Nuno Capela <rncbc@users.sourceforge.net> 0.1.1

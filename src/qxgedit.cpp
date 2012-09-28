@@ -35,6 +35,31 @@
 #endif
 
 
+#define CONFIG_QUOTE1(x) #x
+#define CONFIG_QUOTED(x) CONFIG_QUOTE1(x)
+
+#if defined(DATADIR)
+#define CONFIG_DATADIR CONFIG_QUOTED(DATADIR)
+#else
+#define CONFIG_DATADIR CONFIG_PREFIX "/share"
+#endif
+
+#if defined(LOCALEDIR)
+#define CONFIG_LOCALEDIR CONFIG_QUOTED(LOCALEDIR)
+#else
+#define CONFIG_LOCALEDIR CONFIG_DATADIR "/locale"
+#endif
+
+#if defined(__x86_64__)
+#define CONFIG_LIBDIR CONFIG_PREFIX "/lib64"
+#else
+#define CONFIG_LIBDIR CONFIG_PREFIX "/lib"
+#endif
+
+
+#define CONFIG_PLUGINSDIR CONFIG_LIBDIR "/qt4/plugins"
+
+
 //-------------------------------------------------------------------------
 // Singleton application instance stuff (Qt/X11 only atm.)
 //
@@ -83,7 +108,7 @@ public:
 			if (m_pMyTranslator->load(sLocName, sLocPath)) {
 				QApplication::installTranslator(m_pMyTranslator);
 			} else {
-				sLocPath = CONFIG_PREFIX "/share/locale";
+				sLocPath = CONFIG_LOCALEDIR;
 				if (m_pMyTranslator->load(sLocName, sLocPath)) {
 					QApplication::installTranslator(m_pMyTranslator);
 				} else {
@@ -342,7 +367,8 @@ int main ( int argc, char **argv )
 		iBaseFontSize = options.iBaseFontSize;
 	app.setFont(QFont(app.font().family(), iBaseFontSize));
 
-	// Special style...
+	// Special styles...
+	QApplication::addLibraryPath(CONFIG_PLUGINSDIR);
 	QApplication::setStyle(QStyleFactory::create("skulpture"));
 
 	// Construct, setup and show the main form (a pseudo-singleton).
