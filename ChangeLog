@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Preparations for Qt5 migration. (TESTING)
+
 - Skulpture style plugin is now deployed to a rather standard
   location on install (default: PREFIX/qt4/plugins/styles).
 

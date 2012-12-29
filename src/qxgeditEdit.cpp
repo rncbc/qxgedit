@@ -201,7 +201,7 @@ void qxgeditEdit::changePreset ( const QString& sPreset )
 
 	if (m_pParam) {
 		m_pParam->set_data(
-			(unsigned char *) sPreset.toAscii().data(),
+			(unsigned char *) sPreset.toLatin1().data(),
 			sPreset.length(),
 			observer());
 		m_iDirtyPreset++;

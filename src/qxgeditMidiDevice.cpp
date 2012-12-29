@@ -1,7 +1,7 @@
 // qxgeditMidiDevice.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2012, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -113,12 +113,12 @@ qxgeditMidiDevice::qxgeditMidiDevice ( const QString& sClientName )
 	if (snd_seq_open(&m_pAlsaSeq, "hw", SND_SEQ_OPEN_DUPLEX, 0) >= 0) {
 		// Set client identification...
 		QString sName = sClientName;
-		snd_seq_set_client_name(m_pAlsaSeq, sName.toAscii().constData());
+		snd_seq_set_client_name(m_pAlsaSeq, sName.toLatin1().constData());
 		m_iAlsaClient = snd_seq_client_id(m_pAlsaSeq);
 		// Create duplex port
 		sName += " MIDI 1";
 		m_iAlsaPort = snd_seq_create_simple_port(m_pAlsaSeq,
-			sName.toAscii().constData(),
+			sName.toLatin1().constData(),
 			SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE |
 			SND_SEQ_PORT_CAP_READ | SND_SEQ_PORT_CAP_SUBS_READ,
 			SND_SEQ_PORT_TYPE_MIDI_GENERIC | SND_SEQ_PORT_TYPE_APPLICATION);
