@@ -15,6 +15,9 @@ HEADERS	+= \
 
 SOURCES	+= skulpture.cpp
 
+!lessThan(QT_MAJOR_VERSION, 5) {
+	OTHER_FILES += skulpture.json
+}
 
 unix {
 
@@ -34,7 +37,13 @@ unix {
 		TARGET_PREFIX = $${PREFIX}/lib
 	}
 
-	TARGET_PATH = $${TARGET_PREFIX}/qt4/plugins/styles
+	lessThan(QT_MAJOR_VERSION, 5) {
+		TARGET_SUFFIX = /qt4/plugins/styles
+	} else {
+		TARGET_SUFFIX = /qt5/plugins/styles
+	}
+
+	TARGET_PATH = $${TARGET_PREFIX}$${TARGET_SUFFIX}
 
 	isEmpty(QMAKE_EXTENSION_SHLIB) {
 		QMAKE_EXTENSION_SHLIB = so

@@ -99,7 +99,9 @@ class SkulptureStylePlugin : public QStylePlugin
 };
 
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 Q_EXPORT_PLUGIN2(skulpture, SkulptureStylePlugin)
+#endif
 
 
 /*-----------------------------------------------------------------------*/
@@ -2142,7 +2144,7 @@ void paintCachedGrip(QPainter *painter, const QStyleOption *option, QPalette::Co
 			state &= ~(QStyle::State_MouseOver | QStyle::State_HasFocus);
 		}
 		state &= ~(QStyle::State_HasFocus);
-                QByteArray colorName = option->palette.color(QPalette::Button).name().toAscii();
+                QByteArray colorName = option->palette.color(QPalette::Button).name().toLatin1();
                 pixmapName.sprintf("scp-isg-%x-%x-%s-%x-%x", state, option->direction, colorName.constData(), option->rect.width(), option->rect.height());
 	}
 	paintIndicatorCached(painter, option, paintGrip, useCache, pixmapName);
@@ -7907,7 +7909,7 @@ bool ShortcutHandler::underlineShortcut(const QWidget *widget) const
 			if (widget->hasFocus()) {
 				return true;
 			}
-			QList<QWidget *> children = qFindChildren<QWidget *>(widget);
+			QList<QWidget *> children = widget->findChildren<QWidget *>();
             Q_FOREACH (QWidget *child, children) {
 				if (child->hasFocus()) {
 					return true;
@@ -7940,7 +7942,7 @@ static inline bool hasShortcut(QWidget *widget)
 
 static inline void updateShortcuts(QWidget *widget)
 {
-	QList<QWidget *> children = qFindChildren<QWidget *>(widget);
+	QList<QWidget *> children = widget->findChildren<QWidget *>();
     Q_FOREACH (QWidget *child, children) {
 		if (child->isVisible() && hasShortcut(child)) {
 			child->update();
@@ -10027,7 +10029,7 @@ int SkulptureStyle::styleHint(StyleHint hint, const QStyleOption *option, const 
 		}
 		switch (setting->type) {
 			case StyleSetting::Color:
-				value = qRgba(0, 0, 0, 255) + QLocale::c().toInt(value.toString().mid(1), 0, 16);
+				value = qRgba(0, 0, 0, 255) + value.toString().mid(1).toInt(0, 16);
 				break;
 			case StyleSetting::Bool:
 				value = value.toBool();
