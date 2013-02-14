@@ -22,7 +22,7 @@
 #ifndef SKULPTURE_H
 #define SKULPTURE_H 1
 
-#include <QtGui/QCommonStyle>
+#include <QCommonStyle>
 
 
 /*-----------------------------------------------------------------------*/
@@ -93,10 +93,10 @@ class SkulptureStyle : public QCommonStyle
         int skulpturePrivateMethod(SkulpturePrivateMethod id, void *data = 0);
 
     protected Q_SLOTS:
-//#if (QT_VERSION >= 0x040100)
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
         QIcon standardIconImplementation(StandardPixmap standardIcon, const QStyleOption *option,
                                          const QWidget *widget) const;
-//#endif
+#endif
 #if (QT_VERSION >= 0x040300)
         int layoutSpacingImplementation(QSizePolicy::ControlType control1,
                                         QSizePolicy::ControlType control2, Qt::Orientation orientation,

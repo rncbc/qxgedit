@@ -17,6 +17,7 @@ SOURCES	+= skulpture.cpp
 
 !lessThan(QT_MAJOR_VERSION, 5) {
 	OTHER_FILES += skulpture.json
+	QT += widgets
 }
 
 unix {

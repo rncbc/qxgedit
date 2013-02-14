@@ -25,7 +25,7 @@
 
 /*-----------------------------------------------------------------------*/
 
-#include <QtCore/QObject>
+#include <QObject>
 class QWidget;
 
 class ShortcutHandler : public QObject
@@ -80,10 +80,10 @@ enum ArrowPlacementMode
 /*-----------------------------------------------------------------------*/
 
 #include "skulpture.h"
-#include <QtCore/QPointer>
-#include <QtCore/QSignalMapper>
-#include <QtCore/QHash>
-#include <QtGui/QStyleOption>
+#include <QPointer>
+#include <QSignalMapper>
+#include <QHash>
+#include <QStyleOption>
 class QPainter;
 class QSettings;
 class QTextEdit;
