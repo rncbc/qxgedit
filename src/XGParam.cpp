@@ -1,7 +1,7 @@
 // XGParam.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -371,7 +371,7 @@ float getv0x40 ( unsigned short c )
 static
 unsigned short getu0x40 ( float v )
 {
-	return (unsigned short) (v) + 64;
+	return (unsigned short) (v + 64.0f);
 }
 
 
@@ -387,7 +387,7 @@ float getv0x7f ( unsigned short c )
 static
 unsigned short getu0x7f ( float v )
 {
-	return (unsigned short) (v) + 127;
+	return (unsigned short) (v + 127.0f);
 }
 
 
@@ -483,7 +483,7 @@ float getv1024 ( unsigned short c )
 static
 unsigned short getu1024 ( float v )
 {
-	return (unsigned short) (10.0f * v) + 1024;
+	return (unsigned short) (1024.0f + 10.0f * v);
 }
 
 
@@ -499,7 +499,7 @@ float getvprog ( unsigned short c )
 static
 unsigned short getuprog ( float v )
 {
-	return (unsigned short) (v) - 1;
+	return (unsigned short) (v - 1.0f);
 }
 
 

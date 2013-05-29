@@ -3,6 +3,10 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Fixed an incremental value stickiness, which were affecting
+  some parameters step changes from up/down spin-box widgets
+  (eg. Master Tune).
+
 - Preparations for Qt5 migration. (TESTING)
 
 - Skulpture style plugin is now deployed to a rather standard
