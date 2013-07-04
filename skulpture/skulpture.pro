@@ -20,6 +20,7 @@ SOURCES	+= skulpture.cpp
 	QT += widgets
 }
 
+
 unix {
 
 	# variables

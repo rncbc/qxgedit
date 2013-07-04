@@ -1,10 +1,9 @@
 # qxgedit.pro
 #
-TARGET = qxgedit
+NAME = qxgedit
 
+TARGET = $${NAME}
 TEMPLATE = app
-DEPENDPATH += .
-INCLUDEPATH += .
 
 include(src.pri)
 
@@ -70,6 +69,7 @@ FORMS += \
 
 RESOURCES += qxgedit.qrc
 
+
 unix {
 
 	# variables
@@ -81,26 +81,26 @@ unix {
 		PREFIX = /usr/local
 	}
 
-	BINDIR = $$PREFIX/bin
-	DATADIR = $$PREFIX/share
+	BINDIR = $${PREFIX}/bin
+	DATADIR = $${PREFIX}/share
 	LOCALEDIR = $(localedir)
 
-	DEFINES += DATADIR=\"$$DATADIR\"
+	DEFINES += DATADIR=\"$${DATADIR}\"
 
 	!isEmpty(LOCALEDIR) {
-		DEFINES += LOCALEDIR=\"$$LOCALEDIR\"
+		DEFINES += LOCALEDIR=\"$${LOCALEDIR}\"
 	}
 
 	# make install
 	INSTALLS += target desktop icon
 
-	target.path = $$BINDIR
+	target.path = $${BINDIR}
 
-	desktop.path = $$DATADIR/applications
-	desktop.files += $${TARGET}.desktop
+	desktop.path = $${DATADIR}/applications
+	desktop.files += $${NAME}.desktop
 
-	icon.path = $$DATADIR/icons/hicolor/32x32/apps
-	icon.files += images/$${TARGET}.png 
+	icon.path = $${DATADIR}/icons/hicolor/32x32/apps
+	icon.files += images/$${NAME}.png
 }
 
 

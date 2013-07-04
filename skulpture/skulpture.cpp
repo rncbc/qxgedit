@@ -4074,10 +4074,10 @@ void paintHeaderSection(QPainter *painter, const QStyleOptionHeader *option, con
 		paintRecessedFrame(painter, option->rect.adjusted(-9, -9, 3, 3), option->palette, RF_Small);
 		painter->fillRect(QRect(option->rect.right(), option->rect.bottom(), 1, 1), option->palette.color(QPalette::Window));
 	} else {
-                if (isHeaderEnabled(option, widget)) {
+		if (isHeaderEnabled(option, widget)) {
 			bool hover = false;
-			const QHeaderView *view = qobject_cast<const QHeaderView *>(widget);
 		#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
+			const QHeaderView *view = qobject_cast<const QHeaderView *>(widget);
 			if (view && (view->isClickable() || view->isMovable())) {
 				hover = option->state & QStyle::State_MouseOver;
 			}
@@ -4786,6 +4786,9 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
 #endif
 
         case PM_CustomBase: // avoid warning
+            break;
+
+        default:
             break;
     }
     return ParentStyle::pixelMetric(metric, option, widget);

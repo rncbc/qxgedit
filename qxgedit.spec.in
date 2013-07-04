@@ -53,14 +53,14 @@ for XG devices (eg. Yamaha DB50XG).
 %{_libdir}/qt4/plugins/styles/libskulpturestyle.so
 
 %changelog
-* Sat Sep 17 2011 Rui Nuno Capela <rncbc@users.sourceforge.net> 0.1.1
+* Sat Sep 17 2011 Rui Nuno Capela <rncbc@rncbc.org> 0.1.1
 - Third public release. 
-* Mon May 17 2010 Rui Nuno Capela <rncbc@users.sourceforge.net>
+* Mon May 17 2010 Rui Nuno Capela <rncbc@rncbc.org>
 - Standard desktop icon fixing. 
-* Wed Apr 21 2010 Rui Nuno Capela <rncbc@users.sourceforge.net> 0.1.1
+* Wed Apr 21 2010 Rui Nuno Capela <rncbc@rncbc.org> 0.1.1
 - Second public release.
-* Thu Sep 19 2009 Rui Nuno Capela <rncbc@users.sourceforge.net> 0.0.1
+* Thu Sep 19 2009 Rui Nuno Capela <rncbc@rncbc.org> 0.0.1
 - First public release.
 - Added skulpture theme/style plugin.
-* Mon Jul 20 2009 Rui Nuno Capela <rncbc@users.sourceforge.net>
+* Mon Jul 20 2009 Rui Nuno Capela <rncbc@rncbc.org>
 - Created initial qxgedit.spec
