@@ -39,15 +39,15 @@ AC_ARG_ENABLE(stacktrace,
 
 # Standard installation base dirs.
 #ac_with_paths="/usr /usr/local"
-#
+
 # Some a-la-debian alternatives...
-#for X in /usr/lib /usr/lib64 /usr/share; do
-#  for Y in qt qt4; do
-#    if test -d $X/$Y/bin; then
-#      ac_with_paths="$ac_with_paths $X/$Y"
-#    fi
-#  done
-#done
+for X in /usr/lib /usr/lib64 /usr/share; do
+  for Y in qt qt4; do
+    if test -d $X/$Y/bin; then
+      ac_with_paths="$ac_with_paths $X/$Y"
+    fi
+  done
+done
 
 # Set for alternate Qt installation dir.
 AC_ARG_WITH(qt,
