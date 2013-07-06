@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.1.1.14, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.1.1.15, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -38,16 +38,16 @@ AC_ARG_ENABLE(stacktrace,
 
 
 # Standard installation base dirs.
-ac_with_paths="/usr /usr/local"
-
+#ac_with_paths="/usr /usr/local"
+#
 # Some a-la-debian alternatives...
-for X in /usr/lib /usr/lib64 /usr/share; do
-  for Y in qt qt4; do
-    if test -d $X/$Y/bin; then
-      ac_with_paths="$ac_with_paths $X/$Y"
-    fi
-  done
-done
+#for X in /usr/lib /usr/lib64 /usr/share; do
+#  for Y in qt qt4; do
+#    if test -d $X/$Y/bin; then
+#      ac_with_paths="$ac_with_paths $X/$Y"
+#    fi
+#  done
+#done
 
 # Set for alternate Qt installation dir.
 AC_ARG_WITH(qt,
@@ -77,17 +77,17 @@ for X in $ac_with_paths; do
   if test -d $X/bin; then
     ac_path="$X/bin:$ac_path"
   fi
-  if test -x $X/qmake; then
-    ac_path="$X:$ac_path"
-  fi
+# if test -x $X/qmake; then
+#   ac_path="$X:$ac_path"
+# fi
   if test -d $X/include; then
-    for Y in qt qt4; do
-      if test -d $X/include/$Y; then
-        CFLAGS="-I$X/include/$Y $CFLAGS"
-        CPPFLAGS="-I$X/include/$Y $CPPFLAGS"
-        ac_incpath="$X/include/$Y $ac_incpath"
-      fi
-    done
+#   for Y in qt qt4; do
+#     if test -d $X/include/$Y; then
+#       CFLAGS="-I$X/include/$Y $CFLAGS"
+#       CPPFLAGS="-I$X/include/$Y $CPPFLAGS"
+#       ac_incpath="$X/include/$Y $ac_incpath"
+#     fi
+#   done
     CFLAGS="-I$X/include $CFLAGS"
     CPPFLAGS="-I$X/include $CPPFLAGS"
     ac_incpath="$X/include $ac_incpath"

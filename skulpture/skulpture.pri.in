@@ -2,5 +2,5 @@
 #
 PREFIX  = @ac_prefix@
 CONFIG += @ac_debug@
-INCLUDEPATH += @ac_incpath@
-LIBS += @ac_libs@
+#INCLUDEPATH += @ac_incpath@
+#LIBS += @ac_libs@
