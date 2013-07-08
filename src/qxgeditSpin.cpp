@@ -1,7 +1,7 @@
 // qxgeditSpin.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -37,9 +37,7 @@
 qxgeditSpin::qxgeditSpin ( QWidget *pParent )
 	: QAbstractSpinBox(pParent), m_pParam(NULL)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(4, 2, 0)
 	QAbstractSpinBox::setAccelerated(true);
-#endif
 
 	QObject::connect(this,
 		SIGNAL(editingFinished()),

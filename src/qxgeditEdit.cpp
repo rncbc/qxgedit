@@ -1,7 +1,7 @@
 // qxgeditEdit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2012, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -50,9 +50,7 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	m_pRemoveButton = new QToolButton();
 
 	m_pComboBox->setEditable(true);
-#if QT_VERSION >= 0x040200
 	m_pComboBox->setCompleter(NULL);
-#endif
 	m_pComboBox->setInsertPolicy(QComboBox::NoInsert);
 
 	m_pOpenButton->setIcon(QIcon(":/images/formOpen.png"));
@@ -255,7 +253,7 @@ void qxgeditEdit::openPreset (void)
 	const QString  sExt("syx");
 	const QString& sTitle  = tr("Open Preset") + " - " QXGEDIT_TITLE;
 	const QString& sFilter = tr("Preset files (*.%1)").arg(sExt);
-#if QT_VERSION < 0x040400
+#if 0//QT_VERSION < 0x040400
 	// Ask for the filename to save...
 	sFilename = QFileDialog::getSaveFileName(parentWidget(),
 		sTitle, pOptions->sPresetDir, sFilter);
@@ -322,7 +320,7 @@ void qxgeditEdit::savePreset ( const QString& sPreset )
 	if (!fi.exists()) {
 		const QString& sTitle  = tr("Save Preset") + " - " QXGEDIT_TITLE;
 		const QString& sFilter = tr("Preset files (*.%1)").arg(sExt);
-	#if QT_VERSION < 0x040400
+	#if 0//QT_VERSION < 0x040400
 		// Ask for the filename to save...
 		sFilename = QFileDialog::getSaveFileName(parentWidget(),
 			sTitle, sFilename, sFilter);

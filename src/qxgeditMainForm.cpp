@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2012, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -1308,7 +1308,7 @@ bool qxgeditMainForm::openSession (void)
 	QString sExt("syx");
 	const QString& sTitle  = tr("Open Session") + " - " QXGEDIT_TITLE;
 	const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
-#if QT_VERSION < 0x040400
+#if 0//QT_VERSION < 0x040400
 	sFilename = QFileDialog::getOpenFileName(this,
 		sTitle, m_pOptions->sSessionDir, sFilter);
 #else
@@ -1361,7 +1361,7 @@ bool qxgeditMainForm::saveSession ( bool bPrompt )
 		QString sExt("syx");
 		const QString& sTitle  = tr("Save Session") + " - " QXGEDIT_TITLE;
 		const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
-	#if QT_VERSION < 0x040400
+	#if 0//QT_VERSION < 0x040400
 		sFilename = QFileDialog::getSaveFileName(this,
 			sTitle, sFilename, sFilter);
 	#else
