@@ -286,12 +286,30 @@ void qxgeditMidiDevice::capture ( snd_seq_event_t *pEv )
 #endif
 
 	// Post SysEx event...
-	if (pEv->type == SND_SEQ_EVENT_SYSEX) {
-		// Post the stuffed event...
+	switch (pEv->type) {
+	case SND_SEQ_EVENT_REGPARAM:
+		// Post RPN event...
+		emit receiveRpn(
+			pEv->data.control.channel,
+			pEv->data.control.param,
+			pEv->data.control.value);
+		break;
+	case SND_SEQ_EVENT_NONREGPARAM:
+		// Post NRPN event...
+		emit receiveNrpn(
+			pEv->data.control.channel,
+			pEv->data.control.param,
+			pEv->data.control.value);
+		break;
+	case SND_SEQ_EVENT_SYSEX:
+		// Post SysEx event...
 		emit receiveSysex(
 			QByteArray(
 				(const char *) pEv->data.ext.ptr,
 				(int) pEv->data.ext.len));
+		// Fall thru...
+	default:
+		break;
 	}
 }
 

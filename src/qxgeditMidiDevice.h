@@ -78,6 +78,8 @@ public:
 signals:
 
 	// Received data signal.
+	void receiveRpn(unsigned char ch, unsigned short rpn, unsigned short val);
+	void receiveNrpn(unsigned char ch, unsigned short nrpn, unsigned short val);
 	void receiveSysex(const QByteArray& sysex);
 
 protected:

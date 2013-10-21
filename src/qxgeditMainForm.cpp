@@ -284,6 +284,12 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	QObject::connect(m_pMidiDevice,
 		SIGNAL(receiveSysex(const QByteArray&)),
 		SLOT(sysexReceived(const QByteArray&)));
+	QObject::connect(m_pMidiDevice,
+		SIGNAL(receiveRpn(unsigned char, unsigned short, unsigned short)),
+		SLOT(rpnReceived(unsigned char, unsigned short, unsigned short)));
+	QObject::connect(m_pMidiDevice,
+		SIGNAL(receiveNrpn(unsigned char, unsigned short, unsigned short)),
+		SLOT(nrpnReceived(unsigned char, unsigned short, unsigned short)));
 
 	// And respective connections...
 	m_pMidiDevice->connectInputs(m_pOptions->midiInputs);
@@ -1244,6 +1250,22 @@ void qxgeditMainForm::handle_sigusr1 (void)
 		saveSession(false);
 
 #endif
+}
+
+
+// RPN Event handler.
+void qxgeditMainForm::rpnReceived (
+	unsigned char ch, unsigned short rpn, unsigned short val )
+{
+	// TODO...
+}
+
+
+// NRPN Event handler.
+void qxgeditMainForm::nrpnReceived (
+	unsigned char ch, unsigned short nrpn, unsigned short val )
+{
+	// TODO...
 }
 
 

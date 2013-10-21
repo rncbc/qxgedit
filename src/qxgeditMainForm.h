@@ -111,7 +111,9 @@ protected slots:
 	void uservoiceLoadPresetFile(const QString&);
 	void uservoiceSavePresetFile(const QString&);
 
-	void sysexReceived(const QByteArray& sysex);
+	void rpnReceived(unsigned char, unsigned short, unsigned short);
+	void nrpnReceived(unsigned char, unsigned short, unsigned short);
+	void sysexReceived(const QByteArray&);
 
 	void handle_sigusr1();
 
