@@ -3,6 +3,9 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Primeval support for MIDI RPN/NRPN controllers input.
+  (EXPERIMENTAL)
+
 - Fixed an incremental value stickiness, which were affecting
   some parameters step changes from up/down spin-box widgets
   (eg. Master Tune).

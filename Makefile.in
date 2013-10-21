@@ -29,6 +29,7 @@ headers = \
 	src/qxgeditUserEg.h \
 	src/qxgeditVibra.h \
 	src/qxgeditMidiDevice.h \
+	src/qxgeditMidiRpn.h \
 	src/qxgeditOptions.h \
 	src/qxgeditOptionsForm.h \
 	src/qxgeditMainForm.h
@@ -55,6 +56,7 @@ sources = \
 	src/qxgeditUserEg.cpp \
 	src/qxgeditVibra.cpp \
 	src/qxgeditMidiDevice.cpp \
+	src/qxgeditMidiRpn.cpp \
 	src/qxgeditOptions.cpp \
 	src/qxgeditOptionsForm.cpp \
 	src/qxgeditMainForm.cpp \

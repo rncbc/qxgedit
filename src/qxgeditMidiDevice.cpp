@@ -1,7 +1,7 @@
 // qxgeditMidiDevice.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2012, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -22,10 +22,79 @@
 #include "qxgeditAbout.h"
 #include "qxgeditMidiDevice.h"
 
+#include "qxgeditMidiRpn.h"
+
 #include <QThread>
 #include <QApplication>
 
 #include <cstdio>
+
+
+//----------------------------------------------------------------------
+// class qxgeditMidiInputRpn -- MIDI RPN/NRPN input parser
+//
+class qxgeditMidiInputRpn : public qxgeditMidiRpn
+{
+public:
+
+	// Constructor.
+	qxgeditMidiInputRpn() : qxgeditMidiRpn() {}
+
+	// Encoder.
+	bool process ( const snd_seq_event_t *ev )
+	{
+		if (ev->type != SND_SEQ_EVENT_CONTROLLER)
+			return false;
+
+		qxgeditMidiRpn::Event event;
+
+		event.time   = ev->time.tick;
+		event.port   = ev->dest.port;
+		event.status = qxgeditMidiRpn::CC | (ev->data.control.channel & 0x0f);
+		event.param  = ev->data.control.param;
+		event.value  = ev->data.control.value;
+
+		return qxgeditMidiRpn::process(event);
+	}
+
+
+	// Decoder.
+	bool dequeue ( snd_seq_event_t *ev )
+	{
+		qxgeditMidiRpn::Event event;
+
+		if (!qxgeditMidiRpn::dequeue(event))
+			return false;
+
+		snd_seq_ev_clear(ev);
+		snd_seq_ev_schedule_tick(ev, 0, 0, event.time);
+		snd_seq_ev_set_dest(ev, 0, event.port);
+		snd_seq_ev_set_fixed(ev);
+
+		switch (qxgeditMidiRpn::Type(event.status & 0xf0)) {
+		case qxgeditMidiRpn::RPN:	// 0x10
+			ev->type = SND_SEQ_EVENT_REGPARAM;
+			break;
+		case qxgeditMidiRpn::NRPN:	// 0x20
+			ev->type = SND_SEQ_EVENT_NONREGPARAM;
+			break;
+		case qxgeditMidiRpn::CC14:	// 0x30
+			ev->type = SND_SEQ_EVENT_CONTROL14;
+			break;
+		case qxgeditMidiRpn::CC:	// 0xb0
+			ev->type = SND_SEQ_EVENT_CONTROLLER;
+			break;
+		default:
+			return false;
+		}
+
+		ev->data.control.channel = event.status & 0x0f;
+		ev->data.control.param   = event.param;
+		ev->data.control.value   = event.value;
+
+		return true;
+	}
+};
 
 
 //----------------------------------------------------------------------
@@ -62,20 +131,32 @@ protected:
 		pfds = (struct pollfd *) alloca(nfds * sizeof(struct pollfd));
 		snd_seq_poll_descriptors(pAlsaSeq, pfds, nfds, POLLIN);
 
+		qxgeditMidiInputRpn xrpn;
+
 		m_bRunState = true;
 
 		int iPoll = 0;
 		while (m_bRunState && iPoll >= 0) {
 			// Wait for events...
 			iPoll = poll(pfds, nfds, 200);
+			// Timeout?
+			if (iPoll == 0)
+				xrpn.flush();
 			while (iPoll > 0) {
 				snd_seq_event_t *pEv = NULL;
 				snd_seq_event_input(pAlsaSeq, &pEv);
 				// Process input event - ...
 				// - enqueue to input track mapping;
-				m_pMidiDevice->capture(pEv);
+				if (!xrpn.process(pEv))
+					m_pMidiDevice->capture(pEv);
 			//	snd_seq_free_event(pEv);
 				iPoll = snd_seq_event_input_pending(pAlsaSeq, 0);
+			}
+			// Process pending events...
+			while (xrpn.isPending()) {
+				snd_seq_event_t ev;
+				if (xrpn.dequeue(&ev))
+					m_pMidiDevice->capture(&ev);
 			}
 		}
 	}

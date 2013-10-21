@@ -32,6 +32,7 @@ HEADERS += config.h \
 	qxgeditUserEg.h \
 	qxgeditVibra.h \
 	qxgeditMidiDevice.h \
+	qxgeditMidiRpn.h \
 	qxgeditOptions.h \
 	qxgeditOptionsForm.h \
 	qxgeditMainForm.h
@@ -58,6 +59,7 @@ SOURCES += \
 	qxgeditUserEg.cpp \
 	qxgeditVibra.cpp \
 	qxgeditMidiDevice.cpp \
+	qxgeditMidiRpn.cpp \
 	qxgeditOptions.cpp \
 	qxgeditOptionsForm.cpp \
 	qxgeditMainForm.cpp \
