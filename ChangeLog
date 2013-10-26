@@ -3,7 +3,7 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
-- Primeval support for MIDI RPN/NRPN controllers input.
+- Primeval support for MIDI RPN/NRPN 14-bit controllers input.
   (EXPERIMENTAL)
 
 - Fixed an incremental value stickiness, which were affecting

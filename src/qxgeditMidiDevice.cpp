@@ -43,8 +43,10 @@ public:
 	// Encoder.
 	bool process ( const snd_seq_event_t *ev )
 	{
-		if (ev->type != SND_SEQ_EVENT_CONTROLLER)
+		if (ev->type != SND_SEQ_EVENT_CONTROLLER) {
+			qxgeditMidiRpn::flush();
 			return false;
+		}
 
 		qxgeditMidiRpn::Event event;
 
