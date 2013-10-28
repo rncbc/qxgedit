@@ -2975,6 +2975,52 @@ XGParamItem USERVOICEParamTab[] =
 
 
 //-------------------------------------------------------------------------
+// XG NRPN Parameter table helpers.
+//
+typedef
+struct _XGRpnParamItem
+{
+	unsigned short   param; // (N)RPN parameter.
+	unsigned short   hi;    // high address.
+	unsigned short   lo;    // low address (id).
+
+} XGRpnParamItem;
+
+
+// NRPN map.
+//
+static
+XGRpnParamItem NRPNParamTab[] =
+{	//param  hi    lo
+
+	// MULTIPART NRPN map...
+	// Address: 0x08 <part> <id>
+	{  136, 0x08, 0x15 }, // Vibrato Rate
+	{  137, 0x08, 0x16 }, // Vibrato Depth
+	{  138, 0x08, 0x17 }, // Vibrato Delay
+	{  160, 0x08, 0x18 }, // Filter Cutoff
+	{  161, 0x08, 0x19 }, // Filter Resonance
+	{  227, 0x08, 0x20 }, // EG Attack
+	{  228, 0x08, 0x21 }, // EG Decay
+	{  230, 0x08, 0x22 }, // EG Release
+
+	// DRUMSETUP NRPN map...
+	// Address: 0x3n <note> <id>   n=0,1 (drumset)
+	{ 2560, 0x30, 0x0b }, // Drum Filter Cutoff
+	{ 2688, 0x30, 0x0c }, // Drum Filter Resonance
+	{ 2816, 0x30, 0x0e }, // Drum EG Attack
+	{ 2944, 0x30, 0x0f }, // Drum EG Decay
+	{ 3072, 0x30, 0x00 }, // Drum Pitch Coarse
+	{ 3200, 0x30, 0x01 }, // Drum Pitch Fine
+	{ 3328, 0x30, 0x02 }, // Drum Level
+	{ 3584, 0x30, 0x04 }, // Drum Pan
+	{ 3712, 0x30, 0x05 }, // Drum Reverb Send
+	{ 3840, 0x30, 0x06 }, // Drum Chorus Send
+	{ 3968, 0x30, 0x07 }  // Drum Variation Send
+};
+
+
+//-------------------------------------------------------------------------
 // XG Effect table helpers.
 
 static inline
@@ -4114,6 +4160,30 @@ XGParamMasterMap::XGParamMasterMap (void)
 	for (i = 0; i < TSIZE(VARIATIONEffectTab); ++i) {
 		XGEffectItem *item = &VARIATIONEffectTab[i];
 		VARIATION.add_key((item->msb << 7) + item->lsb, item->name);
+	}
+
+	// NRPN parameter map...
+	for (i = 0; i < TSIZE(NRPNParamTab); ++i) {
+		XGRpnParamItem *item = &NRPNParamTab[i];
+		// MULTIPART NRPN map...
+		if (item->hi == 0x08) {
+			for (j = 0; j < 16; ++j) { // parts...
+				XGParam *param = find_param(item->hi, j, item->lo);
+				if (param)
+					NRPN.insert(XGRpnParamKey(j, item->param), param);
+			}
+		}
+		else
+		// DRUMSETUP NRPN map...
+		if (item->hi == 0x30) {
+			for (j = 0; j < 2; ++j) { // drumsets...
+				for (k = 13; k < 85; ++k) { // notes...
+					XGParam *param = find_param(item->hi + j, k, item->lo);
+					if (param)
+						NRPN.insert(XGRpnParamKey(j, item->param + k), param);
+				}
+			}
+		}
 	}
 
 	// Pseudo-singleton set.

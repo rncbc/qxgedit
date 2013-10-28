@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -119,6 +119,46 @@ qxgeditXGMasterMap *qxgeditXGMasterMap::getInstance (void)
 }
 
 
+// Direct RPN value receiver.
+bool qxgeditXGMasterMap::set_rpn_value (
+	unsigned char /*ch*/, unsigned short /*rpn*/,
+	unsigned short /*val*/, bool /*bNotify*/ )
+{
+	// TODO...
+	return false;
+}
+
+
+// Direct NRPN value receiver.
+bool qxgeditXGMasterMap::set_nrpn_value (
+	unsigned char ch, unsigned short nrpn,
+	unsigned short val, bool bNotify )
+{
+	// Check which part / drumset...
+	if (nrpn >= 2560) {
+		XGParamSet *pParamSet = MULTIPART.value(0x07, NULL);
+		if (pParamSet == NULL)
+			return false;
+		XGParam *pParam = pParamSet->value(ch, NULL);
+		if (pParam == NULL)
+			return false;
+		const unsigned short mode = pParam->value();
+		if (mode == 0 && ch != 9)
+			return false;
+		ch = (mode == 3 ? 1 : 0);
+	}
+
+	XGParam *pParam = NRPN.value(XGRpnParamKey(ch, nrpn), NULL);
+	if (pParam == NULL)
+		return false;
+
+	unsigned char data[pParam->size()];
+	pParam->set_data_value(data, val);
+
+	return set_param_data(pParam, data, bNotify);
+}
+
+
 // Direct SysEx data receiver.
 bool qxgeditXGMasterMap::set_sysex_data (
 	unsigned char *data, unsigned short len, bool bNotify )
@@ -183,8 +223,19 @@ unsigned short qxgeditXGMasterMap::set_param_data (
 	if (pParam == NULL)
 		return 0;
 
+	return set_param_data(pParam, data, bNotify);
+}
+
+
+unsigned short qxgeditXGMasterMap::set_param_data (
+	XGParam *pParam, unsigned char *data, bool bNotify )
+{
 	if (!m_observers.contains(pParam))
 		return 0;
+
+	const unsigned short high = pParam->high();
+	const unsigned short mid  = pParam->mid();
+	const unsigned short low  = pParam->low();
 
 	if (high == 0x08 && low >= 0x01 && 0x03 >= low) {
 		set_part_dirty(mid, true);

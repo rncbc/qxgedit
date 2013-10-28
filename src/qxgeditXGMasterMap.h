@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -41,6 +41,14 @@ public:
 	// Singleton (re)cast.
 	static qxgeditXGMasterMap *getInstance();
 
+	// Direct RPN value receiver.
+	bool set_rpn_value(unsigned char ch,
+		unsigned short rpn, unsigned short val, bool bNotify = false);
+
+	// Direct NRPN value receiver.
+	bool set_nrpn_value(unsigned char ch,
+		unsigned short nrpn, unsigned short val, bool bNotify = false);
+
 	// Direct SysEx data receiver.
 	bool set_sysex_data(
 		unsigned char *data, unsigned short len, bool bNotify = false);
@@ -49,6 +57,8 @@ public:
 	unsigned short set_param_data(
 		unsigned short high, unsigned short mid, unsigned short low,
 		unsigned char *data, bool bNotify = false);
+	unsigned short set_param_data(
+		XGParam *pParam, unsigned char *data, bool bNotify = false);
 
 	// All parameter reset (to default)
 	void reset_all();

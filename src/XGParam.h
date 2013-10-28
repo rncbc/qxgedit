@@ -57,6 +57,9 @@ struct _XGEffectItem XGEffectItem;
 typedef
 struct _XGParamItem XGParamItem;
 
+typedef
+struct _XGRpnParamItem XGRpnParamItem;
+
 
 //-------------------------------------------------------------------------
 // class XGInstrument - XG Instrument/Normal Voice Group descriptor.
@@ -472,6 +475,52 @@ private:
 
 
 //-------------------------------------------------------------------------
+// class XGRpnParamKey - XG (N)RPN Parameter hash key.
+//
+class XGRpnParamKey
+{
+public:
+
+	// Constructor helper.
+	XGRpnParamKey(unsigned char channel, unsigned short param)
+		: m_channel(channel), m_param(param) {}
+
+	// Key accessors.
+	unsigned char channel() const
+		{ return m_channel; }
+	unsigned short param() const
+		{ return m_param; }
+
+	// Hash key comparator.
+	bool operator== ( const XGRpnParamKey& key ) const
+	{
+		return (key.channel() == m_channel)
+			&& (key.param()   == m_param);
+	}
+
+private:
+
+	// Key members.
+	unsigned char  m_channel;
+	unsigned short m_param;
+};
+
+
+// Hash key function
+inline uint qHash ( const XGRpnParamKey& key )
+{
+	return qHash((key.param() << 7) + key.channel());
+}
+
+
+//-------------------------------------------------------------------------
+// class XGRpnParamMap - XG (N)RPN Parameter map.
+//
+
+class XGRpnParamMap : public QHash<XGRpnParamKey, XGParam *> {};
+
+
+//-------------------------------------------------------------------------
 // class XGParamMaster - XG Parameter master state database.
 //
 
@@ -515,6 +564,9 @@ public:
 
 	// Find map from param.
 	XGParamMap *find_param_map(XGParam *param) const;
+
+	// NRPN parameter map.
+	XGRpnParamMap NRPN;
 
 private:
 

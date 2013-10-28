@@ -1257,7 +1257,8 @@ void qxgeditMainForm::handle_sigusr1 (void)
 void qxgeditMainForm::rpnReceived (
 	unsigned char ch, unsigned short rpn, unsigned short val )
 {
-	// TODO...
+	if (m_pMasterMap)
+		m_pMasterMap->set_rpn_value(ch, rpn, val);
 }
 
 
@@ -1265,7 +1266,8 @@ void qxgeditMainForm::rpnReceived (
 void qxgeditMainForm::nrpnReceived (
 	unsigned char ch, unsigned short nrpn, unsigned short val )
 {
-	// TODO...
+	if (m_pMasterMap)
+		m_pMasterMap->set_nrpn_value(ch, nrpn, val);
 }
 
 
