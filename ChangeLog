@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- More preparations for Qt5 configure build.
+
 - Primeval support for MIDI RPN/NRPN 14-bit controllers input.
   (EXPERIMENTAL)
 
@@ -86,5 +88,4 @@ SVN TRUNK
 
 
 0.0.1  2009-09-19  First public release.
-
 
