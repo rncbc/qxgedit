@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.1.1.20, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.1.1.21, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -31,6 +31,24 @@ fi
 AC_SUBST(ac_debug)
 
 
+# Enable Qt4/5 availability.
+AC_ARG_ENABLE(qt4,
+  AC_HELP_STRING([--enable-qt4], [enable Qt4 build (default=yes)]),
+  [ac_qt4="$enableval"],
+  [ac_qt4="yes"])
+
+AC_ARG_ENABLE(qt5,
+  AC_HELP_STRING([--enable-qt5], [enable Qt5 build (default=no)]),
+  [ac_qt5="$enableval"],
+  [ac_qt5="no"])
+
+if test "x$ac_qt4" = "xno"; then
+   ac_qt5="yes"
+fi
+if test "x$ac_qt5" = "xyes"; then
+   ac_qt4="no"
+fi
+
 # Enable debugger stack-trace option (assumes --enable-debug).
 AC_ARG_ENABLE(stacktrace,
   AC_HELP_STRING([--enable-stacktrace], [enable debugger stack-trace (default=no)]),
@@ -40,9 +58,18 @@ AC_ARG_ENABLE(stacktrace,
 # Standard installation base dirs.
 ac_with_paths="/usr /usr/local"
 
+ac_qtdirs="qt"
+
+if test "x$ac_qt4" = "xyes"; then
+   ac_qtdirs="qt4 $ac_qtdirs"
+fi
+if test "x$ac_qt5" = "xyes"; then
+   ac_qtdirs="qt5 $ac_qtdirs"
+fi
+
 # Some a-la-debian alternatives...
 for X in /usr/lib /usr/lib64 /usr/share; do
-  for Y in qt qt4 qt5; do
+  for Y in $ac_qtdirs; do
     if test -d $X/$Y/bin; then
       ac_with_paths="$ac_with_paths $X/$Y"
     fi
@@ -81,7 +108,7 @@ for X in $ac_with_paths; do
 #   ac_path="$X:$ac_path"
 # fi
   if test -d $X/include; then
-    for Y in qt qt4 qt5; do
+    for Y in $ac_qtdirs; do
       if test -d $X/include/$Y; then
         CFLAGS="-I$X/include/$Y $CFLAGS"
         CPPFLAGS="-I$X/include/$Y $CPPFLAGS"
@@ -105,7 +132,7 @@ done
 
 # Check for proper flags.
 ac_arch=`uname -m`
-if test "$ac_arch" == "x86_64"; then
+if test "x$ac_arch" = "xx86_64"; then
    CFLAGS="-fPIC $CFLAGS"
    CPPFLAGS="-fPIC $CPPFLAGS"
 fi
