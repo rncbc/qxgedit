@@ -3,6 +3,10 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- A potential memory override crash-bug was flagged by gcc 4.8,
+  on something like 'iteration 16u invokes undefined behavior
+  [-Waggressive-loop-optimizations]' and then finally fixed.
+
 - More preparations for Qt5 configure build.
 
 - Primeval support for MIDI RPN/NRPN 14-bit controllers input.

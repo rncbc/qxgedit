@@ -131,7 +131,7 @@ private:
 	// Instance variables.
 	ObserverMap m_observers;
 
-	// Mult Part dirty flag array.
+	// Multi Part dirty flag array.
 	int m_part_dirty[16];
 
 	// QS300 User Voice dirty flag array.

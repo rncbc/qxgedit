@@ -436,7 +436,7 @@ void qxgeditXGMasterMap::send_user ( unsigned short iUser ) const
 // MULTIPART dirty slot simple managing.
 void qxgeditXGMasterMap::reset_part_dirty (void)
 {
-	for (unsigned short i = 0; i < 32; ++i)
+	for (unsigned short i = 0; i < 16; ++i)
 		m_part_dirty[i] = 0;
 }
 
