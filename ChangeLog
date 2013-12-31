@@ -1,7 +1,7 @@
 QXGEdit - Qt XG Editor
 ----------------------
 
-SVN TRUNK
+0.1.2  2013-12-31  A fifth of a Jubilee.
 
 - A potential memory override crash-bug was flagged by gcc 4.8,
   on something like 'iteration 16u invokes undefined behavior
@@ -10,13 +10,12 @@ SVN TRUNK
 - More preparations for Qt5 configure build.
 
 - Primeval support for MIDI RPN/NRPN 14-bit controllers input.
-  (EXPERIMENTAL)
 
 - Fixed an incremental value stickiness, which were affecting
   some parameters step changes from up/down spin-box widgets
   (eg. Master Tune).
 
-- Preparations for Qt5 migration. (TESTING)
+- Preparations for Qt5 migration.
 
 - Skulpture style plugin is now deployed to a rather standard
   location on install (default: PREFIX/qt4/plugins/styles).

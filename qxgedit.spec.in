@@ -1,6 +1,6 @@
 %define name    @PACKAGE_TARNAME@
 %define version @PACKAGE_VERSION@
-%define release 3
+%define release 4
 
 %define _prefix	@ac_prefix@
 
@@ -53,6 +53,8 @@ for XG devices (eg. Yamaha DB50XG).
 %{_libdir}/qt4/plugins/styles/libskulpturestyle.so
 
 %changelog
+* Tue Dec 31 2013 Rui Nuno Capela <rncbc@rncbc.org> 0.1.2
+- A fifth of a Jubilee release.
 * Sat Sep 17 2011 Rui Nuno Capela <rncbc@rncbc.org> 0.1.1
 - Third public release. 
 * Mon May 17 2010 Rui Nuno Capela <rncbc@rncbc.org>
