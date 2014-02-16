@@ -1,6 +1,11 @@
 QXGEdit - Qt XG Editor
 ----------------------
 
+SVN TRUNK
+
+- Fix port origin on MIDI RPN/NRPN 14-bit controllers input.
+
+
 0.1.2  2013-12-31  A fifth of a Jubilee.
 
 - A potential memory override crash-bug was flagged by gcc 4.8,
