@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 SVN TRUNK
 
+- Allow the build system to include an user specified LDFLAGS.
+
 - Fix port origin on MIDI RPN/NRPN 14-bit controllers input.
 
 

@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.1.2.2, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.1.2.3, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -68,6 +68,12 @@ AC_ARG_WITH(qt,
 AC_ARG_WITH(alsa,
   AC_HELP_STRING([--with-alsa=PATH], [use alternate ALSA install path]),
   [ac_with_paths="$ac_with_paths $withval"])
+
+
+
+# Honor user specified flags.
+ac_cflags=$CFLAGS
+ac_ldflags=$LDFLAGS
 
 
 # Checks for programs.
@@ -218,6 +224,8 @@ if test "x$ac_stacktrace" = "xyes"; then
 fi
 
 AC_SUBST(ac_incpath)
+AC_SUBST(ac_cflags)
+AC_SUBST(ac_ldflags)
 
 
 # Checks for typedefs, structures, and compiler characteristics.
