@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.1.2.4, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.1.2.5, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -55,7 +55,6 @@ AC_ARG_ENABLE(stacktrace,
   [ac_stacktrace="$enableval"])
 
 
-
 # Standard installation base dirs.
 ac_with_paths="/usr /usr/local"
 
@@ -68,7 +67,6 @@ AC_ARG_WITH(qt,
 AC_ARG_WITH(alsa,
   AC_HELP_STRING([--with-alsa=PATH], [use alternate ALSA install path]),
   [ac_with_paths="$ac_with_paths $withval"])
-
 
 
 # Honor user specified flags.
@@ -254,4 +252,3 @@ echo "  Install prefix . . . . . . . . . . . . . . . . . .: $ac_prefix"
 echo
 echo "Now type 'make', followed by 'make install' as root."
 echo
-
