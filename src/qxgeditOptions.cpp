@@ -1,7 +1,7 @@
 // qxgeditOptions.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2014, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -193,7 +193,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 	QTextStream out(stderr);
 	const QString sEol = "\n\n";
 	int iCmdArgs = 0;
-	int argc = args.count();
+	const int argc = args.count();
 
 	for (int i = 1; i < argc; ++i) {
 
