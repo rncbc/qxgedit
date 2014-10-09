@@ -1,7 +1,7 @@
 // qxgedit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2014, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -374,10 +374,8 @@ int main ( int argc, char **argv )
 	}
 
 	// Set default base font...
-	int iBaseFontSize = app.font().pointSize();
 	if (options.iBaseFontSize > 0)
-		iBaseFontSize = options.iBaseFontSize;
-	app.setFont(QFont(app.font().family(), iBaseFontSize));
+		app.setFont(QFont(app.font().family(), options.iBaseFontSize));
 
 	// Special styles...
 	QApplication::addLibraryPath(CONFIG_PLUGINSDIR);
