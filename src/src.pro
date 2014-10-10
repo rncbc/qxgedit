@@ -85,13 +85,8 @@ unix {
 
 	BINDIR = $${PREFIX}/bin
 	DATADIR = $${PREFIX}/share
-	LOCALEDIR = $(localedir)
 
 	DEFINES += DATADIR=\"$${DATADIR}\"
-
-	!isEmpty(LOCALEDIR) {
-		DEFINES += LOCALEDIR=\"$${LOCALEDIR}\"
-	}
 
 	# make install
 	INSTALLS += target desktop icon

@@ -39,12 +39,6 @@
 #define CONFIG_DATADIR CONFIG_PREFIX "/share"
 #endif
 
-#if defined(LOCALEDIR)
-#define CONFIG_LOCALEDIR CONFIG_QUOTED(LOCALEDIR)
-#else
-#define CONFIG_LOCALEDIR CONFIG_DATADIR "/locale"
-#endif
-
 #if defined(__x86_64__)
 #define CONFIG_LIBDIR CONFIG_PREFIX "/lib64"
 #else
@@ -94,12 +88,12 @@ public:
 			} else {
 				delete m_pQtTranslator;
 				m_pQtTranslator = 0;
-		#ifdef CONFIG_DEBUG
+			#ifdef CONFIG_DEBUG
 				qWarning("Warning: no translation found for '%s' locale: %s/%s.qm",
 					loc.name().toUtf8().constData(),
 					sLocPath.toUtf8().constData(),
 					sLocName.toUtf8().constData());
-		#endif
+			#endif
 			}
 			// Try own application translation...
 			m_pMyTranslator = new QTranslator(this);
@@ -107,18 +101,18 @@ public:
 			if (m_pMyTranslator->load(sLocName, sLocPath)) {
 				QApplication::installTranslator(m_pMyTranslator);
 			} else {
-				sLocPath = CONFIG_LOCALEDIR;
+				sLocPath = CONFIG_DATADIR "/QXGEDIT/translations";
 				if (m_pMyTranslator->load(sLocName, sLocPath)) {
 					QApplication::installTranslator(m_pMyTranslator);
 				} else {
 					delete m_pMyTranslator;
 					m_pMyTranslator = 0;
-		#ifdef CONFIG_DEBUG
+				#ifdef CONFIG_DEBUG
 					qWarning("Warning: no translation found for '%s' locale: %s/%s.qm",
 						loc.name().toUtf8().constData(),
 						sLocPath.toUtf8().constData(),
 						sLocName.toUtf8().constData());
-		#endif
+				#endif
 				}
 			}
 		}
