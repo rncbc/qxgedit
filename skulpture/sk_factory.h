@@ -1,5 +1,5 @@
 /*
- * skulpture_factory.h - Classical Three-Dimensional Artwork for Qt 4
+ * sk_factory.h - Classical Three-Dimensional Artwork for Qt 4
  *
  * Copyright (c) 2008 Christoph Feck <christoph@maxiom.de>
  *
@@ -161,5 +161,4 @@ class GradientFactory : public AbstractFactory
 /*-----------------------------------------------------------------------*/
 
 #endif
-
 

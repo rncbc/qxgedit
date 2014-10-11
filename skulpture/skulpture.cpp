@@ -10757,6 +10757,8 @@ void SkulptureStyle::Private::register_draw_entries()
 
 /*-----------------------------------------------------------------------*/
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
+
 #include <QStylePlugin>
 
 class SkulptureStylePlugin : public QStylePlugin
@@ -10769,6 +10771,12 @@ class SkulptureStylePlugin : public QStylePlugin
 		QStringList keys() const;
 		QStyle *create(const QString &key);
 };
+
+Q_EXPORT_PLUGIN2(skulpture, SkulptureStylePlugin)
+
+#else
+#include "sk_plugin.h"
+#endif
 
 
 QStringList SkulptureStylePlugin::keys() const
@@ -10784,11 +10792,6 @@ QStyle *SkulptureStylePlugin::create(const QString &key)
 	}
 	return 0;
 }
-
-
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-Q_EXPORT_PLUGIN2(skulpture, SkulptureStylePlugin)
-#endif
 
 
 /*-----------------------------------------------------------------------*/

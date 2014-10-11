@@ -16,6 +16,7 @@ HEADERS	+= \
 SOURCES	+= skulpture.cpp
 
 !lessThan(QT_MAJOR_VERSION, 5) {
+	HEADERS	+= sk_plugin.h
 	OTHER_FILES += skulpture.json
 	QT += widgets
 }
