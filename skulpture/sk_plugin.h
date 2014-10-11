@@ -30,7 +30,7 @@ class SkulptureStylePlugin : public QStylePlugin
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 	Q_OBJECT
-	Q_PLUGIN_METADATA(IID "org.qt-project.Qt.SkulptureStyle" FILE "skulpture.json")
+	Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QStyleFactoryInterface" FILE "skulpture.json")
 #endif
 	public:
 		QStringList keys() const;
