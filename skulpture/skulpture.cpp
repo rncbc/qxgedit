@@ -78,31 +78,6 @@
 
 /*-----------------------------------------------------------------------*/
 
-#include <QStylePlugin>
-
-class SkulptureStylePlugin : public QStylePlugin
-{
-	public:
-		QStringList keys() const {
-			return QStringList(QLatin1String("Skulpture"));
-		}
-
-		QStyle *create(const QString &key) {
-			if (key.toLower() == QLatin1String("skulpture")) {
-				return new SkulptureStyle;
-			}
-			return 0;
-		}
-};
-
-
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-Q_EXPORT_PLUGIN2(skulpture, SkulptureStylePlugin)
-#endif
-
-
-/*-----------------------------------------------------------------------*/
-
 SkulptureStyle::SkulptureStyle()
 	: d(new Private)
 {
@@ -10777,6 +10752,23 @@ void SkulptureStyle::Private::register_draw_entries()
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 //	register_element(ItemViewItem, , );
 #endif
+}
+
+
+/*-----------------------------------------------------------------------*/
+
+QStringList SkulptureStylePlugin::keys() const
+{
+	return QStringList(QLatin1String("Skulpture"));
+}
+
+
+QStyle *SkulptureStylePlugin::create(const QString &key)
+{
+	if (key.toLower() == QLatin1String("skulpture")) {
+		return new SkulptureStyle;
+	}
+	return 0;
 }
 
 
