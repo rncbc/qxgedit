@@ -10757,6 +10757,20 @@ void SkulptureStyle::Private::register_draw_entries()
 
 /*-----------------------------------------------------------------------*/
 
+#include <QStylePlugin>
+
+class SkulptureStylePlugin : public QStylePlugin
+{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "org.qt-project.Qt.SkulptureStyle" FILE "skulpture.json")
+#endif
+	public:
+		QStringList keys() const;
+		QStyle *create(const QString &key);
+};
+
+
 QStringList SkulptureStylePlugin::keys() const
 {
 	return QStringList(QLatin1String("Skulpture"));
@@ -10770,6 +10784,11 @@ QStyle *SkulptureStylePlugin::create(const QString &key)
 	}
 	return 0;
 }
+
+
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
+Q_EXPORT_PLUGIN2(skulpture, SkulptureStylePlugin)
+#endif
 
 
 /*-----------------------------------------------------------------------*/

@@ -33,6 +33,7 @@
 class SkulptureStyle : public QCommonStyle
 {
     Q_OBJECT
+
     typedef QCommonStyle ParentStyle;
 
     public:
@@ -106,27 +107,6 @@ class SkulptureStyle : public QCommonStyle
         class Private;
         Private * const d;
 };
-
-
-/*-----------------------------------------------------------------------*/
-
-#include <QStylePlugin>
-
-class SkulptureStylePlugin : public QStylePlugin
-{
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-	Q_OBJECT
-	Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QStyleFactoryInterface" FILE "skulpture.json")
-#endif
-	public:
-		QStringList keys() const;
-		QStyle *create(const QString &key);
-};
-
-
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-Q_EXPORT_PLUGIN2(skulpture, SkulptureStylePlugin)
-#endif
 
 
 /*-----------------------------------------------------------------------*/
