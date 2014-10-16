@@ -3,7 +3,7 @@
  <author>rncbc aka Rui Nuno Capela</author>
  <comment>qxgedit - Qt XG Editor.
 
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2014, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -181,9 +181,6 @@
             <property name="text" >
              <string>Confirm parameter &amp;resets</string>
             </property>
-            <property name="shortcut" >
-             <string>Alt+R</string>
-            </property>
            </widget>
           </item>
           <item row="0" column="2" rowspan="6">
@@ -213,9 +210,6 @@
             <property name="text" >
              <string>&amp;Confirm removals</string>
             </property>
-            <property name="shortcut" >
-             <string>Alt+C</string>
-            </property>
            </widget>
           </item>
           <item row="2" column="0" colspan="2">
@@ -231,9 +225,6 @@
             </property>
             <property name="text">
              <string>Show complete &amp;path of session files</string>
-            </property>
-            <property name="shortcut">
-             <string>Alt+P</string>
             </property>
            </widget>
           </item>
