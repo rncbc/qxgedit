@@ -25,7 +25,7 @@ for XG devices (eg. Yamaha DB50XG).
 
 %prep
 %setup
-[ -f Makefile.svn ] && %__make -f Makefile.svn
+[ -f Makefile.git ] && %__make -f Makefile.git
 
 %build
 %configure
