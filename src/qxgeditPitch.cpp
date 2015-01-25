@@ -1,7 +1,7 @@
 // qxgeditPitch.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -117,19 +117,19 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
-	int h  = height();
-	int w  = width();
+	const int h  = height();
+	const int w  = width();
 
-	int h2 = h >> 1;
-	int w4 = w >> 2;
+	const int h2 = h >> 1;
+	const int w4 = w >> 2;
 
-	int x2 = w / 3;
-	int x3 = x2 << 1;
+	const int x2 = w / 3;
+	const int x3 = x2 << 1;
 
-	int x1 = x2 - int((m_iAttackTime * w4) >> 7);
-	int y1 = h2 - ((int(m_iAttackLevel) - 64) * (h - 12) >> 7);
-	int x4 = x3 + int((m_iReleaseTime * w4) >> 7);
-	int y2 = h2 - ((int(m_iReleaseLevel) - 64) * (h - 12) >> 7);
+	const int x1 = x2 - int((m_iAttackTime * w4) >> 7);
+	const int y1 = h2 - ((int(m_iAttackLevel) - 64) * (h - 12) >> 7);
+	const int x4 = x3 + int((m_iReleaseTime * w4) >> 7);
+	const int y2 = h2 - ((int(m_iReleaseLevel) - 64) * (h - 12) >> 7);
 
 	m_poly.putPoints(0, 4,
 		x1, y1,
@@ -143,7 +143,9 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
+
 	painter.drawPolyline(m_poly);
 
 	painter.setBrush(pal.mid().color());
@@ -163,6 +165,7 @@ void qxgeditPitch::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(releaseLevel()) - 64));
 #endif
 
+	painter.setRenderHint(QPainter::Antialiasing, false);
 	painter.end();
 
 	QFrame::paintEvent(pPaintEvent);
@@ -243,7 +246,7 @@ void qxgeditPitch::mousePressEvent ( QMouseEvent *pMouseEvent )
 {
 	if (pMouseEvent->button() == Qt::LeftButton) {
 		const QPoint& pos = pMouseEvent->pos();
-		int iDragNode = nodeIndex(pos);
+		const int iDragNode = nodeIndex(pos);
 		if (iDragNode >= 0) {
 			setCursor(Qt::SizeAllCursor);
 			m_iDragNode = iDragNode;

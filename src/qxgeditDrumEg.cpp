@@ -1,7 +1,7 @@
 // qxgeditDrumEg.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -101,15 +101,15 @@ void qxgeditDrumEg::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
-	int h  = height();
-	int w  = width();
+	const int h  = height();
+	const int w  = width();
 
-	int h2 = h >> 1;
-	int w3 = (w / 3) - 3;
+	const int h2 = h >> 1;
+	const int w3 = (w / 3) - 3;
 
-	int x1 = int((m_iAttack * w3) >> 7) + 6;
-	int x2 = int((m_iDecay1 * w3) >> 7) + x1;
-	int x3 = int((m_iDecay2 * w3) >> 7) + x2;
+	const int x1 = int((m_iAttack * w3) >> 7) + 6;
+	const int x2 = int((m_iDecay1 * w3) >> 7) + x1;
+	const int x3 = int((m_iDecay2 * w3) >> 7) + x2;
 
 	m_poly.putPoints(0, 6,
 		0, h,
@@ -128,8 +128,8 @@ void qxgeditDrumEg::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
-//	painter.drawPolyline(m_poly);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
 	grad.setColorAt(0.0f, rgbLite);
@@ -154,6 +154,7 @@ void qxgeditDrumEg::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(decay2()) - 64));
 #endif
 
+	painter.setRenderHint(QPainter::Antialiasing, false);
 	painter.end();
 
 	QFrame::paintEvent(pPaintEvent);
@@ -231,7 +232,7 @@ void qxgeditDrumEg::mousePressEvent ( QMouseEvent *pMouseEvent )
 {
 	if (pMouseEvent->button() == Qt::LeftButton) {
 		const QPoint& pos = pMouseEvent->pos();
-		int iDragNode = nodeIndex(pos);
+		const int iDragNode = nodeIndex(pos);
 		if (iDragNode >= 0) {
 			setCursor(Qt::SizeHorCursor);
 			m_iDragNode = iDragNode;

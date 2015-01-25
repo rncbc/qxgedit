@@ -1,7 +1,7 @@
 // qxgeditScale.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -216,20 +216,20 @@ void qxgeditScale::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
-	int h  = height();
-	int w  = width();
+	const int h  = height();
+	const int w  = width();
 
-	int h2 = h >> 1;
+	const int h2 = h >> 1;
 
-	int x1 = 6 + int((m_iBreak1 * (w - 12)) >> 7);
-	int x2 = 6 + int((m_iBreak2 * (w - 12)) >> 7);
-	int x3 = 6 + int((m_iBreak3 * (w - 12)) >> 7);
-	int x4 = 6 + int((m_iBreak4 * (w - 12)) >> 7);
+	const int x1 = 6 + int((m_iBreak1 * (w - 12)) >> 7);
+	const int x2 = 6 + int((m_iBreak2 * (w - 12)) >> 7);
+	const int x3 = 6 + int((m_iBreak3 * (w - 12)) >> 7);
+	const int x4 = 6 + int((m_iBreak4 * (w - 12)) >> 7);
 
-	int y1 = h2 - ((int(m_iOffset1) - 64) * (h - 12) >> 7);
-	int y2 = h2 - ((int(m_iOffset2) - 64) * (h - 12) >> 7);
-	int y3 = h2 - ((int(m_iOffset3) - 64) * (h - 12) >> 7);
-	int y4 = h2 - ((int(m_iOffset4) - 64) * (h - 12) >> 7);
+	const int y1 = h2 - ((int(m_iOffset1) - 64) * (h - 12) >> 7);
+	const int y2 = h2 - ((int(m_iOffset2) - 64) * (h - 12) >> 7);
+	const int y3 = h2 - ((int(m_iOffset3) - 64) * (h - 12) >> 7);
+	const int y4 = h2 - ((int(m_iOffset4) - 64) * (h - 12) >> 7);
 
 	m_poly.putPoints(0, 6,
 		0,  y1,
@@ -245,9 +245,10 @@ void qxgeditScale::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
 
-	QPen oldpen(painter.pen());
+	const QPen oldpen(painter.pen());
 	QPen dotpen(oldpen);
 	dotpen.setStyle(Qt::DotLine);
 	painter.setPen(dotpen);
@@ -276,6 +277,7 @@ void qxgeditScale::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(offset4()) - 64));
 #endif
 
+	painter.setRenderHint(QPainter::Antialiasing, false);
 	painter.end();
 
 	QFrame::paintEvent(pPaintEvent);
@@ -377,7 +379,7 @@ void qxgeditScale::mousePressEvent ( QMouseEvent *pMouseEvent )
 {
 	if (pMouseEvent->button() == Qt::LeftButton) {
 		const QPoint& pos = pMouseEvent->pos();
-		int iDragNode = nodeIndex(pos);
+		const int iDragNode = nodeIndex(pos);
 		if (iDragNode >= 0) {
 			setCursor(Qt::SizeAllCursor);
 			m_iDragNode = iDragNode;

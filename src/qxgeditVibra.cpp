@@ -1,7 +1,7 @@
 // qxgeditVibra.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -100,15 +100,16 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
-	int h  = height();
-	int w  = width();
+	const int h  = height();
+	const int w  = width();
 
-	int h2 = h >> 1;
-	int w2 = w >> 1;
-	int w4 = w >> 2;
+	const int h2 = h >> 1;
+	const int w2 = w >> 1;
+	const int w4 = w >> 2;
 
-	int x1 = int((m_iDelay * w2) >> 7) + 6;
-	int y1 = h2 + (m_iDepth > 64 ? 0 : int((64 - m_iDepth) * (h - 9)) >> 7);
+	const int x1 = int((m_iDelay * w2) >> 7) + 6;
+	const int y1 = h2 + (m_iDepth > 64 ? 0 : int((64 - m_iDepth) * (h - 9)) >> 7);
+
 	int x2 = int(((127 - m_iRate)  * w4) >> 7) + x1;
 	int y2 = (m_iDepth < 64 ? 0 : int((m_iDepth - 64) * (h - 9)) >> 7);
 
@@ -119,7 +120,7 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 
 	QPainterPath path;
 	path.addPolygon(m_poly);
-	int dx = ((x2 - x1) << 1) + 1;
+	const int dx = ((x2 - x1) << 1) + 1;
 	while (x2 < w) {
 		x2 += dx;
 		y2 = -y2;
@@ -134,8 +135,8 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
-//	painter.drawPolyline(m_poly);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
 	grad.setColorAt(0.0f, rgbLite);
@@ -157,6 +158,7 @@ void qxgeditVibra::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(depth()) - 64));
 #endif
 
+	painter.setRenderHint(QPainter::Antialiasing, false);
 	painter.end();
 
 	QFrame::paintEvent(pPaintEvent);
@@ -238,7 +240,7 @@ void qxgeditVibra::mousePressEvent ( QMouseEvent *pMouseEvent )
 {
 	if (pMouseEvent->button() == Qt::LeftButton) {
 		const QPoint& pos = pMouseEvent->pos();
-		int iDragNode = nodeIndex(pos);
+		const int iDragNode = nodeIndex(pos);
 		if (iDragNode >= 0) {
 			setCursor(iDragNode > 1 ? Qt::SizeAllCursor : Qt::SizeHorCursor);
 			m_iDragNode = iDragNode;

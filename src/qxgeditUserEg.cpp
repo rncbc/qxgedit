@@ -1,7 +1,7 @@
 // qxgeditUserEg.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -192,22 +192,22 @@ void qxgeditUserEg::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
-	int h  = height();
-	int w  = width();
+	const int h  = height();
+	const int w  = width();
 
-	int h2 = (h >> 1);
-	int w5 = (w - 9) / 5;
+	const int h2 = (h >> 1);
+	const int w5 = (w - 9) / 5;
 
-	int x1 = int(((63 - m_iRate1) * w5) >> 6) + 6;
-	int x2 = int(((63 - m_iRate2) * w5) >> 6) + x1;
-	int x3 = int(((63 - m_iRate3) * w5) >> 6) + x2;
-	int x4 = int(((63 - m_iRate4) * w5) >> 6) + x3 + w5;
+	const int x1 = int(((63 - m_iRate1) * w5) >> 6) + 6;
+	const int x2 = int(((63 - m_iRate2) * w5) >> 6) + x1;
+	const int x3 = int(((63 - m_iRate3) * w5) >> 6) + x2;
+	const int x4 = int(((63 - m_iRate4) * w5) >> 6) + x3 + w5;
 
-	int y0 = h - int((m_iLevel0 * (h - 12)) >> 7) - 6;
-	int y1 = h - int((m_iLevel1 * (h - 12)) >> 7) - 6;
-	int y2 = h - int((m_iLevel2 * (h - 12)) >> 7) - 6;
-	int y3 = h - int((m_iLevel3 * (h - 12)) >> 7) - 6;
-	int y4 = h - int((m_iLevel4 * (h - 12)) >> 7) - 6;
+	const int y0 = h - int((m_iLevel0 * (h - 12)) >> 7) - 6;
+	const int y1 = h - int((m_iLevel1 * (h - 12)) >> 7) - 6;
+	const int y2 = h - int((m_iLevel2 * (h - 12)) >> 7) - 6;
+	const int y3 = h - int((m_iLevel3 * (h - 12)) >> 7) - 6;
+	const int y4 = h - int((m_iLevel4 * (h - 12)) >> 7) - 6;
 
 	m_poly.putPoints(0, 6,
 		6,  y0,
@@ -223,9 +223,10 @@ void qxgeditUserEg::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
 
-	QPen oldpen(painter.pen());
+	const QPen oldpen(painter.pen());
 	QPen dotpen(oldpen);
 	dotpen.setStyle(Qt::DotLine);
 	painter.setPen(dotpen);
@@ -258,6 +259,7 @@ void qxgeditUserEg::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(rate4()));
 #endif
 
+	painter.setRenderHint(QPainter::Antialiasing, false);
 	painter.end();
 
 	QFrame::paintEvent(pPaintEvent);
@@ -370,7 +372,7 @@ void qxgeditUserEg::mousePressEvent ( QMouseEvent *pMouseEvent )
 {
 	if (pMouseEvent->button() == Qt::LeftButton) {
 		const QPoint& pos = pMouseEvent->pos();
-		int iDragNode = nodeIndex(pos);
+		const int iDragNode = nodeIndex(pos);
 		if (iDragNode >= 0) {
 			setCursor(iDragNode == 0
 				? Qt::SizeVerCursor

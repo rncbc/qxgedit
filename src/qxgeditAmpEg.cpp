@@ -1,7 +1,7 @@
 // qxgeditAmpEg.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -154,18 +154,18 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
-	int h  = height();
-	int w  = width();
+	const int h  = height();
+	const int w  = width();
 
-	int w5 = (w - 3) / 5;
+	const int w5 = (w - 3) / 5;
 
-	int x1 = int(((63 - m_iAttack)  * w5) >> 6) + 6;
-	int x2 = int(((63 - m_iDecay1)  * w5) >> 6) + x1;
-	int x3 = int(((63 - m_iDecay2)  * w5) >> 6) + x2;
-	int x4 = int(((63 - m_iRelease) * w5) >> 6) + x3 + w5;
+	const int x1 = int(((63 - m_iAttack)  * w5) >> 6) + 6;
+	const int x2 = int(((63 - m_iDecay1)  * w5) >> 6) + x1;
+	const int x3 = int(((63 - m_iDecay2)  * w5) >> 6) + x2;
+	const int x4 = int(((63 - m_iRelease) * w5) >> 6) + x3 + w5;
 
-	int y2 = h - int(((m_iLevel1 + 1) * (h - 12)) >> 7) - 6;
-	int y3 = h - int(((m_iLevel2 + 1) * (h - 12)) >> 7) - 6;
+	const int y2 = h - int(((m_iLevel1 + 1) * (h - 12)) >> 7) - 6;
+	const int y3 = h - int(((m_iLevel2 + 1) * (h - 12)) >> 7) - 6;
 
 	m_poly.putPoints(0, 8,
 		0, h,
@@ -186,8 +186,8 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
-//	painter.drawPolyline(m_poly);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
 	grad.setColorAt(0.0f, rgbLite);
@@ -217,6 +217,7 @@ void qxgeditAmpEg::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(release()));
 #endif
 
+	painter.setRenderHint(QPainter::Antialiasing, false);
 	painter.end();
 
 	QFrame::paintEvent(pPaintEvent);
@@ -317,7 +318,7 @@ void qxgeditAmpEg::mousePressEvent ( QMouseEvent *pMouseEvent )
 {
 	if (pMouseEvent->button() == Qt::LeftButton) {
 		const QPoint& pos = pMouseEvent->pos();
-		int iDragNode = nodeIndex(pos);
+		const int iDragNode = nodeIndex(pos);
 		if (iDragNode >= 0) {
 			setCursor(iDragNode == 3 || iDragNode == 4
 				? Qt::SizeAllCursor

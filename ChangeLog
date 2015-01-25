@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 GIT HEAD
 
+- Most graphics now rendered with anti-aliased lines.
+
 - A man page has beed added.
 
 - Allow the build system to include an user specified LDFLAGS.

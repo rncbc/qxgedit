@@ -1,7 +1,7 @@
 // qxgeditFilter.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -113,16 +113,16 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 {
 	QPainter painter(this);
 
-	int h  = height();
-	int w  = width();
+	const int h  = height();
+	const int w  = width();
 
-	int h2 = h >> 1;
-	int h4 = h >> 2;
-	int w4 = w >> 2;
-	int w8 = w >> 3;
+	const int h2 = h >> 1;
+	const int h4 = h >> 2;
+	const int w4 = w >> 2;
+	const int w8 = w >> 3;
 
-	int x = w8 + int((m_iCutoff * (w - w4)) / (m_iMaxCutoff + 1));
-	int y = h2 - int((m_iResonance * (h + h4)) / (m_iMaxResonance + 1));
+	const int x = w8 + int((m_iCutoff * (w - w4)) / (m_iMaxCutoff + 1));
+	const int y = h2 - int((m_iResonance * (h + h4)) / (m_iMaxResonance + 1));
 
 	QPolygon poly(6);
 	poly.putPoints(0, 6,
@@ -145,6 +145,7 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 	if (bDark)
 		painter.fillRect(0, 0, w, h, pal.dark().color());
 
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setPen(bDark ? Qt::gray : Qt::darkGray);
 
 	QLinearGradient grad(0, 0, w << 1, h << 1);
@@ -162,6 +163,7 @@ void qxgeditFilter::paintEvent ( QPaintEvent *pPaintEvent )
 		.arg(int(resonance())));
 #endif
 
+	painter.setRenderHint(QPainter::Antialiasing, false);
 	painter.end();
 
 	QFrame::paintEvent(pPaintEvent);
