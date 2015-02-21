@@ -374,10 +374,10 @@ int main ( int argc, char **argv )
 		app.setFont(QFont(app.font().family(), options.iBaseFontSize));
 
 	// Special styles...
-	if (QDir(CONFIG_PLUGINSDIR).exists()) {
+	if (QDir(CONFIG_PLUGINSDIR).exists())
 		QApplication::addLibraryPath(CONFIG_PLUGINSDIR);
-		QApplication::setStyle(QStyleFactory::create("skulpture"));
-	}
+	if (!options.sStyleTheme.isEmpty())
+		QApplication::setStyle(QStyleFactory::create(options.sStyleTheme));
 
 	// Construct, setup and show the main form (a pseudo-singleton).
 	qxgeditMainForm w;

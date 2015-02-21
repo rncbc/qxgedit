@@ -1,7 +1,7 @@
 // qxgeditOptions.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2014, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -81,6 +81,7 @@ void qxgeditOptions::loadOptions (void)
 	iMaxRecentFiles = m_settings.value("/MaxRecentFiles", 5).toInt();
 	iRandomizePerct = m_settings.value("/RandomizePerct", 20).toInt();
 	iBaseFontSize   = m_settings.value("/BaseFontSize", 0).toInt();
+	sStyleTheme     = m_settings.value("/StyleTheme", "Skulpture").toString();
 	m_settings.endGroup();
 
 	// And go into view options group.
@@ -131,6 +132,7 @@ void qxgeditOptions::saveOptions (void)
 	m_settings.setValue("/MaxRecentFiles", iMaxRecentFiles);
 	m_settings.setValue("/RandomizePerct", iRandomizePerct);
 	m_settings.setValue("/BaseFontSize", iBaseFontSize);
+	m_settings.setValue("/StyleTheme", sStyleTheme);
 	m_settings.endGroup();
 
 	// View options group.

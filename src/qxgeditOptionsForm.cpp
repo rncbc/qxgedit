@@ -1,7 +1,7 @@
 // qxgeditOptionsForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2010, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -30,6 +30,8 @@
 #include <QPushButton>
 #include <QValidator>
 
+#include <QStyleFactory>
+
 
 //----------------------------------------------------------------------------
 // qxgeditOptionsForm -- UI wrapper form.
@@ -55,6 +57,12 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	// Try to fix window geometry.
 	m_ui.MidiInputListView->setMaximumHeight(72);
 	m_ui.MidiOutputListView->setMaximumHeight(72);
+
+	// Custom style themes...
+	//m_ui.StyleThemeComboBox->clear();
+	//m_ui.StyleThemeComboBox->addItem(tr("(default)"));
+	m_ui.StyleThemeComboBox->addItems(QStyleFactory::keys());
+
 	adjustSize();
 
 	// UI signal/slot connections...
@@ -81,6 +89,9 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 		SLOT(changed()));
 	QObject::connect(m_ui.BaseFontSizeComboBox,
 		SIGNAL(editTextChanged(const QString&)),
+		SLOT(changed()));
+	QObject::connect(m_ui.StyleThemeComboBox,
+		SIGNAL(activated(int)),
 		SLOT(changed()));
 	QObject::connect(m_ui.DialogButtonBox,
 		SIGNAL(accepted()),
@@ -142,6 +153,12 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 	else
 		m_ui.BaseFontSizeComboBox->setCurrentIndex(0);
 
+	// Custom style theme...
+	int iStyleTheme = 0;
+	if (!m_pOptions->sStyleTheme.isEmpty())
+		iStyleTheme = m_ui.StyleThemeComboBox->findText(m_pOptions->sStyleTheme);
+	m_ui.StyleThemeComboBox->setCurrentIndex(iStyleTheme);
+
 	// Done. Restart clean.
 	m_iDirtyCount = 0;
 	stabilizeForm();
@@ -192,6 +209,19 @@ void qxgeditOptionsForm::accept (void)
 		m_pOptions->iMaxRecentFiles = m_ui.MaxRecentFilesSpinBox->value();
 		m_pOptions->iRandomizePerct = m_ui.RandomizePerctSpinBox->value();
 		m_pOptions->iBaseFontSize   = m_ui.BaseFontSizeComboBox->currentText().toInt();
+		// Custom style theme...
+		const QString sOldStyleTheme = m_pOptions->sStyleTheme;
+		if (m_ui.StyleThemeComboBox->currentIndex() > 0)
+			m_pOptions->sStyleTheme = m_ui.StyleThemeComboBox->currentText();
+		else
+			m_pOptions->sStyleTheme.clear();
+		// Show restart needed message...
+		if (m_pOptions->sStyleTheme != sOldStyleTheme) {
+			QMessageBox::information(this,
+				tr("Information") + " - " QXGEDIT_TITLE,
+				tr("Some settings may be only effective\n"
+				"next time you start this application."));
+		}
 		// Reset dirty flag.
 		m_iDirtyCount = 0;
 	}

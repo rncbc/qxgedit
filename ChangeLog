@@ -3,6 +3,9 @@ QXGEdit - Qt XG Editor
 
 GIT HEAD
 
+- Introducing a brand new user preference on eye-candy: cf.
+  View/Options.../Display/Custom style theme.
+
 - Most graphics now rendered with anti-aliased lines.
 
 - A man page has beed added.
