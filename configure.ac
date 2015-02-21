@@ -20,6 +20,7 @@ if test "x$exec_prefix" = "xNONE"; then
 fi
 eval ac_libdir=$libdir
 AC_SUBST(ac_libdir)
+AC_DEFINE_UNQUOTED(CONFIG_LIBDIR, ["$ac_libdir"], [Default library path.])
 
 # Enable debugging argument option.
 AC_ARG_ENABLE(debug,
