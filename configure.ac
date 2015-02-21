@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.1.2.12, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.1.2.13, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -13,6 +13,13 @@ if test "x$ac_prefix" = "xNONE"; then
 fi
 AC_SUBST(ac_prefix)
 AC_DEFINE_UNQUOTED(CONFIG_PREFIX, ["$ac_prefix"], [Default installation prefix.])
+
+# Set default library/plugin prefix.
+if test "x$exec_prefix" = "xNONE"; then
+    exec_prefix=$ac_prefix
+fi
+eval ac_libdir=$libdir
+AC_SUBST(ac_libdir)
 
 # Enable debugging argument option.
 AC_ARG_ENABLE(debug,

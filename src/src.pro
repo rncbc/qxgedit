@@ -88,6 +88,10 @@ unix {
 
 	DEFINES += DATADIR=\"$${DATADIR}\"
 
+	!isEmpty(LIBDIR) {
+		DEFINES += LIBDIR=\"$${LIBDIR}\"
+	}
+
 	# make install
 	INSTALLS += target desktop icon
 

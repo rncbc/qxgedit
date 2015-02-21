@@ -1,7 +1,7 @@
 // qxgedit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2014, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -29,6 +29,7 @@
 #include <QTranslator>
 #include <QLocale>
 
+#include <QDir>
 
 #define CONFIG_QUOTE1(x) #x
 #define CONFIG_QUOTED(x) CONFIG_QUOTE1(x)
@@ -39,17 +40,20 @@
 #define CONFIG_DATADIR CONFIG_PREFIX "/share"
 #endif
 
+#if defined(LIBDIR)
+#define CONFIG_LIBDIR CONFIG_QUOTED(LIBDIR)
+#else
 #if defined(__x86_64__)
 #define CONFIG_LIBDIR CONFIG_PREFIX "/lib64"
 #else
 #define CONFIG_LIBDIR CONFIG_PREFIX "/lib"
 #endif
+#endif
 
-
-#if QT_VERSION >= 0x050000
-#define CONFIG_PLUGINSDIR CONFIG_LIBDIR "/qt5/plugins"
-#else
+#if QT_VERSION < 0x050000
 #define CONFIG_PLUGINSDIR CONFIG_LIBDIR "/qt4/plugins"
+#else
+#define CONFIG_PLUGINSDIR CONFIG_LIBDIR "/qt5/plugins"
 #endif
 
 
@@ -372,8 +376,10 @@ int main ( int argc, char **argv )
 		app.setFont(QFont(app.font().family(), options.iBaseFontSize));
 
 	// Special styles...
-	QApplication::addLibraryPath(CONFIG_PLUGINSDIR);
-	QApplication::setStyle(QStyleFactory::create("skulpture"));
+	if (QDir(CONFIG_PLUGINSDIR).exists()) {
+		QApplication::addLibraryPath(CONFIG_PLUGINSDIR);
+		QApplication::setStyle(QStyleFactory::create("skulpture"));
+	}
 
 	// Construct, setup and show the main form (a pseudo-singleton).
 	qxgeditMainForm w;

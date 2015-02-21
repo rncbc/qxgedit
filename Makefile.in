@@ -78,6 +78,8 @@ style_sources = \
 	skulpture/skulpture.cpp
 
 
+export datarootdir = @datarootdir@
+export datadir = @datadir@
 export mandir = @mandir@
 
 
