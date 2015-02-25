@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -1287,7 +1287,7 @@ void qxgeditMainForm::sysexReceived ( const QByteArray& sysex )
 // Format the displayable session filename.
 QString qxgeditMainForm::sessionName ( const QString& sFilename )
 {
-	bool bCompletePath = (m_pOptions && m_pOptions->bCompletePath);
+	const bool bCompletePath = (m_pOptions && m_pOptions->bCompletePath);
 	QString sSessionName = sFilename;
 	if (sSessionName.isEmpty())
 		sSessionName = tr("Untitled") + QString::number(m_iUntitled);
@@ -1329,7 +1329,7 @@ bool qxgeditMainForm::openSession (void)
 	// Ask for the filename to open...
 	QString sFilename;
 
-	QString sExt("syx");
+	const QString sExt("syx");
 	const QString& sTitle  = tr("Open Session") + " - " QXGEDIT_TITLE;
 	const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
 #if 0//QT_VERSION < 0x040400
@@ -1382,7 +1382,7 @@ bool qxgeditMainForm::saveSession ( bool bPrompt )
 	// Ask for the file to save...
 	if (bPrompt) {
 		// Prompt the guy...
-		QString sExt("syx");
+		const QString sExt("syx");
 		const QString& sTitle  = tr("Save Session") + " - " QXGEDIT_TITLE;
 		const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
 	#if 0//QT_VERSION < 0x040400
@@ -1788,9 +1788,10 @@ void qxgeditMainForm::viewOptions (void)
 		return;
 
 	// Load the current setup settings.
-	bool bOldCompletePath   = m_pOptions->bCompletePath;
-	int  iOldMaxRecentFiles = m_pOptions->iMaxRecentFiles;
-	int  iOldBaseFontSize   = m_pOptions->iBaseFontSize;
+	const bool bOldCompletePath   = m_pOptions->bCompletePath;
+	const int  iOldMaxRecentFiles = m_pOptions->iMaxRecentFiles;
+	const int  iOldBaseFontSize   = m_pOptions->iBaseFontSize;
+	const QString sOldStyleTheme  = m_pOptions->sStyleTheme;
 	// Load the current setup settings.
 	qxgeditOptionsForm optionsForm(this);
 	optionsForm.setOptions(m_pOptions);
@@ -1798,7 +1799,8 @@ void qxgeditMainForm::viewOptions (void)
 		enum { RestartSession = 1, RestartProgram = 2, RestartAny = 3 };
 		// Check wheather something immediate has changed.
 		int iNeedRestart = 0;
-		if (iOldBaseFontSize != m_pOptions->iBaseFontSize)
+		if (sOldStyleTheme   != m_pOptions->sStyleTheme ||
+			iOldBaseFontSize != m_pOptions->iBaseFontSize)
 			iNeedRestart |= RestartProgram;
 		if (( bOldCompletePath && !m_pOptions->bCompletePath) ||
 			(!bOldCompletePath &&  m_pOptions->bCompletePath) ||
@@ -2111,10 +2113,10 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 
 	++m_iMultipartVoiceUpdate;
 
-	unsigned short iBank
+	const unsigned short iBank
 		= (m_ui.MultipartBankMSBDial->value() << 7)
 		| m_ui.MultipartBankLSBDial->value();
-	unsigned char iProg = m_ui.MultipartProgramDial->value();
+	const unsigned char iProg = m_ui.MultipartProgramDial->value();
 
 	unsigned short i = 0;
 
@@ -2202,7 +2204,7 @@ void qxgeditMainForm::multipartVoiceChanged (void)
 
 void qxgeditMainForm::multipartPartModeChanged ( unsigned short iPartMode )
 {
-	bool bEnabled = (iPartMode == 0);
+	const bool bEnabled = (iPartMode == 0);
 
 	m_ui.MultipartPedalCheck->setEnabled(bEnabled);
 	m_ui.MultipartBankLSBDial->setEnabled(bEnabled);
@@ -2219,7 +2221,7 @@ void qxgeditMainForm::multipartResetButtonClicked (void)
 	if (m_pMasterMap == NULL)
 		return;
 
-	int iPart = m_ui.MultipartCombo->currentIndex();
+	const int iPart = m_ui.MultipartCombo->currentIndex();
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
@@ -2270,7 +2272,7 @@ void qxgeditMainForm::drumsetupVoiceComboActivated ( int iDrumKit )
 			sName += QString("(%1)").arg(getsnote(k));
 			m_ui.DrumsetupNoteCombo->addItem(sName, k);
 		}
-		int iNote = m_ui.DrumsetupNoteCombo->findData(
+		const int iNote = m_ui.DrumsetupNoteCombo->findData(
 			m_pMasterMap->DRUMSETUP.current_key());
 		if (iNote >= 0)
 			m_ui.DrumsetupNoteCombo->setCurrentIndex(iNote);
@@ -2281,8 +2283,8 @@ void qxgeditMainForm::drumsetupVoiceComboActivated ( int iDrumKit )
 void qxgeditMainForm::drumsetupNoteComboActivated ( int iNote )
 {
 	if (m_pMasterMap) {
-		int iDrumset = m_ui.DrumsetupCombo->currentIndex();
-		unsigned short key = (unsigned short) (iDrumset << 7)
+		const int iDrumset = m_ui.DrumsetupCombo->currentIndex();
+		const unsigned short key = (unsigned short) (iDrumset << 7)
 			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
 		m_pMasterMap->DRUMSETUP.set_current_key(key);
 	}
@@ -2294,7 +2296,7 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 	if (m_pMasterMap == NULL)
 		return;
 
-	int iDrumset = m_ui.DrumsetupCombo->currentIndex();
+	const int iDrumset = m_ui.DrumsetupCombo->currentIndex();
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
@@ -2353,7 +2355,7 @@ void qxgeditMainForm::uservoiceResetButtonClicked (void)
 	if (m_pMasterMap == NULL)
 		return;
 
-	int iUser = m_ui.UservoiceCombo->currentIndex();
+	const int iUser = m_ui.UservoiceCombo->currentIndex();
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
@@ -2374,7 +2376,7 @@ void qxgeditMainForm::uservoiceResetButtonClicked (void)
 void qxgeditMainForm::uservoiceSendButtonClicked (void)
 {
 	if (m_pMasterMap) {
-		unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+		const int iUser = m_ui.UservoiceCombo->currentIndex();
 		m_pMasterMap->send_user(iUser);
 		m_pMasterMap->set_user_dirty_1(iUser, false);
 		stabilizeForm();
@@ -2457,10 +2459,10 @@ void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+	const int iUser = m_ui.UservoiceCombo->currentIndex();
 
 	bool bResult = false;
-	unsigned short len = 0x188; // = 392 bytes
+	const unsigned short len = 0x188; // = 392 bytes
 	unsigned char  data[len];
 
 	if (file.read((char *) data, len)) {
@@ -2516,7 +2518,7 @@ void qxgeditMainForm::uservoiceSavePresetFile ( const QString& sFilename )
 	// Tell the world we'll take some time...
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	unsigned short iUser = m_ui.UservoiceCombo->currentIndex();
+	const int iUser = m_ui.UservoiceCombo->currentIndex();
 
 	// (QS300) USER VOICE Bulk Dumps, whether dirty...
 	XGUserVoiceSysex sysex(iUser);

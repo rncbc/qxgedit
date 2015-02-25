@@ -44,7 +44,7 @@
     <number>4</number>
    </property>
    <property name="margin">
-    <number>8</number>
+    <number>4</number>
    </property>
    <item>
     <widget class="QTabWidget" name="OptionsTabWidget">
@@ -59,12 +59,6 @@
        <string>&amp;MIDI</string>
       </attribute>
       <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="margin">
-        <number>9</number>
-       </property>
        <item>
         <widget class="QGroupBox" name="MidiInputGroupBox">
          <property name="font">
@@ -146,12 +140,6 @@
        <string>&amp;Display</string>
       </attribute>
       <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="margin">
-        <number>9</number>
-       </property>
        <item>
         <widget class="QGroupBox" name="OptionsGroupBox">
          <property name="font">
@@ -388,7 +376,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Custom &amp;style theme:</string>
+             <string>&amp;Widget style theme:</string>
             </property>
             <property name="buddy">
              <cstring>StyleThemeComboBox</cstring>

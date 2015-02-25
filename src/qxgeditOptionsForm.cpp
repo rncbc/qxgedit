@@ -215,13 +215,6 @@ void qxgeditOptionsForm::accept (void)
 			m_pOptions->sStyleTheme = m_ui.StyleThemeComboBox->currentText();
 		else
 			m_pOptions->sStyleTheme.clear();
-		// Show restart needed message...
-		if (m_pOptions->sStyleTheme != sOldStyleTheme) {
-			QMessageBox::information(this,
-				tr("Information") + " - " QXGEDIT_TITLE,
-				tr("Some settings may be only effective\n"
-				"next time you start this application."));
-		}
 		// Reset dirty flag.
 		m_iDirtyCount = 0;
 	}
