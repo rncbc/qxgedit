@@ -1,7 +1,10 @@
 QXGEdit - Qt XG Editor
 ----------------------
 
-GIT HEAD
+ChangeLog
+
+
+0.2.0  2015-03-04  Fifth public release.
 
 - In a glance, all GUI toolbox pages converted into tabs.
 
