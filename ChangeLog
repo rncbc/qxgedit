@@ -4,6 +4,11 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Added application description as freedesktop.org's AppData.
+
+
 0.2.0  2015-03-04  Fifth public release.
 
 - In a glance, all GUI toolbox pages converted into tabs.

@@ -89,7 +89,7 @@ unix {
 	DEFINES += DATADIR=\"$${DATADIR}\"
 
 	# make install
-	INSTALLS += target desktop icon
+	INSTALLS += target desktop icon appdata
 
 	target.path = $${BINDIR}
 
@@ -98,6 +98,9 @@ unix {
 
 	icon.path = $${DATADIR}/icons/hicolor/32x32/apps
 	icon.files += images/$${NAME}.png
+
+	appdata.path = $${DATADIR}/appdata
+	appdata.files += appdata/$${NAME}.appdata.xml
 }
 
 

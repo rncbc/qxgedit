@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2010-2015 Rui Nuno Capela <rncbc@rncbc.org> -->
+<component type="desktop">
+ <id>qxgedit.desktop</id>
+ <metadata_license>GPL-2.0+</metadata_license>
+ <project_license>GPL-2.0+</project_license>
+ <name>QXGEdit</name>
+ <summary>Qt XG Editor</summary>
+ <description>
+  <p>QXGEdit is a Qt GUI for editing MIDI System Exclusive files
+  for XG devices (eg. Yamaha DB50XG).</p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>http://qxgedit.sourceforge.net/image/qxgedit-screenshot2.png</image>
+   <caption>The main window showing the application in action</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">http://qxgedit.sourceforge.net</url>
+ <updatecontact>rncbc@rncbc.org</updatecontact>
+ <project_group>rncbc.org</project_group>
+</component>
