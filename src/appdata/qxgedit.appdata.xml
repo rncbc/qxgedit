@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2010-2015 Rui Nuno Capela <rncbc@rncbc.org> -->
+<!-- Copyright 2005-2015 Rui Nuno Capela <rncbc@rncbc.org> -->
 <component type="desktop">
  <id>qxgedit.desktop</id>
  <metadata_license>GPL-2.0+</metadata_license>
