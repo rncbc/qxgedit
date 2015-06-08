@@ -6,6 +6,8 @@ ChangeLog
 
 GIT HEAD
 
+- Added "Keywords" to desktop file; fix passing debian flags on
+  configure (patches by Jaromír Mikeš, thanks).
 - Fixed for some strict tests for Qt4 vs. Qt5 configure builds.
 
 - Added application description as freedesktop.org's AppData.
