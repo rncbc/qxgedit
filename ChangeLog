@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- A new top-level widget window geometry state save and restore
+  sub-routine is now in effect. (EXPERIMENTAL)
+
 - Added "Keywords" to desktop file; fix passing debian flags on
   configure (patches by Jaromír Mikeš, thanks).
 - Fixed for some strict tests for Qt4 vs. Qt5 configure builds.
