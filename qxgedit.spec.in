@@ -49,9 +49,9 @@ for XG devices (eg. Yamaha DB50XG).
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/32x32
 %dir %{_datadir}/icons/hicolor/32x32/apps
-%dir %{_libdir}/qt4
-%dir %{_libdir}/qt4/plugins
-%dir %{_libdir}/qt4/plugins/styles
+%dir %{_libdir}/qt5
+%dir %{_libdir}/qt5/plugins
+%dir %{_libdir}/qt5/plugins/styles
 %dir %{_datadir}/appdata
 #dir %{_datadir}/man
 #dir %{_datadir}/man/man1
@@ -73,7 +73,7 @@ for XG devices (eg. Yamaha DB50XG).
 - Standard desktop icon fixing. 
 * Wed Apr 21 2010 Rui Nuno Capela <rncbc@rncbc.org> 0.1.1
 - Second public release.
-* Thu Sep 19 2009 Rui Nuno Capela <rncbc@rncbc.org> 0.0.1
+* Sat Sep 19 2009 Rui Nuno Capela <rncbc@rncbc.org> 0.0.1
 - First public release.
 - Added skulpture theme/style plugin.
 * Mon Jul 20 2009 Rui Nuno Capela <rncbc@rncbc.org>
