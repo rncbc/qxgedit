@@ -1,5 +1,6 @@
 prefix  = @ac_prefix@
-qmake   = @ac_qmake@
+
+QMAKE   = @ac_qmake@
 
 name    = qxgedit
 
@@ -90,7 +91,7 @@ $(target):	$(name).mak $(resources) ${forms} $(sources) $(headers) $(style_heade
 	@$(MAKE) -f $(name).mak
 
 $(name).mak:	$(name).pro
-	@$(qmake) -o $(name).mak $(name).pro
+	@$(QMAKE) -o $(name).mak $(name).pro
 
 
 install:	$(target) $(name).1
