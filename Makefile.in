@@ -1,7 +1,5 @@
 prefix  = @ac_prefix@
 
-QMAKE   = @ac_qmake@
-
 name    = qxgedit
 
 target  = src/$(name)
@@ -82,6 +80,9 @@ style_sources = \
 export datarootdir = @datarootdir@
 export datadir = @datadir@
 export mandir = @mandir@
+
+
+export QMAKE = @ac_qmake@
 
 
 all:	$(target)
