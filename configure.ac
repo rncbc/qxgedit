@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.2.0.11, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.2.0.12, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -237,6 +237,20 @@ if test "x$ac_uic" = "xno"; then
    AC_MSG_ERROR([uic $ac_errmsg])
 fi
 AC_SUBST(ac_uic)
+
+# Check for Qt lupdate utility.
+AC_PATH_PROG(ac_lupdate, lupdate, [no], $ac_path)
+if test "x$ac_lupdate" = "xno"; then
+   AC_MSG_ERROR([lupdate $ac_errmsg])
+fi
+AC_SUBST(ac_lupdate)
+
+# Check for Qt lrelease utility.
+AC_PATH_PROG(ac_lrelease, lrelease, [no], $ac_path)
+if test "x$ac_release" = "xno"; then
+   AC_MSG_ERROR([lrelease $ac_errmsg])
+fi
+AC_SUBST(ac_lrelease)
 
 
 # Checks for libraries.
