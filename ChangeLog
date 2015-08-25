@@ -6,12 +6,15 @@ ChangeLog
 
 GIT HEAD
 
+- Single/unique application instance control adapted to Qt5/X11.
+  (EXPERIMENTAL)
+
 - Prefer Qt5 over Qt4 by default with configure script.
 
-- Complete rewrite of Qt4 vs. Qt5 configure builds. (TESTING)
+- Complete rewrite of Qt4 vs. Qt5 configure builds.
 
 - A new top-level widget window geometry state save and restore
-  sub-routine is now in effect. (EXPERIMENTAL)
+  sub-routine is now in effect.
 
 - Added "Keywords" to desktop file; fix passing debian flags on
   configure (patches by Jaromír Mikeš, thanks).

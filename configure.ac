@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.2.0.12, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.2.0.13, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -50,6 +50,12 @@ AC_ARG_ENABLE(qt5,
   [ac_qt5="$enableval"],
   [ac_qt5="yes"])
 
+
+# Enable X11 unique/single instance.
+AC_ARG_ENABLE(xunique,
+  AC_HELP_STRING([--enable-xunique], [enable X11 unique/single instance (default=yes)]),
+  [ac_xunique="$enableval"],
+  [ac_xunique="yes"])
 
 # Enable debugger stack-trace option (assumes --enable-debug).
 AC_ARG_ENABLE(stacktrace,
@@ -283,6 +289,11 @@ if test "x$ac_alsa_h" = "xno"; then
    AC_MSG_ERROR([ALSA headers not found.])
 fi
 
+# Check for X11 unique/single instance.
+if test "x$ac_xunique" = "xyes"; then
+   AC_DEFINE(CONFIG_XUNIQUE, 1, [Define if X11 unique/single instance is enabled.])
+fi
+
 # Check for debugging stack-trace.
 if test "x$ac_stacktrace" = "xyes"; then
    AC_DEFINE(CONFIG_STACKTRACE, 1, [Define if debugger stack-trace is enabled.])
@@ -313,6 +324,7 @@ echo "  Build target . . . . . . . . . . . . . . . . . . .: $ac_debug"
 echo
 echo "  ALSA MIDI Sequencer support  . . . . . . . . . . .: $ac_libasound"
 echo
+echo "  X11 Unique/Single instance . . . . . . . . . . . .: $ac_xunique"
 echo "  Debugger stack-trace (gdb) . . . . . . . . . . . .: $ac_stacktrace"
 echo
 echo "  Install prefix . . . . . . . . . . . . . . . . . .: $ac_prefix"

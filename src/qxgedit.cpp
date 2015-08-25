@@ -59,7 +59,19 @@
 // Singleton application instance stuff (Qt/X11 only atm.)
 //
 
+#if QT_VERSION < 0x050000
 #if defined(Q_WS_X11)
+#define CONFIG_X11
+#endif
+#else
+#if defined(QT_X11EXTRAS_LIB)
+#define CONFIG_X11
+#endif
+#endif
+
+
+#ifdef CONFIG_X11
+#ifdef CONFIG_XUNIQUE
 
 #include <QX11Info>
 
@@ -68,7 +80,37 @@
 
 #define QXGEDIT_XUNIQUE "qxgeditApplication"
 
+#if QT_VERSION >= 0x050100
+
+#include <xcb/xcb.h>
+#include <xcb/xproto.h>
+
+#include <QAbstractNativeEventFilter>
+
+class qxgeditApplication;
+
+class qxgeditXcbEventFilter : public QAbstractNativeEventFilter
+{
+public:
+
+	// Constructor.
+	qxgeditXcbEventFilter(qxgeditApplication *pApp)
+		: QAbstractNativeEventFilter(), m_pApp(pApp) {}
+
+	// XCB event filter (virtual processor).
+	bool nativeEventFilter(const QByteArray& eventType, void *message, long *);
+
+private:
+
+	// Instance variable.
+	qxgeditApplication *m_pApp;
+};
+
 #endif
+
+#endif	// CONFIG_XUNIQUE
+#endif	// CONFIG_X11
+
 
 class qxgeditApplication : public QApplication
 {
@@ -76,7 +118,7 @@ public:
 
 	// Constructor.
 	qxgeditApplication(int& argc, char **argv) : QApplication(argc, argv),
-		m_pQtTranslator(0), m_pMyTranslator(0), m_pWidget(0)	
+		m_pQtTranslator(0), m_pMyTranslator(0), m_pWidget(0)
 	{
 		// Load translation support.
 		QLocale loc;
@@ -118,18 +160,32 @@ public:
 				}
 			}
 		}
-	#if defined(Q_WS_X11)
+	#ifdef CONFIG_X11
+	#ifdef CONFIG_XUNIQUE
 		m_pDisplay = QX11Info::display();
 		m_aUnique  = XInternAtom(m_pDisplay, QXGEDIT_XUNIQUE, false);
 		XGrabServer(m_pDisplay);
 		m_wOwner = XGetSelectionOwner(m_pDisplay, m_aUnique);
 		XUngrabServer(m_pDisplay);
+	#if QT_VERSION >= 0x050100
+		m_pXcbEventFilter = new qxgeditXcbEventFilter(this);
+		installNativeEventFilter(m_pXcbEventFilter);
 	#endif
+	#endif	// CONFIG_XUNIQUE
+	#endif	// CONFIG_X11
 	}
 
 	// Destructor.
 	~qxgeditApplication()
 	{
+	#ifdef CONFIG_X11
+	#ifdef CONFIG_XUNIQUE
+	#if QT_VERSION >= 0x050100
+		removeNativeEventFilter(m_pXcbEventFilter);
+		delete m_pXcbEventFilter;
+	#endif
+	#endif	// CONFIG_XUNIQUE
+	#endif	// CONFIG_X11
 		if (m_pMyTranslator) delete m_pMyTranslator;
 		if (m_pQtTranslator) delete m_pQtTranslator;
 	}
@@ -138,12 +194,14 @@ public:
 	void setMainWidget(QWidget *pWidget)
 	{
 		m_pWidget = pWidget;
-	#if defined(Q_WS_X11)
+	#ifdef CONFIG_X11
+	#ifdef CONFIG_XUNIQUE
 		XGrabServer(m_pDisplay);
 		m_wOwner = m_pWidget->winId();
 		XSetSelectionOwner(m_pDisplay, m_aUnique, m_wOwner, CurrentTime);
 		XUngrabServer(m_pDisplay);
-	#endif
+	#endif	// CONFIG_XUNIQUE
+	#endif	// CONFIG_X11
 	}
 
 	QWidget *mainWidget() const { return m_pWidget; }
@@ -152,7 +210,8 @@ public:
     // and raise its proper main widget...
 	bool setup()
 	{
-	#if defined(Q_WS_X11)
+	#ifdef CONFIG_X11
+	#ifdef CONFIG_XUNIQUE
 		if (m_wOwner != None) {
 			// First, notify any freedesktop.org WM
 			// that we're about to show the main widget...
@@ -176,8 +235,8 @@ public:
 			XSync(m_pDisplay, false);
 			XRaiseWindow(m_pDisplay, m_wOwner);
 			// And then, let it get caught on destination
-			// by QApplication::x11EventFilter...
-			QByteArray value = QXGEDIT_XUNIQUE;
+			// by QApplication::native/x11EventFilter...
+			const QByteArray value = QXGEDIT_XUNIQUE;
 			XChangeProperty(
 				m_pDisplay,
 				m_wOwner,
@@ -189,17 +248,16 @@ public:
 			// Done.
 			return true;
 		}
-	#endif
+	#endif	// CONFIG_XUNIQUE
+	#endif	// CONFIG_X11
 		return false;
 	}
 
-#if defined(Q_WS_X11)
-	bool x11EventFilter(XEvent *pEv)
+#ifdef CONFIG_X11
+#ifdef CONFIG_XUNIQUE
+	void x11PropertyNotify(Window w)
 	{
-		if (m_pWidget && m_wOwner != None
-			&& pEv->type == PropertyNotify
-			&& pEv->xproperty.window == m_wOwner
-			&& pEv->xproperty.state == PropertyNewValue) {
+		if (m_pWidget && m_wOwner == w) {
 			// Always check whether our property-flag is still around...
 			Atom aType;
 			int iFormat = 0;
@@ -230,10 +288,19 @@ public:
 			if (iItems > 0 && pData)
 				XFree(pData);
 		}
+	}
+#if QT_VERSION < 0x050000
+	bool x11EventFilter(XEvent *pEv)
+	{
+		if (pEv->type == PropertyNotify
+			&& pEv->xproperty.state == PropertyNewValue)
+			x11PropertyNotify(pEv->xproperty.window);
 		return QApplication::x11EventFilter(pEv);
 	}
 #endif
-	
+#endif	// CONFIG_XUNIQUE
+#endif	// CONFIG_X11
+
 private:
 
 	// Translation support.
@@ -243,12 +310,38 @@ private:
 	// Instance variables.
 	QWidget *m_pWidget;
 
-#if defined(Q_WS_X11)
+#ifdef CONFIG_X11
+#ifdef CONFIG_XUNIQUE
 	Display *m_pDisplay;
 	Atom     m_aUnique;
 	Window   m_wOwner;
+#if QT_VERSION >= 0x050100
+	qxgeditXcbEventFilter *m_pXcbEventFilter;
 #endif
+#endif	// CONFIG_XUNIQUE
+#endif	// CONFIG_X11
 };
+
+
+#ifdef CONFIG_X11
+#ifdef CONFIG_XUNIQUE
+#if QT_VERSION >= 0x050100
+// XCB Event filter (virtual processor).
+bool qxgeditXcbEventFilter::nativeEventFilter (
+	const QByteArray& eventType, void *message, long * )
+{
+	if (eventType == "xcb_generic_event_t") {
+		xcb_property_notify_event_t *pEv
+			= static_cast<xcb_property_notify_event_t *> (message);
+		if ((pEv->response_type & ~0x80) == XCB_PROPERTY_NOTIFY
+			&& pEv->state == XCB_PROPERTY_NEW_VALUE)
+			m_pApp->x11PropertyNotify(pEv->window);
+	}
+	return false;
+}
+#endif
+#endif	// CONFIG_XUNIQUE
+#endif	// CONFIG_X11
 
 
 //-------------------------------------------------------------------------
