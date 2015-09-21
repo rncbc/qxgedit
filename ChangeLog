@@ -4,10 +4,9 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.3.0  2015-09-21  Summer'15 release frenzy.
 
 - Single/unique application instance control adapted to Qt5/X11.
-  (EXPERIMENTAL)
 
 - Prefer Qt5 over Qt4 by default with configure script.
 

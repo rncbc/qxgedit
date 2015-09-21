@@ -1,6 +1,6 @@
 %define name    @PACKAGE_TARNAME@
 %define version @PACKAGE_VERSION@
-%define release 5
+%define release 6
 
 %define _prefix	@ac_prefix@
 
@@ -65,6 +65,8 @@ for XG devices (eg. Yamaha DB50XG).
 %{_datadir}/man/man1/%{name}.1.gz
 
 %changelog
+* Mon Sep 21 2015 Rui Nuno Capela <rncbc@rncbc.org> 0.3.0
+- Summer'15 release frenzy.
 * Wed Mar  4 2015 Rui Nuno Capela <rncbc@rncbc.org> 0.2.0
 - Fifth public release.
 * Tue Dec 31 2013 Rui Nuno Capela <rncbc@rncbc.org> 0.1.2
