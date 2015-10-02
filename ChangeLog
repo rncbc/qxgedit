@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 ChangeLog
 
+- Fixed port on MIDI 14-bit controllers input caching.
+
 
 0.3.0  2015-09-21  Summer'15 release frenzy.
 
