@@ -2,7 +2,9 @@
 Name=@PACKAGE_NAME@
 Version=1.0
 GenericName=XG Editor
+GenericName[fr]=Éditeur XG
 Comment=QXGEdit is a Qt GUI XG editor application
+Comment[fr]=Interface graphique d'édition XG
 Keywords=midi;sysex;editor;
 Exec=@ac_prefix@/bin/qxgedit
 Icon=qxgedit
