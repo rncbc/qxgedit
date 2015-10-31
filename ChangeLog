@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 ChangeLog
 
+- French (fr) translations update (by Olivier Humbert, thanks).
+
 - Fixed port on MIDI 14-bit controllers input caching.
 
 
