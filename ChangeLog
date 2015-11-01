@@ -3,6 +3,8 @@ QXGEdit - Qt XG Editor
 
 ChangeLog
 
+- Prevent x11extras module from use on non-X11/Unix plaforms.
+
 - French (fr) translations update (by Olivier Humbert, thanks).
 
 - Fixed port on MIDI 14-bit controllers input caching.
