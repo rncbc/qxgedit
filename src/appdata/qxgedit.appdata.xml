@@ -25,4 +25,9 @@
  <url type="homepage">http://qxgedit.sourceforge.net</url>
  <updatecontact>rncbc@rncbc.org</updatecontact>
  <project_group>rncbc.org</project_group>
+ <kudos>
+  <kudo>AppMenu</kudo>
+  <kudo>HiDpiIcon</kudo>
+  <kudo>ModernToolkit</kudo>
+ </kudos>
 </component>

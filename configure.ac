@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.3.0.5, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.3.0.6, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -16,7 +16,7 @@ AC_DEFINE_UNQUOTED(CONFIG_PREFIX, ["$ac_prefix"], [Default installation prefix.]
 
 # Set default library/plugin prefix.
 if test "x$exec_prefix" = "xNONE"; then
-    exec_prefix=$ac_prefix
+   exec_prefix=$ac_prefix
 fi
 eval ac_libdir=$libdir
 AC_SUBST(ac_libdir)
