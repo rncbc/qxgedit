@@ -22,6 +22,15 @@
    <caption xml:lang="fr">Fenêtre principale montrant l'application en action</caption>
   </screenshot>
  </screenshots>
+ <keywords>
+  <keyword>MIDI</keyword>
+  <keyword>ALSA</keyword>
+  <keyword>DB50XG</keyword>
+  <keyword>Editor</keyword>  
+  <keyword>SYX</keyword>  
+  <keyword>XG</keyword>  
+  <keyword>Qt</keyword>
+ </keywords>
  <url type="homepage">http://qxgedit.sourceforge.net</url>
  <updatecontact>rncbc@rncbc.org</updatecontact>
  <project_group>rncbc.org</project_group>

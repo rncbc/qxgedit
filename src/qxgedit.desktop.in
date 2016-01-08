@@ -9,6 +9,7 @@ Keywords=midi;sysex;editor;
 Exec=@ac_prefix@/bin/qxgedit
 Icon=qxgedit
 Categories=Audio;AudioVideo;Midi;X-Alsa;Qt;
+Keywords=MIDI;ALSA;DB50XG;SYX;XG;Editor;Qt
 Terminal=false
 Type=Application
 X-SuSE-translate=true
