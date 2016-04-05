@@ -3,6 +3,9 @@ QXGEdit - Qt XG Editor
 
 ChangeLog
 
+
+0.4.0  2016-04-05  Spring'16 release frenzy.
+
 - Prevent x11extras module from use on non-X11/Unix plaforms.
 
 - French (fr) translations update (by Olivier Humbert, thanks).
