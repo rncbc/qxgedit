@@ -1,7 +1,7 @@
 // XGParam.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -2014,7 +2014,7 @@ XGEffectParamItem WHITEROOMParamTab[] =
 	{  3, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, NULL,     unit_Hz  },
 	{  4, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, NULL,     unit_Hz  },
 	{  5, "Width",              0,  37, getvtab8 ,getutab8, NULL,     unit_m   },
-	{  6, "Heigt",              0,  73, getvtab8 ,getutab8, NULL,     unit_m   },
+	{  6, "Height",             0,  73, getvtab8 ,getutab8, NULL,     unit_m   },
 	{  7, "Depth",              0, 104, getvtab8 ,getutab8, NULL,     unit_m   },
 	{  8, "Wall Vary",          0,  30, NULL,     NULL,     NULL,     NULL     },
 	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, NULL,     NULL     },
