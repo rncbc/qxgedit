@@ -6,10 +6,15 @@ ChangeLog
 
 GIT HEAD
 
+- Almost complete overhaul on the configure script command
+  line options, wrt. installation directories specification,
+  eg. --prefix, --bindir, --libdir, --datadir and --mandir.
+  (EXPERIMENTAL)
+
 - Remove extra 'Keywords' entry and fix spelling (patches by
   Jaromír Mikeš, thanks).
 
-  
+
 0.4.1  2016-09-14  End of Summer'16 release.
 
 - Dropped the --enable-qt5 from configure as found redundant

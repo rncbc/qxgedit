@@ -1,7 +1,7 @@
 // qxgedit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -30,15 +30,6 @@
 #include <QLocale>
 
 #include <QDir>
-
-#define CONFIG_QUOTE1(x) #x
-#define CONFIG_QUOTED(x) CONFIG_QUOTE1(x)
-
-#if defined(DATADIR)
-#define CONFIG_DATADIR CONFIG_QUOTED(DATADIR)
-#else
-#define CONFIG_DATADIR CONFIG_PREFIX "/share"
-#endif
 
 #ifndef CONFIG_LIBDIR
 #if defined(__x86_64__)

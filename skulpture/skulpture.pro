@@ -33,20 +33,20 @@ unix {
 		PREFIX = /usr/local
 	}
 
-	TARGET_ARCH = $$system(uname -m)
-	contains(TARGET_ARCH, x86_64) {
-		TARGET_PREFIX = $${PREFIX}/lib64
-	} else {
-		TARGET_PREFIX = $${PREFIX}/lib
+	isEmpty(LIBDIR) {
+		TARGET_ARCH = $$system(uname -m)
+		contains(TARGET_ARCH, x86_64) {
+			LIBDIR = $${PREFIX}/lib64
+		} else {
+			LIBDIR = $${PREFIX}/lib
+		}
 	}
 
 	lessThan(QT_MAJOR_VERSION, 5) {
-		TARGET_SUFFIX = /qt4/plugins/styles
+		TARGET_PATH = $${LIBDIR}/qt4/plugins/styles
 	} else {
-		TARGET_SUFFIX = /qt5/plugins/styles
+		TARGET_PATH = $${LIBDIR}/qt5/plugins/styles
 	}
-
-	TARGET_PATH = $${TARGET_PREFIX}$${TARGET_SUFFIX}
 
 	isEmpty(QMAKE_EXTENSION_SHLIB) {
 		QMAKE_EXTENSION_SHLIB = so

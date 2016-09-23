@@ -1,7 +1,11 @@
 # skulpture.pri
 #
 PREFIX  = @ac_prefix@
-CONFIG += @ac_debug@
+BINDIR  = @ac_bindir@
+LIBDIR  = @ac_libdir@
+DATADIR = @ac_datadir@
+MANDIR  = @ac_mandir@
+
 #INCLUDEPATH += @ac_incpath@
 #LIBS += @ac_libs@
 
