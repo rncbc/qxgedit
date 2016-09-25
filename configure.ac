@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.4.1.2, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.4.1.3, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -116,6 +116,8 @@ AC_PROG_CXXCPP
 # Checks for languages.
 AC_LANG_CPLUSPLUS
 
+# Check for pkg-config.
+PKG_PROG_PKG_CONFIG
 
 # Check for proper flags.
 ac_arch=`uname -m`
@@ -266,18 +268,15 @@ AC_CHECK_LIB(m, main)
 AC_CHECK_LIB(X11, main)
 AC_CHECK_LIB(Xext, main)
 
-# Check for ALSA libraries.
-AC_CHECK_LIB(asound, main, [ac_libasound="yes"], [ac_libasound="no"])
-if test "x$ac_libasound" = "xno"; then
-   AC_MSG_ERROR([ALSA library not found.])
+# Check for ALSA library.
+PKG_CHECK_MODULES([ALSA], [alsa], [ac_alsa_seq="yes"], [ac_alsa_seq="no"])
+if test "x$ac_alsa_seq" = "xyes"; then
+   AC_DEFINE(CONFIG_ALSA_SEQ, 1, [Define if ALSA library is available.])
+   ac_cflags="$ac_cflags $ALSA_CFLAGS"
+   ac_libs="$ac_libs $ALSA_LIBS"
 else
-   ac_libs="$ac_libs -lasound"
+   AC_MSG_ERROR([*** ALSA library not found.])
 fi
-
-# Some recent distros (eg. fedora, debian) require this.
-ac_libs="$ac_libs -lX11"
-
-AC_SUBST(ac_libs)
 
 
 # Checks for header files.
@@ -285,15 +284,12 @@ AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h sys/ioctl.h sys/stat.h unistd.h signal.h)
 
-# Check for ALSA headers.
-AC_CHECK_HEADER(alsa/asoundlib.h, [ac_alsa_h="yes"], [ac_alsa_h="no"])
-if test "x$ac_alsa_h" = "xno"; then
-   AC_MSG_ERROR([ALSA headers not found.])
-fi
-
 # Check for X11 unique/single instance.
 if test "x$ac_xunique" = "xyes"; then
    AC_DEFINE(CONFIG_XUNIQUE, 1, [Define if X11 unique/single instance is enabled.])
+   if test "x$ac_cv_lib_X11_main" = "xyes"; then
+      ac_libs="$ac_libs -lX11"
+   fi
 fi
 
 # Check for debugging stack-trace.
@@ -301,9 +297,10 @@ if test "x$ac_stacktrace" = "xyes"; then
    AC_DEFINE(CONFIG_STACKTRACE, 1, [Define if debugger stack-trace is enabled.])
 fi
 
-AC_SUBST(ac_incpath)
 AC_SUBST(ac_cflags)
 AC_SUBST(ac_ldflags)
+AC_SUBST(ac_incpath)
+AC_SUBST(ac_libs)
 
 
 # Checks for typedefs, structures, and compiler characteristics.
@@ -324,7 +321,7 @@ echo "  $PACKAGE_NAME $PACKAGE_VERSION"
 echo
 echo "  Build target . . . . . . . . . . . . . . . . . . .: $ac_debug"
 echo
-echo "  ALSA MIDI Sequencer support  . . . . . . . . . . .: $ac_libasound"
+echo "  ALSA MIDI Sequencer support  . . . . . . . . . . .: $ac_alsa_seq"
 echo
 echo "  X11 Unique/Single instance . . . . . . . . . . . .: $ac_xunique"
 echo "  Debugger stack-trace (gdb) . . . . . . . . . . . .: $ac_stacktrace"
