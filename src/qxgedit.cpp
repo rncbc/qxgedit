@@ -31,11 +31,19 @@
 
 #include <QDir>
 
+#ifndef CONFIG_PREFIX
+#define CONFIG_PREFIX	"/usr/local"
+#endif
+
+#ifndef CONFIG_DATADIR
+#define CONFIG_DATADIR	CONFIG_PREFIX "/share"
+#endif
+
 #ifndef CONFIG_LIBDIR
 #if defined(__x86_64__)
-#define CONFIG_LIBDIR CONFIG_PREFIX "/lib64"
+#define CONFIG_LIBDIR	CONFIG_PREFIX "/lib64"
 #else
-#define CONFIG_LIBDIR CONFIG_PREFIX "/lib"
+#define CONFIG_LIBDIR	CONFIG_PREFIX "/lib"
 #endif
 #endif
 
