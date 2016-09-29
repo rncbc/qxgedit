@@ -1,7 +1,7 @@
 // qxgeditMidiRpn.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -187,6 +187,9 @@ public:
 	bool is_14bit() const
 		{ return m_param.is_any() && m_value.is_14bit(); }
 
+	void clear_value()
+		{ m_value.clear(); }
+
 private:
 
 	unsigned long m_time;
@@ -339,71 +342,104 @@ public:
 
 		if (event.param == RPN_MSB) {
 			xrpn_item& item = get_item(event.port, channel);
-			if (item.is_param_msb()
-				|| (item.is_any() && item.type() != qxgeditMidiRpn::RPN))
+			if (item.is_any() && item.type() != qxgeditMidiRpn::RPN)
 				enqueue(item);
 			if (item.type() == qxgeditMidiRpn::None) {
-				item.set_time(event.time);
-				item.set_port(event.port);
 				item.set_status(qxgeditMidiRpn::RPN | channel);
 				++m_count;
 			}
+			if (item.time() < event.time)
+				item.set_time(event.time);
+			if (item.port() != event.port)
+				item.set_port(event.port);
 			item.set_param_msb(event.value);
 			return true;
 		}
 		else
 		if (event.param == RPN_LSB) {
 			xrpn_item& item = get_item(event.port, channel);
-			if (item.is_param_lsb()
-				|| (item.is_any() && item.type() != qxgeditMidiRpn::RPN))
+			if (item.is_any() && item.type() != qxgeditMidiRpn::RPN)
 				enqueue(item);
+			if (item.type() == qxgeditMidiRpn::RPN && item.is_param_lsb()
+				&& item.param_lsb() == 0x7f && event.value == 0x7f) {
+				item.clear();
+				--m_count;
+				return true;
+			}
+			if (item.type() == qxgeditMidiRpn::NRPN) {
+				item.clear();
+				item.set_status(qxgeditMidiRpn::RPN | channel);
+			}
+			else
+			if (item.type() == qxgeditMidiRpn::RPN && item.is_param_msb()
+				&& item.param_msb() == 0x7f && event.value == 0x7f) {
+				item.clear();
+				--m_count;
+				return true;
+			}
+			if (item.type() == qxgeditMidiRpn::NRPN) {
+				item.clear();
+				item.set_status(qxgeditMidiRpn::RPN | channel);
+			}
+			else
 			if (item.type() == qxgeditMidiRpn::None) {
-				item.set_time(event.time);
-				item.set_port(event.port);
 				item.set_status(qxgeditMidiRpn::RPN | channel);
 				++m_count;
 			}
+			if (item.time() < event.time)
+				item.set_time(event.time);
+			if (item.port() != event.port)
+				item.set_port(event.port);
 			item.set_param_lsb(event.value);
 			return true;
 		}
 		else
 		if (event.param == NRPN_MSB) {
 			xrpn_item& item = get_item(event.port, channel);
-			if (item.is_param_msb()
-				|| (item.is_any() && item.type() != qxgeditMidiRpn::NRPN))
+			if (item.is_any() && item.type() != qxgeditMidiRpn::NRPN)
 				enqueue(item);
+			if (item.type() == qxgeditMidiRpn::RPN) {
+				item.clear();
+				item.set_status(qxgeditMidiRpn::NRPN | channel);
+			}
+			else
 			if (item.type() == qxgeditMidiRpn::None) {
-				item.set_time(event.time);
-				item.set_port(event.port);
 				item.set_status(qxgeditMidiRpn::NRPN | channel);
 				++m_count;
 			}
+			if (item.time() < event.time)
+				item.set_time(event.time);
+			if (item.port() != event.port)
+				item.set_port(event.port);
 			item.set_param_msb(event.value);
 			return true;
 		}
 		else
 		if (event.param == NRPN_LSB) {
 			xrpn_item& item = get_item(event.port, channel);
-			if (item.is_param_lsb()
-				|| (item.is_any() && item.type() != qxgeditMidiRpn::NRPN))
+			if (item.is_any() && item.type() != qxgeditMidiRpn::NRPN)
 				enqueue(item);
+			if (item.type() == qxgeditMidiRpn::RPN) {
+				item.clear();
+				item.set_status(qxgeditMidiRpn::NRPN | channel);
+			}
+			else
 			if (item.type() == qxgeditMidiRpn::None) {
-				item.set_time(event.time);
-				item.set_port(event.port);
 				item.set_status(qxgeditMidiRpn::NRPN | channel);
 				++m_count;
 			}
+			if (item.time() < event.time)
+				item.set_time(event.time);
+			if (item.port() != event.port)
+				item.set_port(event.port);
 			item.set_param_lsb(event.value);
 			return true;
 		}
 		else
 		if (event.param == DATA_MSB) {
 			xrpn_item& item = get_item(event.port, channel);
-			if (item.type() == qxgeditMidiRpn::None)
-				return false;
-			if (item.is_value_msb()
-				|| (item.type() != qxgeditMidiRpn::RPN
-				 && item.type() != qxgeditMidiRpn::NRPN)) {
+			if (item.type() != qxgeditMidiRpn::RPN &&
+				item.type() != qxgeditMidiRpn::NRPN) {
 				enqueue(item);
 				return false;
 			}
@@ -415,11 +451,8 @@ public:
 		else
 		if (event.param == DATA_LSB) {
 			xrpn_item& item = get_item(event.port, channel);
-			if (item.type() == qxgeditMidiRpn::None)
-				return false;
-			if (item.is_value_lsb()
-				|| (item.type() != qxgeditMidiRpn::RPN
-				 && item.type() != qxgeditMidiRpn::NRPN)) {
+			if (item.type() != qxgeditMidiRpn::RPN &&
+				item.type() != qxgeditMidiRpn::NRPN) {
 				enqueue(item);
 				return false;
 			}
@@ -431,17 +464,24 @@ public:
 		else
 		if (event.param > CC14_MSB_MIN && event.param < CC14_MSB_MAX) {
 			xrpn_item& item = get_item(event.port, channel);
+			if (item.is_any() && item.type() != qxgeditMidiRpn::CC14) {
+				enqueue(item);
+				item.clear();
+				--m_count;
+			}
+			else
 			if (item.is_param_msb() || item.is_value_msb()
-				|| (item.is_any() && item.type() != qxgeditMidiRpn::CC14)
 				|| (item.type() == qxgeditMidiRpn::CC14
 					&& item.param_lsb() != event.param + CC14_LSB_MIN))
 				enqueue(item);
 			if (item.type() == qxgeditMidiRpn::None) {
-				item.set_time(event.time);
-				item.set_port(event.port);
 				item.set_status(qxgeditMidiRpn::CC14 | channel);
 				++m_count;
 			}
+			if (item.time() < event.time)
+				item.set_time(event.time);
+			if (item.port() != event.port)
+				item.set_port(event.port);
 			item.set_param_msb(event.param);
 			item.set_value_msb(event.value);
 			if (item.is_14bit())
@@ -451,17 +491,24 @@ public:
 		else
 		if (event.param > CC14_LSB_MIN && event.param < CC14_LSB_MAX) {
 			xrpn_item& item = get_item(event.port, channel);
+			if (item.is_any() && item.type() != qxgeditMidiRpn::CC14) {
+				enqueue(item);
+				item.clear();
+				--m_count;
+			}
+			else
 			if (item.is_param_lsb() || item.is_value_lsb()
-				|| (item.is_any() && item.type() != qxgeditMidiRpn::CC14)
 				|| (item.type() == qxgeditMidiRpn::CC14
 					&& item.param_msb() != event.param - CC14_LSB_MIN))
 				enqueue(item);
 			if (item.type() == qxgeditMidiRpn::None) {
-				item.set_time(event.time);
-				item.set_port(event.port);
 				item.set_status(qxgeditMidiRpn::CC14 | channel);
 				++m_count;
 			}
+			if (item.time() < event.time)
+				item.set_time(event.time);
+			if (item.port() != event.port)
+				item.set_port(event.port);
 			item.set_param_lsb(event.param);
 			item.set_value_lsb(event.value);
 			if (item.is_14bit())
@@ -498,20 +545,25 @@ protected:
 					m_queue.push(time, port, status,
 						item.param_lsb(), item.value_lsb());
 			}
+			item.clear();
+			--m_count;
 		}
 		else
-		if (item.is_ready()) {
+		if (item.is_14bit()) {
 			m_queue.push(time, port, item.status(), item.param(), item.value());
+			item.clear_value();
+			item.set_time(0);
+		//	--m_count;
 		} else {
 			const unsigned char status = qxgeditMidiRpn::CC | item.channel();
-			if (item.type() == qxgeditMidiRpn::RPN) {
+			if (item.type() == qxgeditMidiRpn::RPN && time > 0) {
 				if (item.is_param_msb())
 					m_queue.push(time, port, status, RPN_MSB, item.param_msb());
 				if (item.is_param_lsb())
 					m_queue.push(time, port, status, RPN_LSB, item.param_lsb());
 			}
 			else
-			if (item.type() == qxgeditMidiRpn::NRPN) {
+			if (item.type() == qxgeditMidiRpn::NRPN && time > 0) {
 				if (item.is_param_msb())
 					m_queue.push(time, port, status, NRPN_MSB, item.param_msb());
 				if (item.is_param_lsb())
@@ -521,10 +573,9 @@ protected:
 				m_queue.push(time, port, status, DATA_MSB, item.value_msb());
 			if (item.is_value_lsb())
 				m_queue.push(time, port, status, DATA_LSB, item.value_lsb());
+			item.clear();
+			--m_count;
 		}
-
-		item.clear();
-		--m_count;
 	}
 
 private:
