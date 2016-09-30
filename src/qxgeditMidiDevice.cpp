@@ -1,7 +1,7 @@
 // qxgeditMidiDevice.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -73,18 +73,18 @@ public:
 		snd_seq_ev_set_dest(ev, 0, event.port);
 		snd_seq_ev_set_fixed(ev);
 
-		switch (qxgeditMidiRpn::Type(event.status & 0xf0)) {
-		case qxgeditMidiRpn::RPN:	// 0x10
+		switch (qxgeditMidiRpn::Type(event.status & 0x70)) {
+		case qxgeditMidiRpn::CC:	// 0x10
+			ev->type = SND_SEQ_EVENT_CONTROLLER;
+			break;
+		case qxgeditMidiRpn::RPN:	// 0x20
 			ev->type = SND_SEQ_EVENT_REGPARAM;
 			break;
-		case qxgeditMidiRpn::NRPN:	// 0x20
+		case qxgeditMidiRpn::NRPN:	// 0x30
 			ev->type = SND_SEQ_EVENT_NONREGPARAM;
 			break;
-		case qxgeditMidiRpn::CC14:	// 0x30
+		case qxgeditMidiRpn::CC14:	// 0x40
 			ev->type = SND_SEQ_EVENT_CONTROL14;
-			break;
-		case qxgeditMidiRpn::CC:	// 0xb0
-			ev->type = SND_SEQ_EVENT_CONTROLLER;
 			break;
 		default:
 			return false;
