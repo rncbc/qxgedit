@@ -133,7 +133,7 @@ public:
 		{ return m_port; }
 
 	bool is_status () const
-		{ return (m_status & 0x80); }
+		{ return (m_status & 0x80) && (m_status & 0x70); }
 	void set_status(unsigned char status)
 		{ m_status = (status & 0x7f) | 0x80; }
 	unsigned char status() const
@@ -517,7 +517,7 @@ public:
 				|| (item.type() == qxgeditMidiRpn::CC14
 					&& item.param_msb() != event.param - CC14_LSB_MIN))
 				enqueue(item);
-			if (item.type() == qxgeditMidiRpn::None || !item.is_status()) {
+			if (!item.is_status()) {
 				item.set_status(qxgeditMidiRpn::CC14 | channel);
 				++m_count;
 			}
@@ -549,7 +549,7 @@ protected:
 		const int port = item.port();
 
 		if (item.type() == qxgeditMidiRpn::CC14) {
-			if (item.is_ready()) {
+			if (item.is_14bit()) {
 				m_queue.push(time, port, item.status(),
 					item.param_msb(), item.value());
 			} else  {
