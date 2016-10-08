@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- Fixed a potential crash on the singleton/unique application
+  instance setup.
+
 - MIDI RPN/NRPN running status and RPN NULL reset command
   are now supported (input only). (EXPERIMENTAL)
 
