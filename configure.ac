@@ -295,6 +295,7 @@ if test "x$ac_xunique" = "xyes"; then
       ac_libs="$ac_libs -lX11"
    fi
 fi
+AC_SUBST(ac_qx11extras)
 
 # Check for debugging stack-trace.
 if test "x$ac_stacktrace" = "xyes"; then
