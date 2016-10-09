@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.4.1.6, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.4.1.7, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -287,6 +287,10 @@ AC_CHECK_HEADERS(fcntl.h sys/ioctl.h sys/stat.h unistd.h signal.h)
 # Check for X11 unique/single instance.
 if test "x$ac_xunique" = "xyes"; then
    AC_DEFINE(CONFIG_XUNIQUE, 1, [Define if X11 unique/single instance is enabled.])
+   if test "x$ac_qt4" = "xno"; then
+      ac_qx11extras="x11extras"
+   fi
+   # Some recent distros (eg. fedora, debian) require this.
    if test "x$ac_cv_lib_X11_main" = "xyes"; then
       ac_libs="$ac_libs -lX11"
    fi
