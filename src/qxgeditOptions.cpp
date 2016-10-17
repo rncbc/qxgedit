@@ -1,7 +1,7 @@
 // qxgeditOptions.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -213,8 +213,12 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 			return false;
 		}
 		else if (sArg == "-v" || sArg == "--version") {
-			out << QObject::tr("Qt: %1\n").arg(qVersion());
-			out << QObject::tr(QXGEDIT_TITLE ": %1\n").arg(QXGEDIT_VERSION);
+			out << QObject::tr("Qt: %1\n")
+				.arg(qVersion());
+			out << QObject::tr("%1: %2  (%3)\n")
+				.arg(QXGEDIT_TITLE)
+				.arg(QXGEDIT_VERSION)
+				.arg(CONFIG_BUILD_DATE);
 			return false;
 		}
 		else {
