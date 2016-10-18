@@ -4894,7 +4894,11 @@ static inline QSize sizeFromContentsProgressBar(const QStyleOptionProgressBar *o
 {
     Q_UNUSED(widget); Q_UNUSED(style);
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
     if (option->version >= 2 && ((const QStyleOptionProgressBarV2 *) option)->orientation == Qt::Vertical) {
+#else
+    if (option->version >= 2 && option->orientation == Qt::Vertical) {
+#endif
         return contentsSize + QSize(2 * widgetSize, 6);
     }
     return contentsSize + QSize(6, (textShift & 1) + 2 * widgetSize - 6);
@@ -5201,6 +5205,7 @@ QRect SkulptureStyle::subElementRect(SubElement element, const QStyleOption *opt
             break;
 #endif
         case SE_CustomBase: // avoid warning
+        default:
             break;
     }
     return ParentStyle::subElementRect(element, option, widget);
@@ -6164,7 +6169,11 @@ void paintPanelPlacesViewItem(QPainter *painter, const QStyleOptionViewItemV4 *o
 }
 #endif
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style)
+#else
+void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItem *option, const QWidget *widget, const QStyle *style)
+#endif
 {
 	Q_UNUSED(style);
 #if 0
@@ -6390,7 +6399,7 @@ void paintSizeGrip(QPainter *painter, const QStyleOption *option)
 
 extern void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option)
 #else
 void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
@@ -6435,22 +6444,27 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
 	paintIndicatorBranch(painter, &indicator);
 }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style)
 {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
     QStyleOptionToolBoxV2 opt;
+#else
+    QStyleOptionToolBox opt;
+#endif
 
-    if (option->version >= 2) {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
+    if (option->version >= 2)
         opt = *((const QStyleOptionToolBoxV2 *) option);
-    } else {
-        opt = *option;
-    }
+    else
+#endif
+    opt = *option;
+
     if ((option->state & QStyle::State_Selected) || !(option->state & (QStyle::State_Sunken | QStyle::State_MouseOver))) {
         opt.palette.setColor(QPalette::ButtonText, opt.palette.color(QPalette::WindowText));
     }
     ((QCommonStyle *) style)->QCommonStyle::drawControl(QStyle::CE_ToolBoxTabLabel, &opt, painter, widget);
 }
-#endif
+
 
 /*-----------------------------------------------------------------------*/
 
@@ -6547,7 +6561,11 @@ static bool isDiskSpaceIndicator(const QWidget *widget)
 
 /*-----------------------------------------------------------------------*/
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 static bool progressBarContentsCentered(const QStyleOptionProgressBarV2 *option, const QWidget *widget)
+#else
+static bool progressBarContentsCentered(const QStyleOptionProgressBar *option, const QWidget *widget)
+#endif
 {
     const bool vertical = option->version >= 2 && option->orientation == Qt::Vertical;
     if (vertical) {
@@ -6560,7 +6578,11 @@ static bool progressBarContentsCentered(const QStyleOptionProgressBarV2 *option,
 }
 
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 static QRect progressBarContentsRect(const QStyleOptionProgressBarV2 *option, bool contentsCentered)
+#else
+static QRect progressBarContentsRect(const QStyleOptionProgressBar *option, bool contentsCentered)
+#endif
 {
     // configuration options
     const int border = 2;
@@ -6621,7 +6643,11 @@ void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *op
 }
 
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style)
+#else
+void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style)
+#endif
 {
     if (!option->textVisible || option->text.isEmpty()) {
         return;
@@ -6681,7 +6707,11 @@ enum AnimationMode {
 };
 
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 static QColor progressBarFillColor(const QStyleOptionProgressBarV2 *option, const QWidget *widget)
+#else
+static QColor progressBarFillColor(const QStyleOptionProgressBar *option, const QWidget *widget)
+#endif
 {
     QColor fillColor = option->palette.color(BG_ROLE_CHUNK);
     if (isPasswordStrengthIndicator(widget)) {
@@ -6696,7 +6726,11 @@ static QColor progressBarFillColor(const QStyleOptionProgressBarV2 *option, cons
 }
 
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style)
+#else
+void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style)
+#endif
 {
     // configuration
     const bool busyIndicator = option->minimum == option->maximum;
@@ -8646,7 +8680,7 @@ const TabBarState *SkulpturePrivate::tabBarState(const QWidget *widget)
 static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *option, QTabBar::Shape shape)
 {
     QRect rect = r;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
     if (!isVertical(shape) && option->version >= QStyleOptionTabBarBaseV2::Version) {
         if (((const QStyleOptionTabBarBaseV2 *) option)->documentMode) {
             rect.adjust(-10, 0, 10, 0);
@@ -8668,7 +8702,7 @@ static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *
 
 void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
     if (option->version >= QStyleOptionTabBarBaseV2::Version) {
         if (((const QStyleOptionTabBarBaseV2 *) option)->documentMode) {
             QRect r = option->rect;
@@ -8776,13 +8810,13 @@ void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const
 	if (widget && widget->parentWidget()) {
 		if (!qstrcmp(widget->metaObject()->className(), "KTabBar") && !qstrcmp(widget->parentWidget()->metaObject()->className(), "KonqFrameTabs")) {
 			konq = true;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
-                        if (option->version >= QStyleOptionTabV3::Version) {
-                            if (((const QStyleOptionTabV3 *) option)->documentMode) {
-                                konq = false;
-                            }
-                        }
-#endif
+        #if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
+            if (option->version >= QStyleOptionTabV3::Version) {
+                if (((const QStyleOptionTabV3 *) option)->documentMode) {
+                    konq = false;
+                }
+            }
+        #endif
 		}
 	}
 	if (konq || (widget && !(qobject_cast<const QTabWidget *>(widget->parentWidget())))) {
@@ -9045,10 +9079,10 @@ void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const
 //	font.setBold(true);
 //	painter->setFont(font);
 #endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
-    QStyleOptionTabV3 opt;
-#else
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
     QStyleOptionTabV2 opt;
+#else
+    QStyleOptionTab opt;
 #endif
 
 	int offset = TAB_SHIFT;
@@ -9056,11 +9090,13 @@ void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const
 		offset = 0;
 	}
 
-	if (option->version > 1) {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
+	if (option->version > 1)
 		opt = *((QStyleOptionTabV2 *) option);
-	} else {
-		opt = *option;
-	}
+	else
+#endif
+	opt = *option;
+
 	Affinity affinity;
 	tabAffinity(option->shape, affinity, offset);
 	opt.rect.translate(affinity.x1 + affinity.x2, affinity.y1 + affinity.y2);
@@ -10493,10 +10529,10 @@ void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option,
 void paintPanelButtonTool(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 void paintSizeGrip(QPainter *painter, const QStyleOption *option);
 void paintScrollAreaCorner(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style);
 #endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintIndicatorTabClose(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 #endif
 
@@ -10509,12 +10545,12 @@ void paintMenuItem(QPainter *painter, const QStyleOptionMenuItem *option, const 
 void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
 void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
 void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option);
-void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style);
 #else
 void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option);
 #endif
+void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style);
 void paintHeaderEmptyArea(QPainter *painter, const QStyleOption *option);
 void paintHeaderSection(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
 void paintHeaderLabel(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
@@ -10527,8 +10563,13 @@ void paintScrollBarFirst(QPainter *painter, const QStyleOptionSlider *option);
 void paintScrollBarLast(QPainter *painter, const QStyleOptionSlider *option);
 void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option);
 void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *option);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style);
 void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style);
+#else
+void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style);
+void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style);
+#endif
 void paintSplitter(QPainter *painter, const QStyleOption *option);
 void paintDockWidgetTitle(QPainter *painter, const QStyleOptionDockWidget *option, const QWidget *widget, const QStyle *style);
 void paintRubberBand(QPainter *paint, const QStyleOptionRubberBand *option);
