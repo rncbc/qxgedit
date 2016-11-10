@@ -25,7 +25,6 @@
 #include "config.h"
 
 #define QXGEDIT_TITLE       PACKAGE_NAME
-#define QXGEDIT_VERSION     PACKAGE_VERSION
 
 #define QXGEDIT_SUBTITLE    "Qt XG Editor"
 #define QXGEDIT_WEBSITE     "http://qxgedit.sourceforge.net"

@@ -112,7 +112,7 @@ void qxgeditOptions::saveOptions (void)
 {
 	// Make program version available in the future.
 	m_settings.beginGroup("/Program");
-	m_settings.setValue("/Version", QXGEDIT_VERSION);
+	m_settings.setValue("/Version", CONFIG_BUILD_VERSION);
 	m_settings.endGroup();
 
 	// And go into general options group.
@@ -217,7 +217,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 				.arg(qVersion());
 			out << QObject::tr("%1: %2  (%3)\n")
 				.arg(QXGEDIT_TITLE)
-				.arg(QXGEDIT_VERSION)
+				.arg(CONFIG_BUILD_VERSION)
 				.arg(CONFIG_BUILD_DATE);
 			return false;
 		}
