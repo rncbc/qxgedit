@@ -4,18 +4,17 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.4.2  2016-11-14  A Fall'16 release.
 
 - Fixed a potential crash on the singleton/unique application
   instance setup.
 
 - MIDI RPN/NRPN running status and RPN NULL reset command
-  are now supported (input only). (EXPERIMENTAL)
+  are now supported (input only).
 
 - Almost complete overhaul on the configure script command
   line options, wrt. installation directories specification,
   eg. --prefix, --bindir, --libdir, --datadir and --mandir.
-  (EXPERIMENTAL)
 
 - Remove extra 'Keywords' entry and fix spelling (patches by
   Jaromír Mikeš, thanks).
