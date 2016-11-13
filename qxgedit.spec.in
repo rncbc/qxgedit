@@ -39,7 +39,7 @@ for XG devices (eg. Yamaha DB50XG).
 
 %prep
 %setup
-[ -f Makefile.git ] && %__make -f Makefile.git
+[ -x ./autogen.sh ] && ./autogen.sh
 
 %build
 %configure
