@@ -1841,11 +1841,12 @@ void qxgeditMainForm::helpAbout (void)
 	sText += "<b>" QXGEDIT_TITLE " - " + tr(QXGEDIT_SUBTITLE) + "</b><br />\n";
 	sText += "<br />\n";
 	sText += tr("Version") + ": <b>" CONFIG_BUILD_VERSION "</b><br />\n";
-	sText += "<small>" + tr("Build") + ": " CONFIG_BUILD_DATE "</small><br />\n";
+//	sText += "<small>" + tr("Build") + ": " CONFIG_BUILD_DATE "</small><br />\n";
 #ifdef CONFIG_DEBUG
+	sText += "<br />\n";
 	sText += "<small><font color=\"red\">";
 	sText += tr("Debugging option enabled.");
-	sText += "</font></small><br />";
+	sText += "</font></small><br />\n";
 #endif
 	sText += "<br />\n";
 	sText += tr("Website") + ": <a href=\"" QXGEDIT_WEBSITE "\">" QXGEDIT_WEBSITE "</a><br />\n";
