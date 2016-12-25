@@ -95,7 +95,7 @@ class SkulptureStyle : public QCommonStyle
         QIcon standardIconImplementation(StandardPixmap standardIcon, const QStyleOption *option,
                                          const QWidget *widget) const;
 #endif
-#if (QT_VERSION >= 0x040300)
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         int layoutSpacingImplementation(QSizePolicy::ControlType control1,
                                         QSizePolicy::ControlType control2, Qt::Orientation orientation,
                                          const QStyleOption *option, const QWidget *widget) const;

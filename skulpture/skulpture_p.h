@@ -59,21 +59,14 @@ class ShortcutHandler : public QObject
 
 /*-----------------------------------------------------------------------*/
 
-#if (QT_VERSION < 0x040300)
-#define QT_VERSION_CHECK(maj, min, rel) ((maj << 16) + (min << 8) + (rel))
-#endif
-
-
-/*-----------------------------------------------------------------------*/
-
 enum ArrowPlacementMode
 {
     NoArrowsMode,   // (*)
     SkulptureMode,  // (<*>)
     WindowsMode,    // <(*)>
-    KDEMode,    // <(*)<>
+    KDEMode,        // <(*)<>
     PlatinumMode,   // (*)<>
-    NextMode // <>(*)
+    NextMode        // <>(*)
 };
 
 
