@@ -1692,10 +1692,10 @@ void qxgeditMainForm::viewRandomize (void)
 	if (m_pMasterMap == NULL)
 		return;
 
-	int p = 100;
+	float p = 100.0f;
 
 	if (m_pOptions) {
-		p = m_pOptions->iRandomizePerct;
+		p = m_pOptions->fRandomizePercent;
 		if (m_pOptions->bConfirmReset) {
 			QString sText;
 			switch (m_ui.MainTabWidget->currentIndex()) {

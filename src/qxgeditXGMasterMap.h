@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -102,14 +102,14 @@ public:
 	bool auto_send() const;
 
 	// Part randomize (from value/def)
-	void randomize_part(unsigned short iPart, int p = 100);
+	void randomize_part(unsigned short iPart, float p = 20.0f);
 
 	// Drums randomize (from value/def)
 	void randomize_drums(
-		unsigned short iDrumSet, unsigned short iDrumKey, int p = 100);
+		unsigned short iDrumSet, unsigned short iDrumKey, float p = 20.0f);
 
 	// User voice randomize (from value/def)
-	void randomize_user(unsigned short iUser, int p = 100);
+	void randomize_user(unsigned short iUser, float p = 20.0f);
 
 private:
 

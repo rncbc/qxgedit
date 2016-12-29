@@ -84,8 +84,8 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	QObject::connect(m_ui.MaxRecentFilesSpinBox,
 		SIGNAL(valueChanged(int)),
 		SLOT(changed()));
-	QObject::connect(m_ui.RandomizePerctSpinBox,
-		SIGNAL(valueChanged(int)),
+	QObject::connect(m_ui.RandomizePercentSpinBox,
+		SIGNAL(valueChanged(double)),
 		SLOT(changed()));
 	QObject::connect(m_ui.BaseFontSizeComboBox,
 		SIGNAL(editTextChanged(const QString&)),
@@ -147,7 +147,7 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 	m_ui.ConfirmRemoveCheckBox->setChecked(m_pOptions->bConfirmRemove);
 	m_ui.CompletePathCheckBox->setChecked(m_pOptions->bCompletePath);
 	m_ui.MaxRecentFilesSpinBox->setValue(m_pOptions->iMaxRecentFiles);
-	m_ui.RandomizePerctSpinBox->setValue(m_pOptions->iRandomizePerct);
+	m_ui.RandomizePercentSpinBox->setValue(m_pOptions->fRandomizePercent);
 	if (m_pOptions->iBaseFontSize > 0)
 		m_ui.BaseFontSizeComboBox->setEditText(QString::number(m_pOptions->iBaseFontSize));
 	else
@@ -155,8 +155,10 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 
 	// Custom style theme...
 	int iStyleTheme = 0;
-	if (!m_pOptions->sStyleTheme.isEmpty())
-		iStyleTheme = m_ui.StyleThemeComboBox->findText(m_pOptions->sStyleTheme);
+	if (!m_pOptions->sStyleTheme.isEmpty()) {
+		iStyleTheme = m_ui.StyleThemeComboBox->findText(
+			m_pOptions->sStyleTheme, Qt::MatchExactly);
+	}
 	m_ui.StyleThemeComboBox->setCurrentIndex(iStyleTheme);
 
 	// Done. Restart clean.
@@ -207,7 +209,7 @@ void qxgeditOptionsForm::accept (void)
 		m_pOptions->bConfirmRemove  = m_ui.ConfirmRemoveCheckBox->isChecked();
 		m_pOptions->bCompletePath   = m_ui.CompletePathCheckBox->isChecked();
 		m_pOptions->iMaxRecentFiles = m_ui.MaxRecentFilesSpinBox->value();
-		m_pOptions->iRandomizePerct = m_ui.RandomizePerctSpinBox->value();
+		m_pOptions->fRandomizePercent = float(m_ui.RandomizePercentSpinBox->value());
 		m_pOptions->iBaseFontSize   = m_ui.BaseFontSizeComboBox->currentText().toInt();
 		// Custom style theme...
 		const QString sOldStyleTheme = m_pOptions->sStyleTheme;

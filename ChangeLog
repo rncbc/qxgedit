@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- Added one decimal digit to the randomize percentage input
+  spin-boxes on the General Options dialog.
+
 - Make builds reproducible byte for byte, by getting rid of
   the configure build date and time stamps.
 

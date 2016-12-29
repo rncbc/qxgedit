@@ -3629,24 +3629,24 @@ QString XGParam::text (void) const
 
 
 // Value randomizer (p = percent deviation from v).
-void XGParam::randomize ( int v, int p )
+void XGParam::randomize ( int v, float p )
 {
 	if (gets(v))
 		return;
 
-	int q = max() - min() + 1;
+	const int q = max() - min() + 1;
 	if (q > 2) {
-		int r = min() + (::rand() % q);
-		set_value(v + ((p * (r - v)) / 100));
+		const int r = min() + (::rand() % q);
+		set_value(v + int(0.1f * p * float(r - v)));
 	}
 }
 
-void XGParam::randomize_value ( int p )
+void XGParam::randomize_value ( float p )
 {
 	randomize(value(), p);
 }
 
-void XGParam::randomize_def ( int p )
+void XGParam::randomize_def ( float p )
 {
 	randomize(def(), p);
 }

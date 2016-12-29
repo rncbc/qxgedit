@@ -79,7 +79,7 @@ void qxgeditOptions::loadOptions (void)
 	bConfirmRemove  = m_settings.value("/ConfirmRemove", true).toBool();
 	bCompletePath   = m_settings.value("/CompletePath", true).toBool();
 	iMaxRecentFiles = m_settings.value("/MaxRecentFiles", 5).toInt();
-	iRandomizePerct = m_settings.value("/RandomizePerct", 20).toInt();
+	fRandomizePercent = m_settings.value("/RandomizePercent", 20.0f).toFloat();
 	iBaseFontSize   = m_settings.value("/BaseFontSize", 0).toInt();
 	sStyleTheme     = m_settings.value("/StyleTheme", "Skulpture").toString();
 	m_settings.endGroup();
@@ -130,7 +130,7 @@ void qxgeditOptions::saveOptions (void)
 	m_settings.setValue("/ConfirmRemove", bConfirmRemove);
 	m_settings.setValue("/CompletePath", bCompletePath);
 	m_settings.setValue("/MaxRecentFiles", iMaxRecentFiles);
-	m_settings.setValue("/RandomizePerct", iRandomizePerct);
+	m_settings.setValue("/RandomizePercent", fRandomizePercent);
 	m_settings.setValue("/BaseFontSize", iBaseFontSize);
 	m_settings.setValue("/StyleTheme", sStyleTheme);
 	m_settings.endGroup();

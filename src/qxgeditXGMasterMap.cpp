@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -524,10 +524,10 @@ bool qxgeditXGMasterMap::auto_send (void) const
 
 
 // Part randomize (from value/def)
-void qxgeditXGMasterMap::randomize_part ( unsigned short iPart, int p )
+void qxgeditXGMasterMap::randomize_part ( unsigned short iPart, float p )
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGMasterMap::randomize_part(%u, %d)", iPart, p);
+	qDebug("qxgeditXGMasterMap::randomize_part(%u, %g)", iPart, p);
 #endif
 
 	XGParamMap::const_iterator iter = MULTIPART.constBegin();
@@ -549,10 +549,10 @@ void qxgeditXGMasterMap::randomize_part ( unsigned short iPart, int p )
 
 // Drums randomize (from value/def)
 void qxgeditXGMasterMap::randomize_drums (
-	unsigned short iDrumSet, unsigned short iDrumKey, int p )
+	unsigned short iDrumSet, unsigned short iDrumKey, float p )
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGMasterMap::randomize_drums(%u, %u, %d)", iDrumSet, iDrumKey, p);
+	qDebug("qxgeditXGMasterMap::randomize_drums(%u, %u, %g)", iDrumSet, iDrumKey, p);
 #endif
 
 	unsigned short key = (unsigned short) (iDrumSet << 7) + iDrumKey;
@@ -569,10 +569,10 @@ void qxgeditXGMasterMap::randomize_drums (
 
 
 // User voice randomize (from value/def)
-void qxgeditXGMasterMap::randomize_user ( unsigned short iUser, int p )
+void qxgeditXGMasterMap::randomize_user ( unsigned short iUser, float p )
 {
 #ifdef CONFIG_DEBUG
-	qDebug("qxgeditXGMasterMap::randomize_user(%u, %d)", iUser, p);
+	qDebug("qxgeditXGMasterMap::randomize_user(%u, %g)", iUser, p);
 #endif
 
 	// Suspend auto-send temporarily...

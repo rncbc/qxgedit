@@ -60,7 +60,7 @@ public:
 	bool    bConfirmReset;
 	bool    bConfirmRemove;
 	bool    bCompletePath;
-	int     iRandomizePerct;
+	float   fRandomizePercent;
 	int     iBaseFontSize;
 	QString sStyleTheme;
 

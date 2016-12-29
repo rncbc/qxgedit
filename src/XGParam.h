@@ -237,13 +237,13 @@ public:
 	QString text() const;
 
 	// Randomizers (p = percent from value/def).
-	void randomize_value(int p = 100);
-	void randomize_def(int p = 100);
+	void randomize_value(float p = 20.0f);
+	void randomize_def(float p = 20.0f);
 
 protected:
 
 	// Value randomizer (p = percent from v).
-	void randomize(int u, int p);
+	void randomize(int u, float p);
 
 	// Parameter descriptor.
 	const XGParamItem *m_param;
