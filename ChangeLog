@@ -6,6 +6,8 @@ ChangeLog
 
 GIT HEAD
 
+- Added French man page (by Olivier Humbert, thanks).
+
 - Added one decimal digit to the randomize percentage input
   spin-boxes on the General Options dialog.
 
