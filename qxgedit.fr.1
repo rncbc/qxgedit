@@ -1,0 +1,58 @@
+.TH QSAMPLER 1 "Juin 17, 2014"
+.SH NOM
+Qsampler \- une interface graphique Qt pour LinuxSampler
+.SH SYNOPSIS
+.B qsampler
+[\fIoptions\fR] [\fIfichier-session\fR]
+.SH DESCRIPTION
+Cette page de manuel documente rapidement la commande
+.B qsampler
+.
+.PP
+\fBQsampler\fP est une interface graphique pour LinuxSampler, écrite en C++
+autour des outils Qt, en utilisant Qt Designer. Pour le moment, c'est simplement
+un emballage en tant que client de référence pour le protocole de contrôle de
+LinuxSampler (LSCP).
+.PP
+\fBLinuxSampler\fP est un travail en cours. Le but est de produire un
+échantillonneur audio logiciel pur à source ouverte et gratuit avec des
+fonctionnalités de niveau professionnel, comparable aux échantillonneurs
+matériels et aux logiciels d'échantillonnage commerciaux pour Windows/Mac.
+.PP
+La plateforme initiale sera Linux car elle est l'un système d'exploitation
+multimédia à source ouverte des plus prometteurs. Grâce aux rustines du noyau
+et au kit de connexion Jack, Linux est actuellement capable de fournir une
+réponse MIDI-vers-audio en dessous de 5 millisecondes, à toute épreuve.
+.SH OPTIONS
+.HP
+\fB\-s, \fB\-\-start\fR
+.IP
+Démarre le serveur linuxsampler localement
+.HP
+\fB\-h, \fB\-\-hostname\fR=[\fIhôte\fR]
+.IP
+Spécifie le nom d'hôte du serveur linuxsampler (par défaut = localhost)
+.HP
+\fB\-p, \fB\-\-port\fR=[\fIport\fR]
+.IP
+Spécifie le numéro de port du serveur linuxsampler (par défaut = 8888)
+.HP
+\fB\-?, \fB\-\-help\fR
+.IP
+Affiche de l'aide à propos des options de ligne de commande
+.HP
+\fB\-v, \fB\-\-version\fR
+.IP
+Affiche des informations de version
+.SH FICHIERS
+Les paramètres de configuration sont stockés dans ~/.config/rncbc.org/Qsampler.conf
+.SH VOIR ÉGALEMENT
+.BR linuxsampler (1)
+.SH AUTEUR
+Qsampler a été écrit par Rui Nuno Capela et Christian Schoenebeck.
+.PP
+Cette page de manuel a été écrite par Matt Flax <flatmax@Matt.Flax>, pour le
+projet Debian (mais peut être utilisée par d'autres).
+.PP
+La version française a été traduite par Olivier Humbert <trebmuh@tuxfamily.org>,
+pour le projet LibraZiK (mais peut être utilisée par d'autres).
