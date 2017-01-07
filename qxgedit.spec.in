@@ -69,7 +69,7 @@ for XG devices (eg. Yamaha DB50XG).
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_libdir}/qt5/plugins/styles/libskulpturestyle.so
 %{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/man/man1/%{name}.1.gz
+%{_datadir}/man/man1/%{name}*.1.gz
 
 %changelog
 * Mon Nov 14 2016 Rui Nuno Capela <rncbc@rncbc.org> 0.4.2
