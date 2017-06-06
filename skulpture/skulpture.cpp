@@ -7554,6 +7554,7 @@ bool FrameShadow::event(QEvent *e)
 			break;
 		case QEvent::MouseButtonPress:
 			releaseMouse();
+			// Fall thru...
 		case QEvent::MouseMove:
 			case QEvent::MouseButtonRelease: {
 				QMouseEvent *me = reinterpret_cast<QMouseEvent *>(e);
