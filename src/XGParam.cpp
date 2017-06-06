@@ -1,7 +1,7 @@
 // XGParam.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2017, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -678,7 +678,7 @@ const char *getsnote ( unsigned short c )
 	const char *tabnote[] =
 		{ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 	static char note[5];
-	snprintf(note, sizeof(note), "%-2s%2d", tabnote[c % 12], (c / 12) - 1);
+	snprintf(note, sizeof(note), "%-2s%2u", tabnote[c % 12], (c / 12) - 1);
 	return note;
 }
 
