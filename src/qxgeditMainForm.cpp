@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2017, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -49,6 +49,8 @@
 #include <QDragEnterEvent>
 #include <QCloseEvent>
 #include <QDropEvent>
+
+#include <QStyleFactory>
 
 #if QT_VERSION >= 0x050000
 #include <QMimeData>
@@ -1799,8 +1801,15 @@ void qxgeditMainForm::viewOptions (void)
 		enum { RestartSession = 1, RestartProgram = 2, RestartAny = 3 };
 		// Check wheather something immediate has changed.
 		int iNeedRestart = 0;
-		if (sOldStyleTheme   != m_pOptions->sStyleTheme ||
-			iOldBaseFontSize != m_pOptions->iBaseFontSize)
+		if (sOldStyleTheme != m_pOptions->sStyleTheme) {
+			if (m_pOptions->sStyleTheme.isEmpty()) {
+				iNeedRestart |= RestartProgram;
+			} else {
+				QApplication::setStyle(
+					QStyleFactory::create(m_pOptions->sStyleTheme));
+			}
+		}
+		if (iOldBaseFontSize != m_pOptions->iBaseFontSize)
 			iNeedRestart |= RestartProgram;
 		if (( bOldCompletePath && !m_pOptions->bCompletePath) ||
 			(!bOldCompletePath &&  m_pOptions->bCompletePath) ||

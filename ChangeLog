@@ -4,6 +4,12 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Changing the View/Options.../General/Widget style theme
+  now takes effect immediately unless it's to "(default)".
+
+
 0.4.3  2017-04-27  Pre-LAC2017 release frenzy.
 
 - Added French man page (by Olivier Humbert, thanks).
