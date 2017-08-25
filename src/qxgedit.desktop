@@ -11,4 +11,6 @@ Categories=Audio;AudioVideo;Midi;X-Alsa;Qt;
 Keywords=MIDI;ALSA;DB50XG;SYX;XG;Editor;Qt;
 Terminal=false
 Type=Application
+StartupWMClass=qxgedit
+X-Window-Icon=qxgedit
 X-SuSE-translate=true
