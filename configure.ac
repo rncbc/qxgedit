@@ -3,7 +3,7 @@ AC_INIT(QXGEdit, 0.4.4, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
-AC_CONFIG_FILES(Makefile qxgedit.spec src/src.pri src/qxgedit.desktop skulpture/skulpture.pri)
+AC_CONFIG_FILES(Makefile qxgedit.spec src/src.pri skulpture/skulpture.pri)
 
 # Build version string.
 AC_CACHE_VAL([ac_cv_build_version], [
