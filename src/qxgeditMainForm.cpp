@@ -56,9 +56,6 @@
 #include <QMimeData>
 #endif
 
-#if defined(WIN32)
-#undef HAVE_SIGNAL_H
-#endif
 
 //-------------------------------------------------------------------------
 // LADISH Level 1 support stuff.
