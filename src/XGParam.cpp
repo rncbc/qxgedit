@@ -1,7 +1,7 @@
 // XGParam.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2017, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2018, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -379,15 +379,15 @@ unsigned short getu0x40 ( float v )
 //
 
 static
-float getv0x7f ( unsigned short c )
+float getv0x80 ( unsigned short c )
 {
-	return (float) (c - 127);
+	return (float) (c - 128);
 }
 
 static
-unsigned short getu0x7f ( float v )
+unsigned short getu0x80 ( float v )
 {
-	return (unsigned short) (v + 127.0f);
+	return (unsigned short) (v + 128.0f);
 }
 
 
@@ -443,13 +443,13 @@ unsigned short getu_100 ( float v )
 //
 
 static
-float getv9450 ( unsigned short c )
+float getv94_5 ( unsigned short c )
 {
 	return 94.5f * getv0x40(c) / 0.63f;
 }
 
 static
-unsigned short getu9450 ( float v )
+unsigned short getu94_5 ( float v )
 {
 	return getu0x40(0.63f * v / 94.5f);
 }
@@ -461,13 +461,13 @@ unsigned short getu9450 ( float v )
 static
 float getv12_7 ( unsigned short c )
 {
-	return 0.1f * getv0x7f(c);
+	return 0.1f * getv0x80(c);
 }
 
 static
 unsigned short getu12_7 ( float v )
 {
-	return getu0x7f(10.0f * v);
+	return getu0x80(10.0f * v);
 }
 
 
@@ -2755,7 +2755,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x06, 1,  0,    2, "Same [Note ]Key[ Assign]",1, NULL,     NULL,     getskeya, NULL     },
 	{ 0x07, 1,  0,    3, "[Mode ]Type",             0, NULL,     NULL,     getspmod, NULL     }, // other than part10, 2=part10
 	{ 0x08, 1, 40,   88, "[Note ]Shift",           64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x09, 2,  0,  255, "Detune",                127, getv12_7, getu12_7, NULL,     unit_Hz  },
+	{ 0x09, 2,  0,  255, "Detune",                128, getv12_7, getu12_7, NULL,     unit_Hz  },
 	{ 0x0b, 1,  0,  127, "Volume",                 64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0c, 1,  0,  127, "[Velocity Sense ]Depth", 64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0d, 1,  0,  127, "[Velocity Sense ]Offset",64, NULL,     NULL,     NULL,     NULL     },
@@ -2775,13 +2775,13 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x1b, 1,  0,  127, "[EG ]Decay[ Time]",      64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x1c, 1,  0,  127, "[EG ]Release[ Time]",    64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x1d, 1, 40,   88, "[Wheel ]Pitch",          64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x1e, 1,  0,  127, "[Wheel ]Filter",         64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x1e, 1,  0,  127, "[Wheel ]Filter",         64, getv94_5, getu94_5, NULL,     NULL     },
 	{ 0x1f, 1,  1,  127, "[Wheel ]Ampl[itude]",    64, getv_100, getu_100, NULL,     unit_pct },
 	{ 0x20, 1,  0,  127, "[Wheel ]LFO Pitch",      10, NULL,     NULL,     NULL,     NULL     },
 	{ 0x21, 1,  0,  127, "[Whell ]LFO Filter",      0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x22, 1,  0,  127, "[Wheel ]LFO Ampl[itude]", 0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x23, 1, 40,   88, "[Bend ]Pitch",           66, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x24, 1,  0,  127, "[Bend ]Filter",          64, getv9450, getu9450, NULL,     unit_cen },
+	{ 0x24, 1,  0,  127, "[Bend ]Filter",          64, getv94_5, getu94_5, NULL,     unit_cen },
 	{ 0x25, 1,  0,  127, "[Bend ]Ampl[itude]",     64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x26, 1,  1,  127, "[Bend ]LFO Pitch",       64, getv_100, getu_100, NULL,     unit_pct },
 	{ 0x27, 1,  1,  127, "[Bend ]LFO Filter",      64, getv_100, getu_100, NULL,     unit_pct },
@@ -2816,27 +2816,27 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x4b, 1,  0,  127, "[Scale Tuning ]A#",      64, getv0x40, getu0x40, NULL,     unit_cen },
 	{ 0x4c, 1,  0,  127, "[Scale Tuning ]B",       64, getv0x40, getu0x40, NULL,     unit_cen },
 	{ 0x4d, 1, 40,   88, "[CAT ]Pitch",            64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x4e, 1,  0,  127, "[CAT ]Filter",           64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x4e, 1,  0,  127, "[CAT ]Filter",           64, getv94_5, getu94_5, NULL,     NULL     },
 	{ 0x4f, 1,  0,  127, "[CAT ]Ampl[itude]",      64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x50, 1,  0,  127, "[CAT ]LFO Pitch",         0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x51, 1,  0,  127, "[CAT ]LFO Filter",        0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x52, 1,  0,  127, "[CAT ]LFO Aampl[itude]",  0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x53, 1, 40,   88, "[PAT ]Pitch",            64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x54, 1,  0,  127, "[PAT ]Filter",           64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x54, 1,  0,  127, "[PAT ]Filter",           64, getv94_5, getu94_5, NULL,     NULL     },
 	{ 0x55, 1,  0,  127, "[PAT ]Ampl[itude]",      64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x56, 1,  0,  127, "[PAT ]LFO Pitch",         0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x57, 1,  0,  127, "[PAT ]LFO Filter",        0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x58, 1,  0,  127, "[PAT ]LFO Ampl[itude]",   0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x59, 1,  0,   95, "[AC1 ]Controller",       16, NULL,     NULL,     NULL,     NULL     },
 	{ 0x5a, 1, 40,   88, "[AC1 ]Pitch",            64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x5b, 1,  0,  127, "[AC1 ]Filter",           64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x5b, 1,  0,  127, "[AC1 ]Filter",           64, getv94_5, getu94_5, NULL,     NULL     },
 	{ 0x5c, 1,  0,  127, "[AC1 ]Ampl[itude]",      64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x5d, 1,  0,  127, "[AC1 ]LFO Pitch",         0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x5e, 1,  0,  127, "[AC1 ]LFO Filter",        0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x5f, 1,  0,  127, "[AC1 ]LFO Ampl[itude]",   0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x60, 1,  0,   95, "[AC2 ]Controller",       17, NULL,     NULL,     NULL,     NULL     },
 	{ 0x61, 1, 40,   88, "[AC2 ]Pitch",            64, getv0x40, getu0x40, NULL,     unit_sem },
-	{ 0x62, 1,  0,  127, "[AC2 ]Filter",           64, getv9450, getu9450, NULL,     NULL     },
+	{ 0x62, 1,  0,  127, "[AC2 ]Filter",           64, getv94_5, getu94_5, NULL,     NULL     },
 	{ 0x63, 1,  0,  127, "[AC2 ]Ampl[itude]",      64, getv0x40, getu0x40, NULL,     NULL     },
 	{ 0x64, 1,  0,  127, "[AC2 ]LFO Pitch",         0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x65, 1,  0,  127, "[AC2 ]LFO Filter",        0, NULL,     NULL,     NULL,     NULL     },
@@ -3468,24 +3468,46 @@ const char *XGParam::unit (void) const
 }
 
 
-// Encode raw data from param value.
+// Encode raw data from param value (7bit).
 void XGParam::set_data_value ( unsigned char *data, unsigned short u ) const
 {
-	unsigned short bits = 7;
-	unsigned short n = size();
-	if (n > 2) bits -= 3;
+	const unsigned short n = size();
+	const unsigned short bits = (n > 2 ? 4 : 7);
+	const unsigned short mask = (1 << bits) - 1;
+	for (unsigned short i = 0; i < n; ++i)
+		data[i] = (u >> (bits * (n - i - 1))) & mask;
+}
+
+
+// Decode param value from raw data (7bit).
+unsigned short XGParam::data_value ( unsigned char *data ) const
+{
+	const unsigned short n = size();
+	const unsigned short bits = (n > 2 ? 4 : 7);
+	unsigned short ret = 0;
+	for (unsigned short i = 0; i < n; ++i)
+		ret += (data[i] << (bits * (n - i - 1)));
+
+	return ret;
+}
+
+
+// Encode raw data from param value (4bit).
+void XGParam::set_data_value2 ( unsigned char *data, unsigned short u ) const
+{
+	const unsigned short n = size();
+	const unsigned short bits = 4;
 	unsigned short mask = (1 << bits) - 1;
 	for (unsigned short i = 0; i < n; ++i)
 		data[i] = (u >> (bits * (n - i - 1))) & mask;
 }
 
 
-// Decode param value from raw data.
-unsigned short XGParam::data_value ( unsigned char *data ) const
+// Decode param value from raw data (4bit).
+unsigned short XGParam::data_value2 ( unsigned char *data ) const
 {
-	unsigned short bits = 7;
-	unsigned short n = size();
-	if (n > 2) bits -= 3;
+	const unsigned short n = size();
+	const unsigned short bits = 4;
 	unsigned short ret = 0;
 	for (unsigned short i = 0; i < n; ++i)
 		ret += (data[i] << (bits * (n - i - 1)));
@@ -3765,7 +3787,7 @@ XGDataParam::~XGDataParam (void)
 void XGDataParam::set_data (
 	unsigned char *data, unsigned short len, XGParamObserver *sender )
 {
-	unsigned short n = size();
+	const unsigned short n = size();
 	if (len > n)
 		len = n;
 	if (data && len > 0)
@@ -3776,7 +3798,7 @@ void XGDataParam::set_data (
 	notify_update(sender);
 }
 
-unsigned char *XGDataParam::data() const
+unsigned char *XGDataParam::data (void) const
 {
 	return m_data;
 }

@@ -1,7 +1,7 @@
 // XGParam.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2017, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2018, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -205,9 +205,13 @@ public:
 	virtual const char *gets(unsigned short u) const;
 	virtual const char *unit() const;
 
-	// Decode param value from raw data.
+	// Decode param value from raw 7bit data.
 	void set_data_value(unsigned char *data, unsigned short u) const;
 	unsigned short data_value(unsigned char *data) const;
+
+	// Decode param value from raw 2byte, 4bit data (eg. DETUNE).
+	void set_data_value2(unsigned char *data, unsigned short u) const;
+	unsigned short data_value2(unsigned char *data) const;
 
 	// Value accessors.
 	void set_value_update(unsigned short u, XGParamObserver *sender = NULL);

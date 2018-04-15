@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2018, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -251,6 +251,10 @@ unsigned short qxgeditXGMasterMap::set_param_data (
 	if (pParam->size() > 4) {
 		XGDataParam *pDataParam = static_cast<XGDataParam *> (pParam);
 		pDataParam->set_data(data, pDataParam->size(), pObserver);
+	}
+	else
+	if (high == 0x08 && low == 0x09) { // DETUNE (2byte, 4bit).
+		pParam->set_value(pParam->data_value2(data), pObserver);
 	} else {
 		pParam->set_value(pParam->data_value(data), pObserver);
 	}

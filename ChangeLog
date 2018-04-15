@@ -6,6 +6,8 @@ ChangeLog
 
 GIT HEAD
 
+- Corrected wrong handling of the MULTIPART Detune parameter.
+
 - Trying to get CC14 MSB+LSB (course+fine) running status on,
   no matter whether each pairing event are under 200ms apart
 

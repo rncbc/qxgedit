@@ -1,7 +1,7 @@
 // XGParamSysex.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2018, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -73,7 +73,10 @@ XGParamSysex::XGParamSysex ( XGParam *param )
 	m_data[i++] = param->mid();
 	m_data[i++] = param->low();
 
-	param->set_data_value(&m_data[i], param->value());
+	if (param->high() == 0x08 && param->low() == 0x09) // DETUNE (2byte,4 bit).
+		param->set_data_value2(&m_data[i], param->value());
+	else
+		param->set_data_value(&m_data[i], param->value());
 	i += param->size();
 
 	// Coda...
@@ -119,7 +122,12 @@ XGUserVoiceSysex::XGUserVoiceSysex ( unsigned short id )
 			if (param->size() > 4) {
 				XGDataParam *dataparam = static_cast<XGDataParam *> (param);
 				::memcpy(&m_data[i], dataparam->data(), dataparam->size());
-			} else {
+			}
+			else
+			if (high == 0x08 && low == 0x09) { // DETUNE (2byte, 4bit).
+				param->set_data_value2(&m_data[i], param->value());
+			}
+			else {
 				param->set_data_value(&m_data[i], param->value());
 			}
 			i += param->size();
