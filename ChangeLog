@@ -4,12 +4,12 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.5.1  2018-05-21  Pre-LAC2018 release frenzy.
 
 - Corrected wrong handling of the MULTIPART Detune parameter.
 
 - Trying to get CC14 MSB+LSB (course+fine) running status on,
-  no matter whether each pairing event are under 200ms apart
+  no matter whether each pairing event are under 200ms apart.
 
 - A little hardening on the configure (autoconf) macro side.
 
