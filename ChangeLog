@@ -6,7 +6,7 @@ ChangeLog
 
 GIT HEAD
 
-- Fixed for g++ >= 8.1.1 and skulpture style plugin build.
+- Fixed for some g++ >= 8.1.1 warnings and quietness.
 
 
 0.5.1  2018-05-21  Pre-LAC2018 release frenzy.
