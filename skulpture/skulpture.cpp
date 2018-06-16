@@ -1374,25 +1374,25 @@ void paintScrollArrow(QPainter *painter, const QStyleOption *option, Qt::ArrowTy
 }
 
 
-void paintIndicatorArrowDown(QPainter *painter, const QStyleOption *option)
+void paintIndicatorArrowDown(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArrow(painter, option, Qt::DownArrow, false);
 }
 
 
-void paintIndicatorArrowLeft(QPainter *painter, const QStyleOption *option)
+void paintIndicatorArrowLeft(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArrow(painter, option, Qt::LeftArrow, false);
 }
 
 
-void paintIndicatorArrowRight(QPainter *painter, const QStyleOption *option)
+void paintIndicatorArrowRight(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArrow(painter, option, Qt::RightArrow, false);
 }
 
 
-void paintIndicatorArrowUp(QPainter *painter, const QStyleOption *option)
+void paintIndicatorArrowUp(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArrow(painter, option, Qt::UpArrow, false);
 }
@@ -1614,7 +1614,7 @@ extern void paintButtonPanel(QPainter *painter, const QStyleOptionButton *option
 static const int button_edge_size = 16;
 static const int button_inner_width = 32;
 
-void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget)
+void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget, const QStyle */*style*/)
 {
 	Q_UNUSED(widget);
 	QPalette::ColorRole bgrole = /*widget ? widget->backgroundRole() : */QPalette::Button;
@@ -1696,13 +1696,15 @@ void paintPanelButtonTool(QPainter *painter, const QStyleOption *option, const Q
 	// ### don't know if tool buttons should have that big frame...
 	button.rect.adjust(-1, -1, 1, 1);
 	// FIXME bgrole?
-	paintCommandButtonPanel(painter, &button, 0);
+	paintCommandButtonPanel(painter, &button, 0, 0);
 }
 
 
 /*-----------------------------------------------------------------------*/
 
-static void paintIndicatorCached(QPainter *painter, const QStyleOption *option, void (*paintIndicator)(QPainter *painter, const QStyleOption *option), bool useCache, const QString &pixmapName)
+static void paintIndicatorCached(QPainter *painter, const QStyleOption *option,
+	void (*paintIndicator)(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style),
+	bool useCache, const QString &pixmapName)
 {
 	QPixmap pixmap;
 
@@ -1723,7 +1725,7 @@ static void paintIndicatorCached(QPainter *painter, const QStyleOption *option, 
 	//	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		p.setFont(painter->font());
 		p.setRenderHint(QPainter::Antialiasing, true);
-		paintIndicator(&p, &opt);
+		paintIndicator(&p, &opt, 0, 0);
 		p.end();
 		if (useCache) {
 			QPixmapCache::insert(pixmapName, pixmap);
@@ -1788,7 +1790,7 @@ static const ShapeFactory::Code checkShapeDescription2[] = {
 };
 
 
-static void paintCheckBox(QPainter *painter, const QStyleOption *option)
+static void paintCheckBox(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     if (option->state & QStyle::State_NoChange) {
         paintThinFrame(painter, option->rect, option->palette, 30, -10);
@@ -1828,7 +1830,7 @@ static void paintCheckBox(QPainter *painter, const QStyleOption *option)
 }
 
 
-void paintIndicatorCheckBox(QPainter *painter, const QStyleOptionButton *option)
+void paintIndicatorCheckBox(QPainter *painter, const QStyleOptionButton *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	bool useCache = UsePixmapCache;
 	QString pixmapName;
@@ -1880,7 +1882,7 @@ static inline QPainterPath radioShape(const QRectF rect)
 }
 
 
-static void paintRadioButton(QPainter *painter, const QStyleOption *option)
+static void paintRadioButton(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     const qreal lightAngle = option->direction == Qt::LeftToRight ? M_PI / 4 : 3 * M_PI / 4;
     QColor color = option->palette.color(QPalette::Base);
@@ -1915,7 +1917,7 @@ static void paintRadioButton(QPainter *painter, const QStyleOption *option)
 }
 
 
-void paintIndicatorRadioButton(QPainter *painter, const QStyleOptionButton *option)
+void paintIndicatorRadioButton(QPainter *painter, const QStyleOptionButton *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	bool useCache = UsePixmapCache;
 	QString pixmapName;
@@ -1977,11 +1979,11 @@ void paintIndicatorMenuCheckMark(QPainter *painter, const QStyleOptionMenuItem *
 	if (option->checkType == QStyleOptionMenuItem::Exclusive) {
 		QSize size(style->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth, option, widget), style->pixelMetric(QStyle::PM_ExclusiveIndicatorHeight, option, widget));
                 buttonOption.rect = QRect(option->rect.x() + ((option->rect.width() - size.width()) >> 1), option->rect.y() + ((option->rect.height() - size.height()) >> 1), size.width(), size.height());
-		paintIndicatorRadioButton(painter, &buttonOption);
+		paintIndicatorRadioButton(painter, &buttonOption, 0, 0);
 	} else {
 		QSize size(style->pixelMetric(QStyle::PM_IndicatorWidth, option, widget), style->pixelMetric(QStyle::PM_IndicatorHeight, option, widget));
                 buttonOption.rect = QRect(option->rect.x() + ((option->rect.width() - size.width()) >> 1), option->rect.y() + ((option->rect.height() - size.height()) >> 1), size.width(), size.height());
-                paintIndicatorCheckBox(painter, &buttonOption);
+                paintIndicatorCheckBox(painter, &buttonOption, 0, 0);
 	}
 }
 
@@ -1997,7 +1999,7 @@ void paintQ3CheckListIndicator(QPainter *painter, const QStyleOptionQ3ListView *
 		QSize size(style->pixelMetric(QStyle::PM_IndicatorWidth, option, widget), style->pixelMetric(QStyle::PM_IndicatorHeight, option, widget));
 		buttonOption.rect = QRect(option->rect.center() - QPoint(size.width() / 2, size.height() / 2), size);
 //		buttonOption.rect.adjust(0, -1, 0, -1);
-		paintIndicatorCheckBox(painter, &buttonOption);
+		paintIndicatorCheckBox(painter, &buttonOption, 0, 0);
 	}
 }
 
@@ -2011,26 +2013,26 @@ void paintQ3CheckListExclusiveIndicator(QPainter *painter, const QStyleOptionQ3L
 		QSize size(style->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth, option, widget), style->pixelMetric(QStyle::PM_ExclusiveIndicatorHeight, option, widget));
 		buttonOption.rect = QRect(option->rect.center() - QPoint(size.width() / 2, size.height() / 2), size);
 //		buttonOption.rect.adjust(0, -1, 0, -1);
-		paintIndicatorRadioButton(painter, &buttonOption);
+		paintIndicatorRadioButton(painter, &buttonOption, 0, 0);
 	}
 }
 
 #endif
 
 
-void paintIndicatorItemViewItemCheck(QPainter *painter, const QStyleOption *option)
+void paintIndicatorItemViewItemCheck(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	QStyleOptionButton buttonOption;
 
 	buttonOption.QStyleOption::operator=(*option);
 	buttonOption.state &= ~QStyle::State_MouseOver;
-	paintIndicatorCheckBox(painter, &buttonOption);
+	paintIndicatorCheckBox(painter, &buttonOption, 0, 0);
 }
 
 
 /*-----------------------------------------------------------------------*/
 
-static void paintGrip(QPainter *painter, const QStyleOption *option)
+static void paintGrip(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 //	painter->fillRect(option->rect, Qt::red);
 	int d = qMin(option->rect.width(), option->rect.height());
@@ -2129,7 +2131,7 @@ void paintCachedGrip(QPainter *painter, const QStyleOption *option, QPalette::Co
 
 /*-----------------------------------------------------------------------*/
 
-void paintDialBase(QPainter *painter, const QStyleOption *option)
+void paintDialBase(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 //	painter->fillRect(option->rect, Qt::red);
 //	painter->save();
@@ -2292,7 +2294,7 @@ void paintIndicatorDial(QPainter *painter, const QStyleOptionSlider *option)
 
 /*-----------------------------------------------------------------------*/
 
-void paintBranchChildren(QPainter *painter, const QStyleOption *option)
+void paintBranchChildren(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	painter->setBrush(option->palette.color(QPalette::Text));
 	painter->setPen(Qt::NoPen);
@@ -2965,7 +2967,7 @@ void paintDial(QPainter *painter, const QStyleOptionSlider *option, const QWidge
 
 /*-----------------------------------------------------------------------*/
 
-void paintFrameDockWidget(QPainter *painter, const QStyleOptionFrame *option)
+void paintFrameDockWidget(QPainter *painter, const QStyleOptionFrame *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintThinFrame(painter, option->rect, option->palette, -60, 160);
 	paintThinFrame(painter, option->rect.adjusted(1, 1, -1, -1), option->palette, -20, 60);
@@ -3514,7 +3516,7 @@ void paintRecessedFrame(QPainter *painter, const QRect &rect, const QPalette &pa
 
 /*-----------------------------------------------------------------------*/
 
-void paintFrameGroupBox(QPainter *painter, const QStyleOptionFrame *option)
+void paintFrameGroupBox(QPainter *painter, const QStyleOptionFrame *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	QRect r = option->rect;
 	r.setHeight(/*r.height() +*/ 2);
@@ -3627,7 +3629,7 @@ void paintStyledFrame(QPainter *painter, const QStyleOptionFrame *option, const 
 }
 
 
-void paintFrameLineEdit(QPainter *painter, const QStyleOptionFrame *option)
+void paintFrameLineEdit(QPainter *painter, const QStyleOptionFrame *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintRecessedFrame(painter, option->rect, option->palette, RF_Small);
 }
@@ -3796,7 +3798,7 @@ void paintPanelLineEdit(QPainter *painter, const QStyleOptionFrame *option, cons
 }
 
 
-void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option, const QWidget *widget)
+void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option, const QWidget *widget, const QStyle */*style*/)
 {
 	if (!(option->state & QStyle::State_KeyboardFocusChange)) {
 		return;
@@ -4010,7 +4012,7 @@ QGradient GradientFactory::createGradient(GradientFactory::Description descripti
 
 /*-----------------------------------------------------------------------*/
 
-void paintHeaderEmptyArea(QPainter *painter, const QStyleOption *option)
+void paintHeaderEmptyArea(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	if (option->state & QStyle::State_Enabled) {
 		painter->fillRect(option->rect, option->palette.color(QPalette::Window).lighter(107));
@@ -4110,7 +4112,7 @@ static const ShapeFactory::Code headerSortIndicatorShapeDescription[] = {
 };
 
 
-void paintHeaderSortIndicator(QPainter *painter, const QStyleOptionHeader *option)
+void paintHeaderSortIndicator(QPainter *painter, const QStyleOptionHeader *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	int h = option->fontMetrics.height() / 2 + 2;
 	int w = option->fontMetrics.height() / 4 + 2;
@@ -5363,7 +5365,7 @@ QRect subControlRectTitleBar(const QStyleOptionTitleBar *option, QStyle::SubCont
 
 /*-----------------------------------------------------------------------*/
 
-void paintFrameWindow(QPainter *painter, const QStyleOptionFrame *option)
+void paintFrameWindow(QPainter *painter, const QStyleOptionFrame *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 //	painter->fillRect(option->rect, option->palette.color(QPalette::Window));
 #if 0
@@ -5630,14 +5632,14 @@ int getWindowFrameMask(QStyleHintReturnMask *mask, const QStyleOptionTitleBar *o
 
 /*-----------------------------------------------------------------------*/
 
-void paintFrameMenu(QPainter *painter, const QStyleOptionFrame *option)
+void paintFrameMenu(QPainter *painter, const QStyleOptionFrame *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintThinFrame(painter, option->rect, option->palette, -60, 160);
 	paintThinFrame(painter, option->rect.adjusted(1, 1, -1, -1), option->palette, -20, 60);
 }
 
 
-void paintPanelMenuBar(QPainter *painter, const QStyleOptionFrame *option)
+void paintPanelMenuBar(QPainter *painter, const QStyleOptionFrame *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	Q_UNUSED(painter); Q_UNUSED(option);
 //	paintThinFrame(painter, option->rect, option->palette, -20, 60);
@@ -5645,7 +5647,7 @@ void paintPanelMenuBar(QPainter *painter, const QStyleOptionFrame *option)
 }
 
 
-void paintMenuBarEmptyArea(QPainter *painter, const QStyleOption *option)
+void paintMenuBarEmptyArea(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
         Q_UNUSED(painter); Q_UNUSED(option);
 //	painter->fillRect(option->rect, option->palette.color(QPalette::Window));
@@ -5654,7 +5656,7 @@ void paintMenuBarEmptyArea(QPainter *painter, const QStyleOption *option)
 
 /*-----------------------------------------------------------------------*/
 
-extern void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget);
+extern void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget, const QStyle *style);
 
 void paintMenuBarItem(QPainter *painter, const QStyleOptionMenuItem *option, const QWidget *widget, const QStyle *style)
 {
@@ -5668,7 +5670,7 @@ void paintMenuBarItem(QPainter *painter, const QStyleOptionMenuItem *option, con
         painter->save();
         painter->setClipRect(button.rect.adjusted(1, 1, -1, -1));
         // call without widget to get QPalette::Button background
-        paintCommandButtonPanel(painter, &button, 0);
+        paintCommandButtonPanel(painter, &button, 0, 0);
         painter->restore();
     } else {
         opt.palette.setColor(QPalette::ButtonText, opt.palette.color(QPalette::WindowText));
@@ -5908,7 +5910,7 @@ void paintMenuItem(QPainter *painter, const QStyleOptionMenuItem *option, const 
                 button.features = QStyleOptionButton::None;
                 button.state |= QStyle::State_MouseOver;
                 button.rect = selectionRect.adjusted(-1, -1, 1, 1);
-                paintCommandButtonPanel(painter, &button, 0);
+                paintCommandButtonPanel(painter, &button, 0, 0);
                 menuForegroundRole = QPalette::ButtonText;
                 break;
             }
@@ -6271,7 +6273,7 @@ void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItem *optio
 
 extern void paintCachedIndicatorBranchChildren(QPainter *painter, const QStyleOption *option);
 
-void paintIndicatorBranch(QPainter *painter, const QStyleOption *option)
+void paintIndicatorBranch(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     QPoint center = option->rect.center() + (option->direction == Qt::LeftToRight ? QPoint(2, 0) : QPoint(-1, 0));
 
@@ -6330,13 +6332,13 @@ void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, co
                     opt.state |= QStyle::State_Children | (item.state & QStyle::State_Open);
                 }
                 opt.rect = QRect(option->rect.left(), y, option->rect.width(), item.height);
-                paintIndicatorBranch(painter, &opt);
+                paintIndicatorBranch(painter, &opt, 0, 0);
 
                 if (opt.state & QStyle::State_Sibling && item.height < item.totalHeight) {
                     opt.state = QStyle::State_Sibling;
                     opt.rect = QRect(option->rect.left(), y + item.height,
                                      option->rect.width(), item.totalHeight - item.height);
-                    paintIndicatorBranch(painter, &opt);
+                    paintIndicatorBranch(painter, &opt, 0, 0);
                 }
             }
             y += item.totalHeight;
@@ -6349,7 +6351,7 @@ void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, co
 
 /*-----------------------------------------------------------------------*/
 
-void paintSizeGrip(QPainter *painter, const QStyleOption *option)
+void paintSizeGrip(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     Qt::Corner corner = Qt::BottomRightCorner;
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
@@ -6397,12 +6399,12 @@ void paintSizeGrip(QPainter *painter, const QStyleOption *option)
 
 /*-----------------------------------------------------------------------*/
 
-extern void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget);
+extern void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget, const QStyle *style);
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option)
+void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option, const QWidget */*widget*/, const QStyle */*style*/)
 #else
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
+void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option, const QWidget */*widget*/, const QStyle */*style*/)
 #endif
 {
 	QRect r = option->rect;
@@ -6423,7 +6425,7 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
 		button.features = QStyleOptionButton::None;
 		button.rect.adjust(-1, -1, 1, 1);
 		// ### needs QPalette::Window ?
-		paintCommandButtonPanel(painter, &button, 0);
+		paintCommandButtonPanel(painter, &button, 0, 0);
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         } else if (option->version >= 2 && option->selectedPosition == QStyleOptionToolBoxV2::PreviousIsSelected) {
 		r.setHeight(2);
@@ -6441,7 +6443,7 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
 	if (option->state & QStyle::State_Selected) {
 		indicator.state |= QStyle::State_Open;
 	}
-	paintIndicatorBranch(painter, &indicator);
+	paintIndicatorBranch(painter, &indicator, 0, 0);
 }
 
 void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style)
@@ -6470,7 +6472,7 @@ void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, 
 
 extern void paintCachedGrip(QPainter *painter, const QStyleOption *option, QPalette::ColorRole bgrole);
 
-void paintSplitter(QPainter *painter, const QStyleOption *option)
+void paintSplitter(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	if (option->state & QStyle::State_Enabled && option->state & QStyle::State_MouseOver) {
 		painter->fillRect(option->rect, QColor(255, 255, 255, 60));
@@ -6488,7 +6490,7 @@ void paintSplitter(QPainter *painter, const QStyleOption *option)
 
 /*-----------------------------------------------------------------------*/
 
-void paintRubberBand(QPainter *painter, const QStyleOptionRubberBand *option)
+void paintRubberBand(QPainter *painter, const QStyleOptionRubberBand *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	painter->save();
 	if (true || option->shape == QRubberBand::Rectangle) {
@@ -6637,7 +6639,7 @@ static QRect progressBarContentsRect(const QStyleOptionProgressBar *option, bool
 
 /*-----------------------------------------------------------------------*/
 
-void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *option)
+void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     painter->fillRect(option->rect.adjusted(2, 2, -2, -2), option->palette.brush(BG_ROLE_PROGRESS));
 }
@@ -6957,7 +6959,7 @@ void paintScrollAreaCorner(QPainter *painter, const QStyleOption *option, const 
 
 extern void paintSliderGroove(QPainter *painter, QRect &rect, const QStyleOptionSlider *option);
 
-void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option)
+void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     const bool paintGroove = true;
 
@@ -6969,7 +6971,7 @@ void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option)
 }
 
 
-void paintScrollBarAddLine(QPainter *painter, const QStyleOptionSlider *option)
+void paintScrollBarAddLine(QPainter *painter, const QStyleOptionSlider *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArea(painter, option);
 //	paintThinFrame(painter, option->rect, option->palette, -40, 120);
@@ -6982,7 +6984,7 @@ void paintScrollBarAddLine(QPainter *painter, const QStyleOptionSlider *option)
 }
 
 
-void paintScrollBarSubLine(QPainter *painter, const QStyleOptionSlider *option)
+void paintScrollBarSubLine(QPainter *painter, const QStyleOptionSlider *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArea(painter, option);
 //	paintThinFrame(painter, option->rect, option->palette, -40, 120);
@@ -6995,18 +6997,18 @@ void paintScrollBarSubLine(QPainter *painter, const QStyleOptionSlider *option)
 }
 
 
-void paintScrollBarFirst(QPainter *painter, const QStyleOptionSlider *option)
+void paintScrollBarFirst(QPainter *painter, const QStyleOptionSlider *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
-    paintScrollBarSubLine(painter, option);
+    paintScrollBarSubLine(painter, option, 0, 0);
     if (option->minimum != option->maximum) {
         painter->fillRect(option->rect.adjusted(2, 2, -2, -2), option->palette.color(QPalette::WindowText));
     }
 }
 
 
-void paintScrollBarLast(QPainter *painter, const QStyleOptionSlider *option)
+void paintScrollBarLast(QPainter *painter, const QStyleOptionSlider *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
-    paintScrollBarAddLine(painter, option);
+    paintScrollBarAddLine(painter, option, 0, 0);
     if (option->minimum != option->maximum) {
         painter->fillRect(option->rect.adjusted(2, 2, -2, -2), option->palette.color(QPalette::WindowText));
     }
@@ -7291,7 +7293,7 @@ extern void paintCachedGrip(QPainter *painter, const QStyleOption *option, QPale
 extern void paintSliderHandle(QPainter *painter, const QRect &rect, const QStyleOptionSlider *option);
 
 
-void paintScrollBarSlider(QPainter *painter, const QStyleOptionSlider *option)
+void paintScrollBarSlider(QPainter *painter, const QStyleOptionSlider *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     if (option->minimum == option->maximum) {
         paintScrollArea(painter, option);
@@ -8382,25 +8384,25 @@ QRect subControlRectSlider(const QStyleOptionSlider *option, QStyle::SubControl 
 
 extern void paintScrollArrow(QPainter *painter, const QStyleOption *option, Qt::ArrowType arrow, bool spin);
 
-void paintIndicatorSpinDown(QPainter *painter, const QStyleOption *option)
+void paintIndicatorSpinDown(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArrow(painter, option, Qt::DownArrow, true);
 }
 
 
-void paintIndicatorSpinUp(QPainter *painter, const QStyleOption *option)
+void paintIndicatorSpinUp(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	paintScrollArrow(painter, option, Qt::UpArrow, true);
 }
 
 
-void paintIndicatorSpinMinus(QPainter *painter, const QStyleOption *option)
+void paintIndicatorSpinMinus(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     paintScrollArrow(painter, option, Qt::LeftArrow, true);
 }
 
 
-void paintIndicatorSpinPlus(QPainter *painter, const QStyleOption *option)
+void paintIndicatorSpinPlus(QPainter *painter, const QStyleOption *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
     paintScrollArrow(painter, option, Qt::RightArrow, true);
 }
@@ -8701,7 +8703,7 @@ static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *
 }
 
 
-void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget)
+void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget, const QStyle */*style*/)
 {
 #if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
     if (option->version >= QStyleOptionTabBarBaseV2::Version) {
@@ -8748,7 +8750,7 @@ void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *optio
 }
 
 
-void paintTabWidgetFrame(QPainter *painter, const QStyleOptionTabWidgetFrame *option, const QWidget *widget)
+void paintTabWidgetFrame(QPainter *painter, const QStyleOptionTabWidgetFrame *option, const QWidget *widget, const QStyle */*style*/)
 {
 	Q_UNUSED(widget);
 
@@ -9368,7 +9370,7 @@ void SkulptureStyle::drawItemText(QPainter * painter, const QRect &rectangle, in
 
 extern void paintCachedGrip(QPainter *painter, const QStyleOption *option, QPalette::ColorRole bgrole);
 
-void paintToolBarSeparator(QPainter *painter, const QStyleOptionToolBar *option)
+void paintToolBarSeparator(QPainter *painter, const QStyleOptionToolBar *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 #if 0
 	int d = 3;
@@ -9405,7 +9407,7 @@ void paintToolBarSeparator(QPainter *painter, const QStyleOptionToolBar *option)
 
 /*-----------------------------------------------------------------------*/
 
-void paintToolBarHandle(QPainter *painter, const QStyleOptionToolBar *option)
+void paintToolBarHandle(QPainter *painter, const QStyleOptionToolBar *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 #if 1
 	int d = 5;
@@ -9439,7 +9441,7 @@ void paintToolBarHandle(QPainter *painter, const QStyleOptionToolBar *option)
 
 /*-----------------------------------------------------------------------*/
 
-void paintPanelToolBar(QPainter *painter, const QStyleOptionToolBar *option)
+void paintPanelToolBar(QPainter *painter, const QStyleOptionToolBar *option, const QWidget */*widget*/, const QStyle */*style*/)
 {
 #if 0
     QLinearGradient gradient(option->rect.topLeft(), option->rect.bottomLeft());
@@ -10482,13 +10484,13 @@ int SkulptureStyle::skulpturePrivateMethod(SkulptureStyle::SkulpturePrivateMetho
 
 /*-----------------------------------------------------------------------*/
 
-void paintNothing(QPainter */*painter*/, const QStyleOption */*option*/)
+void paintNothing(QPainter */*painter*/, const QStyleOption */*option*/, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	//
 }
 
 
-void paintDefault(QPainter */*painter*/, const QStyleOption */*option*/)
+void paintDefault(QPainter */*painter*/, const QStyleOption */*option*/, const QWidget */*widget*/, const QStyle */*style*/)
 {
 	//
 }
@@ -10496,39 +10498,39 @@ void paintDefault(QPainter */*painter*/, const QStyleOption */*option*/)
 
 /*-----------------------------------------------------------------------*/
 
-void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget);
+void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget, const QStyle *style);
 void paintPushButtonBevel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget, const QStyle *style);
-void paintTabWidgetFrame(QPainter *painter, const QStyleOptionTabWidgetFrame *option, const QWidget *widget);
-void paintIndicatorCheckBox(QPainter *painter, const QStyleOptionButton *option);
-void paintIndicatorItemViewItemCheck(QPainter *painter, const QStyleOption *option);
+void paintTabWidgetFrame(QPainter *painter, const QStyleOptionTabWidgetFrame *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorCheckBox(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorItemViewItemCheck(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 void paintQ3CheckListIndicator(QPainter *painter, const QStyleOptionQ3ListView *option, const QWidget *widget, const QStyle *style);
 void paintQ3CheckListExclusiveIndicator(QPainter *painter, const QStyleOptionQ3ListView *option, const QWidget *widget, const QStyle *style);
 #endif
-void paintIndicatorRadioButton(QPainter *painter, const QStyleOptionButton *option);
-void paintIndicatorSpinDown(QPainter *painter, const QStyleOption *option);
-void paintIndicatorSpinUp(QPainter *painter, const QStyleOption *option);
-void paintIndicatorSpinMinus(QPainter *painter, const QStyleOption *option);
-void paintIndicatorSpinPlus(QPainter *painter, const QStyleOption *option);
-void paintIndicatorArrowDown(QPainter *painter, const QStyleOption *option);
-void paintIndicatorArrowLeft(QPainter *painter, const QStyleOption *option);
-void paintIndicatorArrowRight(QPainter *painter, const QStyleOption *option);
-void paintIndicatorArrowUp(QPainter *painter, const QStyleOption *option);
-void paintHeaderSortIndicator(QPainter *painter, const QStyleOptionHeader *option);
+void paintIndicatorRadioButton(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorSpinDown(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorSpinUp(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorSpinMinus(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorSpinPlus(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorArrowDown(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorArrowLeft(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorArrowRight(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintIndicatorArrowUp(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintHeaderSortIndicator(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
 void paintStyledFrame(QPainter *painter, const QStyleOptionFrame *frame, const QWidget *widget, const QStyle *style);
-void paintFrameLineEdit(QPainter *painter, const QStyleOptionFrame *frame);
+void paintFrameLineEdit(QPainter *painter, const QStyleOptionFrame *frame, const QWidget *widget, const QStyle *style);
 void paintPanelLineEdit(QPainter *painter, const QStyleOptionFrame *frame, const QWidget *widget, const QStyle *style);
-void paintFrameDockWidget(QPainter *painter, const QStyleOptionFrame *frame);
-void paintFrameWindow(QPainter *painter, const QStyleOptionFrame *frame);
-void paintToolBarSeparator(QPainter *painter, const QStyleOptionToolBar *option);
-void paintToolBarHandle(QPainter *painter, const QStyleOptionToolBar *option);
+void paintFrameDockWidget(QPainter *painter, const QStyleOptionFrame *frame, const QWidget *widget, const QStyle *style);
+void paintFrameWindow(QPainter *painter, const QStyleOptionFrame *frame, const QWidget *widget, const QStyle *style);
+void paintToolBarSeparator(QPainter *painter, const QStyleOptionToolBar *option, const QWidget *widget, const QStyle *style);
+void paintToolBarHandle(QPainter *painter, const QStyleOptionToolBar *option, const QWidget *widget, const QStyle *style);
 void paintScrollArea(QPainter *painter, const QStyleOption *option);
-void paintPanelToolBar(QPainter *painter, const QStyleOptionToolBar *option);
+void paintPanelToolBar(QPainter *painter, const QStyleOptionToolBar *option, const QWidget *widget, const QStyle *style);
 void paintIndicatorMenuCheckMark(QPainter *painter, const QStyleOptionMenuItem *option, const QWidget *widget, const QStyle *style);
-void paintFrameGroupBox(QPainter *painter, const QStyleOptionFrame *option);
-void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option, const QWidget *widget);
+void paintFrameGroupBox(QPainter *painter, const QStyleOptionFrame *option, const QWidget *widget, const QStyle *style);
+void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option, const QWidget *widget, const QStyle *style);
 void paintPanelButtonTool(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
-void paintSizeGrip(QPainter *painter, const QStyleOption *option);
+void paintSizeGrip(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 void paintScrollAreaCorner(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style);
@@ -10537,33 +10539,33 @@ void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *opt
 void paintIndicatorTabClose(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 #endif
 
-void paintMenuBarEmptyArea(QPainter *painter, const QStyleOption *option);
-void paintPanelMenuBar(QPainter *painter, const QStyleOptionFrame *frame);
+void paintMenuBarEmptyArea(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
+void paintPanelMenuBar(QPainter *painter, const QStyleOptionFrame *frame, const QWidget *widget, const QStyle *style);
 void paintMenuBarItem(QPainter *painter, const QStyleOptionMenuItem *option, const QWidget *widget, const QStyle *style);
-void paintFrameMenu(QPainter *painter, const QStyleOptionFrame *frame);
+void paintFrameMenu(QPainter *painter, const QStyleOptionFrame *frame, const QWidget *widget, const QStyle *style);
 void paintMenuItem(QPainter *painter, const QStyleOptionMenuItem *option, const QWidget *widget, const QStyle *style);
 
 void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
 void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
-void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget);
+void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget, const QStyle *style);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option);
+void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option, const QWidget *widget, const QStyle *style);
 #else
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option);
+void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style);
 #endif
 void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style);
-void paintHeaderEmptyArea(QPainter *painter, const QStyleOption *option);
+void paintHeaderEmptyArea(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 void paintHeaderSection(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
 void paintHeaderLabel(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
-void paintIndicatorBranch(QPainter *painter, const QStyleOption *option);
+void paintIndicatorBranch(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 
-void paintScrollBarSlider(QPainter *painter, const QStyleOptionSlider *option);
-void paintScrollBarAddLine(QPainter *painter, const QStyleOptionSlider *option);
-void paintScrollBarSubLine(QPainter *painter, const QStyleOptionSlider *option);
-void paintScrollBarFirst(QPainter *painter, const QStyleOptionSlider *option);
-void paintScrollBarLast(QPainter *painter, const QStyleOptionSlider *option);
-void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option);
-void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *option);
+void paintScrollBarSlider(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
+void paintScrollBarAddLine(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
+void paintScrollBarSubLine(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
+void paintScrollBarFirst(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
+void paintScrollBarLast(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
+void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
+void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style);
 void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style);
@@ -10571,9 +10573,9 @@ void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *o
 void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style);
 void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style);
 #endif
-void paintSplitter(QPainter *painter, const QStyleOption *option);
+void paintSplitter(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 void paintDockWidgetTitle(QPainter *painter, const QStyleOptionDockWidget *option, const QWidget *widget, const QStyle *style);
-void paintRubberBand(QPainter *paint, const QStyleOptionRubberBand *option);
+void paintRubberBand(QPainter *paint, const QStyleOptionRubberBand *option, const QWidget *widget, const QStyle *style);
 void paintComboBoxLabel(QPainter *painter, const QStyleOptionComboBox *option, const QWidget *widget, const QStyle *style);
 void paintToolButtonLabel(QPainter *painter, const QStyleOptionToolButton *option, const QWidget *widget, const QStyle *style);
 

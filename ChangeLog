@@ -4,6 +4,11 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Fixed for g++ >= 8.1.1 and skulpture style plugin build.
+
+
 0.5.1  2018-05-21  Pre-LAC2018 release frenzy.
 
 - Corrected wrong handling of the MULTIPART Detune parameter.
