@@ -2756,7 +2756,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x07, 1,  0,    3, "[Mode ]Type",             0, NULL,     NULL,     getspmod, NULL     }, // other than part10, 2=part10
 	{ 0x08, 1, 40,   88, "[Note ]Shift",           64, getv0x40, getu0x40, NULL,     unit_sem },
 	{ 0x09, 2,  0,  255, "Detune",                128, getv12_7, getu12_7, NULL,     unit_Hz  },
-	{ 0x0b, 1,  0,  127, "Volume",                 64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x0b, 1,  0,  127, "Volume",                100, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0c, 1,  0,  127, "[Velocity Sense ]Depth", 64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0d, 1,  0,  127, "[Velocity Sense ]Offset",64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x0e, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, NULL,     NULL     }, // 0=random
@@ -2783,9 +2783,9 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x23, 1, 40,   88, "[Bend ]Pitch",           66, getv0x40, getu0x40, NULL,     unit_sem },
 	{ 0x24, 1,  0,  127, "[Bend ]Filter",          64, getv94_5, getu94_5, NULL,     unit_cen },
 	{ 0x25, 1,  0,  127, "[Bend ]Ampl[itude]",     64, getv0x40, getu0x40, NULL,     NULL     },
-	{ 0x26, 1,  1,  127, "[Bend ]LFO Pitch",       64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x27, 1,  1,  127, "[Bend ]LFO Filter",      64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x28, 1,  1,  127, "[Bend ]LFO Ampl[itude]", 64, getv_100, getu_100, NULL,     unit_pct },
+	{ 0x26, 1,  0,  127, "[Bend ]LFO Pitch",       64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x27, 1,  0,  127, "[Bend ]LFO Filter",      64, NULL,     NULL,     NULL,     NULL     },
+	{ 0x28, 1,  0,  127, "[Bend ]LFO Ampl[itude]", 64, NULL,     NULL,     NULL,     NULL     },
 	{ 0x30, 1,  0,    1, "[Rcv ]P[itch ]B[end]",    1, NULL,     NULL,     getsonff, NULL     },
 	{ 0x31, 1,  0,    1, "[Rcv ]C[han ]A[fter ]T[ouch]",1,NULL,  NULL,     getsonff, NULL     },
 	{ 0x32, 1,  0,    1, "[Rcv ]P[rogram ]C[hange]",1, NULL,     NULL,     getsonff, NULL     },

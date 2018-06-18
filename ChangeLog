@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- Corrected default handling of MULTIPART > Main > Control >
+  Volume and also MULTIPART > Control > Pitch Bend > LFO ...
+
 - Fixed for some g++ >= 8.1.1 warnings and quietness.
 
 
