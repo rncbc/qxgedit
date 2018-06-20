@@ -2777,7 +2777,7 @@ XGParamItem MULTIPARTParamTab[] =
 	{ 0x1d, 1, 40,   88, "[Wheel ]Pitch",          64, getv0x40, getu0x40, NULL,     unit_sem },
 	{ 0x1e, 1,  0,  127, "[Wheel ]Filter",         64, getv94_5, getu94_5, NULL,     NULL     },
 	{ 0x1f, 1,  1,  127, "[Wheel ]Ampl[itude]",    64, getv_100, getu_100, NULL,     unit_pct },
-	{ 0x20, 1,  0,  127, "[Wheel ]LFO Pitch",       0, NULL,     NULL,     NULL,     NULL     },
+	{ 0x20, 1,  0,  127, "[Wheel ]LFO Pitch",      10, NULL,     NULL,     NULL,     NULL     },
 	{ 0x21, 1,  0,  127, "[Whell ]LFO Filter",      0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x22, 1,  0,  127, "[Wheel ]LFO Ampl[itude]", 0, NULL,     NULL,     NULL,     NULL     },
 	{ 0x23, 1, 40,   88, "[Bend ]Pitch",           66, getv0x40, getu0x40, NULL,     unit_sem },
