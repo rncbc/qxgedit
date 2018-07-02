@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- AppData/AppStream metadata is now settled under an all
+  permisssive license (FSFAP).
+
 - Corrected default handling of MULTIPART > Main > Control >
   Volume and also MULTIPART > Control > Pitch Bend > LFO ...
 
