@@ -1,7 +1,7 @@
 // qxgedit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -420,7 +420,9 @@ int main ( int argc, char **argv )
 #endif
 #endif
 	qxgeditApplication app(argc, argv);
-
+#if QT_VERSION >= 0x050600
+	app.setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 	// Construct default settings; override with command line arguments.
 	qxgeditOptions options;
 	if (!options.parse_args(app.arguments())) {
