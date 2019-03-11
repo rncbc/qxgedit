@@ -4,9 +4,9 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.5.4  2019-03-11  Pre-LAC2019 Release Frenzy.
 
-- HiDPI display screen support (Qt >= 5.6). (EXPERIMENTAL)
+- HiDPI display screen support (Qt >= 5.6).
 
 - Old deprecated Qt4 build support is no more.
 
