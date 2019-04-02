@@ -1,7 +1,7 @@
 // qxgeditMainForm.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2017, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -116,6 +116,7 @@ protected slots:
 	void sysexReceived(const QByteArray&);
 
 	void handle_sigusr1();
+	void handle_sigterm();
 
 protected:
 
@@ -149,8 +150,9 @@ private:
 	qxgeditMidiDevice  *m_pMidiDevice;
 	qxgeditXGMasterMap *m_pMasterMap;
 
-	QSocketNotifier *m_pUsr1Notifier;
-	
+	QSocketNotifier *m_pSigusr1Notifier;
+	QSocketNotifier *m_pSigtermNotifier;
+
 	QString m_sFilename;
 	int m_iUntitled;
 	int m_iDirtyCount;

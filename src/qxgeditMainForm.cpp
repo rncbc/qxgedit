@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2017, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -70,17 +70,28 @@
 #include <signal.h>
 
 // File descriptor for SIGUSR1 notifier.
-static int g_fdUsr1[2];
+static int g_fdSigusr1[2];
 
 // Unix SIGUSR1 signal handler.
 static void qxgedit_sigusr1_handler ( int /* signo */ )
 {
 	char c = 1;
 
-	(::write(g_fdUsr1[0], &c, sizeof(c)) > 0);
+	(::write(g_fdSigusr1[0], &c, sizeof(c)) > 0);
 }
 
-#endif
+// File descriptor for SIGTERM notifier.
+static int g_fdSigterm[2];
+
+// Unix SIGTERM signal handler.
+static void qxgedit_sigterm_handler ( int /* signo */ )
+{
+	char c = 1;
+
+	(::write(g_fdSigterm[0], &c, sizeof(c)) > 0);
+}
+
+#endif	// HAVE_SIGNAL_H
 
 
 //-------------------------------------------------------------------------
@@ -122,25 +133,48 @@ qxgeditMainForm::qxgeditMainForm (
 	// LADISH Level 1 suport.
 	
 	// Initialize file descriptors for SIGUSR1 socket notifier.
-	::socketpair(AF_UNIX, SOCK_STREAM, 0, g_fdUsr1);
-	m_pUsr1Notifier
-		= new QSocketNotifier(g_fdUsr1[1], QSocketNotifier::Read, this);
+	::socketpair(AF_UNIX, SOCK_STREAM, 0, g_fdSigusr1);
+	m_pSigusr1Notifier
+		= new QSocketNotifier(g_fdSigusr1[1], QSocketNotifier::Read, this);
 
-	QObject::connect(m_pUsr1Notifier,
+	QObject::connect(m_pSigusr1Notifier,
 		SIGNAL(activated(int)),
 		SLOT(handle_sigusr1()));
 
 	// Install SIGUSR1 signal handler.
-    struct sigaction usr1;
-    usr1.sa_handler = qxgedit_sigusr1_handler;
-    ::sigemptyset(&usr1.sa_mask);
-    usr1.sa_flags = 0;
-    usr1.sa_flags |= SA_RESTART;
-    ::sigaction(SIGUSR1, &usr1, NULL);
+    struct sigaction sigusr1;
+    sigusr1.sa_handler = qxgedit_sigusr1_handler;
+    ::sigemptyset(&sigusr1.sa_mask);
+    sigusr1.sa_flags = 0;
+    sigusr1.sa_flags |= SA_RESTART;
+    ::sigaction(SIGUSR1, &sigusr1, NULL);
+
+	// Initialize file descriptors for SIGTERM socket notifier.
+	::socketpair(AF_UNIX, SOCK_STREAM, 0, g_fdSigterm);
+	m_pSigtermNotifier
+		= new QSocketNotifier(g_fdSigterm[1], QSocketNotifier::Read, this);
+
+	QObject::connect(m_pSigtermNotifier,
+		SIGNAL(activated(int)),
+		SLOT(handle_sigterm()));
+
+	// Install SIGTERM signal handler.
+	struct sigaction sigterm;
+	sigterm.sa_handler = qxgedit_sigterm_handler;
+	::sigemptyset(&sigterm.sa_mask);
+	sigterm.sa_flags = 0;
+	sigterm.sa_flags |= SA_RESTART;
+	::sigaction(SIGTERM, &sigterm, NULL);
+	::sigaction(SIGQUIT, &sigterm, NULL);
+
+	// Ignore SIGHUP/SIGINT signals.
+	::signal(SIGHUP, SIG_IGN);
+	::signal(SIGINT, SIG_IGN);
 
 #else	// HAVE_SIGNAL_H
 
-	m_pUsr1Notifier = NULL;
+	m_pSigusr1Notifier = NULL;
+	m_pSigtermNotifier = NULL;
 	
 #endif	// !HAVE_SIGNAL_H
 
@@ -229,8 +263,10 @@ qxgeditMainForm::qxgeditMainForm (
 qxgeditMainForm::~qxgeditMainForm (void)
 {
 #ifdef HAVE_SIGNAL_H
-	if (m_pUsr1Notifier)
-		delete m_pUsr1Notifier;
+	if (m_pSigusr1Notifier)
+		delete m_pSigusr1Notifier;
+	if (m_pSigtermNotifier)
+		delete m_pSigtermNotifier;
 #endif
 
 	// Free designated devices.
@@ -1245,8 +1281,21 @@ void qxgeditMainForm::handle_sigusr1 (void)
 
 	char c;
 
-	if (::read(g_fdUsr1[1], &c, sizeof(c)) > 0)
+	if (::read(g_fdSigusr1[1], &c, sizeof(c)) > 0)
 		saveSession(false);
+
+#endif
+}
+
+
+void qxgeditMainForm::handle_sigterm (void)
+{
+#ifdef HAVE_SIGNAL_H
+
+	char c;
+
+	if (::read(g_fdSigterm[1], &c, sizeof(c)) > 0)
+		close();
 
 #endif
 }
