@@ -64,13 +64,13 @@
 
 #include <QSocketNotifier>
 
+#include <uinstd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-
 #include <signal.h>
 
 // File descriptor for SIGUSR1 notifier.
-static int g_fdSigusr1[2];
+static int g_fdSigusr1[2] = { -1, -1 };
 
 // Unix SIGUSR1 signal handler.
 static void qxgedit_sigusr1_handler ( int /* signo */ )
@@ -81,7 +81,7 @@ static void qxgedit_sigusr1_handler ( int /* signo */ )
 }
 
 // File descriptor for SIGTERM notifier.
-static int g_fdSigterm[2];
+static int g_fdSigterm[2] = { -1, -1 };
 
 // Unix SIGTERM signal handler.
 static void qxgedit_sigterm_handler ( int /* signo */ )
@@ -142,12 +142,12 @@ qxgeditMainForm::qxgeditMainForm (
 		SLOT(handle_sigusr1()));
 
 	// Install SIGUSR1 signal handler.
-    struct sigaction sigusr1;
-    sigusr1.sa_handler = qxgedit_sigusr1_handler;
-    ::sigemptyset(&sigusr1.sa_mask);
-    sigusr1.sa_flags = 0;
-    sigusr1.sa_flags |= SA_RESTART;
-    ::sigaction(SIGUSR1, &sigusr1, NULL);
+	struct sigaction sigusr1;
+	sigusr1.sa_handler = qxgedit_sigusr1_handler;
+	::sigemptyset(&sigusr1.sa_mask);
+	sigusr1.sa_flags = 0;
+	sigusr1.sa_flags |= SA_RESTART;
+	::sigaction(SIGUSR1, &sigusr1, NULL);
 
 	// Initialize file descriptors for SIGTERM socket notifier.
 	::socketpair(AF_UNIX, SOCK_STREAM, 0, g_fdSigterm);
