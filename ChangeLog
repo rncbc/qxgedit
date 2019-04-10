@@ -4,12 +4,12 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-0.5.5  2019-04-11  A Spring-Break'19 Release.
+0.5.4  2019-04-11  A Spring-Break'19 Release.
 
 - Re-defined all main application UNIX signal handling.
 
 
-0.5.4  2019-03-11  Pre-LAC2019 Release Frenzy.
+0.5.3  2019-03-11  Pre-LAC2019 Release Frenzy.
 
 - HiDPI display screen support (Qt >= 5.6).
 
