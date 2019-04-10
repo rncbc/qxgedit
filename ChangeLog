@@ -4,10 +4,9 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.5.5  2019-04-11  A Spring-Break'19 Release.
 
 - Re-defined all main application UNIX signal handling.
-  (EXPERIMENTAL)
 
 
 0.5.4  2019-03-11  Pre-LAC2019 Release Frenzy.
