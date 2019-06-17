@@ -6,6 +6,8 @@ ChangeLog
 
 GIT HEAD
 
+- Configure updated to check for qtchooser availability.
+
 - Corrected display of note names on the lowest octave,
   as from "C -1" (0) through  "B -1" (11).
 
