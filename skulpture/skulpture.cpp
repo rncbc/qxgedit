@@ -1,6 +1,7 @@
 /*
- * Skulpture - Classical Three-Dimensional Artwork for Qt 4
+ * Skulpture - Classical Three-Dimensional Artwork for Qt 5
  *
+ * Copyright (c) 2017-2019 rncbc aka Rui Nuno Capela <rncbc@rncbc.org>
  * Copyright (c) 2007-2010 Christoph Feck <christoph@maxiom.de>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -307,7 +308,7 @@ void SkulptureStyle::polish(QWidget *widget)
 		//	((QAbstractScrollArea *) widget)->viewport()->setPalette(palette);
 		//	printf("frame style is 0x%08x\n", ((QFrame *) widget)->frameStyle());
                         if (d->expensiveShadows) {
-                            ((QFrame *) widget)->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+                            (static_cast<QFrame *> (widget))->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
                         }
 		}
 #endif
@@ -342,9 +343,9 @@ void SkulptureStyle::polish(QWidget *widget)
 			} else
 #endif
                         {
-				d->mapper.setMapping(edit, edit);
-				connect(edit, SIGNAL(textChanged()), &d->mapper, SLOT(map()));
-				connect(&d->mapper, SIGNAL(mapped(QWidget *)), d, SLOT(textEditSourceChanged(QWidget *)));
+				//d->mapper.setMapping(edit, edit);
+				//connect(edit, SIGNAL(textChanged()), &d->mapper, SLOT(map()));
+				//connect(&d->mapper, SIGNAL(mapped(QWidget *)), d, SLOT(textEditSourceChanged(QWidget *)));
 				d->updateTextEditMargins(edit);
 			}
 			edit->viewport()->installEventFilter(d);
@@ -753,7 +754,7 @@ void SkulptureStyle::unpolish(QWidget *widget)
 		} else
 #endif
                 {
-			d->mapper.removeMappings(edit);
+			//d->mapper.removeMappings(edit);
 		}
 		edit->viewport()->removeEventFilter(d);
                 edit->removeEventFilter(d);
@@ -1636,7 +1637,7 @@ void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option
 		}
 		pixmapName.sprintf("scp-cbp-%x-%x-%x-%x-%llx-%x", features, uint(bgrole), state, option->direction, option->palette.cacheKey(), r.height());
 	}
-	if (!useCache || !QPixmapCache::find(pixmapName, pixmap)) {
+	if (!useCache || !QPixmapCache::find(pixmapName, &pixmap)) {
 		pixmap =  QPixmap(r.size());
 		pixmap.fill(Qt::transparent);
 	//	pixmap.fill(Qt::red);
@@ -1708,7 +1709,7 @@ static void paintIndicatorCached(QPainter *painter, const QStyleOption *option,
 {
 	QPixmap pixmap;
 
-	if (!useCache || !QPixmapCache::find(pixmapName, pixmap)) {
+	if (!useCache || !QPixmapCache::find(pixmapName, &pixmap)) {
 		pixmap =  QPixmap(option->rect.size());
 #if 1
 		pixmap.fill(Qt::transparent);
@@ -3046,13 +3047,13 @@ void paintDockWidgetTitle(QPainter *painter, const QStyleOptionDockWidget *optio
 		}
 	}
 	if (vertical) {
-		QMatrix mat;
+		QTransform mat;
 		QPointF c = r.center();
 		mat.translate(c.x(), c.y());
 		mat.rotate(-90);
 		mat.translate(-c.x(), -c.y());
 		r = mat.mapRect(r);
-		painter->setMatrix(mat, true);
+		painter->setTransform(mat, true);
 	}
 //	painter->fillRect(r, Qt::red);
 	painter->setClipRect(r);
@@ -6677,7 +6678,7 @@ void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBar *opt
     }
     const bool contentsCentered = progressBarContentsCentered(option, widget);
     const QRect contentsRect = progressBarContentsRect(option, contentsCentered);
-    QMatrix mat;
+    QTransform mat;
     if (vertical) {
         QPointF c = QRectF(option->rect).center();
         mat.translate(c.x(), c.y());
@@ -6687,14 +6688,14 @@ void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBar *opt
     QRect r = mat.mapRect(option->rect).adjusted(6, 2, -6, -2);
     painter->save();
     painter->setClipRegion(contentsRect);
-    painter->setMatrix(mat, true);
+    painter->setTransform(mat, true);
     style->drawItemText(painter, r, alignment, option->palette, true, option->text, FG_ROLE_CHUNK);
     painter->restore();
     painter->save();
     QRegion region = option->rect;
     region -= contentsRect;
     painter->setClipRegion(region);
-    painter->setMatrix(mat, true);
+    painter->setTransform(mat, true);
     style->drawItemText(painter, r, alignment, option->palette, option->state & QStyle::State_Enabled, option->text, FG_ROLE_PROGRESS);
     painter->restore();
 }
@@ -9113,7 +9114,7 @@ void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const
 	case West:
 	case East:
 		painter->save();
-		QMatrix mat;
+		QTransform mat;
 		if (tabPos(option->shape) == West) {
 			opt.rect.adjust(3, 0, 3, 0);
 		} else {
@@ -9124,7 +9125,7 @@ void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const
 		mat.rotate(tabPos(option->shape) == West ? -90 : 90);
 		mat.translate(-c.x(), -c.y());
 		opt.rect = mat.mapRect(opt.rect);
-		painter->setMatrix(mat, true);
+		painter->setTransform(mat, true);
 		opt.shape = (QTabBar::Shape) 0;
 		break;
 	}
@@ -9285,7 +9286,7 @@ void SkulptureStyle::Private::updateTextEditMargins(QTextEdit *edit)
 	if (format.margin() == 2.0 && margin != 2) {
 	//	printf("set margin %d\n", margin);
 		// ### crash on setText(), disable signals
-		disconnect(edit, SIGNAL(textChanged()), &mapper, SLOT(map()));
+		//disconnect(edit, SIGNAL(textChanged()), &mapper, SLOT(map()));
 		doc->blockSignals(true);
 		format.setMargin(margin);
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
@@ -9298,7 +9299,7 @@ void SkulptureStyle::Private::updateTextEditMargins(QTextEdit *edit)
 	//	edit->insertPlainText(QLatin1String(""));
 	//	edit->update();
 		doc->blockSignals(false);
-		connect(edit, SIGNAL(textChanged()), &mapper, SLOT(map()));
+		//connect(edit, SIGNAL(textChanged()), &mapper, SLOT(map()));
 		// clear undo buffer
 		bool undo = edit->isUndoRedoEnabled();
 		edit->setUndoRedoEnabled(false);

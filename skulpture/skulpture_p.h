@@ -1,6 +1,7 @@
 /*
- * skulpture_p.h - Classical Three-Dimensional Artwork for Qt 4
+ * skulpture_p.h - Classical Three-Dimensional Artwork for Qt 5
  *
+ * Copyright (c) 2017-2019 rncbc aka Rui Nuno Capela <rncbc@rncbc.org>
  * Copyright (c) 2007-2009 Christoph Feck <christoph@maxiom.de>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -74,7 +75,7 @@ enum ArrowPlacementMode
 
 #include "skulpture.h"
 #include <QPointer>
-#include <QSignalMapper>
+//#include <QSignalMapper>
 #include <QHash>
 #include <QStyleOption>
 class QPainter;
@@ -174,7 +175,7 @@ class SkulptureStyle::Private : public QObject
 
 		void register_settings(const char *label, ...);
 
-		QSignalMapper mapper;
+		//QSignalMapper mapper;
 
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
 		struct DrawElementEntry draw_primitive_entry[QStyle::PE_PanelMenu + 1];
