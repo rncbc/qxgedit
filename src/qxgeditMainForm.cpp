@@ -52,7 +52,7 @@
 
 #include <QStyleFactory>
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QMimeData>
 #endif
 
@@ -1380,7 +1380,7 @@ bool qxgeditMainForm::openSession (void)
 	const QString sExt("syx");
 	const QString& sTitle  = tr("Open Session") + " - " QXGEDIT_TITLE;
 	const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
-#if 0//QT_VERSION < 0x040400
+#if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 	sFilename = QFileDialog::getOpenFileName(this,
 		sTitle, m_pOptions->sSessionDir, sFilter);
 #else
@@ -1433,7 +1433,7 @@ bool qxgeditMainForm::saveSession ( bool bPrompt )
 		const QString sExt("syx");
 		const QString& sTitle  = tr("Save Session") + " - " QXGEDIT_TITLE;
 		const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
-	#if 0//QT_VERSION < 0x040400
+	#if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 		sFilename = QFileDialog::getSaveFileName(this,
 			sTitle, sFilename, sFilter);
 	#else

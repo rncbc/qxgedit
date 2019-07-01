@@ -47,7 +47,7 @@
 #endif
 #endif
 
-#if QT_VERSION < 0x050000
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #define CONFIG_PLUGINSDIR CONFIG_LIBDIR "/qt4/plugins"
 #else
 #define CONFIG_PLUGINSDIR CONFIG_LIBDIR "/qt5/plugins"
@@ -58,7 +58,7 @@
 // Singleton application instance stuff (Qt/X11 only atm.)
 //
 
-#if QT_VERSION < 0x050000
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(Q_WS_X11)
 #define CONFIG_X11
 #endif
@@ -79,7 +79,7 @@
 
 #define QXGEDIT_XUNIQUE "qxgeditApplication"
 
-#if QT_VERSION >= 0x050100
+#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
 
 #include <xcb/xcb.h>
 #include <xcb/xproto.h>
@@ -166,7 +166,7 @@ public:
 		XGrabServer(m_pDisplay);
 		m_wOwner = XGetSelectionOwner(m_pDisplay, m_aUnique);
 		XUngrabServer(m_pDisplay);
-	#if QT_VERSION >= 0x050100
+	#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
 		m_pXcbEventFilter = new qxgeditXcbEventFilter(this);
 		installNativeEventFilter(m_pXcbEventFilter);
 	#endif
@@ -179,7 +179,7 @@ public:
 	{
 	#ifdef CONFIG_X11
 	#ifdef CONFIG_XUNIQUE
-	#if QT_VERSION >= 0x050100
+	#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
 		removeNativeEventFilter(m_pXcbEventFilter);
 		delete m_pXcbEventFilter;
 	#endif
@@ -290,7 +290,7 @@ public:
 				XFree(pData);
 		}
 	}
-#if QT_VERSION < 0x050000
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	bool x11EventFilter(XEvent *pEv)
 	{
 		if (pEv->type == PropertyNotify
@@ -316,7 +316,7 @@ private:
 	Display *m_pDisplay;
 	Atom     m_aUnique;
 	Window   m_wOwner;
-#if QT_VERSION >= 0x050100
+#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
 	qxgeditXcbEventFilter *m_pXcbEventFilter;
 #endif
 #endif	// CONFIG_XUNIQUE
@@ -326,7 +326,7 @@ private:
 
 #ifdef CONFIG_X11
 #ifdef CONFIG_XUNIQUE
-#if QT_VERSION >= 0x050100
+#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
 // XCB Event filter (virtual processor).
 bool qxgeditXcbEventFilter::nativeEventFilter (
 	const QByteArray& eventType, void *message, long * )
@@ -420,7 +420,7 @@ int main ( int argc, char **argv )
 #endif
 #endif
 	qxgeditApplication app(argc, argv);
-#if QT_VERSION >= 0x050600
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
 	app.setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 	// Construct default settings; override with command line arguments.
@@ -439,7 +439,7 @@ int main ( int argc, char **argv )
 	// Dark themes grayed/disabled color group fix...
 	QPalette pal(app.palette());
 	if (pal.base().color().value() < 0x7f) {
-	#if QT_VERSION >= 0x050000
+	#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		const QColor& color = pal.window().color();
 		const int iGroups = int(QPalette::Active | QPalette::Inactive) + 1;
 		for (int i = 0; i < iGroups; ++i) {

@@ -29,7 +29,7 @@
 #include <QTranslator>
 #include <QLocale>
 
-#if QT_VERSION < 0x040300
+#if QT_VERSION < QT_VERSION_CHECK(4, 3, 0)
 #define lighter(x)	light(x)
 #define darker(x)	dark(x)
 #endif

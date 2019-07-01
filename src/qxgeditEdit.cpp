@@ -253,7 +253,7 @@ void qxgeditEdit::openPreset (void)
 	const QString  sExt("syx");
 	const QString& sTitle  = tr("Open Preset") + " - " QXGEDIT_TITLE;
 	const QString& sFilter = tr("Preset files (*.%1)").arg(sExt);
-#if 0//QT_VERSION < 0x040400
+#if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 	// Ask for the filename to save...
 	sFilename = QFileDialog::getSaveFileName(parentWidget(),
 		sTitle, pOptions->sPresetDir, sFilter);
@@ -320,7 +320,7 @@ void qxgeditEdit::savePreset ( const QString& sPreset )
 	if (!fi.exists()) {
 		const QString& sTitle  = tr("Save Preset") + " - " QXGEDIT_TITLE;
 		const QString& sFilter = tr("Preset files (*.%1)").arg(sExt);
-	#if 0//QT_VERSION < 0x040400
+	#if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 		// Ask for the filename to save...
 		sFilename = QFileDialog::getSaveFileName(parentWidget(),
 			sTitle, sFilename, sFilter);
