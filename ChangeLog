@@ -4,6 +4,11 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Make sure compiler flags comply to c++11 as standard.
+
+
 0.5.5  2019-07-12  A Summer'19 Release.
 
 - Updated for the newer Qt5 development tools (>= 5.13).
