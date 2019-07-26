@@ -144,7 +144,7 @@ qxgeditMainForm::qxgeditMainForm (
 	// Install SIGUSR1 signal handler.
 	struct sigaction sigusr1;
 	sigusr1.sa_handler = qxgedit_sigusr1_handler;
-	::sigemptyset(&sigusr1.sa_mask);
+	sigemptyset(&sigusr1.sa_mask);
 	sigusr1.sa_flags = 0;
 	sigusr1.sa_flags |= SA_RESTART;
 	::sigaction(SIGUSR1, &sigusr1, NULL);
@@ -161,7 +161,7 @@ qxgeditMainForm::qxgeditMainForm (
 	// Install SIGTERM signal handler.
 	struct sigaction sigterm;
 	sigterm.sa_handler = qxgedit_sigterm_handler;
-	::sigemptyset(&sigterm.sa_mask);
+	sigemptyset(&sigterm.sa_mask);
 	sigterm.sa_flags = 0;
 	sigterm.sa_flags |= SA_RESTART;
 	::sigaction(SIGTERM, &sigterm, NULL);
