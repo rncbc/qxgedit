@@ -1,7 +1,7 @@
 // qxgeditEdit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -42,7 +42,7 @@
 
 // Constructor.
 qxgeditEdit::qxgeditEdit ( QWidget *pParent )
-	: XGParamWidget<QWidget> (pParent), m_pParam(NULL)
+	: XGParamWidget<QWidget> (pParent), m_pParam(nullptr)
 {
 	m_pComboBox     = new QComboBox();
 	m_pOpenButton   = new QToolButton();
@@ -50,7 +50,7 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	m_pRemoveButton = new QToolButton();
 
 	m_pComboBox->setEditable(true);
-	m_pComboBox->setCompleter(NULL);
+	m_pComboBox->setCompleter(nullptr);
 	m_pComboBox->setInsertPolicy(QComboBox::NoInsert);
 
 	m_pOpenButton->setIcon(QIcon(":/images/formOpen.png"));
@@ -149,7 +149,7 @@ QString qxgeditEdit::presetName() const
 // Check whether current preset may be reset.
 bool qxgeditEdit::queryPreset (void) 
 {
-	if (m_pParam == NULL)
+	if (m_pParam == nullptr)
 		return false;
 
 	const QString& sPreset = presetName();
@@ -219,7 +219,7 @@ void qxgeditEdit::loadPreset ( const QString& sPreset )
 
 	// We'll need this, sure.
 	qxgeditOptions *pOptions = qxgeditOptions::getInstance();
-	if (pOptions == NULL)
+	if (pOptions == nullptr)
 		return;
 
 	m_iUpdatePreset++;
@@ -243,7 +243,7 @@ void qxgeditEdit::openPreset (void)
 
 	// We'll need this, sure.
 	qxgeditOptions *pOptions = qxgeditOptions::getInstance();
-	if (pOptions == NULL)
+	if (pOptions == nullptr)
 		return;
 
 	// We'll assume that there's an external file...
@@ -304,7 +304,7 @@ void qxgeditEdit::savePreset ( const QString& sPreset )
 
 	// We'll need this, sure.
 	qxgeditOptions *pOptions = qxgeditOptions::getInstance();
-	if (pOptions == NULL)
+	if (pOptions == nullptr)
 		return;
 
 	// The current state preset is about to be saved...
@@ -382,7 +382,7 @@ void qxgeditEdit::removePreset (void)
 
 	// We'll need this, sure.
 	qxgeditOptions *pOptions = qxgeditOptions::getInstance();
-	if (pOptions == NULL)
+	if (pOptions == nullptr)
 		return;
 
 	// A preset entry is about to be removed;

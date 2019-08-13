@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2018, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -48,7 +48,7 @@ void qxgeditXGMasterMap::Observer::reset (void)
 void qxgeditXGMasterMap::Observer::update (void)
 {
 	qxgeditXGMasterMap *pMasterMap = qxgeditXGMasterMap::getInstance();
-	if (pMasterMap == NULL)
+	if (pMasterMap == nullptr)
 		return;
 
 	XGParam *pParam = param();
@@ -136,11 +136,11 @@ bool qxgeditXGMasterMap::set_nrpn_value (
 {
 	// Check which part / drumset...
 	if (nrpn >= 2560) {
-		XGParamSet *pParamSet = MULTIPART.value(0x07, NULL);
-		if (pParamSet == NULL)
+		XGParamSet *pParamSet = MULTIPART.value(0x07, nullptr);
+		if (pParamSet == nullptr)
 			return false;
-		XGParam *pParam = pParamSet->value(ch, NULL);
-		if (pParam == NULL)
+		XGParam *pParam = pParamSet->value(ch, nullptr);
+		if (pParam == nullptr)
 			return false;
 		const unsigned short mode = pParam->value();
 		if (mode == 0 && ch != 9)
@@ -148,8 +148,8 @@ bool qxgeditXGMasterMap::set_nrpn_value (
 		ch = (mode == 3 ? 1 : 0);
 	}
 
-	XGParam *pParam = NRPN.value(XGRpnParamKey(ch, nrpn), NULL);
-	if (pParam == NULL)
+	XGParam *pParam = NRPN.value(XGRpnParamKey(ch, nrpn), nullptr);
+	if (pParam == nullptr)
 		return false;
 
 	unsigned char data[pParam->size()];
@@ -220,7 +220,7 @@ unsigned short qxgeditXGMasterMap::set_param_data (
 	unsigned char *data, bool bNotify )
 {
 	XGParam *pParam = find_param(high, mid, low);
-	if (pParam == NULL)
+	if (pParam == nullptr)
 		return 0;
 
 	return set_param_data(pParam, data, bNotify);
@@ -247,7 +247,7 @@ unsigned short qxgeditXGMasterMap::set_param_data (
 		bNotify = false;
 	}
 
-	Observer *pObserver = (bNotify ? NULL : m_observers.value(pParam));
+	Observer *pObserver = (bNotify ? nullptr : m_observers.value(pParam));
 	if (pParam->size() > 4) {
 		XGDataParam *pDataParam = static_cast<XGDataParam *> (pParam);
 		pDataParam->set_data(data, pDataParam->size(), pObserver);
@@ -374,11 +374,11 @@ void qxgeditXGMasterMap::reset_user ( unsigned short iUser )
 // Send regular XG Parameter change SysEx message.
 void qxgeditXGMasterMap::send_param ( XGParam *pParam )
 {
-	if (pParam == NULL)
+	if (pParam == nullptr)
 		return;
 
 	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
-	if (pMidiDevice == NULL)
+	if (pMidiDevice == nullptr)
 		return;
 
 	// Build the complete SysEx message...
@@ -405,7 +405,7 @@ void qxgeditXGMasterMap::send_param ( XGParam *pParam )
 void qxgeditXGMasterMap::send_part ( unsigned short iPart ) const
 {
 	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
-	if (pMidiDevice == NULL)
+	if (pMidiDevice == nullptr)
 		return;
 
 	unsigned short high = 0x08;
@@ -427,7 +427,7 @@ void qxgeditXGMasterMap::send_part ( unsigned short iPart ) const
 void qxgeditXGMasterMap::send_user ( unsigned short iUser ) const
 {
 	qxgeditMidiDevice *pMidiDevice = qxgeditMidiDevice::getInstance();
-	if (pMidiDevice == NULL)
+	if (pMidiDevice == nullptr)
 		return;
 
 	// Build the complete SysEx message...

@@ -1,7 +1,7 @@
 // qxgeditPitch.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -194,8 +194,8 @@ int qxgeditPitch::nodeIndex ( const QPoint& pos ) const
 
 void qxgeditPitch::dragNode ( const QPoint& pos )
 {
-	unsigned short *piTime  = NULL;
-	unsigned short *piLevel = NULL;
+	unsigned short *piTime  = nullptr;
+	unsigned short *piLevel = nullptr;
 	switch (m_iDragNode) {
 	case 0: // Attack
 		piLevel = &m_iAttackLevel;

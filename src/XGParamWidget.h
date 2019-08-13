@@ -1,7 +1,7 @@
 // XGParamWidget.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2012, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -38,7 +38,7 @@ class XGParamInst
 public:
 
 	// Constructor.
-	XGParamInst(XGParamMap *map = NULL, unsigned short id = 0)
+	XGParamInst(XGParamMap *map = nullptr, unsigned short id = 0)
 		: m_map(map), m_id(id) {}
 	XGParamInst(const XGParamInst& inst)
 		: m_map(inst.m_map), m_id(inst.m_id) {}
@@ -153,8 +153,8 @@ public:
 	};
 
 	// Constructor.
-	XGParamWidget(QWidget *parent = NULL)
-		: W(parent), m_param_map(NULL), m_param_id(0) {}
+	XGParamWidget(QWidget *parent = nullptr)
+		: W(parent), m_param_map(nullptr), m_param_id(0) {}
 
 	// Virtual destructor.
 	virtual ~XGParamWidget()
@@ -176,7 +176,7 @@ public:
 		m_param_id  = id;
 
 		XGParamSet *paramset = add_paramset(m_param_id);
-		if (paramset == NULL)
+		if (paramset == nullptr)
 			return;
 
 #ifdef XGPARAM_WIDGET_MAP
@@ -212,12 +212,12 @@ public:
 	// Observer accessor.
 	Observer *observer() const
 	{
-		if (m_param_map == NULL)
-			return NULL;
+		if (m_param_map == nullptr)
+			return nullptr;
 
 		unsigned short key = m_param_map->current_key();
 		if (!m_observers.contains(key))
-			return NULL;
+			return nullptr;
 
 		return static_cast<Observer *> (m_observers.value(key));
 	}
@@ -227,12 +227,12 @@ protected:
 	// Paramset observers.
 	XGParamSet *add_paramset(unsigned short id)
 	{
-		if (m_param_map == NULL)
-			return NULL;
+		if (m_param_map == nullptr)
+			return nullptr;
 
 		XGParamSet *paramset = m_param_map->find_paramset(id);
-		if (paramset == NULL)
-			return NULL;
+		if (paramset == nullptr)
+			return nullptr;
 
 		XGParamSet::const_iterator iter = paramset->constBegin();
 		for (; iter != paramset->constEnd(); ++iter)

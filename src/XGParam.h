@@ -214,21 +214,21 @@ public:
 	unsigned short data_value2(unsigned char *data) const;
 
 	// Value accessors.
-	void set_value_update(unsigned short u, XGParamObserver *sender = NULL);
-	void set_value(unsigned short u, XGParamObserver *sender = NULL);
+	void set_value_update(unsigned short u, XGParamObserver *sender = nullptr);
+	void set_value(unsigned short u, XGParamObserver *sender = nullptr);
 	unsigned short value() const;
 
 	// Virtual reset (to default).
-	virtual void reset(XGParamObserver *sender = NULL);
+	virtual void reset(XGParamObserver *sender = nullptr);
 
 	// Busy flag predicate.
 	bool busy() const;
 
 	// Observers reset notification.
-	void notify_reset(XGParamObserver *sender = NULL);
+	void notify_reset(XGParamObserver *sender = nullptr);
 
 	// Observers update notification.
-	void notify_update(XGParamObserver *sender = NULL);
+	void notify_update(XGParamObserver *sender = nullptr);
 
 	// Observer list accessors.
 	void attach(XGParamObserver *observer);
@@ -319,11 +319,11 @@ public:
 	// Data accessors.
 	void set_data(
 		unsigned char *data, unsigned short len,
-		XGParamObserver *sender = NULL);
+		XGParamObserver *sender = nullptr);
 	unsigned char *data() const;
 
 	// Virtual reset (to default).
-	void reset(XGParamObserver *sender = NULL);
+	void reset(XGParamObserver *sender = nullptr);
 
 private:
 
@@ -433,7 +433,7 @@ public:
 	unsigned short current_element () const;
 
 	// All parameter reset (to default)
-	void reset(XGParamObserver *sender = NULL);
+	void reset(XGParamObserver *sender = nullptr);
 
 	// All parameter randomizer (p = percent from value/def).
 	void randomize_value(int p = 100);
@@ -447,7 +447,7 @@ protected:
 	public:
 		// Constructor.
 		Observer(XGParamMap *map)
-			: XGParamObserver(NULL), m_map(map) {}
+			: XGParamObserver(nullptr), m_map(map) {}
 
 	protected:
 		// Observer reset/updater.

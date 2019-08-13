@@ -1,7 +1,7 @@
 // qxgeditSpin.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2013, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -35,7 +35,7 @@
 
 // Constructor.
 qxgeditSpin::qxgeditSpin ( QWidget *pParent )
-	: QAbstractSpinBox(pParent), m_pParam(NULL)
+	: QAbstractSpinBox(pParent), m_pParam(nullptr)
 {
 	QAbstractSpinBox::setAccelerated(true);
 
@@ -67,7 +67,7 @@ void qxgeditSpin::showEvent ( QShowEvent */*pShowEvent*/ )
 // Nominal value accessors.
 void qxgeditSpin::setValue ( unsigned short iValue, XGParamObserver *pSender )
 {
-	if (m_pParam == NULL)
+	if (m_pParam == nullptr)
 		return;
 
 	int iCursorPos = QAbstractSpinBox::lineEdit()->cursorPosition();
@@ -197,7 +197,7 @@ QAbstractSpinBox::StepEnabled qxgeditSpin::stepEnabled (void) const
 // Value/text format converters.
 unsigned short qxgeditSpin::valueFromText ( const QString& sText ) const
 {
-	if (m_pParam == NULL)
+	if (m_pParam == nullptr)
 		return sText.toUShort();
 
 	const QString& sSpecialValueText = specialValueText();
@@ -214,7 +214,7 @@ unsigned short qxgeditSpin::valueFromText ( const QString& sText ) const
 
 QString qxgeditSpin::textFromValue ( unsigned short iValue ) const
 {
-	if (m_pParam == NULL)
+	if (m_pParam == nullptr)
 		return QString::number(iValue);
 
 	const QString& sSpecialValueText = specialValueText();

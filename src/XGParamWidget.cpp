@@ -1,7 +1,7 @@
 // XGParamWidget.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2012, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@
 // class XGParamWidgetMap - XGParam/Widget cross-map.
 //
 // Pseudo-singleton reference.
-XGParamWidgetMap *XGParamWidgetMap::g_pParamWidgetMap = NULL;
+XGParamWidgetMap *XGParamWidgetMap::g_pParamWidgetMap = nullptr;
 
 // Pseudo-singleton accessor (static).
 XGParamWidgetMap *XGParamWidgetMap::getInstance (void)
@@ -52,7 +52,7 @@ XGParamWidgetMap::XGParamWidgetMap(void)
 XGParamWidgetMap::~XGParamWidgetMap(void)
 {
 	// Pseudo-singleton reset.
-	g_pParamWidgetMap = NULL;
+	g_pParamWidgetMap = nullptr;
 }
 
 
@@ -69,11 +69,11 @@ void XGParamWidgetMap::add_widget (
 	QWidget *widget, XGParam *param )
 {
 	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
-	if (pMasterMap == NULL)
+	if (pMasterMap == nullptr)
 		return;
 
 	XGParamMap *map = pMasterMap->find_param_map(param);
-	if (map == NULL)
+	if (map == nullptr)
 		return;
 
 	add_widget(widget, map, param->low());
@@ -83,11 +83,11 @@ void XGParamWidgetMap::add_widget (
 	QWidget *widget, const XGParamKey& key )
 {
 	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
-	if (pMasterMap == NULL)
+	if (pMasterMap == nullptr)
 		return;
 
 	XGParam *param = pMasterMap->find_param(key);
-	if (param == NULL)
+	if (param == nullptr)
 		return;
 
 	add_widget(widget, param);
@@ -98,7 +98,7 @@ void XGParamWidgetMap::add_widget (
 // State parameter lookup.
 XGParam *XGParamWidgetMap::find_param ( QWidget *widget ) const
 {
-	XGParam *param = NULL;
+	XGParam *param = nullptr;
 	if (m_widget_map.contains(widget))
 		param = m_widget_map.value(widget).param();
 	return param;
@@ -107,7 +107,7 @@ XGParam *XGParamWidgetMap::find_param ( QWidget *widget ) const
 // Widget lookup.
 QWidget *XGParamWidgetMap::find_widget ( XGParamMap *map, unsigned id ) const
 {
-	QWidget *widget = NULL;
+	QWidget *widget = nullptr;
 	XGParamInst inst(map, id);
 	if (m_params_map.contains(inst))
 		widget = m_params_map.value(inst);
@@ -117,12 +117,12 @@ QWidget *XGParamWidgetMap::find_widget ( XGParamMap *map, unsigned id ) const
 QWidget *XGParamWidgetMap::find_widget ( XGParam *param ) const
 {
 	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
-	if (pMasterMap == NULL)
-		return NULL;
+	if (pMasterMap == nullptr)
+		return nullptr;
 
 	XGParamMap *map = pMasterMap->find_param_map(param);
-	if (map == NULL)
-		return NULL;
+	if (map == nullptr)
+		return nullptr;
 
 	return find_widget(map, param->low());
 };
@@ -130,12 +130,12 @@ QWidget *XGParamWidgetMap::find_widget ( XGParam *param ) const
 QWidget *XGParamWidgetMap::find_widget ( const XGParamKey& key ) const
 {
 	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
-	if (pMasterMap == NULL)
-		return NULL;
+	if (pMasterMap == nullptr)
+		return nullptr;
 
 	XGParam *param = pMasterMap->find_param(key);
-	if (param == NULL)
-		return NULL;
+	if (param == nullptr)
+		return nullptr;
 
 	return find_widget(param);
 }

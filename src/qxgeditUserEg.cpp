@@ -1,7 +1,7 @@
 // qxgeditUserEg.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -298,8 +298,8 @@ int qxgeditUserEg::nodeIndex ( const QPoint& pos ) const
 void qxgeditUserEg::dragNode ( const QPoint& pos )
 {
 	static unsigned short m_iRate0 = 0; // Dummy!
-	unsigned short *piLevel = NULL;
-	unsigned short *piRate  = NULL;
+	unsigned short *piLevel = nullptr;
+	unsigned short *piRate  = nullptr;
 	switch (m_iDragNode) {
 	case 0: // Level0
 		piLevel = &m_iLevel0;

@@ -1,7 +1,7 @@
 // qxgeditAmpEg.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -253,8 +253,8 @@ int qxgeditAmpEg::nodeIndex ( const QPoint& pos ) const
 void qxgeditAmpEg::dragNode ( const QPoint& pos )
 {
 	static unsigned short m_iLevel0 = 0; // Dummy!
-	unsigned short *piRate  = NULL;
-	unsigned short *piLevel = NULL;
+	unsigned short *piRate  = nullptr;
+	unsigned short *piLevel = nullptr;
 	switch (m_iDragNode) {
 	case 2: // Attack
 		piRate  = &m_iAttack;

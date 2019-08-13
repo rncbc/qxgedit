@@ -1,7 +1,7 @@
 // qxgeditCheck.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -29,7 +29,7 @@
 
 // Constructor.
 qxgeditCheck::qxgeditCheck ( QWidget *pParent )
-	: XGParamWidget<QCheckBox> (pParent), m_pParam(NULL)
+	: XGParamWidget<QCheckBox> (pParent), m_pParam(nullptr)
 {
 	QObject::connect(this,
 		SIGNAL(toggled(bool)),
@@ -46,7 +46,7 @@ qxgeditCheck::~qxgeditCheck (void)
 // Nominal value accessors.
 void qxgeditCheck::set_value ( unsigned short iValue, Observer *pSender )
 {
-	if (m_pParam == NULL)
+	if (m_pParam == nullptr)
 		return;
 
 	if (iValue < m_pParam->min())

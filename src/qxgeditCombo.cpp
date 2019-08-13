@@ -1,7 +1,7 @@
 // qxgeditCombo.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -29,7 +29,7 @@
 
 // Constructor.
 qxgeditCombo::qxgeditCombo ( QWidget *pParent )
-	: XGParamWidget<QComboBox> (pParent), m_pParam(NULL)
+	: XGParamWidget<QComboBox> (pParent), m_pParam(nullptr)
 {
 	QComboBox::setMinimumWidth(140);
 	QComboBox::setMaximumHeight(QFontMetrics(font()).lineSpacing() + 2);
@@ -50,7 +50,7 @@ qxgeditCombo::~qxgeditCombo (void)
 // Nominal value accessors.
 void qxgeditCombo::set_value ( unsigned short iValue, Observer *pSender )
 {
-	if (m_pParam == NULL)
+	if (m_pParam == nullptr)
 		return;
 
 	if (iValue < m_pParam->min())

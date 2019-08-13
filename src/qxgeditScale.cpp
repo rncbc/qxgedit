@@ -1,7 +1,7 @@
 // qxgeditScale.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2015, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -312,8 +312,8 @@ int qxgeditScale::nodeIndex ( const QPoint& pos ) const
 
 void qxgeditScale::dragNode ( const QPoint& pos )
 {
-	unsigned short *piBreak  = NULL;
-	unsigned short *piOffset = NULL;
+	unsigned short *piBreak  = nullptr;
+	unsigned short *piOffset = nullptr;
 	switch (m_iDragNode) {
 	case 1: // Break1/Offset1
 		piBreak  = &m_iBreak1;

@@ -1,7 +1,7 @@
 // qxgeditMidiDevice.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2016, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -123,7 +123,7 @@ protected:
 	void run()
 	{
 		snd_seq_t *pAlsaSeq = m_pMidiDevice->alsaSeq();
-		if (pAlsaSeq == NULL)
+		if (pAlsaSeq == nullptr)
 			return;
 
 		int nfds;
@@ -145,7 +145,7 @@ protected:
 			if (iPoll == 0)
 				xrpn.flush();
 			while (iPoll > 0) {
-				snd_seq_event_t *pEv = NULL;
+				snd_seq_event_t *pEv = nullptr;
 				snd_seq_event_input(pAlsaSeq, &pEv);
 				// Process input event - ...
 				// - enqueue to input track mapping;
@@ -177,20 +177,20 @@ private:
 // qxgeditMidiDevice -- MIDI Device interface object.
 
 // Pseudo-singleton reference.
-qxgeditMidiDevice *qxgeditMidiDevice::g_pMidiDevice = NULL;
+qxgeditMidiDevice *qxgeditMidiDevice::g_pMidiDevice = nullptr;
 
 // Constructor.
 qxgeditMidiDevice::qxgeditMidiDevice ( const QString& sClientName )
-	: QObject(NULL)
+	: QObject(nullptr)
 {
 	// Set pseudo-singleton reference.
 	g_pMidiDevice = this;
 
-	m_pAlsaSeq    = NULL;
+	m_pAlsaSeq    = nullptr;
 	m_iAlsaClient = -1;
 	m_iAlsaPort   = -1;
 
-	m_pInputThread = NULL;
+	m_pInputThread = nullptr;
 
 	// Open new ALSA sequencer client...
 	if (snd_seq_open(&m_pAlsaSeq, "hw", SND_SEQ_OPEN_DUPLEX, 0) >= 0) {
@@ -215,7 +215,7 @@ qxgeditMidiDevice::qxgeditMidiDevice ( const QString& sClientName )
 qxgeditMidiDevice::~qxgeditMidiDevice (void)
 {
 	// Reset pseudo-singleton reference.
-	g_pMidiDevice = NULL;
+	g_pMidiDevice = nullptr;
 
 	// Last but not least, delete input thread...
 	if (m_pInputThread) {
@@ -227,7 +227,7 @@ qxgeditMidiDevice::~qxgeditMidiDevice (void)
 			m_pInputThread->wait();
 		}
 		delete m_pInputThread;
-		m_pInputThread = NULL;
+		m_pInputThread = nullptr;
 	}
 
 	if (m_pAlsaSeq) {
@@ -235,7 +235,7 @@ qxgeditMidiDevice::~qxgeditMidiDevice (void)
 		m_iAlsaPort   = -1;
 		snd_seq_close(m_pAlsaSeq);
 		m_iAlsaClient = -1;
-		m_pAlsaSeq    = NULL;
+		m_pAlsaSeq    = nullptr;
 	}
 }
 
@@ -335,7 +335,7 @@ void qxgeditMidiDevice::sendSysex (
 
 	// Don't do anything else if engine
 	// has not been activated...
-	if (m_pAlsaSeq == NULL)
+	if (m_pAlsaSeq == nullptr)
 		return;
 
 	// Initialize sequencer event...
@@ -363,7 +363,7 @@ QStringList qxgeditMidiDevice::deviceList ( bool bReadable ) const
 {
 	QStringList list;
 
-	if (m_pAlsaSeq == NULL)
+	if (m_pAlsaSeq == nullptr)
 		return list;
 
 	unsigned int uiPortFlags;
@@ -409,7 +409,7 @@ QStringList qxgeditMidiDevice::deviceList ( bool bReadable ) const
 bool qxgeditMidiDevice::connectDeviceList (
 	bool bReadable, const QStringList& list ) const
 {
-	if (m_pAlsaSeq == NULL)
+	if (m_pAlsaSeq == nullptr)
 		return false;
 
 	if (list.isEmpty())

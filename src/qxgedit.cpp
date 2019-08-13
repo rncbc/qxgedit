@@ -382,7 +382,7 @@ void stacktrace ( int signo )
 
 	// Fork child...
 	if (pid == 0) {
-		execl(shell, shell, "-c", cmd, NULL);
+		execl(shell, shell, "-c", cmd, nullptr);
 		_exit(1);
 		return;
 	}

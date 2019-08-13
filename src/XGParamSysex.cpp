@@ -1,7 +1,7 @@
 // XGParamSysex.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2018, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@
 
 // Constructor
 XGSysex::XGSysex ( unsigned short size )
-	: m_data(NULL), m_size(size)
+	: m_data(nullptr), m_size(size)
 {
 	m_data = new unsigned char [m_size];
 }
@@ -92,7 +92,7 @@ XGUserVoiceSysex::XGUserVoiceSysex ( unsigned short id )
 	: XGSysex(0x188) // (size = 0x188 = 11 + 0x17d)
 {
 	XGParamMasterMap *pMasterMap = XGParamMasterMap::getInstance();
-	if (pMasterMap == NULL) {
+	if (pMasterMap == nullptr) {
 		::memset(m_data, 0, m_size);
 		return;
 	}

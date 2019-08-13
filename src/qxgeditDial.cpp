@@ -1,7 +1,7 @@
 // qxgeditDial.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2011, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -165,14 +165,14 @@ void qxgeditDial::set_param ( XGParam *pParam, Observer *pSender )
 		m_pKnob->setDefaultValue(int(pParam->def()));
 		m_pKnob->setValue(int(pParam->value()));
 		if (pParam->gets(pParam->min())) {
-			m_pSpin->setParam(NULL);
+			m_pSpin->setParam(nullptr);
 			m_pSpin->hide();
 			m_pDrop->setParam(pParam, pSender);
 			m_pDrop->show();
 		} else {
 			m_pSpin->setParam(pParam, pSender);
 			m_pSpin->show();
-			m_pDrop->setParam(NULL);
+			m_pDrop->setParam(nullptr);
 			m_pDrop->hide();
 		}
 		QWidget::setToolTip(pParam->text());
@@ -180,9 +180,9 @@ void qxgeditDial::set_param ( XGParam *pParam, Observer *pSender )
 	} else {
 		QWidget::setEnabled(false);
 		m_pLabel->clear();
-		m_pSpin->setParam(NULL);
+		m_pSpin->setParam(nullptr);
 		m_pSpin->show();
-		m_pDrop->setParam(NULL);
+		m_pDrop->setParam(nullptr);
 		m_pDrop->hide();
 	}
 
@@ -197,7 +197,7 @@ XGParam *qxgeditDial::param (void) const
 	if (m_pDrop->param())
 		return m_pDrop->param();
 	else
-		return NULL;
+		return nullptr;
 }
 
 

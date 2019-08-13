@@ -1,7 +1,7 @@
 // qxgeditDrop.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2011, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@
 
 // Constructor.
 qxgeditDrop::qxgeditDrop ( QWidget *pParent )
-	: QComboBox(pParent), m_pParam(NULL)
+	: QComboBox(pParent), m_pParam(nullptr)
 {
 	QObject::connect(this,
 		SIGNAL(activated(int)),
@@ -48,7 +48,7 @@ qxgeditDrop::~qxgeditDrop (void)
 // Nominal value accessors.
 void qxgeditDrop::setValue ( unsigned short iValue, XGParamObserver *pSender )
 {
-	if (m_pParam == NULL)
+	if (m_pParam == nullptr)
 		return;
 
 	if (iValue < m_pParam->min())

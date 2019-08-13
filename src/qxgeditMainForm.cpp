@@ -97,7 +97,7 @@ static void qxgedit_sigterm_handler ( int /* signo */ )
 //-------------------------------------------------------------------------
 // qxgeditMainForm -- UI wrapper form.
 //
-qxgeditMainForm *qxgeditMainForm::g_pMainForm = NULL;
+qxgeditMainForm *qxgeditMainForm::g_pMainForm = nullptr;
 
 // Constructor.
 qxgeditMainForm::qxgeditMainForm (
@@ -111,9 +111,9 @@ qxgeditMainForm::qxgeditMainForm (
 	g_pMainForm = this;
 
 	// Initialize some pointer references.
-	m_pOptions = NULL;
-	m_pMidiDevice = NULL;
-	m_pMasterMap = NULL;
+	m_pOptions = nullptr;
+	m_pMidiDevice = nullptr;
+	m_pMasterMap = nullptr;
 
 	// We'll start clean.
 	m_iUntitled   = 0;
@@ -147,7 +147,7 @@ qxgeditMainForm::qxgeditMainForm (
 	sigemptyset(&sigusr1.sa_mask);
 	sigusr1.sa_flags = 0;
 	sigusr1.sa_flags |= SA_RESTART;
-	::sigaction(SIGUSR1, &sigusr1, NULL);
+	::sigaction(SIGUSR1, &sigusr1, nullptr);
 
 	// Initialize file descriptors for SIGTERM socket notifier.
 	::socketpair(AF_UNIX, SOCK_STREAM, 0, g_fdSigterm);
@@ -164,8 +164,8 @@ qxgeditMainForm::qxgeditMainForm (
 	sigemptyset(&sigterm.sa_mask);
 	sigterm.sa_flags = 0;
 	sigterm.sa_flags |= SA_RESTART;
-	::sigaction(SIGTERM, &sigterm, NULL);
-	::sigaction(SIGQUIT, &sigterm, NULL);
+	::sigaction(SIGTERM, &sigterm, nullptr);
+	::sigaction(SIGQUIT, &sigterm, nullptr);
 
 	// Ignore SIGHUP/SIGINT signals.
 	::signal(SIGHUP, SIG_IGN);
@@ -173,8 +173,8 @@ qxgeditMainForm::qxgeditMainForm (
 
 #else	// HAVE_SIGNAL_H
 
-	m_pSigusr1Notifier = NULL;
-	m_pSigtermNotifier = NULL;
+	m_pSigusr1Notifier = nullptr;
+	m_pSigtermNotifier = nullptr;
 	
 #endif	// !HAVE_SIGNAL_H
 
@@ -276,7 +276,7 @@ qxgeditMainForm::~qxgeditMainForm (void)
 		delete m_pMasterMap;
 
 	// Pseudo-singleton reference shut-down.
-	g_pMainForm = NULL;
+	g_pMainForm = nullptr;
 }
 
 
@@ -1248,7 +1248,7 @@ void qxgeditMainForm::closeEvent ( QCloseEvent *pCloseEvent )
 void qxgeditMainForm::dragEnterEvent ( QDragEnterEvent* pDragEnterEvent )
 {
 	// Accept external drags only...
-	if (pDragEnterEvent->source() == NULL
+	if (pDragEnterEvent->source() == nullptr
 		&& pDragEnterEvent->mimeData()->hasUrls()) {
 		pDragEnterEvent->accept();
 	} else {
@@ -1371,7 +1371,7 @@ bool qxgeditMainForm::newSession (void)
 // Open an existing sampler session.
 bool qxgeditMainForm::openSession (void)
 {
-	if (m_pOptions == NULL)
+	if (m_pOptions == nullptr)
 		return false;
 
 	// Ask for the filename to open...
@@ -1419,7 +1419,7 @@ bool qxgeditMainForm::openSession (void)
 // Save current sampler session with another name.
 bool qxgeditMainForm::saveSession ( bool bPrompt )
 {
-	if (m_pOptions == NULL)
+	if (m_pOptions == nullptr)
 		return false;
 
 	// Suggest a filename, if there's none...
@@ -1534,7 +1534,7 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 
 	int iSysex = 0;
 	unsigned short iBuff = 0;
-	unsigned char *pBuff = NULL;
+	unsigned char *pBuff = nullptr;
 	unsigned short i = 0;
 
 	// Read the file....
@@ -1737,7 +1737,7 @@ void qxgeditMainForm::viewToolbar ( bool bOn )
 // Randomize current parameter page view.
 void qxgeditMainForm::viewRandomize (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	float p = 100.0f;
@@ -1832,7 +1832,7 @@ void qxgeditMainForm::viewRandomize (void)
 // Show options dialog.
 void qxgeditMainForm::viewOptions (void)
 {
-	if (m_pOptions == NULL)
+	if (m_pOptions == nullptr)
 		return;
 
 	// Load the current setup settings.
@@ -1963,7 +1963,7 @@ void qxgeditMainForm::stabilizeForm (void)
 // Update the recent files list and menu.
 void qxgeditMainForm::updateRecentFiles ( const QString& sFilename )
 {
-	if (m_pOptions == NULL)
+	if (m_pOptions == nullptr)
 		return;
 
 	// Remove from list if already there (avoid duplicates)
@@ -1978,7 +1978,7 @@ void qxgeditMainForm::updateRecentFiles ( const QString& sFilename )
 // Update the recent files list and menu.
 void qxgeditMainForm::updateRecentFilesMenu (void)
 {
-	if (m_pOptions == NULL)
+	if (m_pOptions == nullptr)
 		return;
 
 	// Time to keep the list under limits.
@@ -2011,7 +2011,7 @@ void qxgeditMainForm::masterReset (void)
 
 void qxgeditMainForm::masterResetButtonClicked (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
@@ -2031,7 +2031,7 @@ void qxgeditMainForm::masterResetButtonClicked (void)
 
 void qxgeditMainForm::reverbResetButtonClicked (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
@@ -2051,7 +2051,7 @@ void qxgeditMainForm::reverbResetButtonClicked (void)
 
 void qxgeditMainForm::chorusResetButtonClicked (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
@@ -2071,7 +2071,7 @@ void qxgeditMainForm::chorusResetButtonClicked (void)
 
 void qxgeditMainForm::variationResetButtonClicked (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
@@ -2273,7 +2273,7 @@ void qxgeditMainForm::multipartPartModeChanged ( unsigned short iPartMode )
 
 void qxgeditMainForm::multipartResetButtonClicked (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	const int iPart = m_ui.MultipartCombo->currentIndex();
@@ -2348,7 +2348,7 @@ void qxgeditMainForm::drumsetupNoteComboActivated ( int iNote )
 
 void qxgeditMainForm::drumsetupResetButtonClicked (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	const int iDrumset = m_ui.DrumsetupCombo->currentIndex();
@@ -2407,7 +2407,7 @@ void qxgeditMainForm::uservoiceElementComboActivated ( int iElem )
 
 void qxgeditMainForm::uservoiceResetButtonClicked (void)
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return;
 
 	const int iUser = m_ui.UservoiceCombo->currentIndex();
@@ -2475,7 +2475,7 @@ void qxgeditMainForm::contentsChanged (void)
 // Check whether randomize current parameter page view is possible.
 bool qxgeditMainForm::isRandomizable (void) const
 {
-	if (m_pMasterMap == NULL)
+	if (m_pMasterMap == nullptr)
 		return false;
 
 	switch (m_ui.MainTabWidget->currentIndex()) {
