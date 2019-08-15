@@ -112,7 +112,7 @@ qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 		if (m_pMyTranslator->load(sLocName, sLocPath)) {
 			QApplication::installTranslator(m_pMyTranslator);
 		} else {
-			sLocPath = CONFIG_DATADIR "/QXGEDIT/translations";
+			sLocPath = CONFIG_DATADIR "/qxgedit/translations";
 			if (m_pMyTranslator->load(sLocName, sLocPath)) {
 				QApplication::installTranslator(m_pMyTranslator);
 			} else {
@@ -520,4 +520,3 @@ int main ( int argc, char **argv )
 
 
 // end of qxgedit.cpp
-

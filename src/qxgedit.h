@@ -63,6 +63,8 @@ class QLocalServer;
 
 class qxgeditApplication : public QApplication
 {
+	Q_OBJECT
+
 public:
 
 	// Constructor.
@@ -77,7 +79,7 @@ public:
 		{ return m_pWidget; }
 	
 	// Check if another instance is running,
-    // and raise its proper main widget...
+	// and raise its proper main widget...
 	bool setup();
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
