@@ -35,7 +35,8 @@ HEADERS += config.h \
 	qxgeditMidiRpn.h \
 	qxgeditOptions.h \
 	qxgeditOptionsForm.h \
-	qxgeditMainForm.h
+	qxgeditMainForm.h \
+	qxgedit.h
 
 SOURCES += \
 	XGParam.cpp \

@@ -19,12 +19,13 @@
 
 *****************************************************************************/
 
-#include "qxgeditAbout.h"
-#include "qxgeditMainForm.h"
-#include "qxgeditOptions.h"
+#include "qxgedit.h"
 
-#include <QApplication>
+#include "qxgeditOptions.h"
+#include "qxgeditMainForm.h"
+
 #include <QStyleFactory>
+
 #include <QLibraryInfo>
 #include <QTranslator>
 #include <QLocale>
@@ -58,79 +59,65 @@
 // Singleton application instance stuff (Qt/X11 only atm.)
 //
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#if defined(Q_WS_X11)
-#define CONFIG_X11
-#endif
-#else
-#if defined(QT_X11EXTRAS_LIB)
-#define CONFIG_X11
-#endif
-#endif
-
-
-#ifdef CONFIG_X11
 #ifdef CONFIG_XUNIQUE
 
-#include <QX11Info>
+#define QXGEDIT_XUNIQUE "qxgeditApplication"
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#ifdef CONFIG_X11
+
+#include <unistd.h> /* for gethostname() */
 
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 
-#define QXGEDIT_XUNIQUE "qxgeditApplication"
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
-
-#include <xcb/xcb.h>
-#include <xcb/xproto.h>
-
-#include <QAbstractNativeEventFilter>
-
-class qxgeditApplication;
-
-class qxgeditXcbEventFilter : public QAbstractNativeEventFilter
-{
-public:
-
-	// Constructor.
-	qxgeditXcbEventFilter(qxgeditApplication *pApp)
-		: QAbstractNativeEventFilter(), m_pApp(pApp) {}
-
-	// XCB event filter (virtual processor).
-	bool nativeEventFilter(const QByteArray& eventType, void *message, long *);
-
-private:
-
-	// Instance variable.
-	qxgeditApplication *m_pApp;
-};
-
+#endif	// CONFIG_X11
+#else
+#include <QSharedMemory>
+#include <QLocalServer>
+#include <QLocalSocket>
+#include <QHostInfo>
 #endif
 
 #endif	// CONFIG_XUNIQUE
-#endif	// CONFIG_X11
 
 
-class qxgeditApplication : public QApplication
+// Constructor.
+qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
+	: QApplication(argc, argv),
+		m_pQtTranslator(nullptr), m_pMyTranslator(nullptr), m_pWidget(nullptr)
 {
-public:
-
-	// Constructor.
-	qxgeditApplication(int& argc, char **argv) : QApplication(argc, argv),
-		m_pQtTranslator(0), m_pMyTranslator(0), m_pWidget(0)
-	{
-		// Load translation support.
-		QLocale loc;
-		if (loc.language() != QLocale::C) {
-			// Try own Qt translation...
-			m_pQtTranslator = new QTranslator(this);
-			QString sLocName = "qt_" + loc.name();
-			QString sLocPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-			if (m_pQtTranslator->load(sLocName, sLocPath)) {
-				QApplication::installTranslator(m_pQtTranslator);
+	// Load translation support.
+	QLocale loc;
+	if (loc.language() != QLocale::C) {
+		// Try own Qt translation...
+		m_pQtTranslator = new QTranslator(this);
+		QString sLocName = "qt_" + loc.name();
+		QString sLocPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+		if (m_pQtTranslator->load(sLocName, sLocPath)) {
+			QApplication::installTranslator(m_pQtTranslator);
+		} else {
+			delete m_pQtTranslator;
+			m_pQtTranslator = 0;
+		#ifdef CONFIG_DEBUG
+			qWarning("Warning: no translation found for '%s' locale: %s/%s.qm",
+				loc.name().toUtf8().constData(),
+				sLocPath.toUtf8().constData(),
+				sLocName.toUtf8().constData());
+		#endif
+		}
+		// Try own application translation...
+		m_pMyTranslator = new QTranslator(this);
+		sLocName = "qxgedit_" + loc.name();
+		if (m_pMyTranslator->load(sLocName, sLocPath)) {
+			QApplication::installTranslator(m_pMyTranslator);
+		} else {
+			sLocPath = CONFIG_DATADIR "/QXGEDIT/translations";
+			if (m_pMyTranslator->load(sLocName, sLocPath)) {
+				QApplication::installTranslator(m_pMyTranslator);
 			} else {
-				delete m_pQtTranslator;
-				m_pQtTranslator = 0;
+				delete m_pMyTranslator;
+				m_pMyTranslator = 0;
 			#ifdef CONFIG_DEBUG
 				qWarning("Warning: no translation found for '%s' locale: %s/%s.qm",
 					loc.name().toUtf8().constData(),
@@ -138,82 +125,82 @@ public:
 					sLocName.toUtf8().constData());
 			#endif
 			}
-			// Try own application translation...
-			m_pMyTranslator = new QTranslator(this);
-			sLocName = "qxgedit_" + loc.name();
-			if (m_pMyTranslator->load(sLocName, sLocPath)) {
-				QApplication::installTranslator(m_pMyTranslator);
-			} else {
-				sLocPath = CONFIG_DATADIR "/QXGEDIT/translations";
-				if (m_pMyTranslator->load(sLocName, sLocPath)) {
-					QApplication::installTranslator(m_pMyTranslator);
-				} else {
-					delete m_pMyTranslator;
-					m_pMyTranslator = 0;
-				#ifdef CONFIG_DEBUG
-					qWarning("Warning: no translation found for '%s' locale: %s/%s.qm",
-						loc.name().toUtf8().constData(),
-						sLocPath.toUtf8().constData(),
-						sLocName.toUtf8().constData());
-				#endif
-				}
-			}
 		}
-	#ifdef CONFIG_X11
-	#ifdef CONFIG_XUNIQUE
-		m_pDisplay = QX11Info::display();
-		m_aUnique  = XInternAtom(m_pDisplay, QXGEDIT_XUNIQUE, false);
+	}
+#ifdef CONFIG_XUNIQUE
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#ifdef CONFIG_X11
+	m_pDisplay = nullptr;
+	m_aUnique = 0;
+	m_wOwner = 0;
+#endif	// CONFIG_X11
+#else
+	m_pMemory = nullptr;
+	m_pServer = nullptr;
+#endif
+#endif	// CONFIG_XUNIQUE
+}
+
+// Destructor.
+qxgeditApplication::~qxgeditApplication (void)
+{
+#ifdef CONFIG_XUNIQUE
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	if (m_pServer) {
+		m_pServer->close();
+		delete m_pServer;
+		m_pServer = nullptr;
+	}
+	if (m_pMemory) {
+		delete m_pMemory;
+		m_pMemory = nullptr;
+	}
+#endif
+#endif	// CONFIG_XUNIQUE
+	if (m_pMyTranslator) delete m_pMyTranslator;
+	if (m_pQtTranslator) delete m_pQtTranslator;
+}
+
+
+// Main application widget accessors.
+void qxgeditApplication::setMainWidget ( QWidget *pWidget )
+{
+	m_pWidget = pWidget;
+#ifdef CONFIG_XUNIQUE
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#ifdef CONFIG_X11
+	m_wOwner = m_pWidget->winId();
+	if (m_pDisplay && m_wOwner) {
+		XGrabServer(m_pDisplay);
+		XSetSelectionOwner(m_pDisplay, m_aUnique, m_wOwner, CurrentTime);
+		XUngrabServer(m_pDisplay);
+	}
+#endif	// CONFIG_X11
+#endif
+#endif	// CONFIG_XUNIQUE
+}
+
+
+// Check if another instance is running,
+// and raise its proper main widget...
+bool qxgeditApplication::setup (void)
+{
+#ifdef CONFIG_XUNIQUE
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#ifdef CONFIG_X11
+	m_pDisplay = QX11Info::display();
+	if (m_pDisplay) {
+		QString sUnique = QXGEDIT_XUNIQUE;
+		char szHostName[255];
+		if (::gethostname(szHostName, sizeof(szHostName)) == 0) {
+			sUnique += '@';
+			sUnique += szHostName;
+		}
+		m_aUnique = XInternAtom(m_pDisplay, sUnique.toUtf8().constData(), false);
 		XGrabServer(m_pDisplay);
 		m_wOwner = XGetSelectionOwner(m_pDisplay, m_aUnique);
 		XUngrabServer(m_pDisplay);
-	#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
-		m_pXcbEventFilter = new qxgeditXcbEventFilter(this);
-		installNativeEventFilter(m_pXcbEventFilter);
-	#endif
-	#endif	// CONFIG_XUNIQUE
-	#endif	// CONFIG_X11
-	}
-
-	// Destructor.
-	~qxgeditApplication()
-	{
-	#ifdef CONFIG_X11
-	#ifdef CONFIG_XUNIQUE
-	#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
-		removeNativeEventFilter(m_pXcbEventFilter);
-		delete m_pXcbEventFilter;
-	#endif
-	#endif	// CONFIG_XUNIQUE
-	#endif	// CONFIG_X11
-		if (m_pMyTranslator) delete m_pMyTranslator;
-		if (m_pQtTranslator) delete m_pQtTranslator;
-	}
-
-	// Main application widget accessors.
-	void setMainWidget(QWidget *pWidget)
-	{
-		m_pWidget = pWidget;
-	#ifdef CONFIG_X11
-	#ifdef CONFIG_XUNIQUE
-		m_wOwner = m_pWidget->winId();
-		if (m_pDisplay && m_wOwner) {
-			XGrabServer(m_pDisplay);
-			XSetSelectionOwner(m_pDisplay, m_aUnique, m_wOwner, CurrentTime);
-			XUngrabServer(m_pDisplay);
-		}
-	#endif	// CONFIG_XUNIQUE
-	#endif	// CONFIG_X11
-	}
-
-	QWidget *mainWidget() const { return m_pWidget; }
-
-	// Check if another instance is running,
-    // and raise its proper main widget...
-	bool setup()
-	{
-	#ifdef CONFIG_X11
-	#ifdef CONFIG_XUNIQUE
-		if (m_pDisplay && m_wOwner != None) {
+		if (m_wOwner != None) {
 			// First, notify any freedesktop.org WM
 			// that we're about to show the main widget...
 			Screen *pScreen = XDefaultScreenOfDisplay(m_pDisplay);
@@ -232,12 +219,12 @@ public:
 			ev.xclient.data.l[4] = 0;
 			XSelectInput(m_pDisplay, m_wOwner, StructureNotifyMask);
 			XSendEvent(m_pDisplay, RootWindow(m_pDisplay, iScreen), false,
-				(SubstructureNotifyMask | SubstructureRedirectMask), &ev);
+					   (SubstructureNotifyMask | SubstructureRedirectMask), &ev);
 			XSync(m_pDisplay, false);
 			XRaiseWindow(m_pDisplay, m_wOwner);
 			// And then, let it get caught on destination
 			// by QApplication::native/x11EventFilter...
-			const QByteArray value = QXGEDIT_XUNIQUE;
+			const QByteArray value = QSAMPLER_XUNIQUE;
 			XChangeProperty(
 				m_pDisplay,
 				m_wOwner,
@@ -245,104 +232,149 @@ public:
 				m_aUnique, 8,
 				PropModeReplace,
 				(unsigned char *) value.data(),
-				value.length());
+							value.length());
 			// Done.
 			return true;
 		}
-	#endif	// CONFIG_XUNIQUE
-	#endif	// CONFIG_X11
-		return false;
 	}
-
-#ifdef CONFIG_X11
-#ifdef CONFIG_XUNIQUE
-	void x11PropertyNotify(Window w)
-	{
-		if (m_pDisplay && m_pWidget && m_wOwner == w) {
-			// Always check whether our property-flag is still around...
-			Atom aType;
-			int iFormat = 0;
-			unsigned long iItems = 0;
-			unsigned long iAfter = 0;
-			unsigned char *pData = 0;
-			if (XGetWindowProperty(
-					m_pDisplay,
-					m_wOwner,
-					m_aUnique,
-					0, 1024,
-					false,
-					m_aUnique,
-					&aType,
-					&iFormat,
-					&iItems,
-					&iAfter,
-					&pData) == Success
-				&& aType == m_aUnique && iItems > 0 && iAfter == 0) {
-				// Avoid repeating it-self...
-				XDeleteProperty(m_pDisplay, m_wOwner, m_aUnique);
-				// Just make it always shows up fine...
-				m_pWidget->show();
-				m_pWidget->raise();
-				m_pWidget->activateWindow();
-			}
-			// Free any left-overs...
-			if (iItems > 0 && pData)
-				XFree(pData);
+#endif	// CONFIG_X11
+	return false;
+#else
+	m_sUnique = QCoreApplication::applicationName();
+	m_sUnique += '@';
+	m_sUnique += QHostInfo::localHostName();
+#ifdef Q_OS_UNIX
+	m_pMemory = new QSharedMemory(m_sUnique);
+	m_pMemory->attach();
+	delete m_pMemory;
+#endif
+	m_pMemory = new QSharedMemory(m_sUnique);
+	bool bServer = false;
+	const qint64 pid = QCoreApplication::applicationPid();
+	struct Data { qint64 pid; };
+	if (m_pMemory->create(sizeof(Data))) {
+		m_pMemory->lock();
+		Data *pData = static_cast<Data *> (m_pMemory->data());
+		if (pData) {
+			pData->pid = pid;
+			bServer = true;
+		}
+		m_pMemory->unlock();
+	}
+	else
+	if (m_pMemory->attach()) {
+		m_pMemory->lock(); // maybe not necessary?
+		Data *pData = static_cast<Data *> (m_pMemory->data());
+		if (pData)
+			bServer = (pData->pid == pid);
+		m_pMemory->unlock();
+	}
+	if (bServer) {
+		QLocalServer::removeServer(m_sUnique);
+		m_pServer = new QLocalServer();
+		m_pServer->setSocketOptions(QLocalServer::UserAccessOption);
+		m_pServer->listen(m_sUnique);
+		QObject::connect(m_pServer,
+			SIGNAL(newConnection()),
+			SLOT(newConnectionSlot()));
+	} else {
+		QLocalSocket socket;
+		socket.connectToServer(m_sUnique);
+		if (socket.state() == QLocalSocket::ConnectingState)
+			socket.waitForConnected(200);
+		if (socket.state() == QLocalSocket::ConnectedState) {
+			socket.write(QCoreApplication::arguments().join(' ').toUtf8());
+			socket.flush();
+			socket.waitForBytesWritten(200);
 		}
 	}
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-	bool x11EventFilter(XEvent *pEv)
-	{
-		if (pEv->type == PropertyNotify
-			&& pEv->xproperty.state == PropertyNewValue)
-			x11PropertyNotify(pEv->xproperty.window);
-		return QApplication::x11EventFilter(pEv);
-	}
+	return !bServer;
 #endif
-#endif	// CONFIG_XUNIQUE
-#endif	// CONFIG_X11
-
-private:
-
-	// Translation support.
-	QTranslator *m_pQtTranslator;
-	QTranslator *m_pMyTranslator;
-
-	// Instance variables.
-	QWidget *m_pWidget;
-
-#ifdef CONFIG_X11
-#ifdef CONFIG_XUNIQUE
-	Display *m_pDisplay;
-	Atom     m_aUnique;
-	Window   m_wOwner;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
-	qxgeditXcbEventFilter *m_pXcbEventFilter;
-#endif
-#endif	// CONFIG_XUNIQUE
-#endif	// CONFIG_X11
-};
-
-
-#ifdef CONFIG_X11
-#ifdef CONFIG_XUNIQUE
-#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
-// XCB Event filter (virtual processor).
-bool qxgeditXcbEventFilter::nativeEventFilter (
-	const QByteArray& eventType, void *message, long * )
-{
-	if (eventType == "xcb_generic_event_t") {
-		xcb_property_notify_event_t *pEv
-			= static_cast<xcb_property_notify_event_t *> (message);
-		if ((pEv->response_type & ~0x80) == XCB_PROPERTY_NOTIFY
-			&& pEv->state == XCB_PROPERTY_NEW_VALUE)
-			m_pApp->x11PropertyNotify(pEv->window);
-	}
+#else
 	return false;
+#endif	// !CONFIG_XUNIQUE
 }
+
+
+#ifdef CONFIG_XUNIQUE
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#ifdef CONFIG_X11
+
+void qxgeditApplication::x11PropertyNotify ( Window w )
+{
+	if (m_pDisplay && m_pWidget && m_wOwner == w) {
+		// Always check whether our property-flag is still around...
+		Atom aType;
+		int iFormat = 0;
+		unsigned long iItems = 0;
+		unsigned long iAfter = 0;
+		unsigned char *pData = 0;
+		if (XGetWindowProperty(
+			m_pDisplay,
+			m_wOwner,
+			m_aUnique,
+			0, 1024,
+			false,
+			m_aUnique,
+			&aType,
+			&iFormat,
+			&iItems,
+			&iAfter,
+			&pData) == Success
+		&& aType == m_aUnique && iItems > 0 && iAfter == 0) {
+			// Avoid repeating it-self...
+			XDeleteProperty(m_pDisplay, m_wOwner, m_aUnique);
+			// Just make it always shows up fine...
+			m_pWidget->show();
+			m_pWidget->raise();
+			m_pWidget->activateWindow();
+		}
+		// Free any left-overs...
+		if (iItems > 0 && pData)
+			XFree(pData);
+	}
+}
+
+
+bool qxgeditApplication::x11EventFilter ( XEvent *pEv )
+{
+	if (pEv->type == PropertyNotify
+		&& pEv->xproperty.state == PropertyNewValue)
+		x11PropertyNotify(pEv->xproperty.window);
+	return QApplication::x11EventFilter(pEv);
+}
+
+#endif	// CONFIG_X11
+#else
+
+// Local server conection slot.
+void qxgeditApplication::newConnectionSlot (void)
+{
+	QLocalSocket *pSocket = m_pServer->nextPendingConnection();
+	QObject::connect(pSocket,
+		SIGNAL(readyRead()),
+		SLOT(readyReadSlot()));
+}
+
+// Local server data-ready slot.
+void qxgeditApplication::readyReadSlot (void)
+{
+	QLocalSocket *pSocket = qobject_cast<QLocalSocket *> (sender());
+	if (pSocket) {
+		const qint64 nread = pSocket->bytesAvailable();
+		if (nread > 0) {
+			const QByteArray data = pSocket->read(nread);
+			// Just make it always shows up fine...
+			m_pWidget->hide();
+			m_pWidget->show();
+			m_pWidget->raise();
+			m_pWidget->activateWindow();
+		}
+	}
+}
+
 #endif
 #endif	// CONFIG_XUNIQUE
-#endif	// CONFIG_X11
 
 
 //-------------------------------------------------------------------------

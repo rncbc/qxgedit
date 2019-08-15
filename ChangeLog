@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- Refactored all singleton/unique application instance
+  setup logic away from X11/Xcb hackery.
+
 - Make sure compiler flags comply to c++11 as standard.
 
 

@@ -194,15 +194,15 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 {
 	QTextStream out(stderr);
 	const QString sEol = "\n\n";
-	int iCmdArgs = 0;
 	const int argc = args.count();
+	int iCmdArgs = 0;
 
 	for (int i = 1; i < argc; ++i) {
 
 		if (iCmdArgs > 0) {
 			sSessionFile += ' ';
 			sSessionFile += args.at(i);
-			iCmdArgs++;
+			++iCmdArgs;
 			continue;
 		}
 
@@ -224,7 +224,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 			// If we don't have one by now,
 			// this will be the startup session file...
 			sSessionFile += sArg;
-			iCmdArgs++;
+			++iCmdArgs;
 		}
 	}
 

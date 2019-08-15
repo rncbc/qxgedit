@@ -79,9 +79,9 @@ fi
 AC_SUBST(ac_debug)
 
 
-# Enable X11 unique/single instance.
+# Enable unique/single instance.
 AC_ARG_ENABLE(xunique,
-  AS_HELP_STRING([--enable-xunique], [enable X11 unique/single instance (default=yes)]),
+  AS_HELP_STRING([--enable-xunique], [enable unique/single instance (default=yes)]),
   [ac_xunique="$enableval"],
   [ac_xunique="yes"])
 
@@ -302,19 +302,15 @@ AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h sys/ioctl.h sys/stat.h unistd.h signal.h)
 
-# Check for X11 unique/single instance.
+# Check for unique/single instance support.
 if test "x$ac_xunique" = "xyes"; then
-   PKG_CHECK_MODULES([QT5X11EXTRAS], [Qt5X11Extras], [ac_xunique="yes"], [ac_xunique="no"])
-fi
-if test "x$ac_xunique" = "xyes"; then
-   AC_DEFINE(CONFIG_XUNIQUE, 1, [Define if X11 unique/single instance is enabled.])
-   ac_qx11extras="x11extras"
-   # Some recent distros (eg. fedora, debian) require this.
-   if test "x$ac_cv_lib_X11_main" = "xyes"; then
-      ac_libs="$ac_libs -lX11"
+   PKG_CHECK_MODULES([QT5NETWORK], [Qt5Network], [ac_qt5network="yes"], [ac_qt5network="no"])
+   if test "x$ac_qt5network" = "xyes"; then
+      AC_DEFINE(CONFIG_XUNIQUE, 1, [Define if unique/single instance is enabled.])
+      ac_qnetwork="network"
    fi
 fi
-AC_SUBST(ac_qx11extras)
+AC_SUBST(ac_qnetwork)
 
 # Check for debugging stack-trace.
 if test "x$ac_stacktrace" = "xyes"; then
@@ -347,7 +343,7 @@ echo "  Build target . . . . . . . . . . . . . . . . . . .: $ac_debug"
 echo
 echo "  ALSA MIDI Sequencer support  . . . . . . . . . . .: $ac_alsa_seq"
 echo
-echo "  X11 Unique/Single instance . . . . . . . . . . . .: $ac_xunique"
+echo "  Unique/Single instance support . . . . . . . . . .: $ac_xunique"
 echo "  Debugger stack-trace (gdb) . . . . . . . . . . . .: $ac_stacktrace"
 echo
 echo "  Install prefix . . . . . . . . . . . . . . . . . .: $ac_prefix"

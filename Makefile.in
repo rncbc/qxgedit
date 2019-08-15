@@ -31,7 +31,8 @@ headers = \
 	src/qxgeditMidiRpn.h \
 	src/qxgeditOptions.h \
 	src/qxgeditOptionsForm.h \
-	src/qxgeditMainForm.h
+	src/qxgeditMainForm.h \
+	src/qxgedit.h
 
 sources = \
 	src/XGParam.cpp \
