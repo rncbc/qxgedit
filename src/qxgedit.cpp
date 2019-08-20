@@ -87,6 +87,11 @@ qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 	: QApplication(argc, argv),
 		m_pQtTranslator(nullptr), m_pMyTranslator(nullptr), m_pWidget(nullptr)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
+	QApplication::setApplicationName(QXGEDIT_TITLE);
+	QApplication::setApplicationDisplayName(
+		QXGEDIT_TITLE " - " + QObject::tr(QXGEDIT_SUBTITLE));
+#endif
 	// Load translation support.
 	QLocale loc;
 	if (loc.language() != QLocale::C) {
@@ -451,10 +456,12 @@ int main ( int argc, char **argv )
 	::signal(SIGBUS,  stacktrace);
 #endif
 #endif
-	qxgeditApplication app(argc, argv);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
-	app.setAttribute(Qt::AA_EnableHighDpiScaling);
+	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
+
+	qxgeditApplication app(argc, argv);
+
 	// Construct default settings; override with command line arguments.
 	qxgeditOptions options;
 	if (!options.parse_args(app.arguments())) {

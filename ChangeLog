@@ -6,6 +6,8 @@ ChangeLog
 
 GIT HEAD
 
+- Fix HiDPI display screen effective support (Qt >= 5.6).
+
 - Refactored all singleton/unique application instance
   setup logic away from X11/Xcb hackery.
 
