@@ -25,6 +25,9 @@
 #include <QWidget>
 #include <QTextStream>
 
+#include <QApplication>
+#include <QDesktopWidget>
+
 
 //-------------------------------------------------------------------------
 // qxgeditOptions - Prototype settings structure (pseudo-singleton).
@@ -247,7 +250,20 @@ void qxgeditOptions::loadWidgetGeometry ( QWidget *pWidget, bool bVisible )
 			= m_settings.value("/geometry").toByteArray();
 		if (!geometry.isEmpty())
 			pWidget->restoreGeometry(geometry);
-		else
+		if (geometry.isEmpty()) {
+			QWidget *pParent = pWidget->parentWidget();
+			if (pParent)
+				pParent = pParent->window();
+			if (pParent == nullptr)
+				pParent = QApplication::desktop();
+			if (pParent) {
+				QRect wrect(pWidget->geometry());
+				wrect.moveCenter(pParent->geometry().center());
+				pWidget->move(wrect.topLeft());
+			}
+		} else {
+			pWidget->restoreGeometry(geometry);
+		}
 	#else//--LOAD_OLD_GEOMETRY
 		QPoint wpos;
 		QSize  wsize;
@@ -261,7 +277,7 @@ void qxgeditOptions::loadWidgetGeometry ( QWidget *pWidget, bool bVisible )
 			pWidget->resize(wsize);
 		else
 	#endif
-		pWidget->adjustSize();
+	//	pWidget->adjustSize();
 		if (!bVisible)
 			bVisible = m_settings.value("/visible", false).toBool();
 		if (bVisible)
