@@ -236,7 +236,7 @@ void qxgeditOptionsForm::reject (void)
 	// Check if there's any pending changes...
 	if (m_iDirtyCount > 0) {
 		switch (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("Some settings have been changed.\n\n"
 			"Do you want to apply the changes?"),
 			QMessageBox::Apply |

@@ -160,7 +160,7 @@ bool qxgeditEdit::queryPreset (void)
 			if (pMasterMap &&
 				pMasterMap->user_dirty_2(pMasterMap->USERVOICE.current_key())) {
 				switch (QMessageBox::warning(this,
-					tr("Warning") + " - " QXGEDIT_TITLE,
+					tr("Warning"),
 					tr("Some parameters have been changed:\n\n"
 					"\"%1\".\n\nDo you want to save the changes?")
 					.arg(sPreset),
@@ -251,7 +251,7 @@ void qxgeditEdit::openPreset (void)
 
 	// Prompt if file does not currently exist...
 	const QString  sExt("syx");
-	const QString& sTitle  = tr("Open Preset") + " - " QXGEDIT_TITLE;
+	const QString& sTitle  = tr("Open Preset");
 	const QString& sFilter = tr("Preset files (*.%1)").arg(sExt);
 #if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 	// Ask for the filename to save...
@@ -318,7 +318,7 @@ void qxgeditEdit::savePreset ( const QString& sPreset )
 	QString sFilename = fi.absoluteFilePath();
 	// Prompt if file does not currently exist...
 	if (!fi.exists()) {
-		const QString& sTitle  = tr("Save Preset") + " - " QXGEDIT_TITLE;
+		const QString& sTitle  = tr("Save Preset");
 		const QString& sFilter = tr("Preset files (*.%1)").arg(sExt);
 	#if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 		// Ask for the filename to save...
@@ -343,7 +343,7 @@ void qxgeditEdit::savePreset ( const QString& sPreset )
 	#endif
 	} else if (pOptions->bConfirmRemove) {
 		if (QMessageBox::warning(parentWidget(),
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to replace preset:\n\n"
 			"\"%1\"\n\n"
 			"Are you sure?")
@@ -389,7 +389,7 @@ void qxgeditEdit::removePreset (void)
 	// prompt user if he/she's sure about this...
 	if (pOptions->bConfirmRemove) {
 		if (QMessageBox::warning(parentWidget(),
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to remove preset:\n\n"
 			"\"%1\"\n\n"
 			"Are you sure?")

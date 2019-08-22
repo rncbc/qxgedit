@@ -1378,7 +1378,7 @@ bool qxgeditMainForm::openSession (void)
 	QString sFilename;
 
 	const QString sExt("syx");
-	const QString& sTitle  = tr("Open Session") + " - " QXGEDIT_TITLE;
+	const QString& sTitle  = tr("Open Session");
 	const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
 #if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 	sFilename = QFileDialog::getOpenFileName(this,
@@ -1431,7 +1431,7 @@ bool qxgeditMainForm::saveSession ( bool bPrompt )
 	if (bPrompt) {
 		// Prompt the guy...
 		const QString sExt("syx");
-		const QString& sTitle  = tr("Save Session") + " - " QXGEDIT_TITLE;
+		const QString& sTitle  = tr("Save Session");
 		const QString& sFilter = tr("Session files (*.%1)").arg(sExt);
 	#if 0//QT_VERSION < QT_VERSION_CHECK(4, 4, 0)
 		sFilename = QFileDialog::getSaveFileName(this,
@@ -1464,7 +1464,7 @@ bool qxgeditMainForm::saveSession ( bool bPrompt )
 			// Check if already exists...
 			if (sFilename != m_sFilename && QFileInfo(sFilename).exists()) {
 				if (QMessageBox::warning(this,
-					tr("Warning") + " - " QXGEDIT_TITLE,
+					tr("Warning"),
 					tr("The file already exists:\n\n"
 					"\"%1\"\n\n"
 					"Do you want to replace it?")
@@ -1488,7 +1488,7 @@ bool qxgeditMainForm::closeSession (void)
 	// Are we dirty enough to prompt it?
 	if (m_iDirtyCount > 0) {
 		switch (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("The current session has been changed:\n\n"
 			"\"%1\"\n\n"
 			"Do you want to save the changes?")
@@ -1783,7 +1783,7 @@ void qxgeditMainForm::viewRandomize (void)
 				break;
 			}
 			if (QMessageBox::warning(this,
-				tr("Warning") + " - " QXGEDIT_TITLE,
+				tr("Warning"),
 				tr("About to randomize current parameter values:\n\n"
 				"%1.\n\n"
 				"Are you sure?").arg(sText),
@@ -1873,7 +1873,7 @@ void qxgeditMainForm::viewOptions (void)
 			}
 			// Show restart needed message...
 			QMessageBox::information(this,
-				tr("Information") + " - " QXGEDIT_TITLE,
+				tr("Information"),
 				tr("Some settings may be only effective\n"
 				"next time you start this %1.")
 				.arg(sNeedRestart));
@@ -1913,7 +1913,7 @@ void qxgeditMainForm::helpAbout (void)
 	sText += "</small>";
 	sText += "</p>\n";
 
-	QMessageBox::about(this, tr("About") + " " QXGEDIT_TITLE, sText);
+	QMessageBox::about(this, tr("About"), sText);
 }
 
 
@@ -1933,7 +1933,7 @@ void qxgeditMainForm::stabilizeForm (void)
 	QString sSessionName = sessionName(m_sFilename);
 	if (m_iDirtyCount > 0)
 		sSessionName += ' ' + tr("[modified]");
-	setWindowTitle(sSessionName + " - " QXGEDIT_TITLE);
+	setWindowTitle(sSessionName);
 
 	// Update the main menu state...
 	m_ui.fileSaveAction->setEnabled(m_iDirtyCount > 0);
@@ -2016,7 +2016,7 @@ void qxgeditMainForm::masterResetButtonClicked (void)
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to reset all parameters to default:\n\n"
 			"XG System.\n\n"
 			"Are you sure?"),
@@ -2036,7 +2036,7 @@ void qxgeditMainForm::reverbResetButtonClicked (void)
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to reset all parameters to default:\n\n"
 			"REVERB / %1.\n\n"
 			"Are you sure?").arg(m_ui.ReverbTypeCombo->currentText()),
@@ -2056,7 +2056,7 @@ void qxgeditMainForm::chorusResetButtonClicked (void)
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to reset all parameters to default:\n\n"
 			"CHORUS / %1.\n\n"
 			"Are you sure?").arg(m_ui.ChorusTypeCombo->currentText()),
@@ -2076,7 +2076,7 @@ void qxgeditMainForm::variationResetButtonClicked (void)
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to reset all parameters to default:\n\n"
 			"VARIATION / %1.\n\n"
 			"Are you sure?").arg(m_ui.VariationTypeCombo->currentText()),
@@ -2280,7 +2280,7 @@ void qxgeditMainForm::multipartResetButtonClicked (void)
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to reset all parameters to default:\n\n"
 			"MULTI PART / %1.\n\n"
 			"Are you sure?").arg(m_ui.MultipartCombo->currentText()),
@@ -2355,7 +2355,7 @@ void qxgeditMainForm::drumsetupResetButtonClicked (void)
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to reset all parameters to default:\n\n"
 			"DRUM SETUP / %1.\n\n"
 			"Are you sure?").arg(m_ui.DrumsetupCombo->currentText()),
@@ -2414,7 +2414,7 @@ void qxgeditMainForm::uservoiceResetButtonClicked (void)
 
 	if (m_pOptions && m_pOptions->bConfirmReset) {
 		if (QMessageBox::warning(this,
-			tr("Warning") + " - " QXGEDIT_TITLE,
+			tr("Warning"),
 			tr("About to reset all parameters to default:\n\n"
 			"USER VOICE / %1.\n\n"
 			"Are you sure?").arg(m_ui.UservoiceCombo->currentText()),
@@ -2554,7 +2554,7 @@ void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
 	if (!bResult) {
 		// Failure (maybe wrong preset)...
 		QMessageBox::critical(this,
-			tr("Error") + " - " QXGEDIT_TITLE,
+			tr("Error"),
 			tr("Preset could not be loaded:\n\n"
 			"\"%1\".\n\n"
 			"Sorry.").arg(sFilename),
@@ -2601,8 +2601,7 @@ void qxgeditMainForm::showMessage( const QString& s )
 
 void qxgeditMainForm::showMessageError( const QString& s )
 {
-	QMessageBox::critical(this,
-		tr("Error") + " - " QXGEDIT_TITLE, s, QMessageBox::Ok);
+	QMessageBox::critical(this, tr("Error"), s, QMessageBox::Ok);
 }
 
 

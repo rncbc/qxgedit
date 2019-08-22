@@ -38,9 +38,6 @@
   <property name="acceptDrops" >
    <bool>true</bool>
   </property>
-  <property name="windowTitle" >
-   <string>QXGEdit</string>
-  </property>
   <property name="windowIcon" >
    <iconset resource="qxgedit.qrc" >:/images/qxgedit.png</iconset>
   </property>
