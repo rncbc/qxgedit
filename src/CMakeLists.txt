@@ -100,15 +100,19 @@ target_link_libraries (qxgedit
   ${ALSA_LIBRARIES}
 )
 
-qt5_use_modules (qxgedit Core Gui Widgets Network)
+qt5_use_modules (qxgedit Core Gui Widgets)
+
+if (CONFIG_XUNIQUE)
+  qt5_use_modules (qxgedit Network)
+endif ()
 
 if (UNIX AND NOT APPLE)
-  install (TARGETS qxgedit
-     RUNTIME DESTINATION bin)
+  install (TARGETS qxgedit RUNTIME
+     DESTINATION ${CMAKE_INSTALL_BINDIR})
   install (FILES ${CMAKE_CURRENT_BINARY_DIR}/qxgedit.desktop
-     DESTINATION share/applications)
+     DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
   install (FILES images/qxgedit.png
-     DESTINATION share/icons/hicolor/32x32/apps)
+     DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/32x32/apps)
   install (FILES appdata/qxgedit.appdata.xml
-     DESTINATION share/metainfo)
+     DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
 endif ()
