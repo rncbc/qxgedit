@@ -3,13 +3,17 @@ include_directories (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${QT_INCLUDES}
-  ${ALSA_INCLUDEDIR}
 )
 
 link_directories (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${QT_LIBRARY_DIR}
 )
+
+if (CONFIG_ALSA_SEQ)
+  include_directories (${ALSA_INCLUDE_DIRS})
+  link_directories (${ALSA_LIBRARY_DIRS})
+endif ()
 
 configure_file (cmake_config.h ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
@@ -106,8 +110,6 @@ qt5_use_modules (qxgedit Core Gui Widgets Network)
 if (UNIX AND NOT APPLE)
   install (TARGETS qxgedit
      RUNTIME DESTINATION bin)
-  install (FILES ${QM_FILES}
-     DESTINATION share/qxgedit/translations)
   install (FILES ${CMAKE_CURRENT_BINARY_DIR}/qxgedit.desktop
      DESTINATION share/applications)
   install (FILES images/qxgedit.png
