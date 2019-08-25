@@ -10,11 +10,6 @@ link_directories (
   ${QT_LIBRARY_DIR}
 )
 
-if (CONFIG_ALSA_SEQ)
-  include_directories (${ALSA_INCLUDE_DIRS})
-  link_directories (${ALSA_LIBRARY_DIRS})
-endif ()
-
 configure_file (cmake_config.h ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 set (ac_prefix ${CMAKE_INSTALL_PREFIX})
@@ -113,7 +108,7 @@ if (UNIX AND NOT APPLE)
   install (FILES ${CMAKE_CURRENT_BINARY_DIR}/qxgedit.desktop
      DESTINATION share/applications)
   install (FILES images/qxgedit.png
-     DESTINATION share/pixmaps)
+     DESTINATION share/icons/hicolor/32x32/apps)
   install (FILES appdata/qxgedit.appdata.xml
      DESTINATION share/metainfo)
 endif ()
