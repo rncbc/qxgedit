@@ -70,6 +70,7 @@ resources = \
 	src/qxgedit.qrc
 
 style_headers = \
+	skulpture/sk_plugin.h \
 	skulpture/sk_factory.h \
 	skulpture/skulpture_p.h \
 	skulpture/skulpture.h
