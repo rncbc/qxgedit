@@ -12,8 +12,6 @@ link_directories (
 
 configure_file (cmake_config.h ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
-set (ac_prefix ${CMAKE_INSTALL_PREFIX})
-
 configure_file (qxgedit.desktop ${CMAKE_CURRENT_BINARY_DIR}/qxgedit.desktop)
 
 set (HEADERS
@@ -95,16 +93,16 @@ add_executable (qxgedit
   ${SOURCES}
 )
 
-target_link_libraries (qxgedit
-  ${QT_LIBRARIES}
-  ${ALSA_LIBRARIES}
-)
-
-qt5_use_modules (qxgedit Core Gui Widgets)
+target_link_libraries (qxgedit PRIVATE Qt5::Widgets)
 
 if (CONFIG_XUNIQUE)
-  qt5_use_modules (qxgedit Network)
+  target_link_libraries (qxgedit PRIVATE Qt5::Network)
 endif ()
+
+if (CONFIG_ALSA_SEQ)
+  target_link_libraries (qxgedit PRIVATE ${ALSA_LIBRARIES})
+endif ()
+
 
 if (UNIX AND NOT APPLE)
   install (TARGETS qxgedit RUNTIME
