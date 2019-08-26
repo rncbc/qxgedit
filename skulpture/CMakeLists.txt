@@ -1,3 +1,4 @@
+set (NAME skulpturestyle)
 
 include_directories (
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -27,15 +28,17 @@ set (OTHER_FILES
 
 qt5_wrap_cpp (MOC_SOURCES ${HEADERS})
 
-add_library (skulpturestyle MODULE
+add_library (${NAME} MODULE
   ${SOURCES}
   ${OTHER_FILES}
 )
 
-target_link_libraries (skulpturestyle PUBLIC Qt5::Widgets)
+target_compile_options (${NAME} PRIVATE -std=c++11)
+
+target_link_libraries (${NAME} PUBLIC Qt5::Widgets)
 
 
 if (UNIX AND NOT APPLE)
-  install (TARGETS skulpturestyle LIBRARY
+  install (TARGETS ${NAME} LIBRARY
      DESTINATION ${CMAKE_INSTALL_LIBDIR}/qt5/plugins/styles)
 endif ()
