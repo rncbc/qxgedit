@@ -3,12 +3,6 @@ set (NAME skulpturestyle)
 include_directories (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
-  ${QT_INCLUDES}
-)
-
-link_directories (
-  ${CMAKE_CURRENT_BINARY_DIR}
-  ${QT_LIBRARY_DIR}
 )
 
 set (HEADERS
@@ -28,14 +22,16 @@ set (OTHER_FILES
 
 qt5_wrap_cpp (MOC_SOURCES ${HEADERS})
 
+
 add_library (${NAME} MODULE
   ${SOURCES}
+  ${MOC_SOURCES}
   ${OTHER_FILES}
 )
 
-target_compile_options (${NAME} PRIVATE -std=c++11)
+set_target_properties (${NAME} PROPERTIES CXX_STANDARD 11)
 
-target_link_libraries (${NAME} PUBLIC Qt5::Widgets)
+target_link_libraries (${NAME} PRIVATE Qt5::Widgets)
 
 
 if (UNIX AND NOT APPLE)
