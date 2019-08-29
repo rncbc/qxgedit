@@ -1,7 +1,8 @@
+cmake_minimum_required(VERSION 3.1)
+
 set (NAME skulpturestyle)
 
 include_directories (
-  ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
@@ -19,6 +20,9 @@ set (SOURCES
 set (OTHER_FILES
   skulpture.json
 )
+
+
+find_package (Qt5 REQUIRED COMPONENTS Widgets )
 
 qt5_wrap_cpp (MOC_SOURCES ${HEADERS})
 
