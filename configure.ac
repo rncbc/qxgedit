@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(QXGEdit, 0.6.0, rncbc@rncbc.org, qxgedit)
+AC_INIT(QXGEdit, 0.6.1, rncbc@rncbc.org, qxgedit)
 
 AC_CONFIG_SRCDIR(src/qxgedit.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -93,6 +93,7 @@ AC_ARG_ENABLE(stacktrace,
 
 # Standard installation base dirs.
 ac_path=$PATH
+ac_pkg_config_path=$PKG_CONFIG_PATH
 ac_with_paths=""
 
 # Set for alternate Qt installation dir.
@@ -102,6 +103,7 @@ AC_ARG_WITH(qt,
 
 if test "x$ac_qt_path" != "xno"; then
    ac_path="$ac_qt_path/bin:$ac_path"
+   ac_pkg_config_path="$ac_qt_path/lib/pkgconfig:$ac_pkg_config_path"
 fi
 
 # Set for alternate ALSA installation dir.
@@ -167,9 +169,18 @@ for X in $ac_with_paths; do
      if test -d $X/$Y; then
         LIBS="-L$X/$Y $LIBS"
         ac_libs="-L$X/$Y $ac_libs"
+        if test -d $X/$Y/pkgconfig; then
+           ac_pkg_config_path="$X/$Y/pkgconfig:$ac_pkg_config_path"
+        fi
      fi
   done
 done
+
+# Set pkg-config path.
+if test -n "$ac_pkg_config_path"; then
+   export PKG_CONFIG_PATH=$ac_pkg_config_path
+fi
+
 
 # A common error message:
 ac_errmsg="not found in current PATH. Maybe QT development environment isn't available."
