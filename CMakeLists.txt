@@ -92,14 +92,15 @@ find_package (PkgConfig REQUIRED)
 
 # Check for ALSA libraries.
 pkg_check_modules (ALSA REQUIRED alsa)
-set (CONFIG_ALSA_SEQ ${ALSA_FOUND})
-if (CONFIG_ALSA_SEQ)
+if (ALSA_FOUND)
+  set (CONFIG_ALSA_SEQ 1)
   include_directories (${ALSA_INCLUDE_DIRS})
   link_directories (${ALSA_LIBRARY_DIRS})
   link_libraries (${ALSA_LIBRARIES})
 # set (CMAKE_REQUIRED_LIBRARIES "${ALSA_LIBRARIES};${CMAKE_REQUIRED_LIBRARIES}")
 else ()
   message (FATAL_ERROR "*** ALSA library not found.")
+  set (CONFIG_ALSA_SEQ 0)
 endif ()
 
 
