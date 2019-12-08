@@ -35,6 +35,10 @@
 #include <QStyleFactory>
 
 
+// Default (empty/blank) name.
+static const char *g_pszDefName = QT_TR_NOOP("(default)");
+
+
 //----------------------------------------------------------------------------
 // qxgeditOptionsForm -- UI wrapper form.
 
@@ -59,11 +63,6 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	// Try to fix window geometry.
 	m_ui.MidiInputListView->setMaximumHeight(72);
 	m_ui.MidiOutputListView->setMaximumHeight(72);
-
-	// Custom style themes...
-	//m_ui.StyleThemeComboBox->clear();
-	//m_ui.StyleThemeComboBox->addItem(tr("(default)"));
-	m_ui.StyleThemeComboBox->addItems(QStyleFactory::keys());
 
 	adjustSize();
 
@@ -335,7 +334,8 @@ void qxgeditOptionsForm::editColorThemes (void)
 void qxgeditOptionsForm::resetColorThemes ( const QString& sColorTheme )
 {
 	m_ui.ColorThemeComboBox->clear();
-	m_ui.ColorThemeComboBox->addItem(tr("(default)"));
+	m_ui.ColorThemeComboBox->addItem(
+		tr(g_pszDefName));
 	m_ui.ColorThemeComboBox->addItems(
 		qxgeditPaletteForm::namedPaletteList(&m_pOptions->settings()));
 
@@ -350,7 +350,8 @@ void qxgeditOptionsForm::resetColorThemes ( const QString& sColorTheme )
 void qxgeditOptionsForm::resetStyleThemes ( const QString& sStyleTheme )
 {
 	m_ui.StyleThemeComboBox->clear();
-	m_ui.StyleThemeComboBox->addItem(tr("(default)"));
+	m_ui.StyleThemeComboBox->addItem(
+		tr(g_pszDefName));
 	m_ui.StyleThemeComboBox->addItems(QStyleFactory::keys());
 
 	int iStyleTheme = 0;
