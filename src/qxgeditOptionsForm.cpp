@@ -19,12 +19,14 @@
 
 *****************************************************************************/
 
+#include "qxgeditAbout.h"
 #include "qxgeditOptionsForm.h"
 
-#include "qxgeditAbout.h"
 #include "qxgeditOptions.h"
 
 #include "qxgeditMidiDevice.h"
+
+#include "qxgeditPaletteForm.h"
 
 #include <QMessageBox>
 #include <QPushButton>
@@ -93,6 +95,12 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	QObject::connect(m_ui.StyleThemeComboBox,
 		SIGNAL(activated(int)),
 		SLOT(changed()));
+	QObject::connect(m_ui.ColorThemeComboBox,
+		SIGNAL(activated(int)),
+		SLOT(changed()));
+	QObject::connect(m_ui.ColorThemeToolButton,
+		SIGNAL(clicked()),
+		SLOT(editColorThemes()));
 	QObject::connect(m_ui.DialogButtonBox,
 		SIGNAL(accepted()),
 		SLOT(accept()));
@@ -153,13 +161,9 @@ void qxgeditOptionsForm::setOptions ( qxgeditOptions *pOptions )
 	else
 		m_ui.BaseFontSizeComboBox->setCurrentIndex(0);
 
-	// Custom style theme...
-	int iStyleTheme = 0;
-	if (!m_pOptions->sStyleTheme.isEmpty()) {
-		iStyleTheme = m_ui.StyleThemeComboBox->findText(
-			m_pOptions->sStyleTheme, Qt::MatchExactly);
-	}
-	m_ui.StyleThemeComboBox->setCurrentIndex(iStyleTheme);
+	// Custom display options...
+	resetColorThemes(m_pOptions->sColorTheme);
+	resetStyleThemes(m_pOptions->sStyleTheme);
 
 	// Done. Restart clean.
 	m_iDirtyCount = 0;
@@ -211,11 +215,45 @@ void qxgeditOptionsForm::accept (void)
 		m_pOptions->iMaxRecentFiles = m_ui.MaxRecentFilesSpinBox->value();
 		m_pOptions->fRandomizePercent = float(m_ui.RandomizePercentSpinBox->value());
 		m_pOptions->iBaseFontSize   = m_ui.BaseFontSizeComboBox->currentText().toInt();
-		// Custom style theme...
+		// Custom options...
+		const QString sOldStyleTheme = m_pOptions->sStyleTheme;
 		if (m_ui.StyleThemeComboBox->currentIndex() > 0)
 			m_pOptions->sStyleTheme = m_ui.StyleThemeComboBox->currentText();
 		else
 			m_pOptions->sStyleTheme.clear();
+		const QString sOldColorTheme = m_pOptions->sColorTheme;
+		if (m_ui.ColorThemeComboBox->currentIndex() > 0)
+			m_pOptions->sColorTheme = m_ui.ColorThemeComboBox->currentText();
+		else
+			m_pOptions->sColorTheme.clear();
+		// Check whether restart is needed or whether
+		// custom options maybe set up immediately...
+		int iNeedRestart = 0;
+		if (m_pOptions->sStyleTheme != sOldStyleTheme) {
+			if (m_pOptions->sStyleTheme.isEmpty()) {
+				++iNeedRestart;
+			} else {
+				QApplication::setStyle(
+					QStyleFactory::create(m_pOptions->sStyleTheme));
+			}
+ 		}
+ 		if (m_pOptions->sColorTheme != sOldColorTheme) {
+			if (m_pOptions->sColorTheme.isEmpty()) {
+				++iNeedRestart;
+			} else {
+				QPalette pal;
+				if (qxgeditPaletteForm::namedPalette(
+						&m_pOptions->settings(), m_pOptions->sColorTheme, pal))
+					QApplication::setPalette(pal);
+			}
+ 		}
+		// Show restart message if needed...
+ 		if (iNeedRestart > 0) {
+			QMessageBox::information(this,
+				tr("Information"),
+				tr("Some settings may be only effective\n"
+				"next time you start this application."));
+		}
 		// Reset dirty flag.
 		m_iDirtyCount = 0;
 	}
@@ -264,11 +302,73 @@ void qxgeditOptionsForm::changed (void)
 	stabilizeForm();
 }
 
+
+// Custom color palette theme manager.
+void qxgeditOptionsForm::editColorThemes (void)
+{
+	qxgeditPaletteForm form(this);
+	form.setSettings(&m_pOptions->settings());
+
+	QString sColorTheme;
+	int iDirtyColorTheme = 0;
+
+	const int iColorTheme
+		= m_ui.ColorThemeComboBox->currentIndex();
+	if (iColorTheme > 0) {
+		sColorTheme = m_ui.ColorThemeComboBox->itemText(iColorTheme);
+		form.setPaletteName(sColorTheme);
+	}
+
+	if (form.exec() == QDialog::Accepted) {
+		sColorTheme = form.paletteName();
+		++iDirtyColorTheme;
+	}
+
+	if (iDirtyColorTheme > 0 || form.isDirty()) {
+		resetColorThemes(sColorTheme);
+		changed();
+	}
+}
+
+
+// Custom color palette themes settler.
+void qxgeditOptionsForm::resetColorThemes ( const QString& sColorTheme )
+{
+	m_ui.ColorThemeComboBox->clear();
+	m_ui.ColorThemeComboBox->addItem(tr("(default)"));
+	m_ui.ColorThemeComboBox->addItems(
+		qxgeditPaletteForm::namedPaletteList(&m_pOptions->settings()));
+
+	int iColorTheme = 0;
+	if (!sColorTheme.isEmpty())
+		iColorTheme = m_ui.ColorThemeComboBox->findText(
+			sColorTheme);
+	m_ui.ColorThemeComboBox->setCurrentIndex(iColorTheme);
+}
+
+
+// Custom widget style themes settler.
+void qxgeditOptionsForm::resetStyleThemes ( const QString& sStyleTheme )
+{
+	m_ui.StyleThemeComboBox->clear();
+	m_ui.StyleThemeComboBox->addItem(tr("(default)"));
+	m_ui.StyleThemeComboBox->addItems(QStyleFactory::keys());
+
+	int iStyleTheme = 0;
+	if (!sStyleTheme.isEmpty())
+		iStyleTheme = m_ui.StyleThemeComboBox->findText(sStyleTheme);
+	m_ui.StyleThemeComboBox->setCurrentIndex(iStyleTheme);
+}
+
+
+
+// MIDI I/O changes
 void qxgeditOptionsForm::midiInputsChanged (void)
 {
 	m_iMidiInputsChanged++;
 	changed();
 }
+
 
 void qxgeditOptionsForm::midiOutputsChanged (void)
 {

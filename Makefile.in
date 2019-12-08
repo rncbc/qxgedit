@@ -31,6 +31,7 @@ headers = \
 	src/qxgeditMidiRpn.h \
 	src/qxgeditOptions.h \
 	src/qxgeditOptionsForm.h \
+	src/qxgeditPaletteForm.h \
 	src/qxgeditMainForm.h \
 	src/qxgedit.h
 
@@ -59,11 +60,13 @@ sources = \
 	src/qxgeditMidiRpn.cpp \
 	src/qxgeditOptions.cpp \
 	src/qxgeditOptionsForm.cpp \
+	src/qxgeditPaletteForm.cpp \
 	src/qxgeditMainForm.cpp \
 	src/qxgedit.cpp
 
 forms = \
 	src/qxgeditOptionsForm.ui \
+	src/qxgeditPaletteForm.ui \
 	src/qxgeditMainForm.ui
 
 resources = \

@@ -53,10 +53,18 @@ protected slots:
 
 	void changed();
 
+	void editColorThemes();
+
 	void midiInputsChanged();
 	void midiOutputsChanged();
 	
 	void stabilizeForm();
+
+protected:
+
+	// Custom color/style themes settlers.
+	void resetColorThemes(const QString& sColorTheme);
+	void resetStyleThemes(const QString& sStyleTheme);
 
 private:
 

@@ -33,6 +33,7 @@ set (HEADERS
   qxgeditMidiRpn.h
   qxgeditOptions.h
   qxgeditOptionsForm.h
+  qxgeditPaletteForm.h
   qxgeditMainForm.h
   qxgedit.h
 )
@@ -62,12 +63,14 @@ set (SOURCES
   qxgeditMidiRpn.cpp
   qxgeditOptions.cpp
   qxgeditOptionsForm.cpp
+  qxgeditPaletteForm.cpp
   qxgeditMainForm.cpp
   qxgedit.cpp
 )
 
 set (FORMS
   qxgeditOptionsForm.ui
+  qxgeditPaletteForm.ui
   qxgeditMainForm.ui
 )
 

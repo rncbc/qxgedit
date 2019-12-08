@@ -10,5 +10,6 @@
 		<file>images/formReject.png</file>
 		<file>images/formRemove.png</file>
 		<file>images/formSave.png</file>
+		<file>images/itemReset.png</file>
 	</qresource>
 </RCC>

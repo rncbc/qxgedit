@@ -35,6 +35,7 @@ HEADERS += config.h \
 	qxgeditMidiRpn.h \
 	qxgeditOptions.h \
 	qxgeditOptionsForm.h \
+	qxgeditPaletteForm.h \
 	qxgeditMainForm.h \
 	qxgedit.h
 
@@ -63,11 +64,13 @@ SOURCES += \
 	qxgeditMidiRpn.cpp \
 	qxgeditOptions.cpp \
 	qxgeditOptionsForm.cpp \
+	qxgeditPaletteForm.cpp \
 	qxgeditMainForm.cpp \
 	qxgedit.cpp
 
 FORMS += \
 	qxgeditOptionsForm.ui \
+	qxgeditPaletteForm.ui \
 	qxgeditMainForm.ui
 
 RESOURCES += qxgedit.qrc

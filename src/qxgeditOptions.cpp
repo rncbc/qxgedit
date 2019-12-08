@@ -85,6 +85,7 @@ void qxgeditOptions::loadOptions (void)
 	fRandomizePercent = m_settings.value("/RandomizePercent", 20.0f).toFloat();
 	iBaseFontSize   = m_settings.value("/BaseFontSize", 0).toInt();
 	sStyleTheme     = m_settings.value("/StyleTheme", "Skulpture").toString();
+	sColorTheme     = m_settings.value("/ColorTheme").toString();
 	m_settings.endGroup();
 
 	// And go into view options group.
@@ -136,6 +137,7 @@ void qxgeditOptions::saveOptions (void)
 	m_settings.setValue("/RandomizePercent", fRandomizePercent);
 	m_settings.setValue("/BaseFontSize", iBaseFontSize);
 	m_settings.setValue("/StyleTheme", sStyleTheme);
+	m_settings.setValue("/ColorTheme", sColorTheme);
 	m_settings.endGroup();
 
 	// View options group.

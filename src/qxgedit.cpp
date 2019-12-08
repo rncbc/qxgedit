@@ -24,13 +24,15 @@
 #include "qxgeditOptions.h"
 #include "qxgeditMainForm.h"
 
+#include "qxgeditPaletteForm.h"
+
+#include <QDir>
+
 #include <QStyleFactory>
 
 #include <QLibraryInfo>
 #include <QTranslator>
 #include <QLocale>
-
-#include <QDir>
 
 #ifndef CONFIG_PREFIX
 #define CONFIG_PREFIX	"/usr/local"
@@ -475,44 +477,21 @@ int main ( int argc, char **argv )
 		return 2;
 	}
 
-	// Dark themes grayed/disabled color group fix...
-	QPalette pal(app.palette());
-	if (pal.base().color().value() < 0x7f) {
-	#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-		const QColor& color = pal.window().color();
-		const int iGroups = int(QPalette::Active | QPalette::Inactive) + 1;
-		for (int i = 0; i < iGroups; ++i) {
-			const QPalette::ColorGroup group = QPalette::ColorGroup(i);
-			pal.setBrush(group, QPalette::Light,    color.lighter(150));
-			pal.setBrush(group, QPalette::Midlight, color.lighter(120));
-			pal.setBrush(group, QPalette::Dark,     color.darker(150));
-			pal.setBrush(group, QPalette::Mid,      color.darker(120));
-			pal.setBrush(group, QPalette::Shadow,   color.darker(200));
-		}
-	//	pal.setColor(QPalette::Disabled, QPalette::ButtonText, pal.mid().color());
-	#endif
-		pal.setColorGroup(QPalette::Disabled,
-			pal.windowText().color().darker(),
-			pal.button(),
-			pal.light(),
-			pal.dark(),
-			pal.mid(),
-			pal.text().color().darker(),
-			pal.text().color().lighter(),
-			pal.base(),
-			pal.window());
-		app.setPalette(pal);
-	}
-
 	// Set default base font...
 	if (options.iBaseFontSize > 0)
 		app.setFont(QFont(app.font().family(), options.iBaseFontSize));
 
 	// Special styles...
 	if (QDir(CONFIG_PLUGINSDIR).exists())
-		QApplication::addLibraryPath(CONFIG_PLUGINSDIR);
+		app.addLibraryPath(CONFIG_PLUGINSDIR);
 	if (!options.sStyleTheme.isEmpty())
-		QApplication::setStyle(QStyleFactory::create(options.sStyleTheme));
+		app.setStyle(QStyleFactory::create(options.sStyleTheme));
+
+	// Custom color theme (eg. "KXStudio")...
+	QPalette pal(app.palette());
+	if (qxgeditPaletteForm::namedPalette(
+			&options.settings(), options.sColorTheme, pal))
+		app.setPalette(pal);
 
 	// Construct, setup and show the main form (a pseudo-singleton).
 	qxgeditMainForm w;

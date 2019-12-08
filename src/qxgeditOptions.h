@@ -63,6 +63,7 @@ public:
 	float   fRandomizePercent;
 	int     iBaseFontSize;
 	QString sStyleTheme;
+	QString sColorTheme;
 
 	// View options...
 	bool    bMenubar;
