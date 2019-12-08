@@ -235,8 +235,8 @@ void qxgeditOptionsForm::accept (void)
 				QApplication::setStyle(
 					QStyleFactory::create(m_pOptions->sStyleTheme));
 			}
- 		}
- 		if (m_pOptions->sColorTheme != sOldColorTheme) {
+		}
+		if (m_pOptions->sColorTheme != sOldColorTheme) {
 			if (m_pOptions->sColorTheme.isEmpty()) {
 				++iNeedRestart;
 			} else {
@@ -245,9 +245,9 @@ void qxgeditOptionsForm::accept (void)
 						&m_pOptions->settings(), m_pOptions->sColorTheme, pal))
 					QApplication::setPalette(pal);
 			}
- 		}
+		}
 		// Show restart message if needed...
- 		if (iNeedRestart > 0) {
+		if (iNeedRestart > 0) {
 			QMessageBox::information(this,
 				tr("Information"),
 				tr("Some settings may be only effective\n"
