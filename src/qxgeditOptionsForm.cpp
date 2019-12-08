@@ -341,8 +341,7 @@ void qxgeditOptionsForm::resetColorThemes ( const QString& sColorTheme )
 
 	int iColorTheme = 0;
 	if (!sColorTheme.isEmpty())
-		iColorTheme = m_ui.ColorThemeComboBox->findText(
-			sColorTheme);
+		iColorTheme = m_ui.ColorThemeComboBox->findText(sColorTheme);
 	m_ui.ColorThemeComboBox->setCurrentIndex(iColorTheme);
 }
 
