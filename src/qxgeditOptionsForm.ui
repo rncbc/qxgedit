@@ -80,7 +80,7 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0">
+         <property name="sizeHint">
           <size>
            <width>0</width>
            <height>20</height>
@@ -400,10 +400,10 @@
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0">
+         <property name="sizeHint">
           <size>
            <width>20</width>
-           <height>0</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
