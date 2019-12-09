@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>rncbc aka Rui Nuno Capela</author>
  <comment>qxgedit - Qt XG Editor.
 
    Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
