@@ -340,8 +340,11 @@ void qxgeditOptionsForm::resetColorThemes ( const QString& sColorTheme )
 		qxgeditPaletteForm::namedPaletteList(&m_pOptions->settings()));
 
 	int iColorTheme = 0;
-	if (!sColorTheme.isEmpty())
+	if (!sColorTheme.isEmpty()) {
 		iColorTheme = m_ui.ColorThemeComboBox->findText(sColorTheme);
+		if (iColorTheme < 0)
+			iColorTheme = 0;
+	}
 	m_ui.ColorThemeComboBox->setCurrentIndex(iColorTheme);
 }
 
@@ -355,8 +358,11 @@ void qxgeditOptionsForm::resetStyleThemes ( const QString& sStyleTheme )
 	m_ui.StyleThemeComboBox->addItems(QStyleFactory::keys());
 
 	int iStyleTheme = 0;
-	if (!sStyleTheme.isEmpty())
+	if (!sStyleTheme.isEmpty()) {
 		iStyleTheme = m_ui.StyleThemeComboBox->findText(sStyleTheme);
+		if (iStyleTheme < 0)
+			iStyleTheme = 0;
+	}
 	m_ui.StyleThemeComboBox->setCurrentIndex(iStyleTheme);
 }
 
