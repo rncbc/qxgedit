@@ -1635,7 +1635,11 @@ void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option
 		if (!(state & QStyle::State_Enabled)) {
 			state &= ~(QStyle::State_MouseOver | QStyle::State_HasFocus);
 		}
+	#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
 		pixmapName.sprintf("scp-cbp-%x-%x-%x-%x-%llx-%x", features, uint(bgrole), state, option->direction, option->palette.cacheKey(), r.height());
+	#else
+		pixmapName = QString::asprintf("scp-cbp-%x-%x-%x-%x-%llx-%x", features, uint(bgrole), state, option->direction, option->palette.cacheKey(), r.height());
+	#endif
 	}
 	if (!useCache || !QPixmapCache::find(pixmapName, &pixmap)) {
 		pixmap =  QPixmap(r.size());
@@ -1845,7 +1849,11 @@ void paintIndicatorCheckBox(QPainter *painter, const QStyleOptionButton *option,
 			state &= ~(QStyle::State_MouseOver | QStyle::State_HasFocus);
 		}
 		state &= ~(QStyle::State_HasFocus);
+	#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
 		pixmapName.sprintf("scp-icb-%x-%x-%llx-%x-%x", state, option->direction, option->palette.cacheKey(), option->rect.width(), option->rect.height());
+	#else
+		pixmapName = QString::asprintf("scp-icb-%x-%x-%llx-%x-%x", state, option->direction, option->palette.cacheKey(), option->rect.width(), option->rect.height());
+	#endif
 	}
 	paintIndicatorCached(painter, option, paintCheckBox, useCache, pixmapName);
 }
@@ -1932,7 +1940,11 @@ void paintIndicatorRadioButton(QPainter *painter, const QStyleOptionButton *opti
 			state &= ~(QStyle::State_MouseOver | QStyle::State_HasFocus);
 		}
 		state &= ~(QStyle::State_HasFocus);
+	#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
 		pixmapName.sprintf("scp-irb-%x-%x-%llx-%x-%x", state, option->direction, option->palette.cacheKey(), option->rect.width(), option->rect.height());
+	#else
+		pixmapName = QString::asprintf("scp-irb-%x-%x-%llx-%x-%x", state, option->direction, option->palette.cacheKey(), option->rect.width(), option->rect.height());
+	#endif
 	}
 	paintIndicatorCached(painter, option, paintRadioButton, useCache, pixmapName);
 }
@@ -2124,7 +2136,11 @@ void paintCachedGrip(QPainter *painter, const QStyleOption *option, QPalette::Co
 		}
 		state &= ~(QStyle::State_HasFocus);
                 QByteArray colorName = option->palette.color(QPalette::Button).name().toLatin1();
-                pixmapName.sprintf("scp-isg-%x-%x-%s-%x-%x", state, option->direction, colorName.constData(), option->rect.width(), option->rect.height());
+	#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+		pixmapName.sprintf("scp-isg-%x-%x-%s-%x-%x", state, option->direction, colorName.constData(), option->rect.width(), option->rect.height());
+	#else
+		pixmapName= QString::asprintf("scp-isg-%x-%x-%s-%x-%x", state, option->direction, colorName.constData(), option->rect.width(), option->rect.height());
+	#endif
 	}
 	paintIndicatorCached(painter, option, paintGrip, useCache, pixmapName);
 }
@@ -2276,7 +2292,11 @@ void paintCachedDialBase(QPainter *painter, const QStyleOptionSlider *option)
 			state &= ~(QStyle::State_MouseOver | QStyle::State_HasFocus | QStyle::State_KeyboardFocusChange);
 		}
 	//	state &= ~(QStyle::State_HasFocus);
+	#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
 		pixmapName.sprintf("scp-qdb-%x-%x-%llx-%x", state, option->direction, option->palette.cacheKey(), d);
+	#else
+		pixmapName = QString::asprintf("scp-qdb-%x-%x-%llx-%x", state, option->direction, option->palette.cacheKey(), d);
+	#endif
 	}
 	paintIndicatorCached(painter, option, paintDialBase, useCache, pixmapName);
 }
@@ -2321,7 +2341,11 @@ void paintCachedIndicatorBranchChildren(QPainter *painter, const QStyleOption *o
 	//		state &= ~(QStyle::State_MouseOver | QStyle::State_HasFocus | QStyle::State_KeyboardFocusChange);
 	//	}
 	//	state &= ~(QStyle::State_HasFocus);
+	#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
 		pixmapName.sprintf("scp-qibc-%x-%x-%llx-%x", state, option->direction, option->palette.cacheKey(), d);
+	#else
+		pixmapName = QString::asprintf("scp-qibc-%x-%x-%llx-%x", state, option->direction, option->palette.cacheKey(), d);
+	#endif
 	}
 	paintIndicatorCached(painter, option, paintBranchChildren, useCache, pixmapName);
 }
