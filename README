@@ -6,16 +6,16 @@ for XG devices (eg. Yamaha DB50XG).
 
 Website:
 
-  http://qxgedit.sourceforge.net
   https://qxgedit.sourceforge.io
+  http://qxgedit.sourceforge.net
 
 Project page:
 
-  http://sourceforge.net/projects/qxgedit
+  https://sourceforge.net/projects/qxgedit
 
 Weblog:
 
-  http://www.rncbc.org
+  https://www.rncbc.org
 
 QXGEdit is free, open-source software, distributed under the terms of
 the GNU General Public License (GPL) [3] version 2 or later.
@@ -30,10 +30,10 @@ The software requirements for build and runtime are listed as follows:
 
   [1] Qt framework, C++ class library and tools for
         cross-platform application and UI development
-        http://qt.io/
+        https://qt.io/
 
   [2] ALSA, Advanced Linux Sound Architecture
-        http://www.alsa-project.org/
+        https://www.alsa-project.org/
 
 
 Installation
@@ -86,10 +86,10 @@ Support
 QXGEdit is open source free software. For bug reports, feature requests,
 discussion forums, mailling lists, or any other matter related to the
 development of this piece of software, please use the Sourceforge
-project page (http://sourceforge.net/projects/qxgedit).
+project page (https://sourceforge.net/projects/qxgedit).
 
 You can also find timely and closer contact information on my personal
-web site (http://www.rncbc.org).
+web site (https://www.rncbc.org).
 
 
 References
@@ -97,17 +97,17 @@ References
 
 [1] Qt framework, C++ class library and tools for
      cross-platform application and UI development
-     http://qt.io/
+     https://qt.io/
 
 [2] ALSA, Advanced Linux Sound Architecture
-     http://www.alsa-project.org/
+     https://www.alsa-project.org/
 
 [3] GNU General Public License
-     http://www.gnu.org/copyleft/gpl.html
+     https://www.gnu.org/copyleft/gpl.html
 
 
 Enjoy.
 
 rncbc aka Rui Nuno Capela
 rncbc at rncbc dot org
-http://www.rncbc.org
+https://www.rncbc.org
