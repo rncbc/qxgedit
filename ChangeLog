@@ -4,6 +4,11 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Bumped copyright headers into the New Year (2020).
+
+
 0.6.1  2019-12-22  The Winter'19 Release.
 
 - Custom color (palette) theme editor introduced; color
