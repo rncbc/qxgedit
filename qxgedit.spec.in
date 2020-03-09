@@ -1,7 +1,7 @@
 #
 # spec file for package qxgedit
 #
-# Copyright (C) 2009-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+# Copyright (C) 2009-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -72,6 +72,8 @@ for XG devices (eg. Yamaha DB50XG).
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/32x32
 %dir %{_datadir}/icons/hicolor/32x32/apps
+%dir %{_datadir}/icons/hicolor/scalable
+%dir %{_datadir}/icons/hicolor/scalable/apps
 %dir %{_libdir}/qt5
 %dir %{_libdir}/qt5/plugins
 %dir %{_libdir}/qt5/plugins/styles
@@ -81,6 +83,7 @@ for XG devices (eg. Yamaha DB50XG).
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_libdir}/qt5/plugins/styles/libskulpturestyle.so
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/man/man1/%{name}*.1.gz
