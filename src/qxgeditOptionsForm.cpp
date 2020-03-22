@@ -1,7 +1,7 @@
 // qxgeditOptionsForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -61,8 +61,8 @@ qxgeditOptionsForm::qxgeditOptionsForm (
 	m_iMidiOutputsChanged = 0;
 
 	// Try to fix window geometry.
-	m_ui.MidiInputListView->setMaximumHeight(72);
-	m_ui.MidiOutputListView->setMaximumHeight(72);
+	m_ui.MidiInputListView->setMaximumHeight(96);
+	m_ui.MidiOutputListView->setMaximumHeight(96);
 
 	adjustSize();
 
