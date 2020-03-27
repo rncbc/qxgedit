@@ -1,7 +1,7 @@
 // qxgeditKnob.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2009, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -35,7 +35,7 @@
 // Constructor.
 qxgeditKnob::qxgeditKnob ( QWidget *pParent )
 	: QDial(pParent), m_iDefaultValue(-1), m_dialMode(DefaultMode),
-	m_bMousePressed(false), m_fLastDragValue(0.0f)
+		m_bMousePressed(false), m_fLastDragValue(0.0f)
 {
 }
 
@@ -44,6 +44,7 @@ qxgeditKnob::qxgeditKnob ( QWidget *pParent )
 qxgeditKnob::~qxgeditKnob (void)
 {
 }
+
 
 void qxgeditKnob::setDefaultValue ( int iDefaultValue )
 {
@@ -146,7 +147,7 @@ void qxgeditKnob::wheelEvent ( QWheelEvent *pWheelEvent )
 		QDial::wheelEvent(pWheelEvent);
 	} else {
 		int iValue = value();
-		if (pWheelEvent->delta() > 0)
+		if (pWheelEvent->angleDelta().y() > 0)
 			iValue -= pageStep();
 		else
 			iValue += pageStep();

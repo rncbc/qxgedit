@@ -35,7 +35,7 @@ class qxgeditVibra : public QFrame
 public:
 
 	// Constructor.
-	qxgeditVibra(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditVibra(QWidget *pParent = nullptr);
 	// Destructor.
 	~qxgeditVibra();
 

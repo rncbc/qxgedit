@@ -1,7 +1,7 @@
 /*
  * Skulpture - Classical Three-Dimensional Artwork for Qt 5
  *
- * Copyright (c) 2017-2019 rncbc aka Rui Nuno Capela <rncbc@rncbc.org>
+ * Copyright (c) 2017-2020 rncbc aka Rui Nuno Capela <rncbc@rncbc.org>
  * Copyright (c) 2007-2010 Christoph Feck <christoph@maxiom.de>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -1863,7 +1863,7 @@ void paintIndicatorCheckBox(QPainter *painter, const QStyleOptionButton *option,
 
 static void paintThinBevel(QPainter *painter, const QPainterPath &path, const QColor &dark, const QColor &light, qreal lightAngle = M_PI / 4)
 {
-    QMatrix scaleUp;
+    QTransform scaleUp;
     scaleUp.scale(10, 10);
     QList<QPolygonF> bevel = path.toSubpathPolygons(scaleUp);
     Q_FOREACH (QPolygonF polygon, bevel) {
@@ -9588,7 +9588,7 @@ void paintToolButton(QPainter *painter, const QStyleOptionToolButton *option, co
 				opt.rect = style->subControlRect(QStyle::CC_ToolButton, option, QStyle::SC_ToolButton, widget);
 				// opt.features &= ~(QStyleOptionToolButton::Menu | QStyleOptionToolButton::HasMenu | QStyleOptionToolButton::Arrow);
 				opt.arrowType = Qt::NoArrow;
-				opt.features = 0;
+				opt.features = QStyleOptionToolButton::ToolButtonFeatures();
 				opt.subControls &= ~(QStyle::SC_ToolButtonMenu);
 				opt.activeSubControls &= ~(QStyle::SC_ToolButtonMenu);
                                 if (opt.state & QStyle::State_Sunken) {

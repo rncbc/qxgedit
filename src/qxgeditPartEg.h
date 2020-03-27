@@ -35,7 +35,7 @@ class qxgeditPartEg : public QFrame
 public:
 
 	// Constructor.
-	qxgeditPartEg(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditPartEg(QWidget *pParent = nullptr);
 	// Destructor.
 	~qxgeditPartEg();
 

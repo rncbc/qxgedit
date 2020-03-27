@@ -1,7 +1,7 @@
 // qxgeditUserEg.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -30,9 +30,8 @@
 // qxgeditUserEg -- Custom widget
 
 // Constructor.
-qxgeditUserEg::qxgeditUserEg (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags), m_iLevel0(0),
+qxgeditUserEg::qxgeditUserEg ( QWidget *pParent )
+	: QFrame(pParent), m_iLevel0(0),
 		m_iLevel1(0), m_iLevel2(0), m_iLevel3(0), m_iLevel4(0),
 		m_iRate1(0), m_iRate2(0), m_iRate3(0), m_iRate4(0),
 		m_poly(6), m_iDragNode(-1)

@@ -45,7 +45,7 @@ class qxgeditMainForm : public QMainWindow
 public:
 
 	// Constructor.
-	qxgeditMainForm(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditMainForm(QWidget *pParent = nullptr);
 	// Destructor.
 	~qxgeditMainForm();
 

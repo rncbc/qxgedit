@@ -35,7 +35,7 @@ class qxgeditAmpEg : public QFrame
 public:
 
 	// Constructor.
-	qxgeditAmpEg(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditAmpEg(QWidget *pParent = nullptr);
 	// Destructor.
 	~qxgeditAmpEg();
 

@@ -1,7 +1,7 @@
 // qxgeditPitch.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -30,9 +30,8 @@
 // qxgeditPitch -- Custom widget
 
 // Constructor.
-qxgeditPitch::qxgeditPitch (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags),
+qxgeditPitch::qxgeditPitch ( QWidget *pParent )
+	: QFrame(pParent),
 		m_iAttackTime(0), m_iAttackLevel(0),
 		m_iReleaseTime(0), m_iReleaseLevel(0),
 		m_poly(4), m_iDragNode(-1)

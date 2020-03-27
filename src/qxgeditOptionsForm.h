@@ -39,7 +39,7 @@ class qxgeditOptionsForm : public QDialog
 public:
 
 	// Constructor.
-	qxgeditOptionsForm(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditOptionsForm(QWidget *pParent = nullptr);
 	// Destructor.
 	~qxgeditOptionsForm();
 

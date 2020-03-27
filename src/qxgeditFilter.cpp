@@ -31,9 +31,8 @@
 // qxgeditFilter -- Custom widget
 
 // Constructor.
-qxgeditFilter::qxgeditFilter (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags),
+qxgeditFilter::qxgeditFilter ( QWidget *pParent )
+	: QFrame(pParent),
 		m_iCutoff(0), m_iResonance(0),
 		m_iMaxCutoff(127), m_iMaxResonance(127),
 		m_bDragging(false)

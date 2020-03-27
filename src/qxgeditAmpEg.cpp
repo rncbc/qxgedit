@@ -31,9 +31,8 @@
 // qxgeditAmpEg -- Custom widget
 
 // Constructor.
-qxgeditAmpEg::qxgeditAmpEg (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags),
+qxgeditAmpEg::qxgeditAmpEg ( QWidget *pParent )
+	: QFrame(pParent),
 		m_iAttack(0), m_iRelease(0),
 		m_iDecay1(0), m_iDecay2(0),
 		m_iLevel1(0), m_iLevel2(0),

@@ -1,7 +1,7 @@
 // qxgeditScale.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -30,9 +30,8 @@
 // qxgeditScale -- Custom widget
 
 // Constructor.
-qxgeditScale::qxgeditScale (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags),
+qxgeditScale::qxgeditScale ( QWidget *pParent )
+	: QFrame(pParent),
 		m_iBreak1(0), m_iBreak2(0), m_iBreak3(0), m_iBreak4(0),
 		m_iOffset1(0), m_iOffset2(0), m_iOffset3(0), m_iOffset4(0),
 		m_poly(6), m_iDragNode(-1)

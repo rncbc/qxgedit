@@ -35,7 +35,7 @@ class qxgeditDrumEg : public QFrame
 public:
 
 	// Constructor.
-	qxgeditDrumEg(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditDrumEg(QWidget *pParent = nullptr);
 	// Destructor.
 	~qxgeditDrumEg();
 

@@ -31,9 +31,8 @@
 // qxgeditVibra -- Custom widget
 
 // Constructor.
-qxgeditVibra::qxgeditVibra (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags),
+qxgeditVibra::qxgeditVibra ( QWidget *pParent )
+	: QFrame(pParent),
 		m_iDelay(0), m_iRate(0), m_iDepth(0),
 		m_poly(3), m_iDragNode(-1)
 {

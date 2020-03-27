@@ -100,9 +100,8 @@ static void qxgedit_sigterm_handler ( int /* signo */ )
 qxgeditMainForm *qxgeditMainForm::g_pMainForm = nullptr;
 
 // Constructor.
-qxgeditMainForm::qxgeditMainForm (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QMainWindow(pParent, wflags)
+qxgeditMainForm::qxgeditMainForm ( QWidget *pParent )
+	: QMainWindow(pParent)
 {
 	// Setup UI struct...
 	m_ui.setupUi(this);

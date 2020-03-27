@@ -35,7 +35,7 @@ class qxgeditFilter : public QFrame
 public:
 
 	// Constructor.
-	qxgeditFilter(QWidget *pParent = 0, Qt::WindowFlags wflags = 0);
+	qxgeditFilter(QWidget *pParent = nullptr);
 	// Destructor.
 	~qxgeditFilter();
 

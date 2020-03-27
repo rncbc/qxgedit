@@ -31,9 +31,8 @@
 // qxgeditDrumEg -- Custom widget
 
 // Constructor.
-qxgeditDrumEg::qxgeditDrumEg (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags),
+qxgeditDrumEg::qxgeditDrumEg ( QWidget *pParent )
+	: QFrame(pParent),
 		m_iAttack(0), m_iDecay1(0), m_iDecay2(0),
 		m_poly(6), m_iDragNode(-1)
 {

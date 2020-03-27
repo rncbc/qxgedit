@@ -31,9 +31,8 @@
 // qxgeditPartEg -- Custom widget
 
 // Constructor.
-qxgeditPartEg::qxgeditPartEg (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QFrame(pParent, wflags),
+qxgeditPartEg::qxgeditPartEg ( QWidget *pParent )
+	: QFrame(pParent),
 		m_iAttack(0), m_iDecay(0), m_iRelease(0),
 		m_poly(7), m_iDragNode(-1)
 {

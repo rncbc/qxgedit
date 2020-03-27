@@ -43,9 +43,8 @@ static const char *g_pszDefName = QT_TRANSLATE_NOOP("qxgeditOptionsForm", "(defa
 // qxgeditOptionsForm -- UI wrapper form.
 
 // Constructor.
-qxgeditOptionsForm::qxgeditOptionsForm (
-	QWidget *pParent, Qt::WindowFlags wflags )
-	: QDialog(pParent, wflags)
+qxgeditOptionsForm::qxgeditOptionsForm ( QWidget *pParent )
+	: QDialog(pParent)
 {
 	// Setup UI struct...
 	m_ui.setupUi(this);
