@@ -33,6 +33,7 @@
 #include "qxgeditCombo.h"
 
 #include "qxgeditOptionsForm.h"
+#include "qxgeditPaletteForm.h"
 
 #include <QApplication>
 #include <QMessageBox>
@@ -1835,47 +1836,57 @@ void qxgeditMainForm::viewOptions (void)
 		return;
 
 	// Load the current setup settings.
-	const bool bOldCompletePath   = m_pOptions->bCompletePath;
-	const int  iOldMaxRecentFiles = m_pOptions->iMaxRecentFiles;
-	const int  iOldBaseFontSize   = m_pOptions->iBaseFontSize;
-	const QString sOldStyleTheme  = m_pOptions->sStyleTheme;
+	const bool    bOldCompletePath   = m_pOptions->bCompletePath;
+	const int     iOldMaxRecentFiles = m_pOptions->iMaxRecentFiles;
+	const int     iOldBaseFontSize   = m_pOptions->iBaseFontSize;
+	const QString sOldStyleTheme     = m_pOptions->sStyleTheme;
+	const QString sOldColorTheme     = m_pOptions->sColorTheme;
 	// Load the current setup settings.
 	qxgeditOptionsForm optionsForm(this);
 	optionsForm.setOptions(m_pOptions);
 	if (optionsForm.exec()) {
-		enum { RestartSession = 1, RestartProgram = 2, RestartAny = 3 };
-		// Check wheather something immediate has changed.
+		// Check whether restart is needed or whether
+		// custom options maybe set up immediately...
 		int iNeedRestart = 0;
-		if (sOldStyleTheme != m_pOptions->sStyleTheme) {
+		if (m_pOptions->sStyleTheme != sOldStyleTheme) {
+		#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+			++iNeedRestart;
+		#else
 			if (m_pOptions->sStyleTheme.isEmpty()) {
-				iNeedRestart |= RestartProgram;
+				++iNeedRestart;
 			} else {
 				QApplication::setStyle(
 					QStyleFactory::create(m_pOptions->sStyleTheme));
 			}
+		#endif
 		}
+		if (m_pOptions->sColorTheme != sOldColorTheme) {
+		#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+			++iNeedRestart;
+		#else		
+			if (m_pOptions->sColorTheme.isEmpty()) {
+				++iNeedRestart;
+			} else {
+				QPalette pal;
+				if (qxgeditPaletteForm::namedPalette(
+						&m_pOptions->settings(), m_pOptions->sColorTheme, pal))
+					QApplication::setPalette(pal);
+			}
+		#endif
+		}
+		// Show restart message if needed...
 		if (iOldBaseFontSize != m_pOptions->iBaseFontSize)
-			iNeedRestart |= RestartProgram;
+			++iNeedRestart;
 		if (( bOldCompletePath && !m_pOptions->bCompletePath) ||
 			(!bOldCompletePath &&  m_pOptions->bCompletePath) ||
 			(iOldMaxRecentFiles != m_pOptions->iMaxRecentFiles))
 			updateRecentFilesMenu();
-		// Warn if something will be only effective on next time.
-		if (iNeedRestart & RestartAny) {
-			QString sNeedRestart;
-			if (iNeedRestart & RestartSession)
-				sNeedRestart += tr("session");
-			if (iNeedRestart & RestartProgram) {
-				if (!sNeedRestart.isEmpty())
-					sNeedRestart += tr(" or ");
-				sNeedRestart += tr("program");
-			}
-			// Show restart needed message...
+		// Show restart needed message...
+		if (iNeedRestart > 0) {
 			QMessageBox::information(this,
 				tr("Information"),
 				tr("Some settings may be only effective\n"
-				"next time you start this %1.")
-				.arg(sNeedRestart));
+				"next time you start this program."));
 		}
 	}
 

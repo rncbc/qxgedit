@@ -214,44 +214,14 @@ void qxgeditOptionsForm::accept (void)
 		m_pOptions->fRandomizePercent = float(m_ui.RandomizePercentSpinBox->value());
 		m_pOptions->iBaseFontSize   = m_ui.BaseFontSizeComboBox->currentText().toInt();
 		// Custom options...
-		const QString sOldStyleTheme = m_pOptions->sStyleTheme;
 		if (m_ui.StyleThemeComboBox->currentIndex() > 0)
 			m_pOptions->sStyleTheme = m_ui.StyleThemeComboBox->currentText();
 		else
 			m_pOptions->sStyleTheme.clear();
-		const QString sOldColorTheme = m_pOptions->sColorTheme;
 		if (m_ui.ColorThemeComboBox->currentIndex() > 0)
 			m_pOptions->sColorTheme = m_ui.ColorThemeComboBox->currentText();
 		else
 			m_pOptions->sColorTheme.clear();
-		// Check whether restart is needed or whether
-		// custom options maybe set up immediately...
-		int iNeedRestart = 0;
-		if (m_pOptions->sStyleTheme != sOldStyleTheme) {
-			if (m_pOptions->sStyleTheme.isEmpty()) {
-				++iNeedRestart;
-			} else {
-				QApplication::setStyle(
-					QStyleFactory::create(m_pOptions->sStyleTheme));
-			}
-		}
-		if (m_pOptions->sColorTheme != sOldColorTheme) {
-			if (m_pOptions->sColorTheme.isEmpty()) {
-				++iNeedRestart;
-			} else {
-				QPalette pal;
-				if (qxgeditPaletteForm::namedPalette(
-						&m_pOptions->settings(), m_pOptions->sColorTheme, pal))
-					QApplication::setPalette(pal);
-			}
-		}
-		// Show restart message if needed...
-		if (iNeedRestart > 0) {
-			QMessageBox::information(this,
-				tr("Information"),
-				tr("Some settings may be only effective\n"
-				"next time you start this application."));
-		}
 		// Reset dirty flag.
 		m_iDirtyCount = 0;
 	}
