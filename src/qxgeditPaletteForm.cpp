@@ -116,9 +116,6 @@ qxgeditPaletteForm::qxgeditPaletteForm ( QWidget *parent, const QPalette& pal )
 	m_ui.paletteView->setColumnHidden(3, true);
 
 	QObject::connect(m_ui.nameCombo,
-		SIGNAL(activated(const QString&)),
-		SLOT(nameComboActivated(const QString&)));
-	QObject::connect(m_ui.nameCombo,
 		SIGNAL(editTextChanged(const QString&)),
 		SLOT(nameComboChanged(const QString&)));
 	QObject::connect(m_ui.saveButton,
@@ -229,18 +226,14 @@ QSettings *qxgeditPaletteForm::settings (void) const
 }
 
 
-void qxgeditPaletteForm::nameComboActivated ( const QString& name )
-{
-	setPaletteName(name);
-}
-
-
 void qxgeditPaletteForm::nameComboChanged ( const QString& name )
 {
-	if (m_dirtyCount > 0 || m_ui.nameCombo->findText(name) < 0)
+	if (m_dirtyCount > 0 || m_ui.nameCombo->findText(name) < 0) {
 		updateDialogButtons();
-	else
+	} else {
 		setPaletteName(name);
+		++m_dirtyTotal;
+	}
 }
 
 

@@ -1849,21 +1849,14 @@ void qxgeditMainForm::viewOptions (void)
 		// custom options maybe set up immediately...
 		int iNeedRestart = 0;
 		if (m_pOptions->sStyleTheme != sOldStyleTheme) {
-		#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-			++iNeedRestart;
-		#else
 			if (m_pOptions->sStyleTheme.isEmpty()) {
 				++iNeedRestart;
 			} else {
 				QApplication::setStyle(
 					QStyleFactory::create(m_pOptions->sStyleTheme));
 			}
-		#endif
 		}
 		if (m_pOptions->sColorTheme != sOldColorTheme) {
-		#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-			++iNeedRestart;
-		#else		
 			if (m_pOptions->sColorTheme.isEmpty()) {
 				++iNeedRestart;
 			} else {
@@ -1872,7 +1865,6 @@ void qxgeditMainForm::viewOptions (void)
 						&m_pOptions->settings(), m_pOptions->sColorTheme, pal))
 					QApplication::setPalette(pal);
 			}
-		#endif
 		}
 		// Show restart message if needed...
 		if (iOldBaseFontSize != m_pOptions->iBaseFontSize)
