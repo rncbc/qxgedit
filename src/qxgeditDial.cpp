@@ -1,7 +1,7 @@
 // qxgeditDial.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -57,7 +57,7 @@ qxgeditDial::qxgeditDial ( QWidget *pParent )
 	m_pDrop->setMaximumHeight(iMaximumHeight);
 
 	QVBoxLayout *pVBoxLayout = new QVBoxLayout();
-	pVBoxLayout->setMargin(0);
+	pVBoxLayout->setContentsMargins(0, 0, 0, 0);
 	pVBoxLayout->setSpacing(0);
 	pVBoxLayout->addWidget(m_pLabel);
 	pVBoxLayout->addWidget(m_pKnob);

@@ -74,7 +74,7 @@
 #include <QKeyEvent>
 #include <QList>
 #include <QTimer>
-#include <QDebug>
+#include <QMatrix>
 
 
 /*-----------------------------------------------------------------------*/
@@ -6452,7 +6452,7 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option, 
 		// ### needs QPalette::Window ?
 		paintCommandButtonPanel(painter, &button, 0, 0);
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
-        } else if (option->version >= 2 && option->selectedPosition == QStyleOptionToolBoxV2::PreviousIsSelected) {
+	} else if (option->version >= 2 && option->selectedPosition == QStyleOptionToolBoxV2::PreviousIsSelected) {
 		r.setHeight(2);
 		paintThinFrame(painter, r, option->palette, 60, -20);
 #endif

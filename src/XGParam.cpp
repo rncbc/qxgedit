@@ -21,7 +21,7 @@
 
 #include "XGParam.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include <cstdio>
 #include <cstdlib>
@@ -3627,7 +3627,7 @@ QString XGParam::label (void) const
 	const char *plabel = name();
 	if (plabel) {
 		slabel = plabel;
-		slabel.remove(QRegExp("\\[[^\\]]*\\]"));
+		slabel.remove(QRegularExpression("\\[[^\\]]*\\]"));
 	}
 
 	return slabel;

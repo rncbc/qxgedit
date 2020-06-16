@@ -1,7 +1,7 @@
 // qxgeditEdit.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -62,7 +62,7 @@ qxgeditEdit::qxgeditEdit ( QWidget *pParent )
 	m_pRemoveButton->setToolTip(tr("Remove Preset"));
 
 	QHBoxLayout *pHBoxLayout = new QHBoxLayout();
-	pHBoxLayout->setMargin(2);
+	pHBoxLayout->setContentsMargins(2, 2, 2, 2);
 	pHBoxLayout->setSpacing(4);
 	pHBoxLayout->addWidget(m_pOpenButton);
 	pHBoxLayout->addWidget(m_pComboBox);
