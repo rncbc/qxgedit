@@ -1237,7 +1237,11 @@ void qxgeditMainForm::closeEvent ( QCloseEvent *pCloseEvent )
 	// Let's be sure about that...
 	if (queryClose()) {
 		pCloseEvent->accept();
+	#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		QApplication::exit(0);
+	#else
 		QApplication::quit();
+	#endif
 	} else {
 		pCloseEvent->ignore();
 	}
