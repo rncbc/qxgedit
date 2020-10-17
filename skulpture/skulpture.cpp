@@ -76,6 +76,8 @@
 #include <QTimer>
 #include <QMatrix>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 /*-----------------------------------------------------------------------*/
 
@@ -10862,6 +10864,8 @@ QStyle *SkulptureStylePlugin::create(const QString &key)
 	return 0;
 }
 
+
+#pragma GCC diagnostic pop
 
 /*-----------------------------------------------------------------------*/
 
