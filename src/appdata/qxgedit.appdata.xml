@@ -17,8 +17,8 @@
  </description>
  <launchable type="desktop-id">qxgedit.desktop</launchable>
  <provides>
-​  <binary>qxgedit</binary>
-​ </provides>
+  <binary>qxgedit</binary>
+ </provides>
  <screenshots>
   <screenshot type="default">
    <image>https://qxgedit.sourceforge.io/image/qxgedit-screenshot2.png</image>
