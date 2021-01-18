@@ -2,6 +2,13 @@
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
+    file(REMOVE ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
+endif()
 configure_file (cmake_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 set (HEADERS
@@ -75,17 +82,6 @@ set (RESOURCES
   qxgedit.qrc
 )
 
-if (QT_VERSION VERSION_LESS 5.15.0)
-  qt5_wrap_ui (UI_SOURCES ${FORMS})
-  qt5_wrap_cpp (MOC_SOURCES ${HEADERS})
-  qt5_add_resources (QRC_SOURCES ${RESOURCES})
-  qt5_add_translation (QM_FILES ${TRANSLATIONS})
-else ()
-  qt_wrap_ui (UI_SOURCES ${FORMS})
-  qt_wrap_cpp (MOC_SOURCES ${HEADERS})
-  qt_add_resources (QRC_SOURCES ${RESOURCES})
-  qt_add_translation (QM_FILES ${TRANSLATIONS})
-endif ()
 
 if (WIN32)
   set (RC_FILE ${CMAKE_CURRENT_SOURCE_DIR}/win32/${PROJECT_NAME}.rc)
@@ -110,10 +106,10 @@ endif ()
 
 
 add_executable (${PROJECT_NAME}
-  ${UI_SOURCES}
-  ${MOC_SOURCES}
-  ${QRC_SOURCES}
+  ${HEADERS}
   ${SOURCES}
+  ${FORMS}
+  ${RESOURCES}
 )
 
 set_target_properties (${PROJECT_NAME} PROPERTIES CXX_STANDARD 17)
