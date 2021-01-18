@@ -1,6 +1,6 @@
-project(qxgedit)
+cmake_minimum_required(VERSION 3.10)
 
-cmake_minimum_required(VERSION 3.1)
+project(qxgedit)
 
 set (VERSION "0.9.1")
 
@@ -91,7 +91,7 @@ endif ()
 find_package (PkgConfig REQUIRED)
 
 # Check for ALSA libraries.
-pkg_check_modules (ALSA REQUIRED alsa)
+pkg_check_modules (ALSA REQUIRED IMPORTED_TARGET alsa)
 if (ALSA_FOUND)
   set (CONFIG_ALSA_SEQ 1)
   include_directories (${ALSA_INCLUDE_DIRS})
