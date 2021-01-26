@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- Fixed Chorus and Variation effect types, when loading
+  from a raw SysEx file (.syx). (EXPERIMENTAL)
+
 - Early preparations for the New Year develop(ment) cycle.
 
 

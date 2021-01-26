@@ -1,7 +1,7 @@
 // XGParam.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2021, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -1597,23 +1597,23 @@ struct _XGNormalVoiceGroup
 static
 XGNormalVoiceGroup InstrumentTab[] =
 {	// name                   items                   size
-	{ "Piano",                PianoTab,               TSIZE(PianoTab)               },
-	{ "Organ",                OrganTab,               TSIZE(OrganTab)               },
-	{ "Guitar",               GuitarTab,              TSIZE(GuitarTab)              },
-	{ "Guitar",               GuitarTab,              TSIZE(GuitarTab)              },
-	{ "Bass",                 BassTab,                TSIZE(BassTab)                },
-	{ "Strings",              StringsTab,             TSIZE(StringsTab)             },
-	{ "Ensemble",             EnsembleTab,            TSIZE(EnsembleTab)            },
-	{ "Brass",                BrassTab,               TSIZE(BrassTab)               },
-	{ "Reed",                 ReedTab,                TSIZE(ReedTab)                },
-	{ "Pipe",                 PipeTab,                TSIZE(PipeTab)                },
-	{ "Synth Lead",           SynthLeadTab,           TSIZE(SynthLeadTab)           },
-	{ "Synth Pad",            SynthPadTab,            TSIZE(SynthPadTab)            },
-	{ "Synth Effects",        SynthEffectsTab,        TSIZE(SynthEffectsTab)        },
-	{ "Ethnic",               EthnicTab,              TSIZE(EthnicTab)              },
-	{ "Percussive",           PercussiveTab,          TSIZE(PercussiveTab)          },
+	{ "Piano",                PianoTab,               TSIZE(PianoTab)            },
+	{ "Organ",                OrganTab,               TSIZE(OrganTab)            },
+	{ "Guitar",               GuitarTab,              TSIZE(GuitarTab)           },
+	{ "Guitar",               GuitarTab,              TSIZE(GuitarTab)           },
+	{ "Bass",                 BassTab,                TSIZE(BassTab)             },
+	{ "Strings",              StringsTab,             TSIZE(StringsTab)          },
+	{ "Ensemble",             EnsembleTab,            TSIZE(EnsembleTab)         },
+	{ "Brass",                BrassTab,               TSIZE(BrassTab)            },
+	{ "Reed",                 ReedTab,                TSIZE(ReedTab)             },
+	{ "Pipe",                 PipeTab,                TSIZE(PipeTab)             },
+	{ "Synth Lead",           SynthLeadTab,           TSIZE(SynthLeadTab)        },
+	{ "Synth Pad",            SynthPadTab,            TSIZE(SynthPadTab)         },
+	{ "Synth Effects",        SynthEffectsTab,        TSIZE(SynthEffectsTab)     },
+	{ "Ethnic",               EthnicTab,              TSIZE(EthnicTab)           },
+	{ "Percussive",           PercussiveTab,          TSIZE(PercussiveTab)       },
 	{ "Chromatic Percussion", ChromaticPercussionTab, TSIZE(ChromaticPercussionTab) },
-	{ "Sound Effects",        SoundEffectsTab,        TSIZE(SoundEffectsTab)        },
+	{ "Sound Effects",        SoundEffectsTab,        TSIZE(SoundEffectsTab)     },
 	{ "SFX",                  SFXTab,                 TSIZE(SFXTab)                 }
 };
 
@@ -1635,77 +1635,77 @@ struct _XGDrumVoiceItem
 static
 XGDrumVoiceItem StandardKitTab[] =
 {
-	{ 13, "Surdo Mute"      },
-	{ 14, "Surdo Open"      },
-	{ 15, "Hi Q"            },
-	{ 16, "Whip Slap"       },
-	{ 17, "Scratch Push"    },
-	{ 18, "Scratch Pull"    },
-	{ 19, "Finger Snap"     },
-	{ 20, "Click Noise"     },
+	{ 13, "Surdo Mute"   },
+	{ 14, "Surdo Open"   },
+	{ 15, "Hi Q"         },
+	{ 16, "Whip Slap"    },
+	{ 17, "Scratch Push" },
+	{ 18, "Scratch Pull" },
+	{ 19, "Finger Snap"  },
+	{ 20, "Click Noise"  },
 	{ 21, "Metronome Click" },
 	{ 22, "Metronome Bell"  },
-	{ 23, "Seq Click L"     },
-	{ 24, "Seq Click H"     },
-	{ 25, "Brush Tap"       },
-	{ 26, "Brush Swirl L"   },
-	{ 27, "Brush Slap"      },
-	{ 28, "Brush Swirl H"   },
-	{ 29, "Snare Roll"      },
-	{ 30, "Castanet"        },
-	{ 31, "Snare L"         },
-	{ 32, "Sticks"          },
-	{ 33, "Bass Drum L"     },
-	{ 34, "Open Rim Shot"   },
-	{ 35, "Bass Drum M"     },
-	{ 36, "Bass Drum H"     },
-	{ 37, "Side Stick"      },
-	{ 38, "Snare M"         },
-	{ 39, "Hand Clap"       },
-	{ 40, "Snare H"         },
-	{ 41, "Floor Tom L"     },
-	{ 42, "Hi-Hat Closed"   },
-	{ 43, "Floor Tom H"     },
-	{ 44, "Hi-Hat Pedal"    },
-	{ 45, "Low Tom"         },
-	{ 46, "Hi-Hat Open"     },
-	{ 47, "Mid Tom L"       },
-	{ 48, "Mid Tom H"       },
+	{ 23, "Seq Click L"  },
+	{ 24, "Seq Click H"  },
+	{ 25, "Brush Tap"    },
+	{ 26, "Brush Swirl L"},
+	{ 27, "Brush Slap"   },
+	{ 28, "Brush Swirl H"},
+	{ 29, "Snare Roll"   },
+	{ 30, "Castanet"     },
+	{ 31, "Snare L"      },
+	{ 32, "Sticks"       },
+	{ 33, "Bass Drum L"  },
+	{ 34, "Open Rim Shot"},
+	{ 35, "Bass Drum M"  },
+	{ 36, "Bass Drum H"  },
+	{ 37, "Side Stick"   },
+	{ 38, "Snare M"      },
+	{ 39, "Hand Clap"    },
+	{ 40, "Snare H"      },
+	{ 41, "Floor Tom L"  },
+	{ 42, "Hi-Hat Closed"},
+	{ 43, "Floor Tom H"  },
+	{ 44, "Hi-Hat Pedal" },
+	{ 45, "Low Tom"      },
+	{ 46, "Hi-Hat Open"  },
+	{ 47, "Mid Tom L"    },
+	{ 48, "Mid Tom H"    },
 	{ 49, "Crash Cymbal 1"  },
-	{ 50, "High Tom"        },
-	{ 51, "Ride Cymbal 1"   },
+	{ 50, "High Tom"     },
+	{ 51, "Ride Cymbal 1"},
 	{ 52, "Chinese Cymbal"  },
 	{ 53, "Ride Cymbal Cup" },
-	{ 54, "Tambourine"      },
-	{ 55, "Splash Cymbal"   },
-	{ 56, "Cowbell"         },
+	{ 54, "Tambourine"   },
+	{ 55, "Splash Cymbal"},
+	{ 56, "Cowbell"      },
 	{ 57, "Crash Cymbal 2"  },
-	{ 58, "Vibraslap"       },
-	{ 59, "Ride Cymbal 2"   },
-	{ 60, "Bongo H"         },
-	{ 61, "Bongo L"         },
-	{ 62, "Conga H Mute"    },
-	{ 63, "Conga H Open"    },
-	{ 64, "Conga L"         },
-	{ 65, "Timbale H"       },
-	{ 66, "Timbale L"       },
-	{ 67, "Agogo H"         },
-	{ 68, "Agogo L"         },
-	{ 69, "Cabasa"          },
-	{ 70, "Maracas"         },
+	{ 58, "Vibraslap"    },
+	{ 59, "Ride Cymbal 2"},
+	{ 60, "Bongo H"      },
+	{ 61, "Bongo L"      },
+	{ 62, "Conga H Mute" },
+	{ 63, "Conga H Open" },
+	{ 64, "Conga L"      },
+	{ 65, "Timbale H"    },
+	{ 66, "Timbale L"    },
+	{ 67, "Agogo H"      },
+	{ 68, "Agogo L"      },
+	{ 69, "Cabasa"       },
+	{ 70, "Maracas"      },
 	{ 71, "Samba Whistle H" },
 	{ 72, "Samba Whistle L" },
-	{ 73, "Guiro Short"     },
-	{ 74, "Guiro Long"      },
-	{ 75, "Claves"          },
-	{ 76, "Wood Block H"    },
-	{ 77, "Wood Block L"    },
-	{ 78, "Cuica Mute"      },
-	{ 79, "Cuica Open"      },
-	{ 80, "Triangle Mute"   },
-	{ 81, "Triangle Open"   },
-	{ 82, "Shaker"          },
-	{ 83, "Jingle Bell"     },
+	{ 73, "Guiro Short"  },
+	{ 74, "Guiro Long"   },
+	{ 75, "Claves"       },
+	{ 76, "Wood Block H" },
+	{ 77, "Wood Block L" },
+	{ 78, "Cuica Mute"   },
+	{ 79, "Cuica Open"   },
+	{ 80, "Triangle Mute"},
+	{ 81, "Triangle Open"},
+	{ 82, "Shaker"       },
+	{ 83, "Jingle Bell"  },
 	{ 84, "Bell Tree"       }
 };
 
@@ -1713,12 +1713,12 @@ XGDrumVoiceItem StandardKitTab[] =
 static
 XGDrumVoiceItem Standard2KitTab[] =
 {
-	{ 29, "Snare Roll 2"    },
-	{ 31, "Snare L 2"       },
+	{ 29, "Snare Roll 2" },
+	{ 31, "Snare L 2"    },
 	{ 34, "Open Rim Shot 2" },
-	{ 35, "Bass Drum M 2"   },
-	{ 36, "Bass Drum H 2"   },
-	{ 38, "Snare M 2"       },
+	{ 35, "Bass Drum M 2"},
+	{ 36, "Bass Drum H 2"},
+	{ 38, "Snare M 2"    },
 	{ 40, "Snare H 2"       }
 }; 
 
@@ -1726,13 +1726,13 @@ XGDrumVoiceItem Standard2KitTab[] =
 static
 XGDrumVoiceItem RoomKitTab[] =
 {
-	{ 38, "SD Room L"       },
-	{ 40, "SD Room H"       },
-	{ 41, "Room Tom 1"      },
-	{ 43, "Room Tom 2"      },
-	{ 45, "Room Tom 3"      },
-	{ 47, "Room Tom 4"      },
-	{ 48, "Room Tom 5"      },
+	{ 38, "SD Room L"    },
+	{ 40, "SD Room H"    },
+	{ 41, "Room Tom 1"   },
+	{ 43, "Room Tom 2"   },
+	{ 45, "Room Tom 3"   },
+	{ 47, "Room Tom 4"   },
+	{ 48, "Room Tom 5"   },
 	{ 50, "Room Tom 6"      }
 
 };
@@ -1741,18 +1741,18 @@ XGDrumVoiceItem RoomKitTab[] =
 static
 XGDrumVoiceItem RockKitTab[] =
 {
-	{ 31, "SD Rock M"       },
-	{ 33, "Bass Drum M"     },
+	{ 31, "SD Rock M"    },
+	{ 33, "Bass Drum M"  },
 	{ 34, "Open Rim Shot 2" },
-	{ 35, "Bass Drum H 3"   },
-	{ 36, "BD Rock"         },
-	{ 38, "SD Rock"         },
-	{ 40, "SD Rock Rim"     },
-	{ 41, "Rock Tom 1"      },
-	{ 43, "Rock Tom 2"      },
-	{ 45, "Rock Tom 3"      },
-	{ 47, "Rock Tom 4"      },
-	{ 48, "Rock Tom 5"      },
+	{ 35, "Bass Drum H 3"},
+	{ 36, "BD Rock"      },
+	{ 38, "SD Rock"      },
+	{ 40, "SD Rock Rim"  },
+	{ 41, "Rock Tom 1"   },
+	{ 43, "Rock Tom 2"   },
+	{ 45, "Rock Tom 3"   },
+	{ 47, "Rock Tom 4"   },
+	{ 48, "Rock Tom 5"   },
 	{ 50, "Rock Tom 6"      }
 };
 
@@ -1761,20 +1761,20 @@ static
 XGDrumVoiceItem ElectroKitTab[] =
 {
 	{ 28, "Reverse Cymbal"  },
-	{ 30, "Hi Q"            },
-	{ 31, "Snare M"         },
-	{ 33, "Bass Drum H 4"   },
-	{ 35, "BD Rock"         },
-	{ 36, "BD Gate"         },
-	{ 38, "SD Rock L"       },
-	{ 40, "SD Rock H"       },
-	{ 41, "E Tom 1"         },
-	{ 43, "E Tom 2"         },
-	{ 45, "E Tom 3"         },
-	{ 47, "E Tom 4"         },
-	{ 48, "E Tom 5"         },
-	{ 50, "E Tom 6"         },
-	{ 78, "Scratch Push"    },
+	{ 30, "Hi Q"         },
+	{ 31, "Snare M"      },
+	{ 33, "Bass Drum H 4"},
+	{ 35, "BD Rock"      },
+	{ 36, "BD Gate"      },
+	{ 38, "SD Rock L"    },
+	{ 40, "SD Rock H"    },
+	{ 41, "E Tom 1"      },
+	{ 43, "E Tom 2"      },
+	{ 45, "E Tom 3"      },
+	{ 47, "E Tom 4"      },
+	{ 48, "E Tom 5"      },
+	{ 50, "E Tom 6"      },
+	{ 78, "Scratch Push" },
 	{ 79, "Scratch Pull"    } 
 };
 
@@ -1783,31 +1783,31 @@ static
 XGDrumVoiceItem AnalogKitTab[] =
 {
 	{ 28, "Reverse Cymbal"  },
-	{ 30, "Hi Q"            },
-	{ 31, "SD Rock H"       },
-	{ 33, "Bass Drum M"     },
-	{ 35, "BD Analog L"     },
-	{ 36, "BD Analog H"     },
+	{ 30, "Hi Q"         },
+	{ 31, "SD Rock H"    },
+	{ 33, "Bass Drum M"  },
+	{ 35, "BD Analog L"  },
+	{ 36, "BD Analog H"  },
 	{ 37, "Analog Side Stick" },
 	{ 38, "Analog Snare L"  },
 	{ 40, "Analog Snare H"  },
-	{ 41, "Analog Tom 1"    },
+	{ 41, "Analog Tom 1" },
 	{ 42, "Analog HH Closed 1" },
-	{ 43, "Analog Tom 2"    },
+	{ 43, "Analog Tom 2" },
 	{ 44, "Analog HH Closed 2" },
-	{ 45, "Analog Tom 3"    },
+	{ 45, "Analog Tom 3" },
 	{ 46, "Analog HH Open"  },
-	{ 47, "Analog Tom 4"    },
-	{ 48, "Analog Tom 5"    },
-	{ 49, "Analog Cymbal"   },
-	{ 50, "Analog Tom 6"    },
+	{ 47, "Analog Tom 4" },
+	{ 48, "Analog Tom 5" },
+	{ 49, "Analog Cymbal"},
+	{ 50, "Analog Tom 6" },
 	{ 56, "Analog Cowbell"  },
 	{ 62, "Analog Conga H"  },
 	{ 63, "Analog Conga M"  },
 	{ 64, "Analog Conga L"  },
 	{ 70, "Analog Maracas"  },
-	{ 75, "Analog Claves"   },
-	{ 78, "Scratch Push"    },
+	{ 75, "Analog Claves"},
+	{ 78, "Scratch Push" },
 	{ 79, "Scratch Pull"    }
 };
 
@@ -1815,12 +1815,12 @@ XGDrumVoiceItem AnalogKitTab[] =
 static
 XGDrumVoiceItem JazzKitTab[] =
 {
-	{ 36, "BD Jazz"         },
-	{ 41, "Jazz Tom 1"      },
-	{ 43, "Jazz Tom 2"      },
-	{ 45, "Jazz Tom 3"      },
-	{ 47, "Jazz Tom 4"      },
-	{ 48, "Jazz Tom 5"      },
+	{ 36, "BD Jazz"      },
+	{ 41, "Jazz Tom 1"   },
+	{ 43, "Jazz Tom 2"   },
+	{ 45, "Jazz Tom 3"   },
+	{ 47, "Jazz Tom 4"   },
+	{ 48, "Jazz Tom 5"   },
 	{ 50, "Jazz Tom 6"      }
 };
 
@@ -1828,15 +1828,15 @@ XGDrumVoiceItem JazzKitTab[] =
 static
 XGDrumVoiceItem BrushKitTab[] =
 {
-	{ 31, "Brush Slap L"    },
-	{ 36, "BD Soft"         },
-	{ 38, "Brush Slap M"    },
-	{ 40, "Brush Tap H"     },
-	{ 41, "Brush Tom 1"     },
-	{ 43, "Brush Tom 2"     },
-	{ 45, "Brush Tom 3"     },
-	{ 47, "Brush Tom 4"     },
-	{ 48, "Brush Tom 5"     },
+	{ 31, "Brush Slap L" },
+	{ 36, "BD Soft"      },
+	{ 38, "Brush Slap M" },
+	{ 40, "Brush Tap H"  },
+	{ 41, "Brush Tom 1"  },
+	{ 43, "Brush Tom 2"  },
+	{ 45, "Brush Tom 3"  },
+	{ 47, "Brush Tom 4"  },
+	{ 48, "Brush Tom 5"  },
 	{ 50, "Brush Tom 6"     }
 };
 
@@ -1844,18 +1844,18 @@ XGDrumVoiceItem BrushKitTab[] =
 static
 XGDrumVoiceItem ClassicKitTab[] =
 {
-	{ 33, "Bass Drum L2"    },
-	{ 35, "Gran Cassa"      },
+	{ 33, "Bass Drum L2" },
+	{ 35, "Gran Cassa"   },
 	{ 36, "Gran Cassa Mute" },
-	{ 38, "Marching Sn M"   },
-	{ 40, "Marching Sn H"   },
-	{ 41, "Jazz Tom 1"      },
-	{ 43, "Jazz Tom 2"      },
-	{ 45, "Jazz Tom 3"      },
-	{ 47, "Jazz Tom 4"      },
-	{ 48, "Jazz Tom 5"      },
+	{ 38, "Marching Sn M"},
+	{ 40, "Marching Sn H"},
+	{ 41, "Jazz Tom 1"   },
+	{ 43, "Jazz Tom 2"   },
+	{ 45, "Jazz Tom 3"   },
+	{ 47, "Jazz Tom 4"   },
+	{ 48, "Jazz Tom 5"   },
 	{ 49, "Hand Cym Open L" },
-	{ 50, "Jazz Tom 6"      },
+	{ 50, "Jazz Tom 6"   },
 	{ 51, "Hand Cym.Closed L" },
 	{ 57, "Hand Cym.Open H" },
 	{ 59, "Hand Cym.Closed H" }
@@ -1867,18 +1867,18 @@ XGDrumVoiceItem SFX1Tab[] =
 {
 	{ 36, "Guitar Cutting Noise" },
 	{ 37, "Guitar Cutting Noise 2" },
-	{ 39, "String Slap"     },
-	{ 52, "FL.Key Click"    },
-	{ 68, "Rain"            },
-	{ 69, "Thunder"         },
-	{ 70, "Wind"            },
-	{ 71, "Stream"          },
-	{ 72, "Bubble"          },
-	{ 73, "Feed"            },
-	{ 84, "Dog"             },
-	{ 85, "Horse Gallop"    },
-	{ 86, "Bird 2"          },
-	{ 90, "Ghost"           },
+	{ 39, "String Slap"  },
+	{ 52, "FL.Key Click" },
+	{ 68, "Rain"         },
+	{ 69, "Thunder"      },
+	{ 70, "Wind"         },
+	{ 71, "Stream"       },
+	{ 72, "Bubble"       },
+	{ 73, "Feed"         },
+	{ 84, "Dog"          },
+	{ 85, "Horse Gallop" },
+	{ 86, "Bird 2"       },
+	{ 90, "Ghost"        },
 	{ 91, "Maou"            }
 };
 
@@ -1886,32 +1886,32 @@ XGDrumVoiceItem SFX1Tab[] =
 static
 XGDrumVoiceItem SFX2Tab[] =
 {
-	{ 36, "Dial Tone"       },
-	{ 37, "Door Creaking"   },
-	{ 38, "Door Slam"       },
-	{ 39, "Scratch"         },
-	{ 40, "Scratch 2"       },
-	{ 41, "Windchime"       },
+	{ 36, "Dial Tone"    },
+	{ 37, "Door Creaking"},
+	{ 38, "Door Slam"    },
+	{ 39, "Scratch"      },
+	{ 40, "Scratch 2"    },
+	{ 41, "Windchime"    },
 	{ 42, "Telephone Ring2" },
-	{ 52, "Engine Start"    },
-	{ 53, "Tire Screech"    },
-	{ 54, "Car Passing"     },
-	{ 55, "Crash"           },
-	{ 56, "Siren"           },
-	{ 57, "Train"           },
-	{ 58, "Jetplane"        },
-	{ 59, "Starship"        },
-	{ 60, "Burst Noise"     },
-	{ 61, "Coaster"         },
-	{ 62, "SbMarine"        },
-	{ 68, "Laughing"        },
-	{ 69, "Screaming"       },
-	{ 70, "Punch"           },
-	{ 71, "Heartbeat"       },
-	{ 72, "Footsteps"       },
-	{ 84, "Machine Gun"     },
-	{ 85, "Laser Gun"       },
-	{ 86, "Explosion"       },
+	{ 52, "Engine Start" },
+	{ 53, "Tire Screech" },
+	{ 54, "Car Passing"  },
+	{ 55, "Crash"        },
+	{ 56, "Siren"        },
+	{ 57, "Train"        },
+	{ 58, "Jetplane"     },
+	{ 59, "Starship"     },
+	{ 60, "Burst Noise"  },
+	{ 61, "Coaster"      },
+	{ 62, "SbMarine"     },
+	{ 68, "Laughing"     },
+	{ 69, "Screaming"    },
+	{ 70, "Punch"        },
+	{ 71, "Heartbeat"    },
+	{ 72, "Footsteps"    },
+	{ 84, "Machine Gun"  },
+	{ 85, "Laser Gun"    },
+	{ 86, "Explosion"    },
 	{ 87, "FireWork"        }
 };
 
@@ -1937,14 +1937,14 @@ XGDrumKitItem DrumKitTab[] =
 {	// bank prog  name            keys             size
 	{ 16256,  1, "Standard Kit",  StandardKitTab,  TSIZE(StandardKitTab)  },
 	{ 16256,  2, "Standard2 Kit", Standard2KitTab, TSIZE(Standard2KitTab) },
-	{ 16256,  9, "Room Kit",      RoomKitTab,      TSIZE(RoomKitTab)      },
-	{ 16256, 17, "Rock Kit",      RockKitTab,      TSIZE(RockKitTab)      },
-	{ 16256, 25, "Electro Kit",   ElectroKitTab,   TSIZE(ElectroKitTab)   },
-	{ 16256, 26, "Analog Kit",    AnalogKitTab,    TSIZE(AnalogKitTab)    },
-	{ 16256, 33, "Jazz Kit",      JazzKitTab,      TSIZE(JazzKitTab)      },
-	{ 16256, 41, "Brush Kit",     BrushKitTab,     TSIZE(BrushKitTab)     },
-	{ 16256, 49, "Classic Kit",   ClassicKitTab,   TSIZE(ClassicKitTab)   },
-	{ 16128,  1, "SFX 1",         SFX1Tab,         TSIZE(SFX1Tab)         },
+	{ 16256,  9, "Room Kit",      RoomKitTab,      TSIZE(RoomKitTab)   },
+	{ 16256, 17, "Rock Kit",      RockKitTab,      TSIZE(RockKitTab)   },
+	{ 16256, 25, "Electro Kit",   ElectroKitTab,   TSIZE(ElectroKitTab)},
+	{ 16256, 26, "Analog Kit",    AnalogKitTab,    TSIZE(AnalogKitTab) },
+	{ 16256, 33, "Jazz Kit",      JazzKitTab,      TSIZE(JazzKitTab)   },
+	{ 16256, 41, "Brush Kit",     BrushKitTab,     TSIZE(BrushKitTab)  },
+	{ 16256, 49, "Classic Kit",   ClassicKitTab,   TSIZE(ClassicKitTab)},
+	{ 16128,  1, "SFX 1",         SFX1Tab,         TSIZE(SFX1Tab)      },
 	{ 16128,  2, "SFX 2",         SFX2Tab,         TSIZE(SFX2Tab)         }
 };
 
@@ -1986,462 +1986,462 @@ struct _XGEffectItem
 static
 XGEffectParamItem HALLROOMParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "[Reverb ]Time",      0,  69, getvtab4, getutab4, nullptr,     unit_ms  },
-	{  1, "Diffusion",          0,  10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,     unit_ms  },
-	{  3, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  4, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  5, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  6, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "Rev Delay",          0,  63, getvtab5, getutab5, nullptr,     unit_ms  },
-	{ 11, "Density",            0,   4, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, "[Rev/Er ]Balance",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 13, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{ 14, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "[Reverb ]Time",      0,  69, getvtab4, getutab4, nullptr,  unit_ms  },
+	{  1, "Diffusion",          0,  10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,  unit_ms  },
+	{  3, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  4, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  5, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  6, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "Rev Delay",          0,  63, getvtab5, getutab5, nullptr,  unit_ms  },
+	{ 11, "Density",            0,   4, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, "[Rev/Er ]Balance",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 13, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{ 14, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // WHITE ROOM, TUNNEL, CANYON, BASEMENT
 static
 XGEffectParamItem WHITEROOMParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "[Reverb ]Time",      0,  69, getvtab4, getutab4, nullptr,     unit_ms  },
-	{  1, "Diffusion",          0,  10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,     unit_ms  },
-	{  3, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  4, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  5, "Width",              0,  37, getvtab8 ,getutab8, nullptr,     unit_m   },
-	{  6, "Height",             0,  73, getvtab8 ,getutab8, nullptr,     unit_m   },
-	{  7, "Depth",              0, 104, getvtab8 ,getutab8, nullptr,     unit_m   },
-	{  8, "Wall Vary",          0,  30, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "Rev Delay",          0,  63, getvtab5, getutab5, nullptr,     unit_ms  },
-	{ 11, "Density",            0,   4, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, "[Rev/Er ]Balance",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 13, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{ 14, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "[Reverb ]Time",      0,  69, getvtab4, getutab4, nullptr,  unit_ms  },
+	{  1, "Diffusion",          0,  10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,  unit_ms  },
+	{  3, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  4, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  5, "Width",              0,  37, getvtab8 ,getutab8, nullptr,  unit_m   },
+	{  6, "Height",             0,  73, getvtab8 ,getutab8, nullptr,  unit_m   },
+	{  7, "Depth",              0, 104, getvtab8 ,getutab8, nullptr,  unit_m   },
+	{  8, "Wall Vary",          0,  30, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "Rev Delay",          0,  63, getvtab5, getutab5, nullptr,  unit_ms  },
+	{ 11, "Density",            0,   4, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, "[Rev/Er ]Balance",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 13, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{ 14, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // DELAY L,C,R
 static
 XGEffectParamItem DELAYLCRParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "L[ch] Delay",        1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  1, "R[ch] Delay",        1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  2, "C[ch] Delay",        1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  3, "[Feedback ]Delay",   1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  4, "[Feedback ]Level",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  5, "C[ch] Level",        0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  6, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  }
+	{  0, "L[ch] Delay",        1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  1, "R[ch] Delay",        1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  2, "C[ch] Delay",        1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  3, "[Feedback ]Delay",   1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  4, "[Feedback ]Level",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  5, "C[ch] Level",        0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  6, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  }
 };
 
 // DELAY L,R
 static
 XGEffectParamItem DELAYLRParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "L[ch ]Delay",        1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  1, "R[ch ]Delay",        1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  2, "[Feedback ]Delay 1", 1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  3, "[Feedback ]Delay 2", 1,7550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  4, "[Feedback ]Level",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  5, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  6, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  }
+	{  0, "L[ch ]Delay",        1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  1, "R[ch ]Delay",        1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  2, "[Feedback ]Delay 1", 1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  3, "[Feedback ]Delay 2", 1,7550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  4, "[Feedback ]Level",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  5, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  6, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  }
 };
 
 // ECHO
 static
 XGEffectParamItem ECHOParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "L[ch] Delay 1",      1,3550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  1, "L[ch] Feedb[ack Level]",0,127,getv0x40,getu0x40, nullptr,     nullptr     },
-	{  2, "R[ch] Delay 1",      1,3550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  3, "R[ch] Feedb[ack Level]",1,127,getv0x40,getu0x40, nullptr,     nullptr     },
-	{  4, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  5, "L[ch] Delay 2",      1,3550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  6, "R[ch] Delay 2",      1,3550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  7, "Delay 2[ Level]",    0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  }
+	{  0, "L[ch] Delay 1",      1,3550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  1, "L[ch] Feedb[ack Level]",0,127,getv0x40,getu0x40, nullptr,  nullptr  },
+	{  2, "R[ch] Delay 1",      1,3550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  3, "R[ch] Feedb[ack Level]",1,127,getv0x40,getu0x40, nullptr,  nullptr  },
+	{  4, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  5, "L[ch] Delay 2",      1,3550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  6, "R[ch] Delay 2",      1,3550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  7, "Delay 2[ Level]",    0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  }
 };
 
 // CROSS DELAY
 static
 XGEffectParamItem CROSSDELAYParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "L->R Delay",         1,3550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  1, "R->L Delay",         1,3550, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  2, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  3, "Input[ Select]",     0,   2, nullptr,     nullptr,     getsisel, nullptr     },
-	{  4, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{  5, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  6, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  }
+	{  0, "L->R Delay",         1,3550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  1, "R->L Delay",         1,3550, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  2, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  3, "Input[ Select]",     0,   2, nullptr,  nullptr,  getsisel, nullptr  },
+	{  4, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{  5, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  6, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 12, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 13, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 14, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 15, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  }
 };
 
 // EARLY REF1,2
 static
 XGEffectParamItem EARLYREFParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "Type",               0,   5, nullptr,     nullptr,     getsreft, nullptr     },
-	{  1, "Room[ Size]",        0,  44, getvtab6, getutab6, nullptr,     unit_m   },
-	{  2, "Diffusion",          0,  10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  3, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,     unit_ms  },
-	{  4, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  5, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "Liveness",           0,  10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, "Density",            0,   3, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
+	{  0, "Type",               0,   5, nullptr,  nullptr,  getsreft, nullptr  },
+	{  1, "Room[ Size]",        0,  44, getvtab6, getutab6, nullptr,  unit_m   },
+	{  2, "Diffusion",          0,  10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  3, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,  unit_ms  },
+	{  4, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  5, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "Liveness",           0,  10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, "Density",            0,   3, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
 };
 
 // GATE REVERB, REVERSE GATE
 static
 XGEffectParamItem GATEREVERBParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "Type",               0,   1, nullptr,     nullptr,     getsrevt, nullptr     },
-	{  1, "Room[ Size]",        0,  44, getvtab6, getutab6, nullptr,     unit_m   },
-	{  2, "Diffusion",          0,  10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  3, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,     unit_ms  },
-	{  4, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  5, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "Liveness",           0,  10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, "Density",            1,   3, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,     unit_ms  },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "Type",               0,   1, nullptr,  nullptr,  getsrevt, nullptr  },
+	{  1, "Room[ Size]",        0,  44, getvtab6, getutab6, nullptr,  unit_m   },
+	{  2, "Diffusion",          0,  10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  3, "[Initial ]Delay",    0,  63, getvtab5, getutab5, nullptr,  unit_ms  },
+	{  4, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  5, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "Liveness",           0,  10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, "Density",            1,   3, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, "[High ]Damp",        1,  10, getv0_10, getu0_10, nullptr,  unit_ms  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // KARAOKE1,2,3
 static
 XGEffectParamItem KARAOKEParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "Delay[ Time]",       0, 127, getvtab7, getutab7, nullptr,     unit_ms  },
-	{  1, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  2, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  3, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  6, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "Delay[ Time]",       0, 127, getvtab7, getutab7, nullptr,  unit_ms  },
+	{  1, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  2, "HPF[ Cutoff Thru]",  0,  52, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  3, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  6, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // CHORUS1,2,3,4 CELESTE1,2,3,4
 static
 XGEffectParamItem CHORUSParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "LFO PM[ Depth]",     0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  3, "Delay[ Offset]",     0, 127, getvtab2, getutab2, nullptr,     unit_ms  },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, "LFO AM[ Depth]",     0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, "Input[ Mode]",       0,   1, nullptr,     nullptr,     getsimod, nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "LFO PM[ Depth]",     0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  3, "Delay[ Offset]",     0, 127, getvtab2, getutab2, nullptr,  unit_ms  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, "LFO AM[ Depth]",     0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, "Input[ Mode]",       0,   1, nullptr,  nullptr,  getsimod, nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // FLANGER1,2,3
 static
 XGEffectParamItem FLANGERParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "LFO Depth",          0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  3, "Delay[ Offset]",     0,  63, getvtab2, getutab2, nullptr,     unit_ms  },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     nullptr     },
-	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, "LFO Phase[ Diff]",   4, 124, getv_180, getu_180, nullptr,     unit_deg },
-	{ 14, "Input[ Mode]",       0,   1, nullptr,     nullptr,     getsimod, nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "LFO Depth",          0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  3, "Delay[ Offset]",     0,  63, getvtab2, getutab2, nullptr,  unit_ms  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  nullptr  },
+	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, "LFO Phase[ Diff]",   4, 124, getv_180, getu_180, nullptr,  unit_deg },
+	{ 14, "Input[ Mode]",       0,   1, nullptr,  nullptr,  getsimod, nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // SYMPHONIC
 static
 XGEffectParamItem SYMPHONICParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "LFO Depth",          0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "Delay[ Offset]",     0,   0, getvtab2, getutab2, nullptr,     unit_ms  },
-	{  3, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ 9Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, "Dry/Wet",            1, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "LFO Depth",          0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "Delay[ Offset]",     0,   0, getvtab2, getutab2, nullptr,  unit_ms  },
+	{  3, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ 9Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, "Dry/Wet",            1, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // ROTARY SPEAKER
 static
 XGEffectParamItem ROTSPEAKERParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "LFO Depth",          0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  3, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, "Dry/Wet",            1, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "LFO Depth",          0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  3, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, "Dry/Wet",            1, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // TREMOLO
 static
 XGEffectParamItem TREMOLOParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "AM Depth",           0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "PM Depth",           0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  3, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, "LFO Phase[ Diff]",   4, 124, getv_180, getu_180, nullptr,     unit_deg },
-	{ 14, "Input[ Mode]",       0,   1, nullptr,     nullptr,     getsimod, nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "AM Depth",           0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "PM Depth",           0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  3, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, "LFO Phase[ Diff]",   4, 124, getv_180, getu_180, nullptr,  unit_deg },
+	{ 14, "Input[ Mode]",       0,   1, nullptr,  nullptr,  getsimod, nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // AUTO PAN
 static
 XGEffectParamItem AUTOPANParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "L/R Depth",          0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "F/R Depth",          0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  3, "[Pan ]Direction",    0,   5, nullptr,     nullptr,     getspand, nullptr     },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "L/R Depth",          0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "F/R Depth",          0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  3, "[Pan ]Direction",    0,   5, nullptr,  nullptr,  getspand, nullptr  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // PHASER1,2
 static
 XGEffectParamItem PHASERParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "LFO Depth",          0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "Phase[ Shift Offset]",0,127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  3, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, "Dry/Wet",            1, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 10, "Stage",              1,  10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, "Diffusion",          0,   1, nullptr,     nullptr,     getsimod, nullptr     },
-	{ 12, "LFO Phase[ Diff]",   4, 124, getv_180, getu_180, nullptr,     unit_deg },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "LFO Depth",          0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "Phase[ Shift Offset]",0,127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  3, "Feedback[ Level]",   1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, "Dry/Wet",            1, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 10, "Stage",              1,  10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, "Diffusion",          0,   1, nullptr,  nullptr,  getsimod, nullptr  },
+	{ 12, "LFO Phase[ Diff]",   4, 124, getv_180, getu_180, nullptr,  unit_deg },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // DISTORTION, OVERDRIVE
 static
 XGEffectParamItem DISTORTIONParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "Drive",              0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  1, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  2, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  3, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  4, "Output[ Level]",     0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  6, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  7, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  8, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "Edge[ (Clip Curve)]",0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "Drive",              0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  1, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  2, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  3, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  4, "Output[ Level]",     0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  6, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  7, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  8, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "Edge[ (Clip Curve)]",0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // GUITAR AMP SIMULATOR
 static
 XGEffectParamItem AMPSIMULParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "Drive",              0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  1, "AMP[ Type]",         0,   3, nullptr,     nullptr,     getsampt, nullptr     },
-	{  2, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  3, "Output[ Level]",     0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  6, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "Edge[ (Clip Curve)]",0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "Drive",              0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  1, "AMP[ Type]",         0,   3, nullptr,  nullptr,  getsampt, nullptr  },
+	{  2, "LPF[ Cutoff]",      34,  60, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  3, "Output[ Level]",     0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  6, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "Edge[ (Clip Curve)]",0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // 3-BAND EQ (MONO)
 static
 XGEffectParamItem MONOEQParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  1, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  2, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  3, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  4, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 10, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  1, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  2, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  3, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  4, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  5, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 10, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // 2-BAND EQ (STEREO)
 static
 XGEffectParamItem STEREOEQParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  1, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  2, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  3, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  6, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  7, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  8, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  9, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "[EQ ]Low Freq",      4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  1, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  2, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  3, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  6, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  7, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  8, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  9, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 10, "[EQ ]Mid Freq",     14,  54, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{ 11, "[EQ ]Mid Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{ 12, "[EQ ]Mid Width",    10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 // AUTO WAH (LFO)
 static
 XGEffectParamItem AUTOWAHParamTab[] =
 {	// id  name               min  max  getv      getu      gets      unit
-	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,     unit_Hz  },
-	{  1, "LFO Depth",          0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  2, "[Cutoff Freq ]Offset",0,127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  3, "Resonance",         10, 120, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  4, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{  5, "[EQ ]Low Frequ",     4,  40, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,     unit_Hz  },
-	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,     unit_dB  },
-	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 10, "Drive",              0, 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 11, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 12, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 13, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 14, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 15, nullptr,                 0,   0, nullptr,     nullptr,     nullptr,     nullptr     }
+	{  0, "LFO Freq",           0, 127, getvtab1, getutab1, nullptr,  unit_Hz  },
+	{  1, "LFO Depth",          0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  2, "[Cutoff Freq ]Offset",0,127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  3, "Resonance",         10, 120, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  4, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{  5, "[EQ ]Low Frequ",     4,  40, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  6, "[EQ ]Low Gain",     52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  7, "[EQ ]High Freq",    28,  58, getvtab3, getutab3, nullptr,  unit_Hz  },
+	{  8, "[EQ ]High Gain",    52,  76, getv0x40, getu0x40, nullptr,  unit_dB  },
+	{  9, "Dry/Wet",            1, 127, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 10, "Drive",              0, 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 11, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 12, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 13, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 14, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 15, nullptr,              0,   0, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 
@@ -2543,43 +2543,43 @@ unsigned short VARIATIONDefaultTab[][16] =
 static
 XGEffectItem REVERBEffectTab[] =
 {	// msb   lsb   name             params              defs
-	{ 0x00, 0x00, "NO EFFECT",      nullptr,               REVERBDefaultTab[ 0]    },
-	{ 0x01, 0x00, "HALL 1",         HALLROOMParamTab,   REVERBDefaultTab[ 1]    },
-	{ 0x01, 0x01, "HALL 2",         HALLROOMParamTab,   REVERBDefaultTab[ 2]    },
-	{ 0x02, 0x00, "ROOM 1",         HALLROOMParamTab,   REVERBDefaultTab[ 3]    },
-	{ 0x02, 0x01, "ROOM 2",         HALLROOMParamTab,   REVERBDefaultTab[ 4]    },
-	{ 0x02, 0x02, "ROOM 3",         HALLROOMParamTab,   REVERBDefaultTab[ 5]    },
-	{ 0x03, 0x00, "STAGE 1",        HALLROOMParamTab,   REVERBDefaultTab[ 6]    },
-	{ 0x03, 0x01, "STAGE 2",        HALLROOMParamTab,   REVERBDefaultTab[ 7]    },
-	{ 0x04, 0x00, "PLATE",          HALLROOMParamTab,   REVERBDefaultTab[ 8]    },
-	{ 0x10, 0x00, "WHITE ROOM",     WHITEROOMParamTab,  REVERBDefaultTab[ 9]    },
-	{ 0x11, 0x00, "TUNNEL",         WHITEROOMParamTab,  REVERBDefaultTab[10]    },
-	{ 0x13, 0x00, "BASEMENT",       WHITEROOMParamTab,  REVERBDefaultTab[11]    }
+	{ 0x00, 0x00, "NO EFFECT",      nullptr,            REVERBDefaultTab[ 0] },
+	{ 0x01, 0x00, "HALL 1",         HALLROOMParamTab,   REVERBDefaultTab[ 1] },
+	{ 0x01, 0x01, "HALL 2",         HALLROOMParamTab,   REVERBDefaultTab[ 2] },
+	{ 0x02, 0x00, "ROOM 1",         HALLROOMParamTab,   REVERBDefaultTab[ 3] },
+	{ 0x02, 0x01, "ROOM 2",         HALLROOMParamTab,   REVERBDefaultTab[ 4] },
+	{ 0x02, 0x02, "ROOM 3",         HALLROOMParamTab,   REVERBDefaultTab[ 5] },
+	{ 0x03, 0x00, "STAGE 1",        HALLROOMParamTab,   REVERBDefaultTab[ 6] },
+	{ 0x03, 0x01, "STAGE 2",        HALLROOMParamTab,   REVERBDefaultTab[ 7] },
+	{ 0x04, 0x00, "PLATE",          HALLROOMParamTab,   REVERBDefaultTab[ 8] },
+	{ 0x10, 0x00, "WHITE ROOM",     WHITEROOMParamTab,  REVERBDefaultTab[ 9] },
+	{ 0x11, 0x00, "TUNNEL",         WHITEROOMParamTab,  REVERBDefaultTab[10] },
+	{ 0x13, 0x00, "BASEMENT",       WHITEROOMParamTab,  REVERBDefaultTab[11] }
 };
 
 // CHORUS
 static
 XGEffectItem CHORUSEffectTab[] =
 {	// msb   lsb   name             params              defs
-	{ 0x00, 0x00, "NO EFFECT",      nullptr,               CHORUSDefaultTab[ 0]    },
-	{ 0x41, 0x00, "CHORUS 1",       CHORUSParamTab,     CHORUSDefaultTab[ 1]    },
-	{ 0x41, 0x01, "CHORUS 2",       CHORUSParamTab,     CHORUSDefaultTab[ 2]    },
-	{ 0x41, 0x02, "CHORUS 3",       CHORUSParamTab,     CHORUSDefaultTab[ 3]    },
-	{ 0x41, 0x08, "CHORUS 4",       CHORUSParamTab,     CHORUSDefaultTab[ 4]    },
-	{ 0x42, 0x00, "CELESTE 1",      CHORUSParamTab,     CHORUSDefaultTab[ 5]    },
-	{ 0x42, 0x01, "CELESTE 2",      CHORUSParamTab,     CHORUSDefaultTab[ 6]    },
-	{ 0x42, 0x02, "CELESTE 3",      CHORUSParamTab,     CHORUSDefaultTab[ 7]    },
-	{ 0x42, 0x08, "CELESTE 4",      CHORUSParamTab,     CHORUSDefaultTab[ 8]    },
-	{ 0x43, 0x00, "FLANGER 1",      FLANGERParamTab,    CHORUSDefaultTab[ 9]    },
-	{ 0x43, 0x01, "FLANGER 2",      FLANGERParamTab,    CHORUSDefaultTab[10]    },
-	{ 0x43, 0x08, "FLANGER 3",      FLANGERParamTab,    CHORUSDefaultTab[11]    }
+	{ 0x00, 0x00, "NO EFFECT",      nullptr,            CHORUSDefaultTab[ 0] },
+	{ 0x41, 0x00, "CHORUS 1",       CHORUSParamTab,     CHORUSDefaultTab[ 1] },
+	{ 0x41, 0x01, "CHORUS 2",       CHORUSParamTab,     CHORUSDefaultTab[ 2] },
+	{ 0x41, 0x02, "CHORUS 3",       CHORUSParamTab,     CHORUSDefaultTab[ 3] },
+	{ 0x41, 0x08, "CHORUS 4",       CHORUSParamTab,     CHORUSDefaultTab[ 4] },
+	{ 0x42, 0x00, "CELESTE 1",      CHORUSParamTab,     CHORUSDefaultTab[ 5] },
+	{ 0x42, 0x01, "CELESTE 2",      CHORUSParamTab,     CHORUSDefaultTab[ 6] },
+	{ 0x42, 0x02, "CELESTE 3",      CHORUSParamTab,     CHORUSDefaultTab[ 7] },
+	{ 0x42, 0x08, "CELESTE 4",      CHORUSParamTab,     CHORUSDefaultTab[ 8] },
+	{ 0x43, 0x00, "FLANGER 1",      FLANGERParamTab,    CHORUSDefaultTab[ 9] },
+	{ 0x43, 0x01, "FLANGER 2",      FLANGERParamTab,    CHORUSDefaultTab[10] },
+	{ 0x43, 0x08, "FLANGER 3",      FLANGERParamTab,    CHORUSDefaultTab[11] }
 };
 
 // VARIATION
 static
 XGEffectItem VARIATIONEffectTab[] =
 {	// msb   lsb   name             params              defs
-	{ 0x00, 0x00, "NO EFFECT",      nullptr,               VARIATIONDefaultTab[ 0] },
+	{ 0x00, 0x00, "NO EFFECT",      nullptr,            VARIATIONDefaultTab[ 0] },
 	{ 0x01, 0x00, "HALL 1",         HALLROOMParamTab,   VARIATIONDefaultTab[ 1] },
 	{ 0x01, 0x01, "HALL 2",         HALLROOMParamTab,   VARIATIONDefaultTab[ 2] },
 	{ 0x02, 0x00, "ROOM 1",         HALLROOMParamTab,   VARIATIONDefaultTab[ 3] },
@@ -2599,7 +2599,7 @@ XGEffectItem VARIATIONEffectTab[] =
 	{ 0x14, 0x00, "KARAOKE 1",      KARAOKEParamTab,    VARIATIONDefaultTab[17] },
 	{ 0x14, 0x01, "KARAOKE 2",      KARAOKEParamTab,    VARIATIONDefaultTab[18] },
 	{ 0x14, 0x02, "KARAOKE 3",      KARAOKEParamTab,    VARIATIONDefaultTab[19] },
-	{ 0x40, 0x00, "THRU",           nullptr,               VARIATIONDefaultTab[20] },
+	{ 0x40, 0x00, "THRU",           nullptr,            VARIATIONDefaultTab[20] },
 	{ 0x41, 0x00, "CHORUS 1",       CHORUSParamTab,     VARIATIONDefaultTab[21] },
 	{ 0x41, 0x01, "CHORUS 2",       CHORUSParamTab,     VARIATIONDefaultTab[22] },
 	{ 0x41, 0x02, "CHORUS 3",       CHORUSParamTab,     VARIATIONDefaultTab[23] },
@@ -2655,12 +2655,12 @@ struct _XGParamItem
 static
 XGParamItem SYSTEMParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 4,  0, 2047, "[Master ]Tune",        1024, getv1024, getu1024, nullptr,     unit_cen },
-	{ 0x04, 1,  0,  127, "[Master ]Volume",       127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x06, 1, 40,   88, "Transpose",              64, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x7d, 1,  0,    1, "Drum[ Setup ]Reset",      0, nullptr,     nullptr,     nullptr,     nullptr     }, // Drumset number (0,1)
-	{ 0x7e, 1,  0,    0, "XG System On",            0, nullptr,     nullptr,     nullptr,     nullptr     }, // 0=XG System ON (receive only)
-	{ 0x7f, 1,  0,    0, "All[ Parameter ]Reset",   0, nullptr,     nullptr,     nullptr,     nullptr     }  // 0=ON (receive only)
+	{ 0x00, 4,  0, 2047, "[Master ]Tune",        1024, getv1024, getu1024, nullptr,  unit_cen },
+	{ 0x04, 1,  0,  127, "[Master ]Volume",       127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x06, 1, 40,   88, "Transpose",              64, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x7d, 1,  0,    1, "Drum[ Setup ]Reset",      0, nullptr,  nullptr,  nullptr,  nullptr  }, // Drumset number (0,1)
+	{ 0x7e, 1,  0,    0, "XG System On",            0, nullptr,  nullptr,  nullptr,  nullptr  }, // 0=XG System ON (receive only)
+	{ 0x7f, 1,  0,    0, "All[ Parameter ]Reset",   0, nullptr,  nullptr,  nullptr,  nullptr  }  // 0=ON (receive only)
 };
 
 
@@ -2670,73 +2670,73 @@ XGParamItem SYSTEMParamTab[] =
 static
 XGParamItem EFFECTParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 2,  0,16383, "[Reverb ]Type",         128, nullptr,     nullptr,     nullptr,     nullptr     }, // msb=0x01 lsb=0x00 (HALL 1)
-	{ 0x02, 1,  0,    0, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 1  - depends on REVERB TYPE
-	{ 0x03, 1,  0,    1, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 2  - depends on REVERB TYPE
-	{ 0x04, 1,  0,    2, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 3  - depends on REVERB TYPE
-	{ 0x05, 1,  0,    3, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 4  - depends on REVERB TYPE
-	{ 0x06, 1,  0,    4, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 5  - depends on REVERB TYPE
-	{ 0x07, 1,  0,    5, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 6  - depends on REVERB TYPE
-	{ 0x08, 1,  0,    6, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 7  - depends on REVERB TYPE
-	{ 0x09, 1,  0,    7, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 8  - depends on REVERB TYPE
-	{ 0x0a, 1,  0,    8, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 9  - depends on REVERB TYPE
-	{ 0x0b, 1,  0,    9, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 10 - depends on REVERB TYPE
-	{ 0x0c, 1,  0,  127, "[Reverb ]Return",        64, nullptr,     nullptr,     nullptr,     nullptr     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x0d, 1,  1,  127, "[Reverb ]Pan",           64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x10, 1,  0,   10, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 11 - depends on REVERB TYPE
-	{ 0x11, 1,  0,   11, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 12 - depends on REVERB TYPE
-	{ 0x12, 1,  0,   12, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 13 - depends on REVERB TYPE
-	{ 0x13, 1,  0,   13, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 14 - depends on REVERB TYPE
-	{ 0x14, 1,  0,   14, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 15 - depends on REVERB TYPE
-	{ 0x15, 1,  0,   15, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // REVERB PARAMETER 16 - depends on REVERB TYPE
-	{ 0x20, 2,  0,16383, "[Chorus ]Type",        8320, nullptr,     nullptr,     nullptr,     nullptr     }, // msb=41 lsb=00 (CHORUS 1)
-	{ 0x22, 1,  1,    0, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 1  - depends on CHORUS TYPE
-	{ 0x23, 1,  1,    1, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 2  - depends on CHORUS TYPE
-	{ 0x24, 1,  1,    2, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 3  - depends on CHORUS TYPE
-	{ 0x25, 1,  1,    3, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 4  - depends on CHORUS TYPE
-	{ 0x26, 1,  1,    4, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 5  - depends on CHORUS TYPE
-	{ 0x27, 1,  1,    5, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 6  - depends on CHORUS TYPE
-	{ 0x28, 1,  1,    6, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 7  - depends on CHORUS TYPE
-	{ 0x29, 1,  1,    7, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 8  - depends on CHORUS TYPE
-	{ 0x2a, 1,  1,    8, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 9  - depends on CHORUS TYPE
-	{ 0x2b, 1,  1,    9, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 10 - depends on CHORUS TYPE
-	{ 0x2c, 1,  0,  127, "[Chorus ]Return",        64, nullptr,     nullptr,     nullptr,     nullptr     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x2d, 1,  1,  127, "[Chorus ]Pan",           64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x2e, 1,  0,  127, "[Chorus ]Reverb[ Send]",  0, nullptr,     nullptr,     nullptr,     nullptr     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x30, 1,  1,   10, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 11 - depends on CHORUS TYPE
-	{ 0x31, 1,  1,   11, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 12 - depends on CHORUS TYPE
-	{ 0x32, 1,  1,   12, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 13 - depends on CHORUS TYPE
-	{ 0x33, 1,  1,   13, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 14 - depends on CHORUS TYPE
-	{ 0x34, 1,  1,   14, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 15 - depends on CHORUS TYPE
-	{ 0x35, 1,  1,   15, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // CHORUS PARAMETER 16 - depends on CHORUS TYPE
-	{ 0x40, 2,  0,16383, "[Variation ]Type",      640, nullptr,     nullptr,     nullptr,     nullptr     }, // msb=05 lsb=00 (DELAY L,C,R)
-	{ 0x42, 2,  2,    0, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 1  - depends on VARIATION TYPE
-	{ 0x44, 2,  2,    1, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 2  - depends on VARIATION TYPE
-	{ 0x46, 2,  2,    2, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 3  - depends on VARIATION TYPE
-	{ 0x48, 2,  2,    3, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 4  - depends on VARIATION TYPE
-	{ 0x4a, 2,  2,    4, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 5  - depends on VARIATION TYPE
-	{ 0x4c, 2,  2,    5, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 6  - depends on VARIATION TYPE
-	{ 0x4e, 2,  2,    6, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 7  - depends on VARIATION TYPE
-	{ 0x50, 2,  2,    7, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 8  - depends on VARIATION TYPE
-	{ 0x52, 2,  2,    8, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 9  - depends on VARIATION TYPE
-	{ 0x54, 2,  2,    9, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 10 - depends on VARIATION TYPE
-	{ 0x56, 1,  0,  127, "[Variation ]Return",     64, nullptr,     nullptr,     nullptr,     nullptr     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x57, 1,  1,  127, "[Variation ]Pan",        64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x58, 1,  0,  127, "[Variation ]Reverb[ Send]",0,nullptr,     nullptr,     nullptr,     nullptr     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x59, 1,  0,  127, "[Variation ]Chorus[ Send]",0,nullptr,     nullptr,     nullptr,     nullptr     }, // -infdB..0dB..+6dB (0..64..127)
-	{ 0x5a, 1,  0,    1, "[Variation ]Connection",  0, nullptr,     nullptr,     getsconn, nullptr     },
-	{ 0x5b, 1,  0,  127, "[Variation ]Part",      127, nullptr,     nullptr,     getschan, nullptr     }, // part=0..15, 127=OFF
-	{ 0x5c, 1,  0,  127, "[Variation ]Wheel[ Depth]",64,getv0x40,getu0x40, nullptr,     nullptr     },
-	{ 0x5d, 1,  0,  127, "[Variation ]Bend[ Depth]",64,getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5e, 1,  0,  127, "[Variation ]CAT[ Depth]",64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5f, 1,  0,  127, "[Variation ]AC1[ Depth]",64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x60, 1,  0,  127, "[Variation ]AC2[ Depth]",64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x70, 1,  2,   10, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 11 - depends on VARIATION TYPE
-	{ 0x71, 1,  2,   11, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 12 - depends on VARIATION TYPE
-	{ 0x72, 1,  2,   12, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 13 - depends on VARIATION TYPE
-	{ 0x73, 1,  2,   13, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 14 - depends on VARIATION TYPE
-	{ 0x74, 1,  2,   14, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 15 - depends on VARIATION TYPE
-	{ 0x75, 1,  2,   15, nullptr,                      0, nullptr,     nullptr,     nullptr,     nullptr     }, // VARIATION PARAMETER 16 - depends on VARIATION TYPE
+	{ 0x00, 2,  0,16383, "[Reverb ]Type",         128, nullptr,  nullptr,  nullptr,  nullptr  }, // msb=0x01 lsb=0x00 (HALL 1)
+	{ 0x02, 1,  0,    0, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 1  - depends on REVERB TYPE
+	{ 0x03, 1,  0,    1, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 2  - depends on REVERB TYPE
+	{ 0x04, 1,  0,    2, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 3  - depends on REVERB TYPE
+	{ 0x05, 1,  0,    3, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 4  - depends on REVERB TYPE
+	{ 0x06, 1,  0,    4, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 5  - depends on REVERB TYPE
+	{ 0x07, 1,  0,    5, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 6  - depends on REVERB TYPE
+	{ 0x08, 1,  0,    6, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 7  - depends on REVERB TYPE
+	{ 0x09, 1,  0,    7, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 8  - depends on REVERB TYPE
+	{ 0x0a, 1,  0,    8, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 9  - depends on REVERB TYPE
+	{ 0x0b, 1,  0,    9, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 10 - depends on REVERB TYPE
+	{ 0x0c, 1,  0,  127, "[Reverb ]Return",        64, nullptr,  nullptr,  nullptr,  nullptr  }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x0d, 1,  1,  127, "[Reverb ]Pan",           64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x10, 1,  0,   10, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 11 - depends on REVERB TYPE
+	{ 0x11, 1,  0,   11, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 12 - depends on REVERB TYPE
+	{ 0x12, 1,  0,   12, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 13 - depends on REVERB TYPE
+	{ 0x13, 1,  0,   13, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 14 - depends on REVERB TYPE
+	{ 0x14, 1,  0,   14, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 15 - depends on REVERB TYPE
+	{ 0x15, 1,  0,   15, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // REVERB PARAMETER 16 - depends on REVERB TYPE
+	{ 0x20, 2,  0,16383, "[Chorus ]Type",        8320, nullptr,  nullptr,  nullptr,  nullptr  }, // msb=41 lsb=00 (CHORUS 1)
+	{ 0x22, 1,  1,    0, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 1  - depends on CHORUS TYPE
+	{ 0x23, 1,  1,    1, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 2  - depends on CHORUS TYPE
+	{ 0x24, 1,  1,    2, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 3  - depends on CHORUS TYPE
+	{ 0x25, 1,  1,    3, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 4  - depends on CHORUS TYPE
+	{ 0x26, 1,  1,    4, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 5  - depends on CHORUS TYPE
+	{ 0x27, 1,  1,    5, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 6  - depends on CHORUS TYPE
+	{ 0x28, 1,  1,    6, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 7  - depends on CHORUS TYPE
+	{ 0x29, 1,  1,    7, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 8  - depends on CHORUS TYPE
+	{ 0x2a, 1,  1,    8, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 9  - depends on CHORUS TYPE
+	{ 0x2b, 1,  1,    9, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 10 - depends on CHORUS TYPE
+	{ 0x2c, 1,  0,  127, "[Chorus ]Return",        64, nullptr,  nullptr,  nullptr,  nullptr  }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x2d, 1,  1,  127, "[Chorus ]Pan",           64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x2e, 1,  0,  127, "[Chorus ]Reverb[ Send]",  0, nullptr,  nullptr,  nullptr,  nullptr  }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x30, 1,  1,   10, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 11 - depends on CHORUS TYPE
+	{ 0x31, 1,  1,   11, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 12 - depends on CHORUS TYPE
+	{ 0x32, 1,  1,   12, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 13 - depends on CHORUS TYPE
+	{ 0x33, 1,  1,   13, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 14 - depends on CHORUS TYPE
+	{ 0x34, 1,  1,   14, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 15 - depends on CHORUS TYPE
+	{ 0x35, 1,  1,   15, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // CHORUS PARAMETER 16 - depends on CHORUS TYPE
+	{ 0x40, 2,  0,16383, "[Variation ]Type",      640, nullptr,  nullptr,  nullptr,  nullptr  }, // msb=05 lsb=00 (DELAY L,C,R)
+	{ 0x42, 2,  2,    0, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 1  - depends on VARIATION TYPE
+	{ 0x44, 2,  2,    1, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 2  - depends on VARIATION TYPE
+	{ 0x46, 2,  2,    2, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 3  - depends on VARIATION TYPE
+	{ 0x48, 2,  2,    3, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 4  - depends on VARIATION TYPE
+	{ 0x4a, 2,  2,    4, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 5  - depends on VARIATION TYPE
+	{ 0x4c, 2,  2,    5, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 6  - depends on VARIATION TYPE
+	{ 0x4e, 2,  2,    6, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 7  - depends on VARIATION TYPE
+	{ 0x50, 2,  2,    7, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 8  - depends on VARIATION TYPE
+	{ 0x52, 2,  2,    8, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 9  - depends on VARIATION TYPE
+	{ 0x54, 2,  2,    9, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 10 - depends on VARIATION TYPE
+	{ 0x56, 1,  0,  127, "[Variation ]Return",     64, nullptr,  nullptr,  nullptr,  nullptr  }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x57, 1,  1,  127, "[Variation ]Pan",        64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x58, 1,  0,  127, "[Variation ]Reverb[ Send]",0,nullptr,  nullptr,  nullptr,  nullptr  }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x59, 1,  0,  127, "[Variation ]Chorus[ Send]",0,nullptr,  nullptr,  nullptr,  nullptr  }, // -infdB..0dB..+6dB (0..64..127)
+	{ 0x5a, 1,  0,    1, "[Variation ]Connection",  0, nullptr,  nullptr,  getsconn, nullptr  },
+	{ 0x5b, 1,  0,  127, "[Variation ]Part",      127, nullptr,  nullptr,  getschan, nullptr  }, // part=0..15, 127=OFF
+	{ 0x5c, 1,  0,  127, "[Variation ]Wheel[ Depth]",64,getv0x40,getu0x40, nullptr,  nullptr  },
+	{ 0x5d, 1,  0,  127, "[Variation ]Bend[ Depth]",64,getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5e, 1,  0,  127, "[Variation ]CAT[ Depth]",64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5f, 1,  0,  127, "[Variation ]AC1[ Depth]",64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x60, 1,  0,  127, "[Variation ]AC2[ Depth]",64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x70, 1,  2,   10, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 11 - depends on VARIATION TYPE
+	{ 0x71, 1,  2,   11, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 12 - depends on VARIATION TYPE
+	{ 0x72, 1,  2,   12, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 13 - depends on VARIATION TYPE
+	{ 0x73, 1,  2,   13, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 14 - depends on VARIATION TYPE
+	{ 0x74, 1,  2,   14, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }, // VARIATION PARAMETER 15 - depends on VARIATION TYPE
+	{ 0x75, 1,  2,   15, nullptr,                   0, nullptr,  nullptr,  nullptr,  nullptr  }  // VARIATION PARAMETER 16 - depends on VARIATION TYPE
 };
 
 
@@ -2746,109 +2746,109 @@ XGParamItem EFFECTParamTab[] =
 static
 XGParamItem MULTIPARTParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 1,  0,   32, "Element[ Reserve]",       0, nullptr,     nullptr,     nullptr,     nullptr     }, // 0=part10, 2=other
-	{ 0x01, 1,  0,  127, "Bank [Select ]MSB",       0, nullptr,     nullptr,     nullptr,     nullptr     }, // 127=part10, 0=other
-	{ 0x02, 1,  0,  127, "Bank [Select ]LSB",       0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x03, 1,  0,  127, "Program[ Number]",        0, getvprog, getuprog, nullptr,     nullptr     },
-	{ 0x04, 1,  0,  127, "[Rcv ]Channel",           0, nullptr,     nullptr,     getschan, nullptr     }, // 0..15=partno, 127=OFF
-	{ 0x05, 1,  0,    1, "Mono/Poly[ Mode]",        1, nullptr,     nullptr,     getsmmod, nullptr     },
-	{ 0x06, 1,  0,    2, "Same [Note ]Key[ Assign]",1, nullptr,     nullptr,     getskeya, nullptr     },
-	{ 0x07, 1,  0,    3, "[Mode ]Type",             0, nullptr,     nullptr,     getspmod, nullptr     }, // other than part10, 2=part10
-	{ 0x08, 1, 40,   88, "[Note ]Shift",           64, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x09, 2,  0,  255, "Detune",                128, getv12_7, getu12_7, nullptr,     unit_Hz  },
-	{ 0x0b, 1,  0,  127, "Volume",                100, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x0c, 1,  0,  127, "[Velocity Sense ]Depth", 64, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x0d, 1,  0,  127, "[Velocity Sense ]Offset",64, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x0e, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, nullptr,     nullptr     }, // 0=random
-	{ 0x0f, 1,  0,  127, "[Note Limit ]Low",        0, nullptr,     nullptr,     getsnote, nullptr     }, // C-2..G8
-	{ 0x10, 1,  0,  127, "[Note Limit ]High",     127, nullptr,     nullptr,     getsnote, nullptr     }, // C-2..G8
-	{ 0x11, 1,  0,  127, "Dry/Wet[ Level]",       127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x12, 1,  0,  127, "Chorus[ Send]",           0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x13, 1,  0,  127, "Reverb[ Send]",          40, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x14, 1,  0,  127, "Variation[ Send]",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x15, 1,  0,  127, "[Vibrato ]Rate",         64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x16, 1,  0,  127, "[Vibrato ]Depth",        64, getv0x40, getu0x40, nullptr,     nullptr     }, // drum part ignores
-	{ 0x17, 1,  0,  127, "[Vibrato ]Delay",        64, getv0x40, getu0x40, nullptr,     nullptr     }, // drum part ignores
-	{ 0x18, 1,  0,  127, "[Filter ]Cutoff[ Freq]", 64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x19, 1,  0,  127, "[Filter ]Resonance",     64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x1a, 1,  0,  127, "[EG ]Attack[ Time]",     64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x1b, 1,  0,  127, "[EG ]Decay[ Time]",      64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x1c, 1,  0,  127, "[EG ]Release[ Time]",    64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x1d, 1, 40,   88, "[Wheel ]Pitch",          64, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x1e, 1,  0,  127, "[Wheel ]Filter",         64, getv94_5, getu94_5, nullptr,     nullptr     },
-	{ 0x1f, 1,  1,  127, "[Wheel ]Ampl[itude]",    64, getv_100, getu_100, nullptr,     unit_pct },
-	{ 0x20, 1,  0,  127, "[Wheel ]LFO Pitch",      10, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x21, 1,  0,  127, "[Whell ]LFO Filter",      0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x22, 1,  0,  127, "[Wheel ]LFO Ampl[itude]", 0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x23, 1, 40,   88, "[Bend ]Pitch",           66, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x24, 1,  0,  127, "[Bend ]Filter",          64, getv94_5, getu94_5, nullptr,     unit_cen },
-	{ 0x25, 1,  0,  127, "[Bend ]Ampl[itude]",     64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x26, 1,  0,  127, "[Bend ]LFO Pitch",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x27, 1,  0,  127, "[Bend ]LFO Filter",       0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x28, 1,  0,  127, "[Bend ]LFO Ampl[itude]",  0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x30, 1,  0,    1, "[Rcv ]P[itch ]B[end]",    1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x31, 1,  0,    1, "[Rcv ]C[han ]A[fter ]T[ouch]",1,nullptr,  nullptr,     getsonff, nullptr     },
-	{ 0x32, 1,  0,    1, "[Rcv ]P[rogram ]C[hange]",1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x33, 1,  0,    1, "[Rcv ]C[ontrol ]C[hange]",1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x34, 1,  0,    1, "[Rcv ]P[oly ]A[fter ]T[ouch]",1,nullptr,  nullptr,     getsonff, nullptr     },
-	{ 0x35, 1,  0,    1, "[Rcv ]Note[ Message]",    1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x36, 1,  0,    1, "[Rcv ]RPN",               1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x37, 1,  0,    1, "[Rcv ]NRPN",              1, nullptr,     nullptr,     getsonff, nullptr     }, // 1=XG, 0=GM
-	{ 0x38, 1,  0,    1, "[Rcv ]Mod[ulation]",      1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x39, 1,  0,    1, "[Rcv ]Vol[ume]",          1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x3a, 1,  0,    1, "[Rcv ]Pan",               1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x3b, 1,  0,    1, "[Rcv ]Expr[ession]",      1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x3c, 1,  0,    1, "[Rcv ]Hold[1]",           1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x3d, 1,  0,    1, "[Rcv ]Porta[mento]",      1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x3e, 1,  0,    1, "[Rcv ]Sost[enuto]",       1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x3f, 1,  0,    1, "[Rcv ]S[oft ]P[edal]",    1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x40, 1,  0,    1, "[Rcv ]B[ank ]S[elect]",   1, nullptr,     nullptr,     getsonff, nullptr     }, // 1=XG, 0=GM
-	{ 0x41, 1,  0,  127, "[Scale Tuning ]C",       64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x42, 1,  0,  127, "[Scale Tuning ]C#",      64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x43, 1,  0,  127, "[Scale Tuning ]D",       64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x44, 1,  0,  127, "[Scale Tuning ]D#",      64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x45, 1,  0,  127, "[Scale Tuning ]E",       64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x46, 1,  0,  127, "[Scale Tuning ]F",       64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x47, 1,  0,  127, "[Scale Tuning ]F#",      64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x48, 1,  0,  127, "[Scale Tuning ]G",       64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x49, 1,  0,  127, "[Scale Tuning ]G#",      64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x4a, 1,  0,  127, "[Scale Tuning ]A",       64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x4b, 1,  0,  127, "[Scale Tuning ]A#",      64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x4c, 1,  0,  127, "[Scale Tuning ]B",       64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x4d, 1, 40,   88, "[CAT ]Pitch",            64, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x4e, 1,  0,  127, "[CAT ]Filter",           64, getv94_5, getu94_5, nullptr,     nullptr     },
-	{ 0x4f, 1,  0,  127, "[CAT ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x50, 1,  0,  127, "[CAT ]LFO Pitch",         0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x51, 1,  0,  127, "[CAT ]LFO Filter",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x52, 1,  0,  127, "[CAT ]LFO Aampl[itude]",  0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x53, 1, 40,   88, "[PAT ]Pitch",            64, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x54, 1,  0,  127, "[PAT ]Filter",           64, getv94_5, getu94_5, nullptr,     nullptr     },
-	{ 0x55, 1,  0,  127, "[PAT ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x56, 1,  0,  127, "[PAT ]LFO Pitch",         0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x57, 1,  0,  127, "[PAT ]LFO Filter",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x58, 1,  0,  127, "[PAT ]LFO Ampl[itude]",   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x59, 1,  0,   95, "[AC1 ]Controller",       16, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x5a, 1, 40,   88, "[AC1 ]Pitch",            64, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x5b, 1,  0,  127, "[AC1 ]Filter",           64, getv94_5, getu94_5, nullptr,     nullptr     },
-	{ 0x5c, 1,  0,  127, "[AC1 ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5d, 1,  0,  127, "[AC1 ]LFO Pitch",         0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x5e, 1,  0,  127, "[AC1 ]LFO Filter",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x5f, 1,  0,  127, "[AC1 ]LFO Ampl[itude]",   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x60, 1,  0,   95, "[AC2 ]Controller",       17, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x61, 1, 40,   88, "[AC2 ]Pitch",            64, getv0x40, getu0x40, nullptr,     unit_sem },
-	{ 0x62, 1,  0,  127, "[AC2 ]Filter",           64, getv94_5, getu94_5, nullptr,     nullptr     },
-	{ 0x63, 1,  0,  127, "[AC2 ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x64, 1,  0,  127, "[AC2 ]LFO Pitch",         0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x65, 1,  0,  127, "[AC2 ]LFO Filter",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x66, 1,  0,  127, "[AC2 ]LFO Ampl[itude]",   0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x67, 1,  0,    1, "[Portamento ]Switch",     0, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x68, 1,  0,  127, "[Portamento ]Time",       0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x69, 1,  0,  127, "[PEG ]Ini[tial] Level",  64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x6a, 1,  0,  127, "[PEG ]Att[ack] Time",    64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x6b, 1,  0,  127, "[PEG ]Rel[ease] Level",  64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x6c, 1,  0,  127, "[PEG ]Rel[ease] Time",   64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x6d, 1,  1,  127, "[Velocity Limit] Low",    1, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x6e, 1,  1,  127, "[Velocity Limit] High", 127, nullptr,     nullptr,     nullptr,     nullptr     }
+	{ 0x00, 1,  0,   32, "Element[ Reserve]",       0, nullptr,  nullptr,  nullptr,  nullptr  }, // 0=part10, 2=other
+	{ 0x01, 1,  0,  127, "Bank [Select ]MSB",       0, nullptr,  nullptr,  nullptr,  nullptr  }, // 127=part10, 0=other
+	{ 0x02, 1,  0,  127, "Bank [Select ]LSB",       0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x03, 1,  0,  127, "Program[ Number]",        0, getvprog, getuprog, nullptr,  nullptr  },
+	{ 0x04, 1,  0,  127, "[Rcv ]Channel",           0, nullptr,  nullptr,  getschan, nullptr  }, // 0..15=partno, 127=OFF
+	{ 0x05, 1,  0,    1, "Mono/Poly[ Mode]",        1, nullptr,  nullptr,  getsmmod, nullptr  },
+	{ 0x06, 1,  0,    2, "Same [Note ]Key[ Assign]",1, nullptr,  nullptr,  getskeya, nullptr  },
+	{ 0x07, 1,  0,    3, "[Mode ]Type",             0, nullptr,  nullptr,  getspmod, nullptr  }, // other than part10, 2=part10
+	{ 0x08, 1, 40,   88, "[Note ]Shift",           64, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x09, 2,  0,  255, "Detune",                128, getv12_7, getu12_7, nullptr,  unit_Hz  },
+	{ 0x0b, 1,  0,  127, "Volume",                100, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x0c, 1,  0,  127, "[Velocity Sense ]Depth", 64, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x0d, 1,  0,  127, "[Velocity Sense ]Offset",64, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x0e, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, nullptr,  nullptr  }, // 0=random
+	{ 0x0f, 1,  0,  127, "[Note Limit ]Low",        0, nullptr,  nullptr,  getsnote, nullptr  }, // C-2..G8
+	{ 0x10, 1,  0,  127, "[Note Limit ]High",     127, nullptr,  nullptr,  getsnote, nullptr  }, // C-2..G8
+	{ 0x11, 1,  0,  127, "Dry/Wet[ Level]",       127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x12, 1,  0,  127, "Chorus[ Send]",           0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x13, 1,  0,  127, "Reverb[ Send]",          40, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x14, 1,  0,  127, "Variation[ Send]",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x15, 1,  0,  127, "[Vibrato ]Rate",         64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x16, 1,  0,  127, "[Vibrato ]Depth",        64, getv0x40, getu0x40, nullptr,  nullptr  }, // drum part ignores
+	{ 0x17, 1,  0,  127, "[Vibrato ]Delay",        64, getv0x40, getu0x40, nullptr,  nullptr  }, // drum part ignores
+	{ 0x18, 1,  0,  127, "[Filter ]Cutoff[ Freq]", 64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x19, 1,  0,  127, "[Filter ]Resonance",     64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x1a, 1,  0,  127, "[EG ]Attack[ Time]",     64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x1b, 1,  0,  127, "[EG ]Decay[ Time]",      64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x1c, 1,  0,  127, "[EG ]Release[ Time]",    64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x1d, 1, 40,   88, "[Wheel ]Pitch",          64, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x1e, 1,  0,  127, "[Wheel ]Filter",         64, getv94_5, getu94_5, nullptr,  nullptr  },
+	{ 0x1f, 1,  1,  127, "[Wheel ]Ampl[itude]",    64, getv_100, getu_100, nullptr,  unit_pct },
+	{ 0x20, 1,  0,  127, "[Wheel ]LFO Pitch",      10, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x21, 1,  0,  127, "[Whell ]LFO Filter",      0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x22, 1,  0,  127, "[Wheel ]LFO Ampl[itude]", 0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x23, 1, 40,   88, "[Bend ]Pitch",           66, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x24, 1,  0,  127, "[Bend ]Filter",          64, getv94_5, getu94_5, nullptr,  unit_cen },
+	{ 0x25, 1,  0,  127, "[Bend ]Ampl[itude]",     64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x26, 1,  0,  127, "[Bend ]LFO Pitch",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x27, 1,  0,  127, "[Bend ]LFO Filter",       0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x28, 1,  0,  127, "[Bend ]LFO Ampl[itude]",  0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x30, 1,  0,    1, "[Rcv ]P[itch ]B[end]",    1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x31, 1,  0,    1, "[Rcv ]C[han ]A[fter ]T[ouch]",1,nullptr,nullptr, getsonff, nullptr  },
+	{ 0x32, 1,  0,    1, "[Rcv ]P[rogram ]C[hange]",1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x33, 1,  0,    1, "[Rcv ]C[ontrol ]C[hange]",1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x34, 1,  0,    1, "[Rcv ]P[oly ]A[fter ]T[ouch]",1,nullptr,nullptr, getsonff, nullptr  },
+	{ 0x35, 1,  0,    1, "[Rcv ]Note[ Message]",    1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x36, 1,  0,    1, "[Rcv ]RPN",               1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x37, 1,  0,    1, "[Rcv ]NRPN",              1, nullptr,  nullptr,  getsonff, nullptr  }, // 1=XG, 0=GM
+	{ 0x38, 1,  0,    1, "[Rcv ]Mod[ulation]",      1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x39, 1,  0,    1, "[Rcv ]Vol[ume]",          1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x3a, 1,  0,    1, "[Rcv ]Pan",               1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x3b, 1,  0,    1, "[Rcv ]Expr[ession]",      1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x3c, 1,  0,    1, "[Rcv ]Hold[1]",           1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x3d, 1,  0,    1, "[Rcv ]Porta[mento]",      1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x3e, 1,  0,    1, "[Rcv ]Sost[enuto]",       1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x3f, 1,  0,    1, "[Rcv ]S[oft ]P[edal]",    1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x40, 1,  0,    1, "[Rcv ]B[ank ]S[elect]",   1, nullptr,  nullptr,  getsonff, nullptr  }, // 1=XG, 0=GM
+	{ 0x41, 1,  0,  127, "[Scale Tuning ]C",       64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x42, 1,  0,  127, "[Scale Tuning ]C#",      64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x43, 1,  0,  127, "[Scale Tuning ]D",       64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x44, 1,  0,  127, "[Scale Tuning ]D#",      64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x45, 1,  0,  127, "[Scale Tuning ]E",       64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x46, 1,  0,  127, "[Scale Tuning ]F",       64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x47, 1,  0,  127, "[Scale Tuning ]F#",      64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x48, 1,  0,  127, "[Scale Tuning ]G",       64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x49, 1,  0,  127, "[Scale Tuning ]G#",      64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x4a, 1,  0,  127, "[Scale Tuning ]A",       64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x4b, 1,  0,  127, "[Scale Tuning ]A#",      64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x4c, 1,  0,  127, "[Scale Tuning ]B",       64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x4d, 1, 40,   88, "[CAT ]Pitch",            64, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x4e, 1,  0,  127, "[CAT ]Filter",           64, getv94_5, getu94_5, nullptr,  nullptr  },
+	{ 0x4f, 1,  0,  127, "[CAT ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x50, 1,  0,  127, "[CAT ]LFO Pitch",         0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x51, 1,  0,  127, "[CAT ]LFO Filter",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x52, 1,  0,  127, "[CAT ]LFO Aampl[itude]",  0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x53, 1, 40,   88, "[PAT ]Pitch",            64, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x54, 1,  0,  127, "[PAT ]Filter",           64, getv94_5, getu94_5, nullptr,  nullptr  },
+	{ 0x55, 1,  0,  127, "[PAT ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x56, 1,  0,  127, "[PAT ]LFO Pitch",         0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x57, 1,  0,  127, "[PAT ]LFO Filter",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x58, 1,  0,  127, "[PAT ]LFO Ampl[itude]",   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x59, 1,  0,   95, "[AC1 ]Controller",       16, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x5a, 1, 40,   88, "[AC1 ]Pitch",            64, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x5b, 1,  0,  127, "[AC1 ]Filter",           64, getv94_5, getu94_5, nullptr,  nullptr  },
+	{ 0x5c, 1,  0,  127, "[AC1 ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5d, 1,  0,  127, "[AC1 ]LFO Pitch",         0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x5e, 1,  0,  127, "[AC1 ]LFO Filter",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x5f, 1,  0,  127, "[AC1 ]LFO Ampl[itude]",   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x60, 1,  0,   95, "[AC2 ]Controller",       17, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x61, 1, 40,   88, "[AC2 ]Pitch",            64, getv0x40, getu0x40, nullptr,  unit_sem },
+	{ 0x62, 1,  0,  127, "[AC2 ]Filter",           64, getv94_5, getu94_5, nullptr,  nullptr  },
+	{ 0x63, 1,  0,  127, "[AC2 ]Ampl[itude]",      64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x64, 1,  0,  127, "[AC2 ]LFO Pitch",         0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x65, 1,  0,  127, "[AC2 ]LFO Filter",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x66, 1,  0,  127, "[AC2 ]LFO Ampl[itude]",   0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x67, 1,  0,    1, "[Portamento ]Switch",     0, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x68, 1,  0,  127, "[Portamento ]Time",       0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x69, 1,  0,  127, "[PEG ]Ini[tial] Level",  64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x6a, 1,  0,  127, "[PEG ]Att[ack] Time",    64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x6b, 1,  0,  127, "[PEG ]Rel[ease] Level",  64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x6c, 1,  0,  127, "[PEG ]Rel[ease] Time",   64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x6d, 1,  1,  127, "[Velocity Limit] Low",    1, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x6e, 1,  1,  127, "[Velocity Limit] High", 127, nullptr,  nullptr,  nullptr,  nullptr  }
 };
 
 
@@ -2858,22 +2858,22 @@ XGParamItem MULTIPARTParamTab[] =
 static
 XGParamItem DRUMSETUPParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
-	{ 0x00, 1,  0,  127, "[Pitch ]Coarse",         64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x01, 1,  0,  127, "[Pitch ]Fine",           64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x02, 1,  0,  127, "Level",                 127, nullptr,     nullptr,     nullptr,     nullptr     }, // depend on the note
-	{ 0x03, 1,  0,  127, "[Alternate ]Group",       0, nullptr,     nullptr,     nullptr,     nullptr     }, // depend on the note (0=OFF)
-	{ 0x04, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, nullptr,     nullptr     }, // depend on the note (0=random)
-	{ 0x05, 1,  0,  127, "Reverb[ Send]",           0, nullptr,     nullptr,     nullptr,     nullptr     }, // depend on the note
-	{ 0x06, 1,  0,  127, "Chorus[ Send]",           0, nullptr,     nullptr,     nullptr,     nullptr     }, // depend on the note
-	{ 0x07, 1,  0,  127, "Variation[ Send]",      127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x08, 1,  0,    1, "Same [Note ]Key[ Assign]",0, nullptr,     nullptr,     getskeya, nullptr     },
-	{ 0x09, 1,  0,    1, "[Rcv ]Note Off",          0, nullptr,     nullptr,     getsonff, nullptr     }, // depend on the note
-	{ 0x0a, 1,  0,    1, "[Rcv ]Note On",           1, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x0b, 1,  0,  127, "[Filter ]Cutoff[ Freq]", 64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x0c, 1,  0,  127, "[Filter ]Resonance",     64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x0d, 1,  0,  127, "[EG ]Attack[ Rate]",     64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x0e, 1,  0,  127, "[EG ]Decay 1[ Rate]",    64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x0f, 1,  0,  127, "[EG ]Decay 2[ Rate]",    64, getv0x40, getu0x40, nullptr,     nullptr     } 
+	{ 0x00, 1,  0,  127, "[Pitch ]Coarse",         64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x01, 1,  0,  127, "[Pitch ]Fine",           64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x02, 1,  0,  127, "Level",                 127, nullptr,  nullptr,  nullptr,  nullptr  }, // depend on the note
+	{ 0x03, 1,  0,  127, "[Alternate ]Group",       0, nullptr,  nullptr,  nullptr,  nullptr  }, // depend on the note (0=OFF)
+	{ 0x04, 1,  0,  127, "Pan",                    64, getv0x40, getu0x40, nullptr,  nullptr  }, // depend on the note (0=random)
+	{ 0x05, 1,  0,  127, "Reverb[ Send]",           0, nullptr,  nullptr,  nullptr,  nullptr  }, // depend on the note
+	{ 0x06, 1,  0,  127, "Chorus[ Send]",           0, nullptr,  nullptr,  nullptr,  nullptr  }, // depend on the note
+	{ 0x07, 1,  0,  127, "Variation[ Send]",      127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x08, 1,  0,    1, "Same [Note ]Key[ Assign]",0, nullptr,  nullptr,  getskeya, nullptr  },
+	{ 0x09, 1,  0,    1, "[Rcv ]Note Off",          0, nullptr,  nullptr,  getsonff, nullptr  }, // depend on the note
+	{ 0x0a, 1,  0,    1, "[Rcv ]Note On",           1, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x0b, 1,  0,  127, "[Filter ]Cutoff[ Freq]", 64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x0c, 1,  0,  127, "[Filter ]Resonance",     64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x0d, 1,  0,  127, "[EG ]Attack[ Rate]",     64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x0e, 1,  0,  127, "[EG ]Decay 1[ Rate]",    64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x0f, 1,  0,  127, "[EG ]Decay 2[ Rate]",    64, getv0x40, getu0x40, nullptr,  nullptr  } 
 };
 
 
@@ -2887,88 +2887,88 @@ static
 XGParamItem USERVOICEParamTab[] =
 {	//id size min   max   name                    def  getv      getu      gets      unit
 	// [Common]
-	{ 0x00,10, 32,  127, "[Voice ]Name",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x0b, 1,  1,    3, "Element[ Switch]",        1, nullptr,     nullptr,     getselem, nullptr     }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
-	{ 0x0c, 1,  0,  127, "[Voice ]Level",          64, nullptr,     nullptr,     nullptr,     nullptr     },
+	{ 0x00,10, 32,  127, "[Voice ]Name",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x0b, 1,  1,    3, "Element[ Switch]",        1, nullptr,  nullptr,  getselem, nullptr  }, // 1=Element 1 on, 2=Element 2 on, 3=Element 1 and 2 on
+	{ 0x0c, 1,  0,  127, "[Voice ]Level",          64, nullptr,  nullptr,  nullptr,  nullptr  },
 	// [Element 1]
-	{ 0x3d, 2,  1,  245, "Wave Form",              37, nullptr,     nullptr,     getswave, nullptr     },
-	{ 0x3f, 1,  0,  127, "Note[ Limit] Low",        0, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x40, 1,  0,  127, "Note[ Limit] High",     127, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x41, 1,  0,  127, "Vel[ocity Limit] Low",    0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x42, 1,  0,  127, "Vel[ocity Limit] High", 127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x43, 1,  0,    1, "[FEG ]Vel Curve",         0, nullptr,     nullptr,     getsvelc, nullptr     }, // 0=Linear, 1=Exp
-	{ 0x44, 1,  0,    2, "[LFO ]Wave[ Select]",     0, nullptr,     nullptr,     getslfow, nullptr     },
-	{ 0x45, 1,  0,    1, "[LFO ]Phase[ Initialize]",0, nullptr,     nullptr,     getsonff, nullptr     },
-	{ 0x46, 1,  0,   63, "[LFO ]Speed",            32, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x47, 1,  0,  127, "[LFO ]Delay",             0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x48, 1,  0,  127, "[LFO ]Fade[ Time]",       0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x49, 1,  0,   63, "[LFO ]Pitch[ Depth]",     0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x4a, 1,  0,   15, "[LFO ]Cutoff[ Depth]",    0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x4b, 1,  0,   31, "[LFO ]Ampl[itude Depth]", 0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x4c, 1, 32,   96, "[Note ]Shift",           64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x4d, 1, 14,  114, "Detune",                 64, getv0x40, getu0x40, nullptr,     unit_cen },
-	{ 0x4e, 1,  0,    5, "[Pitch ]Scaling",         0, nullptr,     nullptr,     getspscl, nullptr     },
-	{ 0x4f, 1,  0,  127, "[Pitch ]Center[ Note]",  64, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x50, 1,  0,    3, "[PEG ]Depth",             0, nullptr,     nullptr,     getspdph, nullptr     },
-	{ 0x51, 1, 57,   71, "[PEG ]Vel [Sense ]Level",64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x52, 1, 57,   71, "[PEG ]Vel [Sense ]Rate", 64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x53, 1, 57,   71, "[PEG ]Rate[ Scaling]",   64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x54, 1,  0,  127, "[PEG ]Center[ Note]",    64, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x55, 1,  0,   63, "[PEG ]Rate 1",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x56, 1,  0,   63, "[PEG ]Rate 2",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x57, 1,  0,   63, "[PEG ]Rate 3",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x58, 1,  0,   63, "[PEG ]Rate 4",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x59, 1,  0,  127, "[PEG ]Level 0",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5a, 1,  0,  127, "[PEG ]Level 1",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5b, 1,  0,  127, "[PEG ]Level 2",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5c, 1,  0,  127, "[PEG ]Level 3",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5d, 1,  0,  127, "[PEG ]Level 4",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x5e, 1,  0,   63, "[Filter ]Resonance",     32, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x5f, 1,  0,    7, "Velocity[ Sensitivity]",  0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x60, 1,  0,  127, "Cutoff[ Frequency]",     64, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x61, 1,  0,  127, "[Cutoff Sc ]Break 1",    25, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x62, 1,  0,  127, "[Cutoff Sc ]Break 2",    50, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x63, 1,  0,  127, "[Cutoff Sc ]Break 3",    75, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x64, 1,  0,  127, "[Cutoff Sc ]Break 4",   100, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x65, 1,  0,  127, "[Cutoff Sc ]Offset 1",   64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x66, 1,  0,  127, "[Cutoff Sc ]Offset 2",   64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x67, 1,  0,  127, "[Cutoff Sc ]Offset 3",   64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x68, 1,  0,  127, "[Cutoff Sc ]Offset 4",   64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x69, 1, 57,   71, "[FEG ]Vel [Sense ]Level",64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x6a, 1, 57,   71, "[FEG ]Vel [Sense ]Rate", 64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x6b, 1, 57,   71, "[FEG Rate ]Scaling",     64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x6c, 1,  0,  127, "[FEG ]Center[ Note]",    64, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x6d, 1,  0,   63, "[FEG ]Rate 1",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x6e, 1,  0,   63, "[FEG ]Rate 2",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x6f, 1,  0,   63, "[FEG ]Rate 3",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x70, 1,  0,   63, "[FEG ]Rate 4",            0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x71, 1,  0,  127, "[FEG ]Level 0",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x72, 1,  0,  127, "[FEG ]Level 1",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x73, 1,  0,  127, "[FEG ]Level 2",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x74, 1,  0,  127, "[FEG ]Level 3",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x75, 1,  0,  127, "[FEG ]Level 4",          64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x76, 1,  0,  127, "[Element ]Level",       127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x77, 1,  0,  127, "[Level Sc ]Break 1",     25, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x78, 1,  0,  127, "[Level Sc ]Break 2",     50, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x79, 1,  0,  127, "[Level Sc ]Break 3",     75, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x7a, 1,  0,  127, "[Level Sc ]Break 4",    100, nullptr,     nullptr,     getsnote, nullptr     },
-	{ 0x7b, 1,  0,  127, "[Level Sc ]Offset 1",    64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x7c, 1,  0,  127, "[Level Sc ]Offset 2",    64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x7d, 1,  0,  127, "[Level Sc ]Offset 3",    64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x7e, 1,  0,  127, "[Level Sc ]Offset 4",    64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x7f, 1,  0,    6, "Vel[ocity] Curve",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x80, 1,  0,   15, "Pan",                     7, nullptr,     nullptr,     getsvpan, nullptr     }, // 0=Left..14=Right, 15=Scaling
-	{ 0x81, 1, 57,   71, "[AEG Rate ]Scaling",     64, getv0x40, getu0x40, nullptr,     nullptr     },
-	{ 0x82, 1,  0,  127, "[AEG ]Center[ Note]",    64, getv0x40, getu0x40, getsnote, nullptr     },
-	{ 0x83, 1,  0,   15, "[AEG Key On ]Delay",      0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x84, 1,  0,   63, "[AEG ]Attack[ Rate]",    63, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x85, 1,  0,   63, "[AEG ]Decay 1[ Rate]",   32, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x86, 1,  0,   63, "[AEG ]Decay 2[ Rate]",   32, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x87, 1,  0,   63, "[AEG ]Release[ Rate]",   32, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x88, 1,  0,  127, "[AEG Decay ]Level 1",   127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",   127, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x8a, 2,  0,16383, "[Address ]Offset",        0, nullptr,     nullptr,     nullptr,     nullptr     },
-	{ 0x8c, 1, 57,   71, "Resonance[ Sensitivity]",64, getv0x40, getu0x40, nullptr,     nullptr     }
+	{ 0x3d, 2,  1,  245, "Wave Form",              37, nullptr,  nullptr,  getswave, nullptr  },
+	{ 0x3f, 1,  0,  127, "Note[ Limit] Low",        0, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x40, 1,  0,  127, "Note[ Limit] High",     127, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x41, 1,  0,  127, "Vel[ocity Limit] Low",    0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x42, 1,  0,  127, "Vel[ocity Limit] High", 127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x43, 1,  0,    1, "[FEG ]Vel Curve",         0, nullptr,  nullptr,  getsvelc, nullptr  }, // 0=Linear, 1=Exp
+	{ 0x44, 1,  0,    2, "[LFO ]Wave[ Select]",     0, nullptr,  nullptr,  getslfow, nullptr  },
+	{ 0x45, 1,  0,    1, "[LFO ]Phase[ Initialize]",0, nullptr,  nullptr,  getsonff, nullptr  },
+	{ 0x46, 1,  0,   63, "[LFO ]Speed",            32, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x47, 1,  0,  127, "[LFO ]Delay",             0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x48, 1,  0,  127, "[LFO ]Fade[ Time]",       0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x49, 1,  0,   63, "[LFO ]Pitch[ Depth]",     0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x4a, 1,  0,   15, "[LFO ]Cutoff[ Depth]",    0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x4b, 1,  0,   31, "[LFO ]Ampl[itude Depth]", 0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x4c, 1, 32,   96, "[Note ]Shift",           64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x4d, 1, 14,  114, "Detune",                 64, getv0x40, getu0x40, nullptr,  unit_cen },
+	{ 0x4e, 1,  0,    5, "[Pitch ]Scaling",         0, nullptr,  nullptr,  getspscl, nullptr  },
+	{ 0x4f, 1,  0,  127, "[Pitch ]Center[ Note]",  64, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x50, 1,  0,    3, "[PEG ]Depth",             0, nullptr,  nullptr,  getspdph, nullptr  },
+	{ 0x51, 1, 57,   71, "[PEG ]Vel [Sense ]Level",64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x52, 1, 57,   71, "[PEG ]Vel [Sense ]Rate", 64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x53, 1, 57,   71, "[PEG ]Rate[ Scaling]",   64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x54, 1,  0,  127, "[PEG ]Center[ Note]",    64, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x55, 1,  0,   63, "[PEG ]Rate 1",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x56, 1,  0,   63, "[PEG ]Rate 2",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x57, 1,  0,   63, "[PEG ]Rate 3",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x58, 1,  0,   63, "[PEG ]Rate 4",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x59, 1,  0,  127, "[PEG ]Level 0",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5a, 1,  0,  127, "[PEG ]Level 1",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5b, 1,  0,  127, "[PEG ]Level 2",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5c, 1,  0,  127, "[PEG ]Level 3",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5d, 1,  0,  127, "[PEG ]Level 4",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x5e, 1,  0,   63, "[Filter ]Resonance",     32, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x5f, 1,  0,    7, "Velocity[ Sensitivity]",  0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x60, 1,  0,  127, "Cutoff[ Frequency]",     64, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x61, 1,  0,  127, "[Cutoff Sc ]Break 1",    25, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x62, 1,  0,  127, "[Cutoff Sc ]Break 2",    50, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x63, 1,  0,  127, "[Cutoff Sc ]Break 3",    75, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x64, 1,  0,  127, "[Cutoff Sc ]Break 4",   100, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x65, 1,  0,  127, "[Cutoff Sc ]Offset 1",   64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x66, 1,  0,  127, "[Cutoff Sc ]Offset 2",   64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x67, 1,  0,  127, "[Cutoff Sc ]Offset 3",   64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x68, 1,  0,  127, "[Cutoff Sc ]Offset 4",   64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x69, 1, 57,   71, "[FEG ]Vel [Sense ]Level",64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x6a, 1, 57,   71, "[FEG ]Vel [Sense ]Rate", 64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x6b, 1, 57,   71, "[FEG Rate ]Scaling",     64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x6c, 1,  0,  127, "[FEG ]Center[ Note]",    64, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x6d, 1,  0,   63, "[FEG ]Rate 1",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x6e, 1,  0,   63, "[FEG ]Rate 2",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x6f, 1,  0,   63, "[FEG ]Rate 3",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x70, 1,  0,   63, "[FEG ]Rate 4",            0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x71, 1,  0,  127, "[FEG ]Level 0",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x72, 1,  0,  127, "[FEG ]Level 1",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x73, 1,  0,  127, "[FEG ]Level 2",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x74, 1,  0,  127, "[FEG ]Level 3",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x75, 1,  0,  127, "[FEG ]Level 4",          64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x76, 1,  0,  127, "[Element ]Level",       127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x77, 1,  0,  127, "[Level Sc ]Break 1",     25, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x78, 1,  0,  127, "[Level Sc ]Break 2",     50, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x79, 1,  0,  127, "[Level Sc ]Break 3",     75, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x7a, 1,  0,  127, "[Level Sc ]Break 4",    100, nullptr,  nullptr,  getsnote, nullptr  },
+	{ 0x7b, 1,  0,  127, "[Level Sc ]Offset 1",    64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x7c, 1,  0,  127, "[Level Sc ]Offset 2",    64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x7d, 1,  0,  127, "[Level Sc ]Offset 3",    64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x7e, 1,  0,  127, "[Level Sc ]Offset 4",    64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x7f, 1,  0,    6, "Vel[ocity] Curve",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x80, 1,  0,   15, "Pan",                     7, nullptr,  nullptr,  getsvpan, nullptr  }, // 0=Left..14=Right, 15=Scaling
+	{ 0x81, 1, 57,   71, "[AEG Rate ]Scaling",     64, getv0x40, getu0x40, nullptr,  nullptr  },
+	{ 0x82, 1,  0,  127, "[AEG ]Center[ Note]",    64, getv0x40, getu0x40, getsnote, nullptr  },
+	{ 0x83, 1,  0,   15, "[AEG Key On ]Delay",      0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x84, 1,  0,   63, "[AEG ]Attack[ Rate]",    63, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x85, 1,  0,   63, "[AEG ]Decay 1[ Rate]",   32, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x86, 1,  0,   63, "[AEG ]Decay 2[ Rate]",   32, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x87, 1,  0,   63, "[AEG ]Release[ Rate]",   32, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x88, 1,  0,  127, "[AEG Decay ]Level 1",   127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x89, 1,  0,  127, "[AEG Decay ]Level 2",   127, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x8a, 2,  0,16383, "[Address ]Offset",        0, nullptr,  nullptr,  nullptr,  nullptr  },
+	{ 0x8c, 1, 57,   71, "Resonance[ Sensitivity]",64, getv0x40, getu0x40, nullptr,  nullptr  }
 	// [Element 2]
 	// ...
 };
@@ -4247,7 +4247,7 @@ XGParam *XGParamMasterMap::find_param (
 	if (high == 0x02 && mid == 0x01) {
 		if (low > 0x00 && low < 0x20)
 			etype = REVERB.current_key();
-		else 
+		else
 		if (low > 0x20 && low < 0x40)
 			etype = CHORUS.current_key();
 		else
@@ -4262,10 +4262,16 @@ XGParam *XGParamMasterMap::find_param (
 XGParam *XGParamMasterMap::find_param (
 	const XGParamKey& key, unsigned short etype ) const
 {
-	XGParamMasterMap::const_iterator iter = XGParamMasterMap::constFind(key);
-	for (; iter != XGParamMasterMap::constEnd() && iter.key() == key; ++iter) {
-		XGParam *param = iter.value();
-		if (key.high() == 0x02 && key.mid() == 0x01 && key.low() > 0x00) {
+	const QList<XGParam *>& list
+		= XGParamMasterMap::values(key);
+	QListIterator<XGParam *> iter(list);
+	while (iter.hasNext()) {
+		XGParam *param = iter.next();
+		if (key.high() == 0x02 &&
+			key.mid()  == 0x01 &&
+			key.low()  != 0x00 &&
+			key.low()  != 0x20 &&
+			key.low()  != 0x40) {
 			XGEffectParam *eparam
 				= static_cast<XGEffectParam *> (param);
 			if (eparam->etype() == etype)
