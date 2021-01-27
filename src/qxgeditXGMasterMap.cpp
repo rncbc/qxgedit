@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2021, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -160,8 +160,8 @@ bool qxgeditXGMasterMap::set_nrpn_value (
 
 
 // Direct SysEx data receiver.
-bool qxgeditXGMasterMap::set_sysex_data (
-	unsigned char *data, unsigned short len, bool bNotify )
+bool qxgeditXGMasterMap::add_sysex_data (
+	SysexData& sysex_data, unsigned char *data, unsigned short len )
 {
 	 // SysEx (actually)...
 	if (data[0] != 0xf0 || data[len - 1] != 0xf7)
@@ -171,67 +171,79 @@ bool qxgeditXGMasterMap::set_sysex_data (
 	if (data[1] != 0x43)
 		return false;
 
-	bool ret = false;
-	unsigned short i;
+	int nsysex = 0;
 
-	unsigned char mode  = (data[2] & 0x70);
-//	unsigned char devno = (data[2] & 0x0f);
+	const unsigned char mode  = (data[2] & 0x70);
+//	const unsigned char devno = (data[2] & 0x0f);
 	if (data[3] == 0x4c || data[3] == 0x4b) {
 		// XG/QS300 Model ID...
 		if (mode == 0x00) {
 			// Native Bulk Dump...
-			unsigned short size = (data[4] << 7) + data[5];
+			const unsigned short size = (data[4] << 7) + data[5];
 			unsigned char cksum = 0;
-			for (i = 0; i < size + 5; ++i) {
+			for (unsigned short i = 0; i < size + 5; ++i) {
 				cksum += data[4 + i];
 				cksum &= 0x7f;
 			}
 			if (data[9 + size] == 0x80 - cksum) {
-				unsigned short high = data[6];
-				unsigned short mid  = data[7];
-				unsigned short low  = data[8];
-				for (i = 0; i < size; ++i) {
-					// Parameter Change...
-					unsigned short n = set_param_data(
-						high, mid, low + i, &data[9 + i], bNotify);
-					if (n > 1)
-						i += (n - 1);
-				}
-				ret = (i == size);
+				// Parameter Change...
+				const unsigned short high = data[6];
+				const unsigned short mid  = data[7];
+				const unsigned short low  = data[8];
+				const XGParamKey key(high, mid, low);
+				sysex_data.insert(key, QByteArray((const char *) &data[9], size));
+				++nsysex;
 			}
 		}
 		else
 		if (mode == 0x10) {
 			// Parameter Change...
-			unsigned short high = data[4];
-			unsigned short mid  = data[5];
-			unsigned short low  = data[6];
-			ret = (set_param_data(high, mid, low, &data[7], bNotify) > 0);
+			const unsigned short high = data[4];
+			const unsigned short mid  = data[5];
+			const unsigned short low  = data[6];
+			const XGParamKey key(high, mid, low);
+			sysex_data.insert(key, QByteArray((const char *) &data[7], len - 7));
+			++nsysex;
 		}
 	}
 	
-	return ret;
+	return (nsysex > 0);
+}
+
+
+bool qxgeditXGMasterMap::set_sysex_data (
+	const SysexData& sysex_data, bool bNotify )
+{
+	int nparam = 0;
+
+	SysexData::const_iterator iter = sysex_data.constBegin();
+	for (; iter != sysex_data.constEnd(); ++iter) {
+		const XGParamKey& key = iter.key();
+		const QByteArray& val = iter.value();
+		unsigned char *data = (unsigned char *) val.data();
+		for (unsigned short i = 0; i < val.size(); ++i) {
+			// Parameter Change...
+			XGParam *pParam = find_param(key.high(), key.mid(), key.low() + i);
+			if (pParam && set_param_data(pParam, data + i, bNotify)) {
+				const unsigned short n = pParam->size();
+				if (n > 1) {
+					i += (n - 1);
+					++nparam;
+				}
+			}
+		}
+	}
+
+	return (nparam > 0);
 }
 
 
 // Direct parameter data access.
-unsigned short qxgeditXGMasterMap::set_param_data (
-	unsigned short high, unsigned short mid, unsigned short low,
-	unsigned char *data, bool bNotify )
-{
-	XGParam *pParam = find_param(high, mid, low);
-	if (pParam == nullptr)
-		return 0;
-
-	return set_param_data(pParam, data, bNotify);
-}
-
-
-unsigned short qxgeditXGMasterMap::set_param_data (
+bool qxgeditXGMasterMap::set_param_data (
 	XGParam *pParam, unsigned char *data, bool bNotify )
 {
 	if (!m_observers.contains(pParam))
-		return 0;
+		return false;
 
 	const unsigned short high = pParam->high();
 	const unsigned short mid  = pParam->mid();
@@ -277,7 +289,7 @@ unsigned short qxgeditXGMasterMap::set_param_data (
 	fprintf(stderr, " >\n");
 #endif
 
-	return pParam->size();
+	return (pParam->size() > 0);
 }
 
 

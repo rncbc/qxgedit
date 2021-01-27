@@ -1,7 +1,7 @@
 // qxgeditXGMasterMap.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2021, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -23,6 +23,8 @@
 #define __qxgeditXGMasterMap_h
 
 #include "XGParam.h"
+
+#include <QByteArray>
 
 
 //----------------------------------------------------------------------------
@@ -50,14 +52,14 @@ public:
 		unsigned short nrpn, unsigned short val, bool bNotify = false);
 
 	// Direct SysEx data receiver.
-	bool set_sysex_data(
-		unsigned char *data, unsigned short len, bool bNotify = false);
+	typedef QMultiMap<XGParamKey, QByteArray> SysexData;
+
+	bool add_sysex_data(SysexData& sysex_data,
+		unsigned char *data, unsigned short len);
+	bool set_sysex_data(const SysexData& sysex_data, bool bNotify = false);
 
 	// Direct parameter data access.
-	unsigned short set_param_data(
-		unsigned short high, unsigned short mid, unsigned short low,
-		unsigned char *data, bool bNotify = false);
-	unsigned short set_param_data(
+	bool set_param_data(
 		XGParam *pParam, unsigned char *data, bool bNotify = false);
 
 	// All parameter reset (to default)

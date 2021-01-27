@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2021, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -1326,10 +1326,13 @@ void qxgeditMainForm::nrpnReceived (
 // SYSEX Event handler.
 void qxgeditMainForm::sysexReceived ( const QByteArray& sysex )
 {
-	if (m_pMasterMap)
-		m_pMasterMap->set_sysex_data(
+	if (m_pMasterMap) {
+		qxgeditXGMasterMap::SysexData sysex_data;
+		m_pMasterMap->add_sysex_data(sysex_data,
 			(unsigned char *) sysex.data(),
 			(unsigned short) sysex.length());
+		m_pMasterMap->set_sysex_data(sysex_data);
+	}
 }
 
 
@@ -1542,6 +1545,8 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 	unsigned short i = 0;
 
 	// Read the file....
+	qxgeditXGMasterMap::SysexData sysex_data;
+
 	while (!file.atEnd()) {
 		// (Re)allocate buffer...
 		if (i >= iBuff) {
@@ -1557,7 +1562,8 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 		unsigned short iRead = file.read((char *) pBuff + i, iBuff - i) + i;
 		while (i < iRead) {
 			if (pBuff[i++] == 0xf7) {
-				m_pMasterMap->set_sysex_data(pBuff, i, true); // Notify!
+				++iSysex;
+				m_pMasterMap->add_sysex_data(sysex_data, pBuff, i);
 				if (i < iRead) {
 					::memmove(pBuff, pBuff + i, iRead -= i);
 					i = 0;
@@ -1570,6 +1576,9 @@ bool qxgeditMainForm::loadSessionFile ( const QString& sFilename )
 	if (pBuff)
 		delete [] pBuff;	
 	file.close();
+
+	// Notify!
+	m_pMasterMap->set_sysex_data(sysex_data, (iSysex > 0));
 
 	// Deferred QS300 Bulk Dump feedback...
 	for (unsigned short iUser = 0; iUser < 32; ++iUser) {
@@ -2528,7 +2537,8 @@ void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
 
 	const int iUser = m_ui.UservoiceCombo->currentIndex();
 
-	bool bResult = false;
+	qxgeditXGMasterMap::SysexData sysex_data;
+
 	const unsigned short len = 0x188; // = 392 bytes
 	unsigned char  data[len];
 
@@ -2543,10 +2553,12 @@ void qxgeditMainForm::uservoiceLoadPresetFile ( const QString& sFilename )
 				cksum &= 0x7f;
 			}
 			data[len - 2] = 0x80 - cksum;
-			bResult = m_pMasterMap->set_sysex_data(data, len);
+			m_pMasterMap->add_sysex_data(sysex_data, data, len);
 		}
 	}
 	file.close();
+
+	const bool bResult = m_pMasterMap->set_sysex_data(sysex_data);
 
 	// Deferred QS300 Bulk Dump feedback...
 	if (bResult) {

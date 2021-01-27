@@ -25,7 +25,7 @@
 #include "XGParamObserver.h"
 
 #include <QHash>
-#include <QMap> // Needed to get XGParamMap::Keys sorted.
+#include <QMap>
 
 
 // Helper prototypes.
@@ -333,7 +333,7 @@ private:
 
 
 //-------------------------------------------------------------------------
-// class XGParamKey - XG Parameter hash key.
+// class XGParamKey - XG Parameter map key.
 //
 class XGParamKey
 {
@@ -353,12 +353,16 @@ public:
 	unsigned short low() const
 		{ return m_low; }
 
-	// Hash key comparator.
-	bool operator== ( const XGParamKey& key ) const
+	// Map key comparator.
+	bool operator< ( const XGParamKey& key ) const
 	{
-		return (key.high() == m_high)
-			&& (key.mid()  == m_mid)
-			&& (key.low()  == m_low);
+		if (m_high != key.high())
+			return (m_high < key.high());
+		else
+		if (m_mid != key.mid())
+			return (m_mid < key.mid());
+		else
+			return (m_low < key.low());
 	}
 
 private:
@@ -368,13 +372,6 @@ private:
 	unsigned short m_mid;
 	unsigned short m_low;
 };
-
-
-// Hash key function
-inline uint qHash ( const XGParamKey& key )
-{
-	return qHash(((key.high() << 7) + key.mid()) ^ key.low());
-}
 
 
 //-------------------------------------------------------------------------
@@ -388,7 +385,7 @@ class XGParamSet : public QHash<unsigned short, XGParam *> {};
 // class XGParamMap - XG Parameter mapper.
 //
 
-class XGParamMap : public QHash<unsigned short, XGParamSet *>
+class XGParamMap : public QMap<unsigned short, XGParamSet *>
 {
 public:
 
@@ -495,11 +492,13 @@ public:
 	unsigned short param() const
 		{ return m_param; }
 
-	// Hash key comparator.
-	bool operator== ( const XGRpnParamKey& key ) const
+	// Map key comparator.
+	bool operator< ( const XGRpnParamKey& key ) const
 	{
-		return (key.channel() == m_channel)
-			&& (key.param()   == m_param);
+		if (m_channel != key.channel())
+			return (m_channel < key.channel());
+		else
+			return (m_channel < key.param());
 	}
 
 private:
@@ -510,25 +509,18 @@ private:
 };
 
 
-// Hash key function
-inline uint qHash ( const XGRpnParamKey& key )
-{
-	return qHash((key.param() << 7) + key.channel());
-}
-
-
 //-------------------------------------------------------------------------
 // class XGRpnParamMap - XG (N)RPN Parameter map.
 //
 
-class XGRpnParamMap : public QHash<XGRpnParamKey, XGParam *> {};
+class XGRpnParamMap : public QMap<XGRpnParamKey, XGParam *> {};
 
 
 //-------------------------------------------------------------------------
 // class XGParamMaster - XG Parameter master state database.
 //
 
-class XGParamMasterMap : public QMultiHash<XGParamKey, XGParam *>
+class XGParamMasterMap : public QMultiMap<XGParamKey, XGParam *>
 {
 public:
 
