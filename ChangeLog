@@ -4,10 +4,10 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.9.1  2021-02-07  A Winter'21 Release.
 
 - Fixed Chorus and Variation effect types, when loading
-  from a raw SysEx file (.syx). (EXPERIMENTAL)
+  from a raw SysEx file (.syx).
 
 - Early preparations for the New Year develop(ment) cycle.
 
