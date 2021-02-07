@@ -6,16 +6,16 @@ ChangeLog
 
 0.9.1  2021-02-07  A Winter'21 Release.
 
-- Fixed Chorus and Variation effect types, when loading
-  from a raw SysEx file (.syx).
+- Fixed Chorus and Variation effect types, when loading from a raw 
+  SysEx file (.syx).
 
 - Early preparations for the New Year develop(ment) cycle.
 
 
 0.9.0  2020-12-17  A Winter'20 Release.
 
-- Early fixing to build for Qt >= 6.0.0 and comply
-  with C++17 standard.
+- Early fixing to build for Qt >= 6.0.0 and comply with C++17 
+  standard.
 
 
 0.6.3  2020-07-31  A Summer'20 Release.
@@ -27,26 +27,24 @@ ChangeLog
 
 - A scalable (.svg) icon version has been added.
 
-- Make man page compression reproducible (after request
-  by Jelle van der Waa, while on the Vee-Ones, thanks).
+- Make man page compression reproducible (after request by Jelle
+  van der Waa, while on the Vee-Ones, thanks).
 
 - Bumped copyright headers into the New Year (2020).
 
 
 0.6.1  2019-12-22  The Winter'19 Release.
 
-- Custom color (palette) theme editor introduced; color
-  (palette) theme changes are now effective immediately,
-  except on default.
+- Custom color (palette) theme editor introduced; color (palette) 
+  theme changes are now effective immediately, except on default.
 
-- Second attempt to fix the yet non-official though
-  CMake build configuration.
+- Second attempt to fix the yet non-official though CMake build 
+  configuration.
 
-- When using autotools and ./configure --with-qt=...,
-  it is also necessary to adjust the PKG_CONFIG_PATH
-  environment variable (after a merge request by plcl
-  aka. Pedro López-Cabanillas, while on qmidinet,
-  thanks).
+- When using autotools and ./configure --with-qt=..., it is also 
+  necessary to adjust the PKG_CONFIG_PATH environment variable
+  (after a merge request by plcl aka. Pedro López-Cabanillas,
+  while on qmidinet, thanks).
 
 
 0.6.0  2019-10-17  An Autumn'19 Release.
@@ -55,8 +53,8 @@ ChangeLog
 
 - Fix HiDPI display screen effective support (Qt >= 5.6).
 
-- Refactored all singleton/unique application instance
-  setup logic away from X11/Xcb hackery.
+- Refactored all singleton/unique application instance setup logic 
+  away from X11/Xcb hackery.
 
 - Make sure compiler flags comply to c++11 as standard.
 
@@ -67,8 +65,8 @@ ChangeLog
 
 - Configure updated to check for qtchooser availability.
 
-- Corrected display of note names on the lowest octave,
-  as from "C -1" (0) through  "B -1" (11).
+- Corrected display of note names on the lowest octave, as from 
+  "C -1" (0) through  "B -1" (11).
 
 - Minor update to Debian packaging control file.
 
@@ -84,17 +82,17 @@ ChangeLog
 
 - Old deprecated Qt4 build support is no more.
 
-- AppStream metadata updated to be the most compliant with
-  latest freedesktop.org specification and recommendation.
+- AppStream metadata updated to be the most compliant with latest 
+  freedesktop.org specification and recommendation.
 
 
 0.5.2  2018-07-22  A Summer'18 Release.
 
-- AppData/AppStream metadata is now settled under an all
-  permisssive license (FSFAP).
+- AppData/AppStream metadata is now settled under an all permisssive 
+  license (FSFAP).
 
-- Corrected default handling of MULTIPART > Main > Control >
-  Volume and also MULTIPART > Control > Pitch Bend > LFO ...
+- Corrected default handling of MULTIPART > Main > Control > Volume 
+  and also MULTIPART > Control > Pitch Bend > LFO ...
 
 - Fixed for some g++ >= 8.1.1 warnings and quietness.
 
@@ -103,42 +101,42 @@ ChangeLog
 
 - Corrected wrong handling of the MULTIPART Detune parameter.
 
-- Trying to get CC14 MSB+LSB (course+fine) running status on,
-  no matter whether each pairing event are under 200ms apart.
+- Trying to get CC14 MSB+LSB (course+fine) running status on, no 
+  matter whether each pairing event are under 200ms apart.
 
 - A little hardening on the configure (autoconf) macro side.
 
 
 0.5.0  2017-12-16  End of Autum'17 release.
 
-- Desktop entry specification file is now finally independent
-  from build/configure template chains.
+- Desktop entry specification file is now finally independent from 
+  build/configure template chains.
 
-- Updated target path for freedesktop.org's AppStream metainfo
-  file (formerly AppData).
+- Updated target path for freedesktop.org's AppStream metainfo file 
+  (formerly AppData).
 
-- Changing the View/Options.../General/Widget style theme
-  now takes effect immediately unless it's to "(default)".
+- Changing the View/Options.../General/Widget style theme now takes 
+  effect immediately unless it's to "(default)".
 
 
 0.4.3  2017-04-27  Pre-LAC2017 release frenzy.
 
 - Added French man page (by Olivier Humbert, thanks).
 
-- Added one decimal digit to the randomize percentage input
+- Added one decimal digit to the randomize percentage input 
   spin-boxes on the General Options dialog.
 
-- Make builds reproducible byte for byte, by getting rid of
-  the configure build date and time stamps.
+- Make builds reproducible byte for byte, by getting rid of the 
+  configure build date and time stamps.
 
 
 0.4.2  2016-11-14  A Fall'16 release.
 
-- Fixed a potential crash on the singleton/unique application
+- Fixed a potential crash on the singleton/unique application 
   instance setup.
 
-- MIDI RPN/NRPN running status and RPN NULL reset command
-  are now supported (input only).
+- MIDI RPN/NRPN running status and RPN NULL reset command are now 
+  supported (input only).
 
 - Almost complete overhaul on the configure script command
   line options, wrt. installation directories specification,
@@ -150,9 +148,9 @@ ChangeLog
 
 0.4.1  2016-09-14  End of Summer'16 release.
 
-- Dropped the --enable-qt5 from configure as found redundant
-  given that's the build default anyway (suggestion by Guido
-  Scholz, while for Qtractor, thanks).
+- Dropped the --enable-qt5 from configure as found redundant given 
+  that's the build default anyway (suggestion by Guido Scholz, while 
+  for Qtractor, thanks).
 
 
 0.4.0  2016-04-05  Spring'16 release frenzy.
@@ -172,12 +170,12 @@ ChangeLog
 
 - Complete rewrite of Qt4 vs. Qt5 configure builds.
 
-- A new top-level widget window geometry state save and restore
+- A new top-level widget window geometry state save and restore 
   sub-routine is now in effect.
 
-- Added "Keywords" to desktop file; fix passing debian flags on
-  configure (patches by Jaromír Mikeš, thanks).
-- Fixed for some strict tests for Qt4 vs. Qt5 configure builds.
+- Added "Keywords" to desktop file; fix passing debian flags on 
+  configure (patches by Jaromír Mikeš, thanks). - Fixed for some 
+  strict tests for Qt4 vs. Qt5 configure builds.
 
 - Added application description as freedesktop.org's AppData.
 
@@ -186,7 +184,7 @@ ChangeLog
 
 - In a glance, all GUI toolbox pages converted into tabs.
 
-- Introducing a brand new user preference on eye-candy: cf.
+- Introducing a brand new user preference on eye-candy: cf. 
   View/Options.../Display/Widget style theme.
 
 - Most graphics now rendered with anti-aliased lines.
@@ -200,26 +198,26 @@ ChangeLog
 
 0.1.2  2013-12-31  A fifth of a Jubilee.
 
-- A potential memory override crash-bug was flagged by gcc 4.8,
-  on something like 'iteration 16u invokes undefined behavior
+- A potential memory override crash-bug was flagged by gcc 4.8, on 
+  something like 'iteration 16u invokes undefined behavior 
   [-Waggressive-loop-optimizations]' and then finally fixed.
 
 - More preparations for Qt5 configure build.
 
 - Primeval support for MIDI RPN/NRPN 14-bit controllers input.
 
-- Fixed an incremental value stickiness, which were affecting
-  some parameters step changes from up/down spin-box widgets
-  (eg. Master Tune).
+- Fixed an incremental value stickiness, which were affecting some 
+  parameters step changes from up/down spin-box widgets (eg. Master 
+  Tune).
 
 - Preparations for Qt5 migration.
 
-- Skulpture style plugin is now deployed to a rather standard
+- Skulpture style plugin is now deployed to a rather standard 
   location on install (default: PREFIX/qt4/plugins/styles).
 
 - Uservoice name preset drop-down list is now sorted.
 
-- MIDI note names and their respective octave numbers are now
+- MIDI note names and their respective octave numbers are now 
   compliant with the ISO standard where middle C (60) is now C4
   (was C3).
 
@@ -229,7 +227,7 @@ ChangeLog
 
 - Updated to recent Skulpture style version 2.4.0.
 
-- Fixed Makefile.in handling of installation directories to the
+- Fixed Makefile.in handling of installation directories to the 
   configure script eg. --datadir.
 
 
@@ -239,53 +237,52 @@ ChangeLog
 
 - Debugging stacktrace now applies to all working threads.
 
-- libX11 is now being added explicitly to the build link phase,
-  as seen necessary on some bleeding-edge distros eg. Fedora 13,
-  Debian 6.
+- libX11 is now being added explicitly to the build link phase, as 
+  seen necessary on some bleeding-edge distros eg. Fedora 13, Debian 
+  6.
 
-- Moving from old deprecated Qt3'ish custom event post handling
-  into regular asynchronous signal/slot strategy.
+- Moving from old deprecated Qt3'ish custom event post handling into 
+  regular asynchronous signal/slot strategy.
 
 - General standard dialog buttons layout is now in place.
 
 
 0.1.0  2010-04-21  Second public release.
 
-- Initial widget geometry and visibility persistence logic has
-  been slightly revised as much to avoid crash failures due to
-  wrong main widget hidden state.
+- Initial widget geometry and visibility persistence logic has been 
+  slightly revised as much to avoid crash failures due to wrong main 
+  widget hidden state.
 
 - General source tree layout and build configuration change.
 
-- Make build compilation work for gcc >= 4.4.0, by adding some
+- Make build compilation work for gcc >= 4.4.0, by adding some 
   missing standard C99 includes.
 
-- LADISH Level 1 support has been added: SIGUSR1 signal trap
-  just makes it a shortcut to File/Save.
+- LADISH Level 1 support has been added: SIGUSR1 signal trap just 
+  makes it a shortcut to File/Save.
 
-- Uservoice (QS300) AmpEG Attack, Decay Level 1 and 2 parameters
-  now have a bit cleaner, clearer out-of-the-box default values.
+- Uservoice (QS300) AmpEG Attack, Decay Level 1 and 2 parameters now 
+  have a bit cleaner, clearer out-of-the-box default values.
 
-- Uservoice (QS300) preset combo-box drop-down list now gets its
+- Uservoice (QS300) preset combo-box drop-down list now gets its 
   current item selection set alright.
 
-- Global configuration state is now explicitly saved/committed to
+- Global configuration state is now explicitly saved/committed to 
   disk when Options dialog changes are accepted and applied.
 
 - Variation part parameter is now a drop-down combo-box.
 
 - New reset button for reverb, chorus and variation parameters.
 
-- Randomization of all current vparameter values is now available,
-  allowing for great experimentation and exploration of brand new
+- Randomization of all current vparameter values is now available, 
+  allowing for great experimentation and exploration of brand new 
   sound settings (just try View/Randomize).
 
-- All graphics lines are now slightly gray colored, instead of plain
+- All graphics lines are now slightly gray colored, instead of plain 
   black or white, or whatever the current theme text color.
 
-- Added user confirmation for QS300 user voice preset replacement;
+- Added user confirmation for QS300 user voice preset replacement; 
   preset files are not deleted from file-system anymore.
 
 
 0.0.1  2009-09-19  First public release.
-
