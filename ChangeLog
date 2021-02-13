@@ -4,6 +4,11 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Bumped version micro/dot number into the next develop cycle.
+
+
 0.9.1  2021-02-07  A Winter'21 Release.
 
 - Fixed Chorus and Variation effect types, when loading from a raw 
