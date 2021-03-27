@@ -60,7 +60,7 @@ for XG devices (eg. Yamaha DB50XG).
 %setup -q
 
 %build
-cmake -DCMAKE_INSTALL_PREFIX=%{_prefix}
+cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} .
 %__make %{?_smp_mflags}
 
 %install
