@@ -78,9 +78,9 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} .
 %dir %{_datadir}/icons/hicolor/32x32/apps
 %dir %{_datadir}/icons/hicolor/scalable
 %dir %{_datadir}/icons/hicolor/scalable/apps
-#dir %{_libdir}/qt5
-#dir %{_libdir}/qt5/plugins
-#dir %{_libdir}/qt5/plugins/styles
+%dir %{_libdir}/qt5
+%dir %{_libdir}/qt5/plugins
+%dir %{_libdir}/qt5/plugins/styles
 %dir %{_datadir}/metainfo
 #dir %{_datadir}/man
 #dir %{_datadir}/man/man1
@@ -90,7 +90,7 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} .
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-#{_libdir}/qt5/plugins/styles/libskulpturestyle.so
+%{_libdir}/qt5/plugins/styles/libskulpturestyle.so
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/man/man1/%{name}.1.gz
 %{_datadir}/man/fr/man1/%{name}.1.gz

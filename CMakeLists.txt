@@ -109,7 +109,7 @@ else ()
   set (CONFIG_ALSA_SEQ 0)
 endif ()
 
-if($<VERSION_LESS:${QT_VERSION_MAJOR},6>)
+if (QT_VERSION_MAJOR LESS 6)
   add_subdirectory (skulpture)
 endif()
 add_subdirectory (src)
