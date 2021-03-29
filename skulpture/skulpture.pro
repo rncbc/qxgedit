@@ -42,10 +42,10 @@ unix {
 		}
 	}
 
-	lessThan(QT_MAJOR_VERSION, 5) {
-		TARGET_PATH = $${LIBDIR}/qt4/plugins/styles
-	} else {
+	lessThan(QT_MAJOR_VERSION, 6) {
 		TARGET_PATH = $${LIBDIR}/qt5/plugins/styles
+	} else {
+		TARGET_PATH = $${LIBDIR}/qt6/plugins/styles
 	}
 
 	isEmpty(QMAKE_EXTENSION_SHLIB) {
