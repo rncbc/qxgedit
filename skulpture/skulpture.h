@@ -1,7 +1,7 @@
 /*
  * Skulpture - Classical Three-Dimensional Artwork for Qt 5
  *
- * Copyright (c) 2017-2020 rncbc aka Rui Nuno Capela <rncbc@rncbc.org>
+ * Copyright (c) 2017-2021 rncbc aka Rui Nuno Capela <rncbc@rncbc.org>
  * Copyright (c) 2007, 2008 Christoph Feck <christoph@maxiom.de>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -99,7 +99,7 @@ class SkulptureStyle : public QCommonStyle
 #if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         int layoutSpacingImplementation(QSizePolicy::ControlType control1,
                                         QSizePolicy::ControlType control2, Qt::Orientation orientation,
-                                         const QStyleOption *option, const QWidget *widget) const;
+                                        const QStyleOption *option, const QWidget *widget) const;
 #endif
 
     private:

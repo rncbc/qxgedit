@@ -109,9 +109,7 @@ else ()
   set (CONFIG_ALSA_SEQ 0)
 endif ()
 
-if (QT_VERSION_MAJOR LESS 6)
-  add_subdirectory (skulpture)
-endif()
+add_subdirectory (skulpture)
 add_subdirectory (src)
 
 configure_file (qxgedit.spec.in qxgedit.spec IMMEDIATE @ONLY)

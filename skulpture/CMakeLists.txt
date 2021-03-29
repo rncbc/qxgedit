@@ -1,10 +1,15 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.10)
 
 set (NAME skulpturestyle)
 
-include_directories (
-  ${CMAKE_CURRENT_SOURCE_DIR}
-)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+#set(CMAKE_AUTOUIC ON)
+#set(CMAKE_AUTOMOC ON)
+#set(CMAKE_AUTORCC ON)
+
+find_package (QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+find_package (Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set (HEADERS
   sk_plugin.h
@@ -21,11 +26,8 @@ set (OTHER_FILES
   skulpture.json
 )
 
-
-find_package (Qt5 REQUIRED COMPONENTS Widgets )
-
-qt5_wrap_cpp (MOC_SOURCES ${HEADERS})
-
+#set_property(SOURCE skulpture.cpp PROPERTY SKIP_AUTOMOC ON)
+qt_wrap_cpp (MOC_SOURCES ${HEADERS})
 
 add_library (${NAME} MODULE
   ${SOURCES}
@@ -35,10 +37,9 @@ add_library (${NAME} MODULE
 
 set_target_properties (${NAME} PROPERTIES CXX_STANDARD 11)
 
-target_link_libraries (${NAME} PRIVATE Qt5::Widgets)
-
+target_link_libraries (${NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 if (UNIX AND NOT APPLE)
   install (TARGETS ${NAME} LIBRARY
-     DESTINATION ${CMAKE_INSTALL_LIBDIR}/qt5/plugins/styles)
+     DESTINATION ${CMAKE_INSTALL_LIBDIR}/qt${QT_VERSION_MAJOR}/plugins/styles)
 endif ()
