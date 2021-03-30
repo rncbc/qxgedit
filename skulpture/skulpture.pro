@@ -9,17 +9,14 @@ CONFIG	+= shared plugin
 include(skulpture.pri)
 
 HEADERS	+= \
+	sk_plugin.h \
 	sk_factory.h \
 	skulpture_p.h \
 	skulpture.h
 
 SOURCES	+= skulpture.cpp
 
-!lessThan(QT_MAJOR_VERSION, 5) {
-	HEADERS	+= sk_plugin.h
-	OTHER_FILES += skulpture.json
-	QT += widgets
-}
+OTHER_FILES += skulpture.json
 
 
 unix {
@@ -61,3 +58,5 @@ unix {
 
 	QMAKE_CLEAN += $${TARGET_FILES}
 }
+
+QT += widgets
