@@ -129,6 +129,12 @@ if (CONFIG_XUNIQUE)
 endif ()
 
 if (CONFIG_ALSA_SEQ)
+  if (ALSA_INCLUDE_DIRS)
+    target_include_directories (${PROJECT_NAME} PRIVATE ${ALSA_INCLUDE_DIRS})
+  endif ()
+  if (ALSA_LIBRARY_DIRS)
+    target_link_directories (${PROJECT_NAME} PRIVATE ${ALSA_LIBRARY_DIRS})
+  endif ()
   target_link_libraries (${PROJECT_NAME} PRIVATE PkgConfig::ALSA)
 endif ()
 
