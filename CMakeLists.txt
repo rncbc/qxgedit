@@ -147,6 +147,11 @@ macro (SHOW_OPTION text value)
   endif ()
 endmacro ()
 
+# Add some debug flags.
+if (CONFIG_DEBUG)
+  add_compile_options (-g -fsanitize=address -fno-omit-frame-pointer)
+  link_libraries (asan)
+endif ()
 
 message   ("\n  ${PACKAGE_NAME} ${PACKAGE_VERSION} (Qt ${QT_VERSION})")
 message   ("\n  Build target . . . . . . . . . . . . . . . . . . .: ${CONFIG_BUILD_TYPE}\n")
