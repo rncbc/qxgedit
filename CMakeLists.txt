@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required (VERSION 3.13)
 
-project(qxgedit
+project (qxgedit
   VERSION 0.9.4
   DESCRIPTION "Qt XG Editor"
   LANGUAGES C CXX)
@@ -146,12 +146,6 @@ macro (SHOW_OPTION text value)
     message ("${text}: no")
   endif ()
 endmacro ()
-
-# Add some debug flags.
-if (CONFIG_DEBUG)
-  add_compile_options (-g -fsanitize=address -fno-omit-frame-pointer)
-  link_libraries (asan)
-endif ()
 
 message   ("\n  ${PACKAGE_NAME} ${PACKAGE_VERSION} (Qt ${QT_VERSION})")
 message   ("\n  Build target . . . . . . . . . . . . . . . . . . .: ${CONFIG_BUILD_TYPE}\n")
