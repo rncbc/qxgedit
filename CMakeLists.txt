@@ -115,7 +115,7 @@ endif ()
 
 
 # Find package modules
-find_package (PkgConfig REQUIRED)
+include (FindPkgConfig)
 
 # Check for ALSA libraries.
 pkg_check_modules (ALSA REQUIRED IMPORTED_TARGET alsa)
