@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.15)
 
 project (qxgedit
-  VERSION 0.9.4
+  VERSION 0.9.5
   DESCRIPTION "Qt XG Editor"
   LANGUAGES C CXX)
 
@@ -153,5 +153,4 @@ show_option ("  ALSA MIDI Sequencer support  . . . . . . . . . . ." CONFIG_ALSA_
 message     ("")
 show_option ("  Unique/Single instance support . . . . . . . . . ." CONFIG_XUNIQUE)
 show_option ("  Debugger stack-trace (gdb) . . . . . . . . . . . ." CONFIG_STACKTRACE)
-message   ("\n  Install prefix . . . . . . . . . . . . . . . . . .: ${CONFIG_PREFIX}")
-message   ("\nNow type 'make', followed by 'make install' as root.\n")
+message   ("\n  Install prefix . . . . . . . . . . . . . . . . . .: ${CONFIG_PREFIX}\n")

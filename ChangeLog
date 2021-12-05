@@ -4,6 +4,11 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Dropped autotools (autoconf, automake, etc.) build system.
+
+
 0.9.4  2021-07-03  An Early-Summer'21 Release.
 
 - All builds default to Qt6 (Qt >= 6.1) where available.
