@@ -99,6 +99,14 @@ qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 	QApplication::setApplicationName(QXGEDIT_TITLE);
 	QApplication::setApplicationDisplayName(QXGEDIT_TITLE);
 	//	QXGEDIT_TITLE " - " + QObject::tr(QXGEDIT_SUBTITLE));
+	QString sVersion(CONFIG_BUILD_VERSION);
+	sVersion += '\n';
+	sVersion += QString("Qt: %1").arg(qVersion());
+#if defined(QT_STATIC)
+	sVersion += "-static";
+#endif
+	sVersion += '\n';
+	QApplication::setApplicationVersion(sVersion);
 #endif
 	// Load translation support.
 	QLocale loc;

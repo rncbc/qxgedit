@@ -1,7 +1,7 @@
 // qxgeditOptions.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2020, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2022, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -26,6 +26,14 @@
 #include <QTextStream>
 
 #include <QApplication>
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+#include <QCommandLineParser>
+#include <QCommandLineOption>
+#if defined(Q_OS_WINDOWS)
+#include <QMessageBox>
+#endif
+#endif
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QDesktopWidget>
@@ -183,27 +191,69 @@ QSettings& qxgeditOptions::settings (void)
 // Command-line argument stuff.
 //
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+
+void qxgeditOptions::show_error( const QString& msg )
+{
+#if defined(Q_OS_WINDOWS)
+	QMessageBox::information(nullptr, QApplication::applicationName(), msg);
+#else
+	const QByteArray tmp = msg.toUtf8() + '\n';
+	::fputs(tmp.constData(), stderr);
+#endif
+}
+
+#else
+
 // Help about command line options.
 void qxgeditOptions::print_usage ( const QString& arg0 )
 {
 	QTextStream out(stderr);
-	out << QObject::tr(
-		"Usage: %1 [options] [syx-file]\n\n"
-		QXGEDIT_TITLE " - " QXGEDIT_SUBTITLE "\n\n"
-		"Options:\n\n"
-		"  -h, --help\n\tShow help about command line options\n\n"
-		"  -v, --version\n\tShow version information\n\n")
-		.arg(arg0);
+	const QString sEot = "\n\t";
+	const QString sEol = "\n\n";
+
+	out << QObject::tr("Usage: %1 [options] [session-file]").arg(arg0) + sEol;
+	out << QXGEDIT_TITLE " - " + QObject::tr(QXGEDIT_SUBTITLE) + sEol;
+	out << QObject::tr("Options:") + sEol;
+	out << "  -h, --help" + sEot +
+		QObject::tr("Show help about command line options.") + sEol;
+	out << "  -v, --version" + sEot +
+		QObject::tr("Show version information") + sEol;
 }
+
+#endif
 
 
 // Parse command line arguments into m_settings.
 bool qxgeditOptions::parse_args ( const QStringList& args )
 {
+	int iCmdArgs = 0;
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+
+	QCommandLineParser parser;
+	parser.setApplicationDescription(
+		QXGEDIT_TITLE " - " + QObject::tr(QXGEDIT_SUBTITLE));
+
+	parser.addHelpOption();
+	parser.addVersionOption();
+	parser.addPositionalArgument("session-file",
+		QObject::tr("Session file (.syx)"),
+		QObject::tr("[session-file]"));
+	parser.process(args);
+
+	foreach(const QString& sArg, parser.positionalArguments()) {
+		if (iCmdArgs > 0)
+			sSessionFile += ' ';
+		sSessionFile += sArg;
+		++iCmdArgs;
+	}
+
+#else
+
 	QTextStream out(stderr);
 	const QString sEol = "\n\n";
 	const int argc = args.count();
-	int iCmdArgs = 0;
 
 	for (int i = 1; i < argc; ++i) {
 
@@ -238,6 +288,8 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 			++iCmdArgs;
 		}
 	}
+
+#endif
 
 	// Alright with argument parsing.
 	return true;
