@@ -105,7 +105,6 @@ qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 #if defined(QT_STATIC)
 	sVersion += "-static";
 #endif
-	sVersion += '\n';
 	QApplication::setApplicationVersion(sVersion);
 #endif
 	// Load translation support.
