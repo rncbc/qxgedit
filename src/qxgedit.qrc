@@ -1,6 +1,7 @@
 <RCC version="1.0">
 	<qresource>
 		<file>images/qxgedit.png</file>
+		<file>images/qxgedit.svg</file>
 		<file>images/fileNew.png</file>
 		<file>images/fileOpen.png</file>
 		<file>images/fileSave.png</file>
