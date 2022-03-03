@@ -99,6 +99,10 @@ qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 	QApplication::setApplicationName(QXGEDIT_TITLE);
 	QApplication::setApplicationDisplayName(QXGEDIT_TITLE);
 	//	QXGEDIT_TITLE " - " + QObject::tr(QXGEDIT_SUBTITLE));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+	QApplication::setDesktopFileName(
+		QString("org.rncbc.%1").arg(PACKAGE_TARNAME));
+#endif
 	QString sVersion(CONFIG_BUILD_VERSION);
 	sVersion += '\n';
 	sVersion += QString("Qt: %1").arg(qVersion());
