@@ -135,10 +135,11 @@ endif ()
 add_subdirectory (skulpture)
 add_subdirectory (src)
 
-configure_file (qxgedit.spec.in qxgedit.spec IMMEDIATE @ONLY)
 
-install (FILES qxgedit.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
-install (FILES qxgedit.fr.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/fr/man1 RENAME qxgedit.1)
+if (UNIX AND NOT APPLE)
+  configure_file (${PROJECT_NAME}.spec.in ${PROJECT_NAME}.spec IMMEDIATE @ONLY)
+endif ()
+
 
 # Configuration status
 macro (SHOW_OPTION text value)
