@@ -4,17 +4,14 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
-
+0.9.6  2022-04-02  A Spring'22 Release.
 
 - Added missing file code to desktop exec entry.
 
 - Main application icon is now presented in scalable format (SVG).
 
 - Migrated command line parsing to QCommandLineParser/Option
-  (Qt >= 5.2) (EXPERIMENTAL)
-
-- Fixed translations path to be relative to application runtime.
+  (Qt >= 5.2)
 
 
 0.9.5  2022-01-09  A Winter'22 Release.
