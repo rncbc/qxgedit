@@ -129,7 +129,7 @@ if (APPLE)
   set_target_properties (${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE true)
 endif ()
 
-target_link_libraries (${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries (${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg)
 
 if (CONFIG_XUNIQUE)
   target_link_libraries (${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Network)
