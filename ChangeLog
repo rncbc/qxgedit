@@ -4,6 +4,12 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Fixed the styles plug-ins path resolution on self-container(ized)
+  formats eg. AppImage and possibly Flatpak. (EXPERIMENTAL)
+
+
 0.9.6  2022-04-02  A Spring'22 Release.
 
 - Added missing file code to desktop exec entry.

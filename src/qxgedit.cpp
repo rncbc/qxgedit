@@ -510,8 +510,11 @@ int main ( int argc, char **argv )
 		app.setFont(QFont(app.font().family(), options.iBaseFontSize));
 
 	// Special styles...
-	if (QDir(CONFIG_PLUGINSDIR).exists())
-		app.addLibraryPath(CONFIG_PLUGINSDIR);
+	QString sPluginsPath = QApplication::applicationDirPath();
+	sPluginsPath.remove(CONFIG_BINDIR);
+	sPluginsPath.append(CONFIG_PLUGINSDIR);
+	if (QDir(sPluginsPath).exists())
+		app.addLibraryPath(sPluginsPath);
 	if (!options.sStyleTheme.isEmpty())
 		app.setStyle(QStyleFactory::create(options.sStyleTheme));
 
