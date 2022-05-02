@@ -16,7 +16,8 @@ Standards-Version: 3.9.7
 
 Package: qxgedit
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends},
+  qt6-qpa-plugins | libqt5opengl5
 Description: Qt XG Editor
   QXGEdit is a Qt GUI for editing MIDI System Exclusive files
   for XG devices (eg. Yamaha DB50XG). 
