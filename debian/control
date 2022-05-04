@@ -17,6 +17,7 @@ Standards-Version: 3.9.7
 Package: qxgedit
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
+  libqt6svg6 (>= 6.1) | libqt5svg5 (>= 5.1),
   qt6-qpa-plugins | base-files (<< 12)
 Description: Qt XG Editor
   QXGEdit is a Qt GUI for editing MIDI System Exclusive files
