@@ -6,6 +6,9 @@ ChangeLog
 
 GIT HEAD
 
+- Add current system user-name to the singleton/unique application
+  instance identifier. (EXPERIMENTAL)
+
 - Fixed the styles plug-ins path resolution on self-container(ized)
   formats eg. AppImage and possibly Flatpak. (EXPERIMENTAL)
 
