@@ -136,11 +136,6 @@ add_subdirectory (skulpture)
 add_subdirectory (src)
 
 
-if (UNIX AND NOT APPLE)
-  configure_file (${PROJECT_NAME}.spec.in ${PROJECT_NAME}.spec IMMEDIATE @ONLY)
-endif ()
-
-
 # Configuration status
 macro (SHOW_OPTION text value)
   if (${value})
