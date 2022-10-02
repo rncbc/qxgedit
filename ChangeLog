@@ -4,13 +4,13 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.9.8  2022-10-03  An Early-Autumn'22 release.
 
 - Add current system user-name to the singleton/unique application
-  instance identifier. (EXPERIMENTAL)
+  instance identifier.
 
 - Fixed the styles plug-ins path resolution on self-container(ized)
-  formats eg. AppImage and possibly Flatpak. (EXPERIMENTAL)
+  formats eg. AppImage and possibly Flatpak.
 
 
 0.9.6  2022-04-02  A Spring'22 Release.
