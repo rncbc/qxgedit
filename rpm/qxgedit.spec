@@ -46,7 +46,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	coreutils
 BuildRequires:	pkgconfig
 BuildRequires:	glibc-devel
-%if 0%{?sle_version} >= 150200 && 0%{?is_opensuse}
+%if 0%{?sle_version} == 150200 && 0%{?is_opensuse}
 BuildRequires:	gcc10 >= 10
 BuildRequires:	gcc10-c++ >= 10
 %define _GCC	/usr/bin/gcc-10
