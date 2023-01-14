@@ -1,7 +1,7 @@
 // XGParam.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2022, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2023, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -1628,291 +1628,298 @@ struct _XGDrumVoiceItem
 	unsigned short note;
 	const char    *name;
 
+	// Default values
+	unsigned short level;
+	unsigned short group;
+	unsigned short pan;
+	unsigned short reverb;
+	unsigned short chorus;
+	unsigned short noteOff;
+
 } XGDrumVoiceItem;
 
 
-// Standard Kit 
+// Standard Kit
 static
 XGDrumVoiceItem StandardKitTab[] =
-{
-	{ 13, "Surdo Mute"   },
-	{ 14, "Surdo Open"   },
-	{ 15, "Hi Q"         },
-	{ 16, "Whip Slap"    },
-	{ 17, "Scratch Push" },
-	{ 18, "Scratch Pull" },
-	{ 19, "Finger Snap"  },
-	{ 20, "Click Noise"  },
-	{ 21, "Metronome Click" },
-	{ 22, "Metronome Bell"  },
-	{ 23, "Seq Click L"  },
-	{ 24, "Seq Click H"  },
-	{ 25, "Brush Tap"    },
-	{ 26, "Brush Swirl L"},
-	{ 27, "Brush Slap"   },
-	{ 28, "Brush Swirl H"},
-	{ 29, "Snare Roll"   },
-	{ 30, "Castanet"     },
-	{ 31, "Snare L"      },
-	{ 32, "Sticks"       },
-	{ 33, "Bass Drum L"  },
-	{ 34, "Open Rim Shot"},
-	{ 35, "Bass Drum M"  },
-	{ 36, "Bass Drum H"  },
-	{ 37, "Side Stick"   },
-	{ 38, "Snare M"      },
-	{ 39, "Hand Clap"    },
-	{ 40, "Snare H"      },
-	{ 41, "Floor Tom L"  },
-	{ 42, "Hi-Hat Closed"},
-	{ 43, "Floor Tom H"  },
-	{ 44, "Hi-Hat Pedal" },
-	{ 45, "Low Tom"      },
-	{ 46, "Hi-Hat Open"  },
-	{ 47, "Mid Tom L"    },
-	{ 48, "Mid Tom H"    },
-	{ 49, "Crash Cymbal 1"  },
-	{ 50, "High Tom"     },
-	{ 51, "Ride Cymbal 1"},
-	{ 52, "Chinese Cymbal"  },
-	{ 53, "Ride Cymbal Cup" },
-	{ 54, "Tambourine"   },
-	{ 55, "Splash Cymbal"},
-	{ 56, "Cowbell"      },
-	{ 57, "Crash Cymbal 2"  },
-	{ 58, "Vibraslap"    },
-	{ 59, "Ride Cymbal 2"},
-	{ 60, "Bongo H"      },
-	{ 61, "Bongo L"      },
-	{ 62, "Conga H Mute" },
-	{ 63, "Conga H Open" },
-	{ 64, "Conga L"      },
-	{ 65, "Timbale H"    },
-	{ 66, "Timbale L"    },
-	{ 67, "Agogo H"      },
-	{ 68, "Agogo L"      },
-	{ 69, "Cabasa"       },
-	{ 70, "Maracas"      },
-	{ 71, "Samba Whistle H" },
-	{ 72, "Samba Whistle L" },
-	{ 73, "Guiro Short"  },
-	{ 74, "Guiro Long"   },
-	{ 75, "Claves"       },
-	{ 76, "Wood Block H" },
-	{ 77, "Wood Block L" },
-	{ 78, "Cuica Mute"   },
-	{ 79, "Cuica Open"   },
-	{ 80, "Triangle Mute"},
-	{ 81, "Triangle Open"},
-	{ 82, "Shaker"       },
-	{ 83, "Jingle Bell"  },
-	{ 84, "Bell Tree"       }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 13, "Surdo Mute",            102,   3,   51,   95,   95,  0 },
+	{ 14, "Surdo Open",            121,   3,   51,   95,   95,  0 },
+	{ 15, "Hi Q",                   63,   0,   51,  127,  127,  0 },
+	{ 16, "Whip Slap",             127,   0,   51,  127,  127,  0 },
+	{ 17, "Scratch Push",           93,   4,   52,   63,   63,  0 },
+	{ 18, "Scratch Pull",          116,   4,   52,   63,   63,  0 },
+	{ 19, "Finger Snap",           127,   0,   64,   75,    0,  0 },
+	{ 20, "Click Noise",           127,   0,   64,  127,  127,  0 },
+	{ 21, "Metronome Click",        94,   0,   64,   63,   63,  0 },
+	{ 22, "Metronome Bell",         98,   0,   64,   63,   63,  0 },
+	{ 23, "Seq Click L",            92,   0,   64,  127,  127,  0 },
+	{ 24, "Seq Click H",           119,   0,   64,  127,  127,  0 },
+	{ 25, "Brush Tap",              49,   0,   64,  127,  127,  0 },
+	{ 26, "Brush Swirl L",          47,   0,   64,  127,  127,  1 },
+	{ 27, "Brush Slap",             52,   0,   64,  127,  127,  0 },
+	{ 28, "Brush Swirl H",          45,   0,   64,  127,  127,  1 },
+	{ 29, "Snare Roll",             79,   0,   64,  127,  127,  1 },
+	{ 30, "Castanet",              127,   0,   64,   63,   63,  0 },
+	{ 31, "Snare L",                75,   0,   64,  127,  127,  0 },
+	{ 32, "Sticks",                127,   0,   64,  127,  127,  0 },
+	{ 33, "Bass Drum L",           116,   0,   64,   32,   32,  0 },
+	{ 34, "Open Rim Shot",         127,   0,   64,  127,  127,  0 },
+	{ 35, "Bass Drum M",           102,   0,   64,   32,   32,  0 },
+	{ 36, "Bass Drum H",           127,   0,   64,   32,   32,  0 },
+	{ 37, "Side Stick",             93,   0,   64,  127,  127,  0 },
+	{ 38, "Snare M",               127,   0,   64,  127,  127,  0 },
+	{ 39, "Hand Clap",             110,   0,   64,  127,  127,  0 },
+	{ 40, "Snare H",               123,   0,   64,  127,  127,  0 },
+	{ 41, "Floor Tom L",           111,   0,   24,  127,  127,  0 },
+	{ 42, "Hi-Hat Closed",          91,   1,   77,   32,   32,  0 },
+	{ 43, "Floor Tom H",           113,   0,   39,  127,  127,  0 },
+	{ 44, "Hi-Hat Pedal",           92,   1,   77,   32,   32,  0 },
+	{ 45, "Low Tom",                99,   0,   52,  127,  127,  0 },
+	{ 46, "Hi-Hat Open",            96,   1,   77,   32,   32,  0 },
+	{ 47, "Mid Tom L",              87,   0,   64,  127,  127,  0 },
+	{ 48, "Mid Tom H",              99,   0,   83,  127,  127,  0 },
+	{ 49, "Crash Cymbal 1",        127,   0,   69,  127,  127,  0 },
+	{ 50, "High Tom",              116,   0,  104,  127,  127,  0 },
+	{ 51, "Ride Cymbal 1",         105,   0,   34,  127,  127,  0 },
+	{ 52, "Chinese Cymbal",        120,   0,   34,  127,  127,  0 },
+	{ 53, "Ride Cymbal Cup",       107,   0,   46,  127,  127,  0 },
+	{ 54, "Tambourine",            116,   0,   64,   63,   63,  0 },
+	{ 55, "Splash Cymbal",         127,   0,   64,  127,  127,  0 },
+	{ 56, "Cowbell",               118,   0,   77,   63,   63,  0 },
+	{ 57, "Crash Cymbal 2",        127,   0,   51,  127,  127,  0 },
+	{ 58, "Vibraslap",             106,   0,   25,  127,  127,  0 },
+	{ 59, "Ride Cymbal 2",         110,   0,   46,  127,  127,  0 },
+	{ 60, "Bongo H",               110,   0,  110,   95,   95,  0 },
+	{ 61, "Bongo L",                87,   0,  110,   95,   95,  0 },
+	{ 62, "Conga H Mute",           73,   0,   39,  127,  127,  0 },
+	{ 63, "Conga H Open",           89,   0,   25,  127,  127,  0 },
+	{ 64, "Conga L",               111,   0,   64,   95,   95,  0 },
+	{ 65, "Timbale H",              91,   0,   64,  127,  127,  0 },
+	{ 66, "Timbale L",              95,   0,   64,  127,  127,  0 },
+	{ 67, "Agogo H",               108,   0,   34,  100,  100,  0 },
+	{ 68, "Agogo L",               108,   0,   34,  100,  100,  0 },
+	{ 69, "Cabasa",                 90,   0,   28,   63,   63,  0 },
+	{ 70, "Maracas",                99,   0,   21,   63,   63,  0 },
+	{ 71, "Samba Whistle H",       103,   0,  101,  127,  127,  1 },
+	{ 72, "Samba Whistle L",       110,   0,  101,  127,  127,  1 },
+	{ 73, "Guiro Short",           124,   0,   95,   63,   63,  0 },
+	{ 74, "Guiro Long",            106,   0,  110,   63,   63,  1 },
+	{ 75, "Claves",                 88,   0,   64,   95,   95,  0 },
+	{ 76, "Wood Block H",          107,   0,  104,   95,   95,  0 },
+	{ 77, "Wood Block L",           96,   0,  104,   95,   95,  0 },
+	{ 78, "Cuica Mute",             97,   0,   21,  127,  127,  0 },
+	{ 79, "Cuica Open",            107,   0,   34,  127,  127,  0 },
+	{ 80, "Triangle Mute",         127,   2,   25,   95,   95,  0 },
+	{ 81, "Triangle Open",         127,   2,   25,  127,  127,  0 },
+	{ 82, "Shaker",                106,   0,   83,   63,   63,  0 },
+	{ 83, "Jingle Bell",           123,   0,  105,  127,  127,  0 },
+	{ 84, "Bell Tree",              68,   0,   64,  127,  127,  0 }
 };
 
-// Standard2 Kit 
+// Standard2 Kit
 static
 XGDrumVoiceItem Standard2KitTab[] =
-{
-	{ 29, "Snare Roll 2" },
-	{ 31, "Snare L 2"    },
-	{ 34, "Open Rim Shot 2" },
-	{ 35, "Bass Drum M 2"},
-	{ 36, "Bass Drum H 2"},
-	{ 38, "Snare M 2"    },
-	{ 40, "Snare H 2"       }
-}; 
+{	//     name                   level group pan reverb chorus noteOff
+	{ 29, "Snare Roll 2",           79,    0,  64,  127,  127,  1 },
+	{ 31, "Snare L 2",              75,    0,  64,  127,  127,  0 },
+	{ 34, "Open Rim Shot 2",       127,    0,  64,  127,  127,  0 },
+	{ 35, "Bass Drum M 2",         102,    0,  64,   32,   32,  0 },
+	{ 36, "Bass Drum H 2",         127,    0,  64,   32,   32,  0 },
+	{ 38, "Snare M 2",             127,    0,  64,  127,  127,  0 },
+	{ 40, "Snare H 2",             123,    0,  64,  127,  127,  0 }
+};
 
-// Room Kit 
+// Room Kit
 static
 XGDrumVoiceItem RoomKitTab[] =
-{
-	{ 38, "SD Room L"    },
-	{ 40, "SD Room H"    },
-	{ 41, "Room Tom 1"   },
-	{ 43, "Room Tom 2"   },
-	{ 45, "Room Tom 3"   },
-	{ 47, "Room Tom 4"   },
-	{ 48, "Room Tom 5"   },
-	{ 50, "Room Tom 6"      }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 38, "SD Room L",             127,   0,   64,  127,  127,  0 },
+	{ 40, "SD Room H",             123,   0,   64,  127,  127,  0 },
+	{ 41, "Room Tom 1",            123,   0,   24,  127,  127,  0 },
+	{ 43, "Room Tom 2",            127,   0,   39,  127,  127,  0 },
+	{ 45, "Room Tom 3",            117,   0,   52,  127,  127,  0 },
+	{ 47, "Room Tom 4",            121,   0,   64,  127,  127,  0 },
+	{ 48, "Room Tom 5",            123,   0,   83,  127,  127,  0 },
+	{ 50, "Room Tom 6",            124,   0,   95,  127,  127,  0 }
 
 };
 
-// Rock Kit 
+// Rock Kit
 static
 XGDrumVoiceItem RockKitTab[] =
-{
-	{ 31, "SD Rock M"    },
-	{ 33, "Bass Drum M"  },
-	{ 34, "Open Rim Shot 2" },
-	{ 35, "Bass Drum H 3"},
-	{ 36, "BD Rock"      },
-	{ 38, "SD Rock"      },
-	{ 40, "SD Rock Rim"  },
-	{ 41, "Rock Tom 1"   },
-	{ 43, "Rock Tom 2"   },
-	{ 45, "Rock Tom 3"   },
-	{ 47, "Rock Tom 4"   },
-	{ 48, "Rock Tom 5"   },
-	{ 50, "Rock Tom 6"      }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 31, "SD Rock M",             121,   0,   64,  127,  127,  0 },
+	{ 33, "Bass Drum M",           111,   0,   64,   32,   32,  0 },
+	{ 34, "Open Rim Shot 2",       127,   0,   64,  127,  127,  0 },
+	{ 35, "Bass Drum H 3",         127,   0,   64,   32,   32,  0 },
+	{ 36, "BD Rock",               119,   0,   64,   32,   32,  0 },
+	{ 38, "SD Rock",               110,   0,   64,  127,  127,  0 },
+	{ 40, "SD Rock Rim",           119,   0,   64,  127,  127,  0 },
+	{ 41, "Rock Tom 1",            123,   0,   24,  127,  127,  0 },
+	{ 43, "Rock Tom 2",            127,   0,   39,  127,  127,  0 },
+	{ 45, "Rock Tom 3",            117,   0,   52,  127,  127,  0 },
+	{ 47, "Rock Tom 4",            121,   0,   64,  127,  127,  0 },
+	{ 48, "Rock Tom 5",            123,   0,   83,  127,  127,  0 },
+	{ 50, "Rock Tom 6",            124,   0,   95,  127,  127,  0 }
 };
 
-// Electro Kit 
+// Electro Kit
 static
 XGDrumVoiceItem ElectroKitTab[] =
-{
-	{ 28, "Reverse Cymbal"  },
-	{ 30, "Hi Q"         },
-	{ 31, "Snare M"      },
-	{ 33, "Bass Drum H 4"},
-	{ 35, "BD Rock"      },
-	{ 36, "BD Gate"      },
-	{ 38, "SD Rock L"    },
-	{ 40, "SD Rock H"    },
-	{ 41, "E Tom 1"      },
-	{ 43, "E Tom 2"      },
-	{ 45, "E Tom 3"      },
-	{ 47, "E Tom 4"      },
-	{ 48, "E Tom 5"      },
-	{ 50, "E Tom 6"      },
-	{ 78, "Scratch Push" },
-	{ 79, "Scratch Pull"    } 
+{	//     name                   level group pan reverb chorus noteOff
+	{ 28, "Reverse Cymbal",        100,   0,   64,  127,  127,  1 },
+	{ 30, "Hi Q",                  127,   0,   64,   63,   63,  0 },
+	{ 31, "Snare M",               114,   0,   64,  127,  127,  0 },
+	{ 33, "Bass Drum H 4",         123,   0,   64,   32,   32,  0 },
+	{ 35, "BD Rock",               127,   0,   64,   32,   32,  0 },
+	{ 36, "BD Gate",               127,   0,   64,   32,   32,  0 },
+	{ 38, "SD Rock L",             107,   0,   64,  127,  127,  0 },
+	{ 40, "SD Rock H",             102,   0,   64,  127,  127,  0 },
+	{ 41, "E Tom 1",                92,   0,   24,  127,  127,  0 },
+	{ 43, "E Tom 2",                94,   0,   39,  127,  127,  0 },
+	{ 45, "E Tom 3",                97,   0,   52,  127,  127,  0 },
+	{ 47, "E Tom 4",                93,   0,   64,  127,  127,  0 },
+	{ 48, "E Tom 5",               102,   0,   83,  127,  127,  0 },
+	{ 50, "E Tom 6",                97,   0,  101,  127,  127,  0 },
+	{ 78, "Scratch Push",           89,   4,   21,  127,  127,  0 },
+	{ 79, "Scratch Pull",           94,   4,   34,  127,  127,  0 }
 };
 
-// Analog Kit 
+// Analog Kit
 static
 XGDrumVoiceItem AnalogKitTab[] =
-{
-	{ 28, "Reverse Cymbal"  },
-	{ 30, "Hi Q"         },
-	{ 31, "SD Rock H"    },
-	{ 33, "Bass Drum M"  },
-	{ 35, "BD Analog L"  },
-	{ 36, "BD Analog H"  },
-	{ 37, "Analog Side Stick" },
-	{ 38, "Analog Snare L"  },
-	{ 40, "Analog Snare H"  },
-	{ 41, "Analog Tom 1" },
-	{ 42, "Analog HH Closed 1" },
-	{ 43, "Analog Tom 2" },
-	{ 44, "Analog HH Closed 2" },
-	{ 45, "Analog Tom 3" },
-	{ 46, "Analog HH Open"  },
-	{ 47, "Analog Tom 4" },
-	{ 48, "Analog Tom 5" },
-	{ 49, "Analog Cymbal"},
-	{ 50, "Analog Tom 6" },
-	{ 56, "Analog Cowbell"  },
-	{ 62, "Analog Conga H"  },
-	{ 63, "Analog Conga M"  },
-	{ 64, "Analog Conga L"  },
-	{ 70, "Analog Maracas"  },
-	{ 75, "Analog Claves"},
-	{ 78, "Scratch Push" },
-	{ 79, "Scratch Pull"    }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 28, "Reverse Cymbal",        100,   0,   64,  127,  127,  1 },
+	{ 30, "Hi Q",                  127,   0,   64,   63,   63,  0 },
+	{ 31, "SD Rock H",             114,   0,   64,  127,  127,  0 },
+	{ 33, "Bass Drum M",           111,   0,   64,   32,   32,  0 },
+	{ 35, "BD Analog L",           123,   0,   64,   32,   32,  0 },
+	{ 36, "BD Analog H",           127,   0,   64,   32,   32,  0 },
+	{ 37, "Analog Side Stick",     116,   0,   64,  127,  127,  0 },
+	{ 38, "Analog Snare L",        107,   0,   64,  127,  127,  0 },
+	{ 40, "Analog Snare H",        102,   0,   64,  127,  127,  0 },
+	{ 41, "Analog Tom 1",          127,   0,   24,  127,  127,  0 },
+	{ 42, "Analog HH Closed 1",    108,   1,   77,   32,   32,  0 },
+	{ 43, "Analog Tom 2",          112,   0,   39,  127,  127,  0 },
+	{ 44, "Analog HH Closed 2",     91,   1,   77,   32,   32,  0 },
+	{ 45, "Analog Tom 3",          108,   0,   52,  127,  127,  0 },
+	{ 46, "Analog HH Open",         96,   1,   77,   32,   32,  0 },
+	{ 47, "Analog Tom 4",          112,   0,   64,  127,  127,  0 },
+	{ 48, "Analog Tom 5",          109,   0,   83,  127,  127,  0 },
+	{ 49, "Analog Cymbal",         109,   0,   69,  127,  127,  0 },
+	{ 50, "Analog Tom 6",          109,   0,  101,  127,  127,  0 },
+	{ 56, "Analog Cowbell",        118,   0,   77,   63,   63,  0 },
+	{ 62, "Analog Conga H",         89,   0,   39,  127,  127,  0 },
+	{ 63, "Analog Conga M",         89,   0,   25,  127,  127,  0 },
+	{ 64, "Analog Conga L",        115,   0,   64,   95,   95,  0 },
+	{ 70, "Analog Maracas",         96,   0,   21,   63,   63,  0 },
+	{ 75, "Analog Claves",          88,   0,   64,   95,   95,  0 },
+	{ 78, "Scratch Push",           89,   4,   21,  127,  127,  0 },
+	{ 79, "Scratch Pull",           94,   4,   34,  127,  127,  0 }
 };
 
-// Jazz Kit 
+// Jazz Kit
 static
 XGDrumVoiceItem JazzKitTab[] =
-{
-	{ 36, "BD Jazz"      },
-	{ 41, "Jazz Tom 1"   },
-	{ 43, "Jazz Tom 2"   },
-	{ 45, "Jazz Tom 3"   },
-	{ 47, "Jazz Tom 4"   },
-	{ 48, "Jazz Tom 5"   },
-	{ 50, "Jazz Tom 6"      }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 36, "BD Jazz",               120,   0,   64,   32,   32,  0 },
+	{ 41, "Jazz Tom 1",            113,   0,   24,  127,  127,  0 },
+	{ 43, "Jazz Tom 2",            122,   0,   39,  127,  127,  0 },
+	{ 45, "Jazz Tom 3",            112,   0,   52,  127,  127,  0 },
+	{ 47, "Jazz Tom 4",            127,   0,   64,  127,  127,  0 },
+	{ 48, "Jazz Tom 5",            110,   0,   83,  127,  127,  0 },
+	{ 50, "Jazz Tom 6",            116,   0,  104,  127,  127,  0 }
 };
 
-// Brush Kit 
+// Brush Kit
 static
 XGDrumVoiceItem BrushKitTab[] =
-{
-	{ 31, "Brush Slap L" },
-	{ 36, "BD Soft"      },
-	{ 38, "Brush Slap M" },
-	{ 40, "Brush Tap H"  },
-	{ 41, "Brush Tom 1"  },
-	{ 43, "Brush Tom 2"  },
-	{ 45, "Brush Tom 3"  },
-	{ 47, "Brush Tom 4"  },
-	{ 48, "Brush Tom 5"  },
-	{ 50, "Brush Tom 6"     }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 31, "Brush Slap L",           85,   0,   64,  127,  127,  0 },
+	{ 36, "BD Soft",               117,   0,   64,   32,   32,  0 },
+	{ 38, "Brush Slap M",           84,   0,   64,  127,  127,  0 },
+	{ 40, "Brush Tap H",            74,   0,   64,  127,  127,  0 },
+	{ 41, "Brush Tom 1",           127,   0,   24,  127,  127,  0 },
+	{ 43, "Brush Tom 2",           127,   0,   39,  127,  127,  0 },
+	{ 45, "Brush Tom 3",           127,   0,   52,  127,  127,  0 },
+	{ 47, "Brush Tom 4",           127,   0,   64,  127,  127,  0 },
+	{ 48, "Brush Tom 5",           120,   0,   83,  127,  127,  0 },
+	{ 50, "Brush Tom 6",           122,   0,  104,  127,  127,  0 }
 };
 
-// Classic Kit 
+// Classic Kit
 static
 XGDrumVoiceItem ClassicKitTab[] =
-{
-	{ 33, "Bass Drum L2" },
-	{ 35, "Gran Cassa"   },
-	{ 36, "Gran Cassa Mute" },
-	{ 38, "Marching Sn M"},
-	{ 40, "Marching Sn H"},
-	{ 41, "Jazz Tom 1"   },
-	{ 43, "Jazz Tom 2"   },
-	{ 45, "Jazz Tom 3"   },
-	{ 47, "Jazz Tom 4"   },
-	{ 48, "Jazz Tom 5"   },
-	{ 49, "Hand Cym Open L" },
-	{ 50, "Jazz Tom 6"   },
-	{ 51, "Hand Cym.Closed L" },
-	{ 57, "Hand Cym.Open H" },
-	{ 59, "Hand Cym.Closed H" }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 33, "Bass Drum L2",          116,   0,   64,   32,   32,  0 },
+	{ 35, "Gran Cassa",            127,   0,   64,   32,   32,  0 },
+	{ 36, "Gran Cassa Mute",       127,   0,   64,   32,   32,  0 },
+	{ 38, "Marching Sn M",          79,   0,   64,  127,  127,  0 },
+	{ 40, "Marching Sn H",          79,   0,   64,  127,  127,  0 },
+	{ 41, "Jazz Tom 1",            113,   0,   24,  127,  127,  0 },
+	{ 43, "Jazz Tom 2",            122,   0,   39,  127,  127,  0 },
+	{ 45, "Jazz Tom 3",            112,   0,   52,  127,  127,  0 },
+	{ 47, "Jazz Tom 4",            127,   0,   64,  127,  127,  0 },
+	{ 48, "Jazz Tom 5",            110,   0,   83,  127,  127,  0 },
+	{ 49, "Hand Cym Open L",       123,   0,   64,  127,  127,  0 },
+	{ 50, "Jazz Tom 6",            116,   0,  104,  127,  127,  0 },
+	{ 51, "Hand Cym.Closed L",     124,   0,   34,  127,  127,  0 },
+	{ 57, "Hand Cym.Open H",       127,   0,   51,  127,  127,  0 },
+	{ 59, "Hand Cym.Closed H",     106,   0,   46,  127,  127,  0 }
 };
 
-// SFX1 
+// SFX1
 static
 XGDrumVoiceItem SFX1Tab[] =
-{
-	{ 36, "Guitar Cutting Noise" },
-	{ 37, "Guitar Cutting Noise 2" },
-	{ 39, "String Slap"  },
-	{ 52, "FL.Key Click" },
-	{ 68, "Rain"         },
-	{ 69, "Thunder"      },
-	{ 70, "Wind"         },
-	{ 71, "Stream"       },
-	{ 72, "Bubble"       },
-	{ 73, "Feed"         },
-	{ 84, "Dog"          },
-	{ 85, "Horse Gallop" },
-	{ 86, "Bird 2"       },
-	{ 90, "Ghost"        },
-	{ 91, "Maou"            }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 36, "Guitar Cutting Noise",  127,   0,   64,  127,  127,  1 },
+	{ 37, "Guitar Cutting Noise 2",127,   0,   64,  127,  127,  1 },
+	{ 39, "String Slap",           127,   0,   64,  127,  127,  1 },
+	{ 52, "FL.Key Click",          127,   0,   64,  127,  127,  1 },
+	{ 68, "Rain",                  127,   0,   64,  127,  127,  1 },
+	{ 69, "Thunder",               127,   0,   64,  127,  127,  1 },
+	{ 70, "Wind",                  127,   0,   64,  127,  127,  1 },
+	{ 71, "Stream",                127,   0,   64,  127,  127,  1 },
+	{ 72, "Bubble",                127,   0,   64,  127,  127,  1 },
+	{ 73, "Feed",                  127,   0,   64,  127,  127,  1 },
+	{ 84, "Dog",                   127,   0,   64,  127,  127,  1 },
+	{ 85, "Horse Gallop",          127,   0,   64,  127,  127,  1 },
+	{ 86, "Bird 2",                127,   0,   64,  127,  127,  1 },
+	{ 90, "Ghost",                 127,   0,   64,  127,  127,  1 },
+	{ 91, "Maou",                  127,   0,   64,  127,  127,  1 }
 };
-
 // SFX2
 static
 XGDrumVoiceItem SFX2Tab[] =
-{
-	{ 36, "Dial Tone"    },
-	{ 37, "Door Creaking"},
-	{ 38, "Door Slam"    },
-	{ 39, "Scratch"      },
-	{ 40, "Scratch 2"    },
-	{ 41, "Windchime"    },
-	{ 42, "Telephone Ring2" },
-	{ 52, "Engine Start" },
-	{ 53, "Tire Screech" },
-	{ 54, "Car Passing"  },
-	{ 55, "Crash"        },
-	{ 56, "Siren"        },
-	{ 57, "Train"        },
-	{ 58, "Jetplane"     },
-	{ 59, "Starship"     },
-	{ 60, "Burst Noise"  },
-	{ 61, "Coaster"      },
-	{ 62, "SbMarine"     },
-	{ 68, "Laughing"     },
-	{ 69, "Screaming"    },
-	{ 70, "Punch"        },
-	{ 71, "Heartbeat"    },
-	{ 72, "Footsteps"    },
-	{ 84, "Machine Gun"  },
-	{ 85, "Laser Gun"    },
-	{ 86, "Explosion"    },
-	{ 87, "FireWork"        }
+{	//     name                   level group pan reverb chorus noteOff
+	{ 36, "Dial Tone",             127,   0,   64,  127,  127,  1 },
+	{ 37, "Door Creaking",         127,   0,   64,  127,  127,  1 },
+	{ 38, "Door Slam",             127,   0,   64,  127,  127,  1 },
+	{ 39, "Scratch",               127,   0,   64,  127,  127,  1 },
+	{ 40, "Scratch 2",             127,   0,   64,  127,  127,  1 },
+	{ 41, "Windchime",             127,   0,   64,  127,  127,  1 },
+	{ 42, "Telephone Ring2",       127,   0,   64,  127,  127,  1 },
+	{ 52, "Engine Start",          127,   0,   64,  127,  127,  1 },
+	{ 53, "Tire Screech",          127,   0,   64,  127,  127,  1 },
+	{ 54, "Car Passing",           127,   0,   64,  127,  127,  1 },
+	{ 55, "Crash",                 127,   0,   64,  127,  127,  1 },
+	{ 56, "Siren",                 127,   0,   64,  127,  127,  1 },
+	{ 57, "Train",                 127,   0,   64,  127,  127,  1 },
+	{ 58, "Jetplane",              127,   0,   64,  127,  127,  1 },
+	{ 59, "Starship",              127,   0,   64,  127,  127,  1 },
+	{ 60, "Burst Noise",           127,   0,   64,  127,  127,  1 },
+	{ 61, "Coaster",               127,   0,   64,  127,  127,  1 },
+	{ 62, "SbMarine",              127,   0,   64,  127,  127,  1 },
+	{ 68, "Laughing",              127,   0,   64,  127,  127,  1 },
+	{ 69, "Screaming",             127,   0,   64,  127,  127,  1 },
+	{ 70, "Punch",                 127,   0,   64,  127,  127,  1 },
+	{ 71, "Heartbeat",             127,   0,   64,  127,  127,  1 },
+	{ 72, "Footsteps",             127,   0,   64,  127,  127,  1 },
+	{ 84, "Machine Gun",           127,   0,   64,  127,  127,  1 },
+	{ 85, "Laser Gun",             127,   0,   64,  127,  127,  1 },
+	{ 86, "Explosion",             127,   0,   64,  127,  127,  1 },
+	{ 87, "FireWork",              127,   0,   64,  127,  127,  1 }
 };
 
 
@@ -3332,6 +3339,38 @@ unsigned short XGDrumVoice::note (void) const
 const char *XGDrumVoice::name (void) const
 {
 	return (m_key ? m_key->name : nullptr);
+}
+
+
+// Default values accessors.
+unsigned short XGDrumVoice::level (void) const
+{
+	return (m_key ? m_key->level : 127);
+}
+
+unsigned short XGDrumVoice::group (void) const
+{
+	return (m_key ? m_key->group : 0);
+}
+
+unsigned short XGDrumVoice::pan (void) const
+{
+	return (m_key ? m_key->pan : 64);
+}
+
+unsigned short XGDrumVoice::reverb (void) const
+{
+	return (m_key ? m_key->reverb : 127);
+}
+
+unsigned short XGDrumVoice::chorus (void) const
+{
+	return (m_key ? m_key->chorus : 127);
+}
+
+unsigned short XGDrumVoice::noteOff (void) const
+{
+	return (m_key ? m_key->noteOff : 0);
 }
 
 

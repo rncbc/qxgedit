@@ -1,7 +1,7 @@
 // qxgeditCheck.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2019, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2023, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -99,6 +99,13 @@ void qxgeditCheck::set_param ( XGParam *pParam, Observer */*pSender*/ )
 XGParam *qxgeditCheck::param (void) const
 {
 	return m_pParam;
+}
+
+
+// Value settler public slot.
+void qxgeditCheck::setValue ( unsigned short iValue )
+{
+	set_value(iValue, observer());
 }
 
 

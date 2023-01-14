@@ -2362,9 +2362,27 @@ void qxgeditMainForm::drumsetupNoteComboActivated ( int iNote )
 {
 	if (m_pMasterMap) {
 		const int iDrumset = m_ui.DrumsetupCombo->currentIndex();
-		const unsigned short key = (unsigned short) (iDrumset << 7)
-			+ m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
+		const unsigned short drum_key
+			= m_ui.DrumsetupNoteCombo->itemData(iNote).toUInt();
+		const unsigned short key
+			= (unsigned short) (iDrumset << 7) + drum_key;
 		m_pMasterMap->DRUMSETUP.set_current_key(key);
+		// Update drum voice/key defaults...
+		const int iDrumKit
+			= m_ui.DrumsetupVoiceCombo->currentIndex();
+		XGDrumKit drumkit(iDrumKit);
+		if (drumkit.item()) {
+			const int i = drumkit.find_voice(drum_key);
+			if (i >= 0) {
+				const XGDrumVoice drum(&drumkit, i);
+				m_ui.DrumsetupLevelDial->setValue(drum.level());
+				m_ui.DrumsetupGroupDial->setValue(drum.group());
+				m_ui.DrumsetupPanDial->setValue(drum.pan());
+				m_ui.DrumsetupReverbDial->setValue(drum.reverb());
+				m_ui.DrumsetupChorusDial->setValue(drum.chorus());
+				m_ui.DrumsetupNoteOffCheck->setValue(drum.noteOff());
+			}
+		}
 	}
 }
 
