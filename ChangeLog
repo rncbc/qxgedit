@@ -6,6 +6,8 @@ ChangeLog
 
 GIT HEAD
 
+- Micro-adjustments to the View > Options... dialog layout.
+
 - Prepping into the next development cycle (with Qt >= 6.5).
 
 
