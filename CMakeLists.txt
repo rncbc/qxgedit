@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.15)
 
 project (qxgedit
-  VERSION 0.9.11
+  VERSION 0.9.12
   DESCRIPTION "Qt XG Editor"
   LANGUAGES C CXX)
 
