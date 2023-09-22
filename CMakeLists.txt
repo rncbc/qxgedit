@@ -58,6 +58,13 @@ set (CONFIG_DATADIR "${CONFIG_PREFIX}/${CMAKE_INSTALL_DATADIR}")
 set (CONFIG_MANDIR  "${CONFIG_PREFIX}/${CMAKE_INSTALL_MANDIR}")
 
 
+# Enable ALSA Sequencer native support option.
+option (CONFIG_ALSA_MIDI "Use ALSA MIDI Sequencer native interface (default=yes)" 1)
+
+# Enable RtMidi cross-platform library support option.
+option (CONFIG_RTMIDI  "Use RtMidi library interface (default=no)" 0)
+
+
 # Enable unique/single instance.
 option (CONFIG_XUNIQUE "Enable unique/single instance (default=yes)" 1)
 
@@ -113,18 +120,28 @@ endif ()
 # Find package modules
 include (FindPkgConfig)
 
+
+# Toggle whether for native ALSA or RtMmidi libraries.
+if (CONFIG_RTMIDI)
+  set (CONFIG_ALSA_MIDI 0)
+endif ()
+
 # Check for ALSA libraries.
-pkg_check_modules (ALSA REQUIRED IMPORTED_TARGET alsa)
-if (ALSA_FOUND)
-  find_library(ALSA_LIBRARY NAMES ${ALSA_LIBRARIES} HINTS ${ALSA_LIBDIR})
+if (CONFIG_ALSA_MIDI)
+  pkg_check_modules (ALSA REQUIRED IMPORTED_TARGET alsa)
+  if (NOT ALSA_FOUND)
+    message (FATAL_ERROR "*** ALSA library not found.")
+  endif ()
 endif ()
-if (ALSA_LIBRARY)
-  set (CONFIG_ALSA_SEQ 1)
- #set (CMAKE_REQUIRED_LIBRARIES "${ALSA_LIBRARY};${CMAKE_REQUIRED_LIBRARIES}")
-else ()
-  message (FATAL_ERROR "*** ALSA library not found.")
-  set (CONFIG_ALSA_SEQ 0)
+
+# Check for RtMIDI libraries.
+if (CONFIG_RTMIDI)
+  pkg_check_modules (RTMIDI REQUIRED IMPORTED_TARGET rtmidi)
+  if (NOT RTMIDI_FOUND)
+    message (FATAL_ERROR "*** RtMidi library not found.")
+  endif ()
 endif ()
+
 
 add_subdirectory (skulpture)
 add_subdirectory (src)
@@ -141,7 +158,8 @@ endmacro ()
 
 message   ("\n  ${PACKAGE_NAME} ${PACKAGE_VERSION} (Qt ${QT_VERSION})")
 message   ("\n  Build target . . . . . . . . . . . . . . . . . . .: ${CONFIG_BUILD_TYPE}\n")
-show_option ("  ALSA MIDI Sequencer support  . . . . . . . . . . ." CONFIG_ALSA_SEQ)
+show_option ("  ALSA MIDI Sequencer native support . . . . . . . ." CONFIG_ALSA_MIDI)
+show_option ("  RtMidi cross-platform support (EXPERIMENTAL) . . ." CONFIG_RTMIDI)
 message     ("")
 show_option ("  Unique/Single instance support . . . . . . . . . ." CONFIG_XUNIQUE)
 show_option ("  Debugger stack-trace (gdb) . . . . . . . . . . . ." CONFIG_STACKTRACE)

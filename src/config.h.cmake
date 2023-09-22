@@ -40,8 +40,11 @@
 /* Define if debugging is enabled. */
 #cmakedefine CONFIG_DEBUG @CONFIG_DEBUG@
 
-/* Define if ALSA library is available. */
-#cmakedefine CONFIG_ALSA_SEQ @CONFIG_ALSA_SEQ@
+/* Define if ALSA MIDI Sequencer library is enabled. */
+#cmakedefine CONFIG_ALSA_MIDI @CONFIG_ALSA_MIDI@
+
+/* Define if RtMidi library is enabled. */
+#cmakedefine CONFIG_RTMIDI @CONFIG_RTMIDI@
 
 /* Define if unique/single instance is enabled. */
 #cmakedefine CONFIG_XUNIQUE @CONFIG_XUNIQUE@

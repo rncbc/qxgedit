@@ -82,7 +82,6 @@ set (RESOURCES
   qxgedit.qrc
 )
 
-
 if (WIN32)
   set (RC_FILE ${CMAKE_CURRENT_SOURCE_DIR}/win32/${PROJECT_NAME}.rc)
   set (RES_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.res.obj)
@@ -135,8 +134,13 @@ if (CONFIG_XUNIQUE)
   target_link_libraries (${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 endif ()
 
-if (CONFIG_ALSA_SEQ)
+
+if (CONFIG_ALSA_MIDI)
   target_link_libraries (${PROJECT_NAME} PRIVATE PkgConfig::ALSA)
+endif ()
+
+if (CONFIG_RTMIDI)
+  target_link_libraries (${PROJECT_NAME} PRIVATE PkgConfig::RTMIDI)
 endif ()
 
 
