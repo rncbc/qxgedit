@@ -61,6 +61,11 @@ qxgeditOptionsForm::qxgeditOptionsForm ( QWidget *pParent )
 	m_iMidiInputsChanged  = 0;
 	m_iMidiOutputsChanged = 0;
 
+#ifdef CONFIG_RTMIDI
+	m_ui.MidiInputListView->setSelectionMode(QAbstractItemView::SingleSelection);
+	m_ui.MidiOutputListView->setSelectionMode(QAbstractItemView::SingleSelection);
+#endif
+
 	// Try to fix window geometry.
 	m_ui.MidiInputListView->setMaximumHeight(96);
 	m_ui.MidiOutputListView->setMaximumHeight(96);

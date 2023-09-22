@@ -54,8 +54,6 @@ public:
 
 	// ALSA client descriptor accessor.
 	snd_seq_t *alsaSeq() const;
-	int alsaClient() const;
-	int alsaPort() const;
 
 	// MIDI event capture method.
 	void capture(snd_seq_event_t *pEv);
@@ -106,7 +104,8 @@ private:
 
 	snd_seq_t *m_pAlsaSeq;
 	int        m_iAlsaClient;
-	int        m_iAlsaPort;
+	int        m_iAlsaInPort;
+	int        m_iAlsaOutPort;
 
 	// Name says it all.
 	class InputRpn;
@@ -327,23 +326,23 @@ qxgeditMidiDevice::Impl::Impl (
 
 #ifdef CONFIG_ALSA_MIDI
 
-	m_pAlsaSeq    = nullptr;
-	m_iAlsaClient = -1;
-	m_iAlsaPort   = -1;
+	m_pAlsaSeq     = nullptr;
+	m_iAlsaClient  = -1;
+	m_iAlsaInPort  = -1;
+	m_iAlsaOutPort = -1;
 
 	m_pInputThread = nullptr;
 
 	// Open new ALSA sequencer client...
 	if (snd_seq_open(&m_pAlsaSeq, "hw", SND_SEQ_OPEN_DUPLEX, 0) >= 0) {
 		// Set client identification...
-		QString sName = sClientName;
-		snd_seq_set_client_name(m_pAlsaSeq, sName.toLatin1().constData());
+		snd_seq_set_client_name(m_pAlsaSeq, sClientName.toLatin1().constData());
 		m_iAlsaClient = snd_seq_client_id(m_pAlsaSeq);
-		// Create duplex port
-		sName += " MIDI 1";
-		m_iAlsaPort = snd_seq_create_simple_port(m_pAlsaSeq,
-			sName.toLatin1().constData(),
-			SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE |
+		// Create in/out ports...
+		m_iAlsaInPort = snd_seq_create_simple_port(m_pAlsaSeq, "in",
+			SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE,
+			SND_SEQ_PORT_TYPE_MIDI_GENERIC | SND_SEQ_PORT_TYPE_APPLICATION);
+		m_iAlsaOutPort = snd_seq_create_simple_port(m_pAlsaSeq, "out",
 			SND_SEQ_PORT_CAP_READ | SND_SEQ_PORT_CAP_SUBS_READ,
 			SND_SEQ_PORT_TYPE_MIDI_GENERIC | SND_SEQ_PORT_TYPE_APPLICATION);
 		// Create and start our own MIDI input queue thread...
@@ -404,11 +403,13 @@ qxgeditMidiDevice::Impl::~Impl (void)
 	}
 
 	if (m_pAlsaSeq) {
-		snd_seq_delete_simple_port(m_pAlsaSeq, m_iAlsaPort);
-		m_iAlsaPort   = -1;
+		snd_seq_delete_simple_port(m_pAlsaSeq, m_iAlsaInPort);
+		m_iAlsaInPort = -1;
+		snd_seq_delete_simple_port(m_pAlsaSeq, m_iAlsaOutPort);
+		m_iAlsaOutPort = -1;
 		snd_seq_close(m_pAlsaSeq);
 		m_iAlsaClient = -1;
-		m_pAlsaSeq    = nullptr;
+		m_pAlsaSeq = nullptr;
 	}
 
 #endif	// CONFIG_ALSA_MIDI
@@ -430,22 +431,12 @@ snd_seq_t *qxgeditMidiDevice::Impl::alsaSeq (void) const
 	return m_pAlsaSeq;
 }
 
-int qxgeditMidiDevice::Impl::alsaClient (void) const
-{
-	return m_iAlsaClient;
-}
-
-int qxgeditMidiDevice::Impl::alsaPort (void) const
-{
-	return m_iAlsaPort;
-}
-
 
 // MIDI event capture method.
 void qxgeditMidiDevice::Impl::capture ( snd_seq_event_t *pEv )
 {
 	// Must be to ourselves...
-	if (pEv->dest.port != m_iAlsaPort)
+	if (pEv->dest.port != m_iAlsaInPort)
 		return;
 
 #ifdef CONFIG_DEBUG
@@ -597,7 +588,7 @@ void qxgeditMidiDevice::Impl::sendSysex (
 	snd_seq_ev_clear(&ev);
 
 	// Addressing...
-	snd_seq_ev_set_source(&ev, m_iAlsaPort);
+	snd_seq_ev_set_source(&ev, m_iAlsaOutPort);
 	snd_seq_ev_set_subs(&ev);
 
 	// The event will be direct...
@@ -750,11 +741,11 @@ bool qxgeditMidiDevice::Impl::connectDeviceList (
 							seq_addr.port   = iAlsaPort;
 							snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
 							seq_addr.client = m_iAlsaClient;
-							seq_addr.port   = m_iAlsaPort;
+							seq_addr.port   = m_iAlsaInPort;
 							snd_seq_port_subscribe_set_dest(pPortSubs, &seq_addr);
 						} else {
 							seq_addr.client = m_iAlsaClient;
-							seq_addr.port   = m_iAlsaPort;
+							seq_addr.port   = m_iAlsaOutPort;
 							snd_seq_port_subscribe_set_sender(pPortSubs, &seq_addr);
 							seq_addr.client = iAlsaClient;
 							seq_addr.port   = iAlsaPort;
