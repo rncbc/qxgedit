@@ -97,6 +97,20 @@
 qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 	: QApplication(argc, argv),
 		m_pQtTranslator(nullptr), m_pMyTranslator(nullptr), m_pWidget(nullptr)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#ifdef CONFIG_XUNIQUE
+#ifdef CONFIG_X11
+	, m_pDisplay(nullptr)
+	, m_aUnique(0)
+	, m_wOwner(0)
+#endif	// CONFIG_X11
+#endif	// CONFIG_XUNIQUE
+#else
+#ifdef CONFIG_XUNIQUE
+	, m_pMemory(nullptr)
+	, m_pServer(nullptr)
+#endif	// CONFIG_XUNIQUE
+#endif
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
 	QApplication::setApplicationName(QXGEDIT_TITLE);
@@ -160,18 +174,6 @@ qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 			}
 		}
 	}
-#ifdef CONFIG_XUNIQUE
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#ifdef CONFIG_X11
-	m_pDisplay = nullptr;
-	m_aUnique = 0;
-	m_wOwner = 0;
-#endif	// CONFIG_X11
-#else
-	m_pMemory = nullptr;
-	m_pServer = nullptr;
-#endif
-#endif	// CONFIG_XUNIQUE
 }
 
 // Destructor.
@@ -179,15 +181,7 @@ qxgeditApplication::~qxgeditApplication (void)
 {
 #ifdef CONFIG_XUNIQUE
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-	if (m_pServer) {
-		m_pServer->close();
-		delete m_pServer;
-		m_pServer = nullptr;
-	}
-	if (m_pMemory) {
-		delete m_pMemory;
-		m_pMemory = nullptr;
-	}
+	clearServer();
 #endif
 #endif	// CONFIG_XUNIQUE
 	if (m_pMyTranslator) delete m_pMyTranslator;
@@ -280,68 +274,7 @@ bool qxgeditApplication::setup (void)
 #endif	// CONFIG_X11
 	return false;
 #else
-	m_sUnique = QCoreApplication::applicationName();
-	QString sUserName = QString::fromUtf8(::getenv("USER"));
-	if (sUserName.isEmpty())
-		sUserName = QString::fromUtf8(::getenv("USERNAME"));
-	if (!sUserName.isEmpty()) {
-		m_sUnique += ':';
-		m_sUnique += sUserName;
-	}
-	m_sUnique += '@';
-	m_sUnique += QHostInfo::localHostName();
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-	const QNativeIpcKey nativeKey
-		= QSharedMemory::legacyNativeKey(m_sUnique);
-	m_pMemory = new QSharedMemory(nativeKey);
-#else
-#if defined(Q_OS_UNIX)
-	m_pMemory = new QSharedMemory(m_sUnique);
-	m_pMemory->attach();
-	delete m_pMemory;
-#endif
-	m_pMemory = new QSharedMemory(m_sUnique);
-#endif
-	bool bServer = false;
-	const qint64 pid = QCoreApplication::applicationPid();
-	struct Data { qint64 pid; };
-	if (m_pMemory->create(sizeof(Data))) {
-		m_pMemory->lock();
-		Data *pData = static_cast<Data *> (m_pMemory->data());
-		if (pData) {
-			pData->pid = pid;
-			bServer = true;
-		}
-		m_pMemory->unlock();
-	}
-	else
-	if (m_pMemory->attach()) {
-		m_pMemory->lock(); // maybe not necessary?
-		Data *pData = static_cast<Data *> (m_pMemory->data());
-		if (pData)
-			bServer = (pData->pid == pid);
-		m_pMemory->unlock();
-	}
-	if (bServer) {
-		QLocalServer::removeServer(m_sUnique);
-		m_pServer = new QLocalServer();
-		m_pServer->setSocketOptions(QLocalServer::UserAccessOption);
-		m_pServer->listen(m_sUnique);
-		QObject::connect(m_pServer,
-			SIGNAL(newConnection()),
-			SLOT(newConnectionSlot()));
-	} else {
-		QLocalSocket socket;
-		socket.connectToServer(m_sUnique);
-		if (socket.state() == QLocalSocket::ConnectingState)
-			socket.waitForConnected(200);
-		if (socket.state() == QLocalSocket::ConnectedState) {
-			socket.write(QCoreApplication::arguments().join(' ').toUtf8());
-			socket.flush();
-			socket.waitForBytesWritten(200);
-		}
-	}
-	return !bServer;
+	return setupServer();
 #endif
 #else
 	return false;
@@ -363,31 +296,35 @@ void qxgeditApplication::x11PropertyNotify ( Window w )
 		unsigned long iAfter = 0;
 		unsigned char *pData = 0;
 		if (XGetWindowProperty(
-			m_pDisplay,
-			m_wOwner,
-			m_aUnique,
-			0, 1024,
-			false,
-			m_aUnique,
-			&aType,
-			&iFormat,
-			&iItems,
-			&iAfter,
-			&pData) == Success
-		&& aType == m_aUnique && iItems > 0 && iAfter == 0) {
+				m_pDisplay,
+				m_wOwner,
+				m_aUnique,
+				0, 1024,
+				false,
+				m_aUnique,
+				&aType,
+				&iFormat,
+				&iItems,
+				&iAfter,
+				&pData) == Success
+			&& aType == m_aUnique && iItems > 0 && iAfter == 0) {
 			// Avoid repeating it-self...
 			XDeleteProperty(m_pDisplay, m_wOwner, m_aUnique);
 			// Just make it always shows up fine...
 			m_pWidget->showNormal();
 			m_pWidget->raise();
 			m_pWidget->activateWindow();
+			// FIXME: Do our best speciality, although it should be
+			// done iif configuration says so, we'll do it anyway!
+			qxgeditMainForm *pMainForm = qxgeditMainForm::getInstance();
+			if (pMainForm)
+				pMainForm->startAllEngines();
 		}
 		// Free any left-overs...
 		if (iItems > 0 && pData)
 			XFree(pData);
 	}
 }
-
 
 bool qxgeditApplication::x11EventFilter ( XEvent *pEv )
 {
@@ -399,6 +336,102 @@ bool qxgeditApplication::x11EventFilter ( XEvent *pEv )
 
 #endif	// CONFIG_X11
 #else
+
+// Local server/shmem setup.
+bool qxgeditApplication::setupServer (void)
+{
+	clearServer();
+
+	m_sUnique = QCoreApplication::applicationName();
+	QString sUserName = QString::fromUtf8(::getenv("USER"));
+	if (sUserName.isEmpty())
+		sUserName = QString::fromUtf8(::getenv("USERNAME"));
+	if (!sUserName.isEmpty()) {
+		m_sUnique += ':';
+		m_sUnique += sUserName;
+	}
+	m_sUnique += '@';
+	m_sUnique += QHostInfo::localHostName();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+	const QNativeIpcKey nativeKey
+	= QSharedMemory::legacyNativeKey(m_sUnique);
+#if defined(Q_OS_UNIX)
+	m_pMemory = new QSharedMemory(nativeKey);
+	m_pMemory->attach();
+	delete m_pMemory;
+#endif
+	m_pMemory = new QSharedMemory(nativeKey);
+#else
+#if defined(Q_OS_UNIX)
+	m_pMemory = new QSharedMemory(m_sUnique);
+	m_pMemory->attach();
+	delete m_pMemory;
+#endif
+	m_pMemory = new QSharedMemory(m_sUnique);
+#endif
+
+	bool bServer = false;
+	const qint64 pid = QCoreApplication::applicationPid();
+	struct Data { qint64 pid; };
+	if (m_pMemory->create(sizeof(Data))) {
+		m_pMemory->lock();
+		Data *pData = static_cast<Data *> (m_pMemory->data());
+		if (pData) {
+			pData->pid = pid;
+			bServer = true;
+		}
+		m_pMemory->unlock();
+	}
+	else
+	if (m_pMemory->attach()) {
+		m_pMemory->lock(); // maybe not necessary?
+		Data *pData = static_cast<Data *> (m_pMemory->data());
+		if (pData)
+			bServer = (pData->pid == pid);
+		m_pMemory->unlock();
+	}
+
+	if (bServer) {
+		QLocalServer::removeServer(m_sUnique);
+		m_pServer = new QLocalServer();
+		m_pServer->setSocketOptions(QLocalServer::UserAccessOption);
+		m_pServer->listen(m_sUnique);
+		QObject::connect(m_pServer,
+			 SIGNAL(newConnection()),
+			 SLOT(newConnectionSlot()));
+	} else {
+		QLocalSocket socket;
+		socket.connectToServer(m_sUnique);
+		if (socket.state() == QLocalSocket::ConnectingState)
+			socket.waitForConnected(200);
+		if (socket.state() == QLocalSocket::ConnectedState) {
+			socket.write(QCoreApplication::arguments().join(' ').toUtf8());
+			socket.flush();
+			socket.waitForBytesWritten(200);
+		}
+	}
+
+	return !bServer;
+}
+
+
+// Local server/shmem cleanup.
+void qxgeditApplication::clearServer (void)
+{
+	if (m_pServer) {
+		m_pServer->close();
+		delete m_pServer;
+		m_pServer = nullptr;
+	}
+
+	if (m_pMemory) {
+		delete m_pMemory;
+		m_pMemory = nullptr;
+	}
+
+	m_sUnique.clear();
+}
+
 
 // Local server conection slot.
 void qxgeditApplication::newConnectionSlot (void)
@@ -423,6 +456,8 @@ void qxgeditApplication::readyReadSlot (void)
 				m_pWidget->raise();
 				m_pWidget->activateWindow();
 			}
+			// Reset the server...
+			setupServer();
 		}
 	}
 }
