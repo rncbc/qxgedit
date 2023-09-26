@@ -69,10 +69,10 @@
 
 #ifdef CONFIG_XUNIQUE
 
-#define QXGEDIT_XUNIQUE "qxgeditApplication"
-
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #ifdef CONFIG_X11
+
+#define QXGEDIT_XUNIQUE "qxgeditApplication"
 
 #include <unistd.h> /* for gethostname() */
 
@@ -97,20 +97,18 @@
 qxgeditApplication::qxgeditApplication ( int& argc, char **argv )
 	: QApplication(argc, argv),
 		m_pQtTranslator(nullptr), m_pMyTranslator(nullptr), m_pWidget(nullptr)
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #ifdef CONFIG_XUNIQUE
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #ifdef CONFIG_X11
 	, m_pDisplay(nullptr)
 	, m_aUnique(0)
 	, m_wOwner(0)
 #endif	// CONFIG_X11
-#endif	// CONFIG_XUNIQUE
 #else
-#ifdef CONFIG_XUNIQUE
 	, m_pMemory(nullptr)
 	, m_pServer(nullptr)
-#endif	// CONFIG_XUNIQUE
 #endif
+#endif	// CONFIG_XUNIQUE
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
 	QApplication::setApplicationName(QXGEDIT_TITLE);
@@ -354,7 +352,7 @@ bool qxgeditApplication::setupServer (void)
 	m_sUnique += QHostInfo::localHostName();
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
 	const QNativeIpcKey nativeKey
-	= QSharedMemory::legacyNativeKey(m_sUnique);
+		= QSharedMemory::legacyNativeKey(m_sUnique);
 #if defined(Q_OS_UNIX)
 	m_pMemory = new QSharedMemory(nativeKey);
 	m_pMemory->attach();
