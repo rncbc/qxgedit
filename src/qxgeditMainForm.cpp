@@ -1195,10 +1195,10 @@ void qxgeditMainForm::setup ( qxgeditOptions *pOptions )
 	m_iDirtyCount = 0;
 
 	// Is any session pending to be loaded?
-	if (!m_pOptions->sSessionFile.isEmpty()) {
+	if (!m_pOptions->sessionFiles.isEmpty()) {
 		// Just load the prabably startup session...
-		if (loadSessionFile(m_pOptions->sSessionFile))
-			m_pOptions->sSessionFile.clear();
+		if (loadSessionFile(m_pOptions->sessionFiles.first()))
+			m_pOptions->sessionFiles.clear();
 	} else {
 		// Open up with a new empty session...
 		newSession();

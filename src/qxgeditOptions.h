@@ -57,8 +57,8 @@ public:
 	void print_usage(const QString& arg0);
 #endif
 
-	// Startup supplied session file.
-	QString sSessionFile;
+	// Startup supplied session file(s).
+	QStringList sessionFiles;
 
 	// Display options...
 	bool    bConfirmReset;

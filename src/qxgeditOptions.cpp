@@ -23,6 +23,7 @@
 #include "qxgeditOptions.h"
 
 #include <QWidget>
+#include <QFileInfo>
 #include <QTextStream>
 
 #include <QApplication>
@@ -227,8 +228,6 @@ void qxgeditOptions::print_usage ( const QString& arg0 )
 // Parse command line arguments into m_settings.
 bool qxgeditOptions::parse_args ( const QStringList& args )
 {
-	int iCmdArgs = 0;
-
 #if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
 
 	QCommandLineParser parser;
@@ -243,13 +242,12 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 	parser.process(args);
 
 	for(const QString& sArg : parser.positionalArguments()) {
-		if (iCmdArgs > 0)
-			sSessionFile += ' ';
-		sSessionFile += sArg;
-		++iCmdArgs;
+		sessionFiles.append(QFileInfo(sArg).absoluteFilePath());
 	}
 
 #else
+
+	int iCmdArgs = 0;
 
 	QTextStream out(stderr);
 	const QString sEol = "\n\n";
@@ -257,14 +255,13 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 
 	for (int i = 1; i < argc; ++i) {
 
+		QString sArg = args.at(i);
+
 		if (iCmdArgs > 0) {
-			sSessionFile += ' ';
-			sSessionFile += args.at(i);
+			sessionFiles.append(QFileInfo(sArg).absoluteFilePath());
 			++iCmdArgs;
 			continue;
 		}
-
-		QString sArg = args.at(i);
 
 		if (sArg == "-h" || sArg == "--help") {
 			print_usage(args.at(0));
@@ -284,7 +281,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 		else {
 			// If we don't have one by now,
 			// this will be the startup session file...
-			sSessionFile += sArg;
+			sessionFiles.append(QFileInfo(sArg).absoluteFilePath());
 			++iCmdArgs;
 		}
 	}
