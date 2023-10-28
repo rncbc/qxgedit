@@ -277,8 +277,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 				.arg(QXGEDIT_TITLE)
 				.arg(CONFIG_BUILD_VERSION);
 			return false;
-		}
-		else {
+		} else {
 			// If we don't have one by now,
 			// this will be the startup session file...
 			sessionFiles.append(QFileInfo(sArg).absoluteFilePath());
