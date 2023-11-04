@@ -241,7 +241,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 		QObject::tr("[session-file]"));
 	parser.process(args);
 
-	for(const QString& sArg : parser.positionalArguments()) {
+	foreach (const QString& sArg, parser.positionalArguments()) {
 		sessionFiles.append(QFileInfo(sArg).absoluteFilePath());
 	}
 
