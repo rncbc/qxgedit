@@ -1,7 +1,7 @@
 // qxgeditAbout.h
 //
 /****************************************************************************
-   Copyright (C) 2005-2023, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2024, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -24,12 +24,12 @@
 
 #include "config.h"
 
-#define QXGEDIT_TITLE       PACKAGE_NAME
+#define QXGEDIT_TITLE       "QXGEdit"
 
-#define QXGEDIT_SUBTITLE    "Qt XG Editor"
-#define QXGEDIT_WEBSITE     "https://qxgedit.sourceforge.io"
-#define QXGEDIT_COPYRIGHT   "Copyright (C) 2005-2023, rncbc aka Rui Nuno Capela. All rights reserved."
+#define QXGEDIT_SUBTITLE    PROJECT_DESCRIPTION
+#define QXGEDIT_WEBSITE     PROJECT_HOMEPAGE_URL
 
+#define QXGEDIT_COPYRIGHT   "Copyright (C) 2005-2024, rncbc aka Rui Nuno Capela. All rights reserved."
 #define QXGEDIT_DOMAIN      "rncbc.org"
 
 #endif  // __qxgeditAbout_h
