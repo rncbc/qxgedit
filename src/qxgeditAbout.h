@@ -24,7 +24,7 @@
 
 #include "config.h"
 
-#define QXGEDIT_TITLE       "QXGEdit"
+#define QXGEDIT_TITLE       PROJECT_TITLE
 
 #define QXGEDIT_SUBTITLE    PROJECT_DESCRIPTION
 #define QXGEDIT_WEBSITE     PROJECT_HOMEPAGE_URL

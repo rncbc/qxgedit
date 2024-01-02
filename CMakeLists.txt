@@ -1,10 +1,13 @@
 cmake_minimum_required (VERSION 3.15)
 
-project (qxgedit
+project (QXGEdit
   VERSION 0.9.12
   DESCRIPTION "Qt XG Editor"
   HOMEPAGE_URL "https://qxgedit.sourceforge.io"
   LANGUAGES C CXX)
+
+set (PROJECT_TITLE "${PROJECT_NAME}")
+string (TOLOWER "${PROJECT_TITLE}" PROJECT_NAME)
 
 execute_process (
   COMMAND git describe --tags --dirty --abbrev=6
@@ -148,7 +151,7 @@ macro (SHOW_OPTION text value)
   endif ()
 endmacro ()
 
-message   ("\n  ${PACKAGE_NAME} ${PACKAGE_VERSION} (Qt ${QT_VERSION})")
+message   ("\n  ${PROJECT_TITLE} ${PROJECT_VERSION} (Qt ${QT_VERSION})")
 message   ("\n  Build target . . . . . . . . . . . . . . . . . . .: ${CONFIG_BUILD_TYPE}\n")
 show_option ("  ALSA MIDI Sequencer native support . . . . . . . ." CONFIG_ALSA_MIDI)
 show_option ("  RtMidi cross-platform support (EXPERIMENTAL) . . ." CONFIG_RTMIDI)

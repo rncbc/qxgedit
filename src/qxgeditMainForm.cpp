@@ -1,7 +1,7 @@
 // qxgeditMainForm.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2023, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2024, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -1912,7 +1912,7 @@ void qxgeditMainForm::helpAbout (void)
 	QString sText = "<h1>" QXGEDIT_TITLE "</h1>\n";
 	sText += "<p>" + tr(QXGEDIT_SUBTITLE) + "<br />\n";
 	sText += "<br />\n";
-	sText += tr("Version") + ": <b>" CONFIG_BUILD_VERSION "</b><br />\n";
+	sText += tr("Version") + ": <b>" PROJECT_VERSION "</b><br />\n";
 //	sText += "<small>" + tr("Build") + ": " CONFIG_BUILD_DATE "</small><br />\n";
 #ifdef CONFIG_DEBUG
 	sText += "<small><font color=\"red\">";
