@@ -29,8 +29,8 @@
 #define QXGEDIT_SUBTITLE    PROJECT_DESCRIPTION
 #define QXGEDIT_WEBSITE     PROJECT_HOMEPAGE_URL
 
-#define QXGEDIT_COPYRIGHT   "Copyright (C) 2005-2024, rncbc aka Rui Nuno Capela. All rights reserved."
-#define QXGEDIT_DOMAIN      "rncbc.org"
+#define QXGEDIT_COPYRIGHT   PROJECT_COPYRIGHT
+#define QXGEDIT_DOMAIN      PROJECT_DOMAIN
 
 #endif  // __qxgeditAbout_h
 
