@@ -35,6 +35,13 @@ The software requirements for build and runtime are listed as follows:
   [2] ALSA, Advanced Linux Sound Architecture
         https://www.alsa-project.org/
 
+  Optional:
+
+  [3] RtMidi, A set of (cross-platform) C++ classes that provide a common
+        API for realtime MIDI input/output.
+        https://github.com/thestk/rtmidi
+        Usage: cmake -DCONFIG_RTMIDI=ON ...
+
 
 Installation
 ------------
