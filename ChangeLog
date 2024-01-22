@@ -4,9 +4,9 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+0.9.12  2024-01-24  A Winter'24 Release.
 
-- Introducing cross-platform support via RtMidi. (EXPERIMENTAL)
+- Introducing cross-platform support via RtMidi.
 
 - Updated copyright headers into the New Year (2024).
 
