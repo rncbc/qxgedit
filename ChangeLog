@@ -4,6 +4,12 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
+GIT HEAD
+
+- Custom color themes are now file based (*.conf); legacy still
+  preserved ntl. (EXPERIMENTAL)
+
+
 0.9.12  2024-01-24  A Winter'24 Release.
 
 - Introducing cross-platform support via RtMidi.
