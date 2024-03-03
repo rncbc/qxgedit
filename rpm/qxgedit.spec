@@ -133,7 +133,7 @@ cmake --install build
 %{_datadir}/metainfo/org.rncbc.%{name}.metainfo.xml
 %{_datadir}/man/man1/%{name}.1.gz
 %{_datadir}/man/fr/man1/%{name}.1.gz
-+%{_datadir}/%{name}/palette/*.conf
+%{_datadir}/%{name}/palette/*.conf
 
 %changelog
 * Wed Jan 24 2024 Rui Nuno Capela <rncbc@rncbc.org> 0.9.12
