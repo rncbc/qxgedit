@@ -123,6 +123,8 @@ cmake --install build
 #dir %{_datadir}/man/man1
 #dir %{_datadir}/man/fr
 #dir %{_datadir}/man/fr/man1
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/palette
 %{_bindir}/%{name}
 %{_datadir}/applications/org.rncbc.%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/org.rncbc.%{name}.png
@@ -131,6 +133,7 @@ cmake --install build
 %{_datadir}/metainfo/org.rncbc.%{name}.metainfo.xml
 %{_datadir}/man/man1/%{name}.1.gz
 %{_datadir}/man/fr/man1/%{name}.1.gz
++%{_datadir}/%{name}/palette/*.conf
 
 %changelog
 * Wed Jan 24 2024 Rui Nuno Capela <rncbc@rncbc.org> 0.9.12
