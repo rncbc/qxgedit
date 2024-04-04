@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.15)
 
 project (QXGEdit
-  VERSION 0.9.12
+  VERSION 0.9.90
   DESCRIPTION "Qt XG Editor"
   HOMEPAGE_URL "https://qxgedit.sourceforge.io"
   LANGUAGES C CXX)
