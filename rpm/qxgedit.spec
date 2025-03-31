@@ -124,6 +124,6 @@ cmake --install build
 
 %changelog
 * Mon Mar 31 2025 Rui Nuno Capela <rncbc@rncbc.org> 1.0.1
-- An Unthinkable Release.
+- An Early Spring'25 Release.
 * Wed Jun 19 2024 Rui Nuno Capela <rncbc@rncbc.org> 1.0.0
 - An Unthinkable Release.
