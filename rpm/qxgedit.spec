@@ -86,9 +86,9 @@ cmake --install build
 %dir %{_datadir}/icons/hicolor/32x32/apps
 %dir %{_datadir}/icons/hicolor/scalable
 %dir %{_datadir}/icons/hicolor/scalable/apps
-%dir %{_libdir}/qt%{qt_major_version}
-%dir %{_libdir}/qt%{qt_major_version}/plugins
-%dir %{_libdir}/qt%{qt_major_version}/plugins/styles
+%dir %{_libdir}/qt6
+%dir %{_libdir}/qt6/plugins
+%dir %{_libdir}/qt6/plugins/styles
 %dir %{_datadir}/metainfo
 #dir %{_datadir}/man
 #dir %{_datadir}/man/man1
@@ -100,7 +100,7 @@ cmake --install build
 %{_datadir}/applications/org.rncbc.%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/org.rncbc.%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/org.rncbc.%{name}.svg
-%{_libdir}/qt%{qt_major_version}/plugins/styles/libskulpturestyle.so
+%{_libdir}/qt6/plugins/styles/libskulpturestyle.so
 %{_datadir}/metainfo/org.rncbc.%{name}.metainfo.xml
 %{_datadir}/man/man1/%{name}.1.gz
 %{_datadir}/man/fr/man1/%{name}.1.gz
