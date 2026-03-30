@@ -38,7 +38,9 @@
  <url type="homepage">https://qxgedit.sourceforge.io</url>
  <url type="vcs-browser">https://github.com/rncbc/qxgedit</url>
  <project_group>rncbc.org</project_group>
- <developer_name>rncbc aka. Rui Nuno Capela</developer_name>
+ <developer id="rncbc.org">
+  <name>rncbc aka. Rui Nuno Capela</name>
+ </developer>
  <update_contact>rncbc@rncbc.org</update_contact>
  <releases>
   <release version="1.0.1" date="2025-03-31" urgency="low" />
