@@ -1,7 +1,7 @@
 // qxgeditOptions.cpp
 //
 /****************************************************************************
-   Copyright (C) 2005-2025, rncbc aka Rui Nuno Capela. All rights reserved.
+   Copyright (C) 2005-2026, rncbc aka Rui Nuno Capela. All rights reserved.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -234,7 +234,10 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 	parser.setApplicationDescription(
 		QXGEDIT_TITLE " - " + QObject::tr(QXGEDIT_SUBTITLE));
 
-	const QCommandLineOption& helpOption = parser.addHelpOption();
+	const QString s_help = "help";
+
+	parser.addOption({{"h", s_help},
+		QObject::tr("Displays help on command-line options.")});
 	const QCommandLineOption& versionOption = parser.addVersionOption();
 	parser.addPositionalArgument("session-file",
 		QObject::tr("Session file (.syx)"),
@@ -245,7 +248,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 		return false;
 	}
 
-	if (parser.isSet(helpOption)) {
+	if (parser.isSet(s_help)) {
 		show_error(parser.helpText());
 		return false;
 	}
