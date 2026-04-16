@@ -216,7 +216,7 @@ void qxgeditOptions::print_usage ( const QString& arg0 )
 	out << QObject::tr("Usage: %1 [options] [session-file]").arg(arg0) + sEol;
 	out << QXGEDIT_TITLE " - " + QObject::tr(QXGEDIT_SUBTITLE) + sEol;
 	out << QObject::tr("Options:") + sEol;
-	out << "  -h, --help" + sEot +
+	out << "  -?, --help" + sEot +
 		QObject::tr("Show help about command line options.") + sEol;
 	out << "  -v, --version" + sEot +
 		QObject::tr("Show version information") + sEol;
@@ -236,7 +236,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 
 	const QString s_help = "help";
 
-	parser.addOption({{"h", s_help},
+	parser.addOption({{"?", s_help},
 		QObject::tr("Displays help on command-line options.")});
 	const QCommandLineOption& versionOption = parser.addVersionOption();
 	parser.addPositionalArgument("session-file",
@@ -294,7 +294,7 @@ bool qxgeditOptions::parse_args ( const QStringList& args )
 			continue;
 		}
 
-		if (sArg == "-h" || sArg == "--help") {
+		if (sArg == "-?" || sArg == "--help") {
 			print_usage(args.at(0));
 			return false;
 		}
