@@ -17,8 +17,8 @@
 
 Summary:	Qt XG Editor
 Name:		qxgedit
-Version:	1.0.1
-Release:	2.1
+Version:	1.0.2
+Release:	3.1
 License:	GPL-2.0-or-later
 Group:		Productivity/Multimedia/Sound/Midi
 Source:		%{name}-%{version}.tar.gz
@@ -110,6 +110,8 @@ cmake --install build
 
 
 %changelog
+* Tue Jun  2 2026 Rui Nuno Capela <rncbc@rncbc.org> 1.0.2
+- A Mid-Spring'26 Release.
 * Mon Mar 31 2025 Rui Nuno Capela <rncbc@rncbc.org> 1.0.1
 - An Early Spring'25 Release.
 * Wed Jun 19 2024 Rui Nuno Capela <rncbc@rncbc.org> 1.0.0

@@ -4,7 +4,7 @@ QXGEdit - Qt XG Editor
 ChangeLog
 
 
-GIT HEAD
+1.0.2  2026-06-02  A Mid-Spring'26 Release.
 
 - Get rid of CONFIG_WAYLAND build config option; add underlying
   platform name (eg. xcb, wayland) to Qt version string.
